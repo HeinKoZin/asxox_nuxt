@@ -1,9 +1,10 @@
 <template>
-  <Tutorial/>
+  <div class="w-full h-full">Home</div>
 </template>
 
 <script>
 export default {
-  name: 'IndexPage'
-}
+  layout: "MainLayout",
+  name: "HomePage",
+};
 </script>
