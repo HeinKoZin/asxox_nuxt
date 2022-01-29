@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   content: [
     "./components/**/*.{js,vue,ts}",
@@ -9,7 +11,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        "dongle": ['Dongle', 'sans-serif']
+        "dongle": ['Dongle', defaultTheme.fontFamily.sans],
+        "zen-kurenaido": ['Zen Kurenaido', defaultTheme.fontFamily.sans]
       }
     },
   },

@@ -4,21 +4,39 @@
     <div class="form-container-wrapper">
       <div class="form-container">
         <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
-        <h2 class="title">Login</h2>
-        <label for="email">Email</label>
-        <input name="email" type="email" placeholder="Email..." />
-        <label for="email">Password</label>
-        <input name="password" type="password" placeholder="Password..." />
-        <div class="flex flex-row items-center w-full mt-5 text-base">
-          <input type="checkbox" name="remember" /><span>Remember me</span>
-        </div>
-        <button class="login-btn">Login</button>
+        <h3 class="company-title">Asxox Ecommerce</h3>
+        <h2 class="form-title mt-6">Login</h2>
+        <Input
+          type="email"
+          :data="login"
+          field="email"
+          label="Email"
+          class="w-full"
+        />
+        <Input
+          type="password"
+          label="Password"
+          :data="login"
+          field="password"
+          class="w-full"
+        />
+        <Input
+          type="checkbox"
+          label="Remember me"
+          :data="login"
+          field="checkbox"
+          class="w-full"
+        />
+
+        <Button :variant="isFilled ? 'primary' : 'secondary'" class="w-full">
+          Login
+        </Button>
 
         <div class="social-login-container">
           <button class="social-login-btn">
             <img src="~/assets/img/facebook.png" alt="Facebook" />
           </button>
-          <p class="text-lg font-semibold">OR</p>
+          <p class="text-lg font-zen-kurenaido font-semibold">OR</p>
           <button class="social-login-btn">
             <img src="~/assets/img/google.png" alt="Google" />
           </button>
@@ -29,44 +47,63 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data: () => ({
+    login: {
+      email: "",
+      password: "",
+      checkbox: false,
+    },
+
+    // checkbox: false,
+    isFilled: false,
+  }),
+  methods: {
+    //
+  },
+  computed: {
+    //
+  },
+  mounted() {
+    //
+  },
+  watch: {
+    // Check the length of email and password
+    login: {
+      deep: true,
+      handler() {
+        this.isFilled =
+          this.login.email.length > 0 && this.login.password.length > 0;
+      },
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
 .auth-container {
-  @apply w-full h-screen  flex flex-col md:flex-row  text-base md:text-lg lg:text-xl;
+  @apply w-full min-h-screen  flex flex-col md:flex-row  text-base md:text-lg lg:text-xl;
 }
 
 /* NOTE: Form container */
 .form-container-wrapper {
-  @apply w-full md:w-1/2 bg-white p-6   flex flex-col  box-border justify-center items-center;
+  @apply w-full md:w-5/12 min-h-screen bg-white p-6   flex flex-col  box-border justify-center items-center;
 }
 
 .form-container-wrapper .form-container {
-  @apply w-1/2 bg-white  rounded-lg flex flex-col justify-center items-center text-base;
+  @apply container md:w-1/2 bg-white  rounded-lg flex flex-col justify-center items-center text-base;
 }
 
 .form-container .logo {
   @apply w-16 h-16 mr-0 md:mr-4 mb-4;
 }
 
-.form-container .title {
-  @apply text-black bg-transparent mb-5  py-2 font-dongle text-xl font-bold text-left w-full border-b-2 border-gray-300;
+.form-container .company-title {
+  @apply font-zen-kurenaido text-4xl;
 }
 
-.form-container label {
-  @apply w-full text-left font-sans;
-}
-.form-container input {
-  @apply w-full px-4 p-2 my-2 rounded-lg border border-gray-400 focus:outline-none;
-}
-
-.form-container input[type="checkbox"] {
-  @apply h-4 md:h-5 w-4 md:w-5 mr-3 rounded-lg;
-}
-
-.form-container .login-btn {
-  @apply w-full p-2 mt-5 bg-orange-600 uppercase rounded-lg text-white;
+.form-container .form-title {
+  @apply text-black  p-3  mb-5  py-2 font-dongle text-3xl font-bold text-left w-full border-l-4 border-orange-600;
 }
 
 .social-login-container {
@@ -79,6 +116,6 @@ export default {};
 
 /* NOTE: Info container */
 .info-container-wrapper {
-  @apply w-full md:w-1/2 bg-slate-600   flex flex-col p-6 box-border;
+  @apply w-full md:w-7/12  bg-slate-600   hidden md:flex flex-col p-6 box-border;
 }
 </style>
