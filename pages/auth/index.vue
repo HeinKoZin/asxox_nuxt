@@ -43,7 +43,7 @@
             :data="register"
             field="email"
             :error="errors['email'] ? errors['email'][0] : null"
-            label="Email"
+            label="Email or Phone"
             class="w-full"
           />
           <Input
