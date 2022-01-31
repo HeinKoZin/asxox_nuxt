@@ -202,7 +202,6 @@ export default {
     },
 
     isLogin: true,
-    // checkbox: false,
     isFilledLogin: false,
     isFilledRegister: false,
     errors: {},
@@ -220,12 +219,10 @@ export default {
         let res = await this.$auth.loginWith("local", {
           data,
         });
-        // console
         this.$auth.setUserToken(res.data.data.token);
         this.$auth.$storage.setUniversal("user", res.data.data.user_info);
         this.$auth.$storage.setUniversal("loggedIn", true);
       } catch (err) {
-        // console.log(err.response.data);
         this.errors = err.response.data.data;
       }
     },
