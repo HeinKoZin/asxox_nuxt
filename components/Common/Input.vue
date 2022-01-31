@@ -8,6 +8,7 @@
       :class="type === 'password' ? 'password' : ''"
       :placeholder="'Enter ' + label + ' here'"
       v-model="data[field]"
+      :disabled="disabled"
     />
     <button v-if="showButton" class="show-password-btn" @click="handlePassword">
       {{ showPassword ? "Hide" : "Show" }}
@@ -27,6 +28,8 @@ export default {
     "placeholder",
     "value",
     "label",
+    "disabled",
+    "required",
     "error",
     "onInput",
     "onFocus",

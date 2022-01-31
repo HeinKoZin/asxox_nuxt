@@ -67,8 +67,18 @@
             class="w-full"
           />
 
-          <Button variant="primary" class="w-full" :disabled="!isFilled">
-            Login
+          <p class="w-full text-left relative -mt-4">
+            <a href="#" class="text-blue-600 underline">Terms</a>
+            <span> & </span>
+            <a href="#" class="text-blue-600 underline">conditions</a>
+          </p>
+
+          <Button
+            variant="primary"
+            class="w-full"
+            :disabled="!isFilledRegister"
+          >
+            Register
           </Button>
 
           <div class="social-login-container">
@@ -127,7 +137,7 @@
             class="w-full"
           />
 
-          <Button variant="primary" class="w-full" :disabled="!isFilled">
+          <Button variant="primary" class="w-full" :disabled="!isFilledLogin">
             Login
           </Button>
 
@@ -165,7 +175,8 @@ export default {
 
     isLogin: true,
     // checkbox: false,
-    isFilled: false,
+    isFilledLogin: false,
+    isFilledRegister: false,
   }),
   methods: {
     //
@@ -186,8 +197,18 @@ export default {
     login: {
       deep: true,
       handler() {
-        this.isFilled =
+        this.isFilledLogin =
           this.login.email.length > 0 && this.login.password.length > 0;
+      },
+    },
+    register: {
+      deep: true,
+      handler() {
+        this.isFilledRegister =
+          this.register.name.length > 0 &&
+          this.register.email.length > 0 &&
+          this.register.password.length > 0 &&
+          this.register.confirmPassword.length > 0;
       },
     },
   },
