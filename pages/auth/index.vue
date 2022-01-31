@@ -35,13 +35,14 @@
             field="name"
             type="text"
             label="Name"
-            error="Name is required"
+            :error="errors['name'] ? errors['name'][0] : null"
             class="w-full"
           />
           <Input
             type="email"
             :data="register"
             field="email"
+            :error="errors['email'] ? errors['email'][0] : null"
             label="Email"
             class="w-full"
           />
@@ -50,6 +51,7 @@
             label="Password"
             :data="register"
             field="password"
+            :error="errors['password'] ? errors['password'][0] : null"
             class="w-full"
           />
           <Input
@@ -57,6 +59,9 @@
             label="Confirm Password"
             :data="register"
             field="retype_password"
+            :error="
+              errors['retype_password'] ? errors['retype_password'][0] : null
+            "
             class="w-full"
           />
           <Input
@@ -131,6 +136,7 @@
             :data="login"
             field="email"
             label="Email Or Phone"
+            :error="errors['email'] ? errors['email'][0] : null"
             class="w-full"
           />
           <Input
@@ -138,6 +144,10 @@
             label="Password"
             :data="login"
             field="password"
+            :error="
+              (errors['password'] ? errors['password'][0] : null) ||
+              (errors['error'] ? errors['error'] : null)
+            "
             class="w-full"
           />
           <Input
@@ -195,33 +205,45 @@ export default {
     // checkbox: false,
     isFilledLogin: false,
     isFilledRegister: false,
+    errors: {},
   }),
   methods: {
     // ့handle form status
     handleFormStatus() {
       this.isLogin = !this.isLogin;
+      this.errorsReset();
     },
     // === login ===
     async userLogin(data) {
       try {
+        this.errorsReset();
         let res = await this.$auth.loginWith("local", {
           data,
         });
+        // console
         this.$auth.setUserToken(res.data.data.token);
         this.$auth.$storage.setUniversal("user", res.data.data.user_info);
         this.$auth.$storage.setUniversal("loggedIn", true);
       } catch (err) {
-        console.log(err);
+        // console.log(err.response.data);
+        this.errors = err.response.data.data;
       }
     },
     // === register ===
     async userRegister(data) {
       try {
-        await this.generalPostApis("/register", data, null);
-        await this.userLogin(data);
+        this.errorsReset();
+        this.errors = await this.generalPostApis("/register", data, null);
+        console.log(this.errors);
+        if (!this.errors) {
+          this.userLogin(data);
+        }
       } catch (err) {
-        console.log(err);
+        this.errors = err.response.data.data;
       }
+    },
+    errorsReset() {
+      this.errors = {};
     },
   },
   computed: {
@@ -310,5 +332,8 @@ export default {
 
 .info-container-wrapper.register {
   @apply animate-registerSlideUp right-0;
+}
+.input-error-message {
+  @apply text-red-600 w-full text-left text-sm font-sans font-semibold;
 }
 </style>
