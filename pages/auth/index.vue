@@ -21,7 +21,7 @@
           <h3 class="company-title">Asxox Ecommerce</h3>
           <h2 class="form-title mt-6">
             Register
-            <span class="text-xl float-right"
+            <span class="text-xl md:text-2xl float-right"
               >Are you already sign up?
               <a
                 class="underline text-blue-600"
@@ -67,15 +67,17 @@
             class="w-full"
           />
 
-          <p class="w-full text-left relative -mt-4">
+          <p
+            class="w-full text-center font-zen-kurenaido text-xl leading-4 relative -mt-3"
+          >
             <a href="#" class="text-blue-600 underline">Terms</a>
             <span> & </span>
-            <a href="#" class="text-blue-600 underline">conditions</a>
+            <a href="#" class="text-blue-600 underline">Conditions</a>
           </p>
 
           <Button
             variant="primary"
-            class="w-full"
+            class="w-full mt-7"
             :disabled="!isFilledRegister"
           >
             Register
@@ -106,7 +108,7 @@
           <h3 class="company-title">Asxox Ecommerce</h3>
           <h2 class="form-title mt-6">
             Login
-            <span class="text-xl float-right"
+            <span class="text-xl md:text-2xl float-right"
               >Are new member?
               <a
                 class="text-blue-600 underline"

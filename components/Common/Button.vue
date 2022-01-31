@@ -24,10 +24,10 @@ export default {
   @apply h-12 bg-inherit;
 }
 .primary {
-  @apply p-2 mt-5 bg-orange-600 uppercase rounded-lg text-white;
+  @apply p-2  bg-orange-600 uppercase rounded-lg text-white;
 }
 .secondary {
-  @apply p-2 mt-5 bg-gray-200 uppercase rounded-lg text-gray-600;
+  @apply p-2  bg-gray-200 uppercase rounded-lg text-gray-600;
 }
 
 .btn:disabled {
