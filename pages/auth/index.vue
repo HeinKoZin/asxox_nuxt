@@ -31,8 +31,16 @@
             >
           </h2>
           <Input
+            :data="register"
+            field="name"
+            type="text"
+            label="Name"
+            error="Name is required"
+            class="w-full"
+          />
+          <Input
             type="email"
-            :data="login"
+            :data="register"
             field="email"
             label="Email"
             class="w-full"
@@ -40,14 +48,21 @@
           <Input
             type="password"
             label="Password"
-            :data="login"
+            :data="register"
             field="password"
             class="w-full"
           />
           <Input
+            type="password"
+            label="Confirm Password"
+            :data="register"
+            field="confirmPassword"
+            class="w-full"
+          />
+          <Input
             type="checkbox"
-            label="Remember me"
-            :data="login"
+            label="Accept team's terms and conditions"
+            :data="register"
             field="checkbox"
             class="w-full"
           />
@@ -137,6 +152,14 @@ export default {
     login: {
       email: "",
       password: "",
+      checkbox: false,
+    },
+
+    register: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
       checkbox: false,
     },
 

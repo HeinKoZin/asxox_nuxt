@@ -1,11 +1,11 @@
 <template>
   <div :class="'input-container ' + (type === 'checkbox' ? 'checkbox' : '')">
-    <label for="input-1">{{ label }}</label>
+    <label :for="label">{{ label }}</label>
     <input
       :type="inputType"
-      id="input-1"
+      :id="label"
       class="input-field"
-      :class="{ 'input-error': error }"
+      :class="type === 'password' ? 'password' : ''"
       :placeholder="'Enter ' + label + ' here'"
       v-model="data[field]"
     />
@@ -71,18 +71,26 @@ export default {
 }
 
 .input-container label {
-  @apply p-2 py-0 text-gray-600 font-sans mb-1 font-semibold;
+  @apply p-2 pl-1 py-0 text-gray-600 font-sans mb-1 font-semibold;
 }
 
 .input-container input {
-  @apply p-2  border-b-2 border-gray-300 focus:outline-none focus:border-gray-600;
+  @apply p-2 pl-1  border-b-2 border-gray-300 focus:outline-none focus:border-gray-600;
+}
+
+.input-container .input-field.password {
+  @apply pr-12;
 }
 
 .input-container.checkbox input {
-  @apply w-4 md:w-5 h-4 md:h-5 rounded-lg;
+  @apply w-4 md:w-5 h-4 md:h-5 rounded-lg mr-2;
 }
 
 .input-container .show-password-btn {
-  @apply p-2 text-gray-600 font-sans mb-1 font-semibold absolute right-2 top-10;
+  @apply p-2 text-gray-600 font-sans mb-1 font-semibold absolute right-2 top-10 cursor-pointer;
+}
+
+.input-container .input-error-message {
+  @apply text-red-600 text-sm font-sans font-semibold;
 }
 </style>
