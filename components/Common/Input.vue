@@ -9,7 +9,9 @@
       :placeholder="'Enter ' + label + ' here'"
       v-model="data[field]"
     />
-    <button v-if="showButton" @click="handlePassword">Show</button>
+    <button v-if="showButton" class="show-password-btn" @click="handlePassword">
+      {{ showPassword ? "Hide" : "Show" }}
+    </button>
     <span class="input-error-message">{{ error }}</span>
   </div>
 </template>
@@ -33,6 +35,7 @@ export default {
   data() {
     return {
       //
+      showPassword: false,
       inputType: this.type,
     };
   },
@@ -52,6 +55,7 @@ export default {
           : this.inputType === "text"
           ? "password"
           : "password";
+      this.showPassword = !this.showPassword;
     },
   },
 };
@@ -59,7 +63,7 @@ export default {
 
 <style lang="postcss" scoped>
 .input-container {
-  @apply bg-white p-3 border border-gray-300 rounded-lg flex flex-col justify-start mb-2;
+  @apply bg-white p-3 border border-gray-300 rounded-lg flex flex-col justify-start mb-2 relative;
 }
 
 .input-container.checkbox {
@@ -76,5 +80,9 @@ export default {
 
 .input-container.checkbox input {
   @apply w-4 md:w-5 h-4 md:h-5 rounded-lg;
+}
+
+.input-container .show-password-btn {
+  @apply p-2 text-gray-600 font-sans mb-1 font-semibold absolute right-2 top-10;
 }
 </style>
