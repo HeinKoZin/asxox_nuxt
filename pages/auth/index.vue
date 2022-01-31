@@ -268,7 +268,8 @@ export default {
           this.register.name.length > 0 &&
           this.register.email.length > 0 &&
           this.register.password.length > 0 &&
-          this.register.retype_password.length > 0;
+          this.register.retype_password.length > 0 &&
+          this.register.checkbox;
       },
     },
   },
