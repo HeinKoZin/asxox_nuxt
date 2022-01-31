@@ -5,7 +5,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "asxox-ecommerce-nuxt",
+    title: "Asxox Ecommerce",
     htmlAttrs: {
       lang: "en",
     },
@@ -25,7 +25,11 @@ export default {
   plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: [
+    // Equivalent to { path: '~/components' }
+    "~/components",
+    { path: "~/components/Common", extensions: ["vue"] },
+  ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/postcss8"],
@@ -58,9 +62,9 @@ export default {
     },
     redirect: {
       login: "/login",
-      logout: "/home",
+      logout: "/",
       callback: "/login",
-      home: "/home",
+      home: "/",
     },
   },
 
