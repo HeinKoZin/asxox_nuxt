@@ -1,5 +1,5 @@
 <template>
-  <button :class="'btn ' + variant">
+  <button :class="'btn ' + variant" :disabled="disabled">
     <slot></slot>
   </button>
 </template>
@@ -9,6 +9,7 @@ export default {
   props: {
     title: String,
     variant: String,
+    disabled: Boolean,
   },
   data() {
     return {
@@ -27,5 +28,9 @@ export default {
 }
 .secondary {
   @apply p-2 mt-5 bg-gray-200 uppercase rounded-lg text-gray-600;
+}
+
+.btn:disabled {
+  @apply cursor-not-allowed bg-gray-200 text-gray-600;
 }
 </style>

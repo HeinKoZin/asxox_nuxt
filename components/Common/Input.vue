@@ -2,18 +2,22 @@
   <div :class="'input-container ' + (type === 'checkbox' ? 'checkbox' : '')">
     <label for="input-1">{{ label }}</label>
     <input
-      :type="type"
+      :type="inputType"
       id="input-1"
       class="input-field"
       :class="{ 'input-error': error }"
       :placeholder="'Enter ' + label + ' here'"
       v-model="data[field]"
     />
+    <button v-if="showButton" @click="handlePassword">Show</button>
+    <span class="input-error-message">{{ error }}</span>
   </div>
 </template>
 
 <script>
+import Button from "./Button.vue";
 export default {
+  components: { Button },
   props: [
     "data",
     "field",
@@ -26,6 +30,30 @@ export default {
     "onFocus",
     "onBlur",
   ],
+  data() {
+    return {
+      //
+      inputType: this.type,
+    };
+  },
+
+  computed: {
+    showButton() {
+      return this.type === "password" ? true : false;
+    },
+  },
+
+  methods: {
+    //
+    handlePassword() {
+      this.inputType =
+        this.inputType === "password"
+          ? "text"
+          : this.inputType === "text"
+          ? "password"
+          : "password";
+    },
+  },
 };
 </script>
 

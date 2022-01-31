@@ -1,47 +1,132 @@
 <template>
   <div class="auth-container">
-    <div class="info-container-wrapper">Info</div>
-    <div class="form-container-wrapper">
-      <div class="form-container">
-        <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
-        <h3 class="company-title">Asxox Ecommerce</h3>
-        <h2 class="form-title mt-6">Login</h2>
-        <Input
-          type="email"
-          :data="login"
-          field="email"
-          label="Email"
-          class="w-full"
-        />
-        <Input
-          type="password"
-          label="Password"
-          :data="login"
-          field="password"
-          class="w-full"
-        />
-        <Input
-          type="checkbox"
-          label="Remember me"
-          :data="login"
-          field="checkbox"
-          class="w-full"
-        />
-
-        <Button :variant="isFilled ? 'primary' : 'secondary'" class="w-full">
-          Login
-        </Button>
-
-        <div class="social-login-container">
-          <button class="social-login-btn">
-            <img src="~/assets/img/facebook.png" alt="Facebook" />
-          </button>
-          <p class="text-lg font-zen-kurenaido font-semibold">OR</p>
-          <button class="social-login-btn">
-            <img src="~/assets/img/google.png" alt="Google" />
-          </button>
-        </div>
+    <AnimationView>
+      <div
+        class="info-container-wrapper"
+        :class="isLogin ? 'login' : 'register'"
+      >
+        Info
       </div>
+    </AnimationView>
+
+    <!-- Register -->
+    <div
+      class="form-container-wrapper"
+      :class="!isLogin ? 'register' : ''"
+      v-show="!isLogin"
+    >
+      <AnimationView>
+        <div class="form-container">
+          <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
+          <h3 class="company-title">Asxox Ecommerce</h3>
+          <h2 class="form-title mt-6">
+            Register
+            <span class="text-xl float-right"
+              >Are you already sign up?
+              <a
+                class="underline text-blue-600"
+                @click.prevent="handleFormStatus"
+                >Login In</a
+              ></span
+            >
+          </h2>
+          <Input
+            type="email"
+            :data="login"
+            field="email"
+            label="Email"
+            class="w-full"
+          />
+          <Input
+            type="password"
+            label="Password"
+            :data="login"
+            field="password"
+            class="w-full"
+          />
+          <Input
+            type="checkbox"
+            label="Remember me"
+            :data="login"
+            field="checkbox"
+            class="w-full"
+          />
+
+          <Button variant="primary" class="w-full" :disabled="!isFilled">
+            Login
+          </Button>
+
+          <div class="social-login-container">
+            <button class="social-login-btn">
+              <img src="~/assets/img/facebook.png" alt="Facebook" />
+            </button>
+            <p class="text-lg font-zen-kurenaido font-semibold">OR</p>
+            <button class="social-login-btn">
+              <img src="~/assets/img/google.png" alt="Google" />
+            </button>
+          </div>
+        </div>
+      </AnimationView>
+    </div>
+
+    <!-- Login -->
+    <div
+      class="form-container-wrapper"
+      :class="isLogin ? 'login' : ''"
+      v-show="isLogin"
+    >
+      <AnimationView>
+        <div class="form-container">
+          <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
+          <h3 class="company-title">Asxox Ecommerce</h3>
+          <h2 class="form-title mt-6">
+            Login
+            <span class="text-xl float-right"
+              >Are new member?
+              <a
+                class="text-blue-600 underline"
+                @click.prevent="handleFormStatus"
+                >Register here</a
+              ></span
+            >
+          </h2>
+          <Input
+            type="email"
+            :data="login"
+            field="email"
+            label="Email"
+            class="w-full"
+          />
+          <Input
+            type="password"
+            label="Password"
+            :data="login"
+            field="password"
+            class="w-full"
+          />
+          <Input
+            type="checkbox"
+            label="Remember me"
+            :data="login"
+            field="checkbox"
+            class="w-full"
+          />
+
+          <Button variant="primary" class="w-full" :disabled="!isFilled">
+            Login
+          </Button>
+
+          <div class="social-login-container">
+            <button class="social-login-btn">
+              <img src="~/assets/img/facebook.png" alt="Facebook" />
+            </button>
+            <p class="text-lg font-zen-kurenaido font-semibold">OR</p>
+            <button class="social-login-btn">
+              <img src="~/assets/img/google.png" alt="Google" />
+            </button>
+          </div>
+        </div>
+      </AnimationView>
     </div>
   </div>
 </template>
@@ -55,17 +140,23 @@ export default {
       checkbox: false,
     },
 
+    isLogin: true,
     // checkbox: false,
     isFilled: false,
   }),
   methods: {
     //
+
+    // ့handle form status
+    handleFormStatus() {
+      this.isLogin = !this.isLogin;
+    },
   },
   computed: {
     //
   },
   mounted() {
-    //
+    //-
   },
   watch: {
     // Check the length of email and password
@@ -82,16 +173,20 @@ export default {
 
 <style lang="postcss" scoped>
 .auth-container {
-  @apply w-full min-h-screen  flex flex-col md:flex-row  text-base md:text-lg lg:text-xl;
+  @apply w-full min-h-screen   flex flex-col md:flex-row  text-base md:text-lg lg:text-xl;
+}
+
+.animation-area {
+  @apply overflow-hidden w-full flex justify-center items-center;
 }
 
 /* NOTE: Form container */
 .form-container-wrapper {
-  @apply w-full md:w-5/12 min-h-screen bg-white p-6   flex flex-col  box-border justify-center items-center;
+  @apply w-full md:w-5/12 min-h-screen bg-white p-6 hidden flex-col  box-border justify-center items-center -z-10 absolute;
 }
 
 .form-container-wrapper .form-container {
-  @apply container md:w-1/2 bg-white  rounded-lg flex flex-col justify-center items-center text-base;
+  @apply container md:w-1/2 bg-white  rounded-lg flex flex-col justify-center items-center text-base animate-slideUp;
 }
 
 .form-container .logo {
@@ -114,8 +209,24 @@ export default {
   @apply rounded-full p-0 border-0 w-10 h-10;
 }
 
+.form-container-wrapper.login {
+  @apply right-0 z-50 flex;
+}
+
+.form-container-wrapper.register {
+  @apply left-0 z-50 flex;
+}
+
 /* NOTE: Info container */
 .info-container-wrapper {
-  @apply w-full md:w-7/12  bg-slate-600   hidden md:flex flex-col p-6 box-border;
+  @apply w-full md:w-7/12 h-full  bg-slate-600   hidden md:flex flex-col p-6 box-border absolute z-40;
+}
+
+.info-container-wrapper.login {
+  @apply animate-loginSlideUp left-0;
+}
+
+.info-container-wrapper.register {
+  @apply animate-registerSlideUp right-0;
 }
 </style>
