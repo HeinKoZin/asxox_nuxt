@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full p-1">
     <Input
       :data="verify"
       field="code"

@@ -29,7 +29,7 @@ export default {
   methods: {},
 
   watch: {
-    verify: {
+    forgot: {
       handler(newValue) {
         const { emailOrPassword } = newValue;
         if (emailOrPassword) {

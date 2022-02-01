@@ -1,5 +1,7 @@
 let apiLink = "http://localhost:8000/api";
 
+
+
 export default {
   mode: "universal",
 
@@ -22,7 +24,7 @@ export default {
   css: ["@/assets/css/main.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  // plugins: ['~/plugins/fontawesome.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
@@ -31,23 +33,26 @@ export default {
     { path: "~/components/Common", extensions: ["vue"] },
   ],
 
+  purgeCSS: {
+  },
+
+  plugins: [
+  ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxt/postcss8"],
+  buildModules: ["@nuxt/postcss8", '@nuxtjs/fontawesome'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
-    "nuxt-fontawesome",
+
   ],
   fontawesome: {
-    imports: [
-      {
-        set: "@fortawesome/free-solid-svg-icons",
-        icons: ["fas"],
-      },
-    ],
+    icons: {
+      solid: true,
+      brands: true
+    }
   },
   auth: {
     strategies: {

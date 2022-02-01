@@ -10,9 +10,15 @@
       v-model="data[field]"
       :disabled="disabled"
     />
-    <button v-if="showButton" class="show-password-btn" @click="handlePassword">
+    <!-- <button v-if="showButton" class="show-password-btn" @click="handlePassword">
       {{ showPassword ? "Hide" : "Show" }}
-    </button>
+    </button> -->
+    <font-awesome-icon
+      @click="handlePassword"
+      v-if="showButton"
+      class="show-password-btn"
+      :icon="['fas', showPassword ? 'eye-slash' : 'eye']"
+    />
     <span class="input-error-message">{{ error }}</span>
   </div>
 </template>
@@ -39,6 +45,7 @@ export default {
     return {
       //
       showPassword: false,
+      hidePassword: true,
       inputType: this.type,
     };
   },
@@ -89,8 +96,12 @@ export default {
   @apply w-4 md:w-5 h-4 md:h-5 rounded-lg mr-2;
 }
 
+.input-container.checkbox {
+  @apply bg-inherit;
+}
+
 .input-container .show-password-btn {
-  @apply p-2 text-gray-600 font-sans mb-1 font-semibold absolute right-2 top-10 cursor-pointer;
+  @apply p-2 text-gray-600 font-sans mb-1 font-semibold absolute right-2 top-10 cursor-pointer h-11 w-11;
 }
 
 .input-container .input-error-message {
