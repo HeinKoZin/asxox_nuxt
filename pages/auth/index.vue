@@ -239,9 +239,14 @@ export default {
     async userRegister(data) {
       try {
         this.errorsReset();
-        this.errors = await this.generalPostApis("/register", data, null);
+        const res = await this.generalPostApis("/register", data);
+        this.errors = res ? res.data : null;
+        console.log(data);
         if (!this.errors) {
+          console.log(data);
           this.userLogin(data);
+
+          this.$router.push("/auth/verify");
         }
       } catch (err) {
         this.errors = err.response.data.data;
@@ -292,11 +297,11 @@ export default {
 
 /* NOTE: Form container */
 .form-container-wrapper {
-  @apply w-full md:w-5/12 min-h-screen bg-white p-6 hidden flex-col  box-border justify-center items-center -z-10 absolute;
+  @apply w-full md:w-5/12 min-h-screen bg-slate-100 p-6 hidden flex-col  box-border justify-center items-center -z-10 absolute;
 }
 
 .form-container-wrapper .form-container {
-  @apply container md:w-3/5 bg-white  rounded-lg flex flex-col justify-center items-center text-base animate-slideUp;
+  @apply container md:w-3/5   rounded-lg flex flex-col justify-center items-center text-base animate-slideUp;
 }
 
 .form-container .logo {

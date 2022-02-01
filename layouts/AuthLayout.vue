@@ -2,16 +2,28 @@
   <div class="auth-layout-container">
     <div class="info-container-wrapper">Info</div>
     <div class="auth-form-container-wrapper">
-      <Button
-        variant="secondary"
-        class="absolute font-bold top-40 left-20 hidden md:block"
-        size="sm"
-      >
-        Back
-      </Button>
-
-      <AnimationView>
+      <AnimationView class="p-1">
         <div class="auth-form-container">
+          <div class="w-full">
+            <Button
+              class="
+                font-bold
+                px-4
+                top-40
+                left-20
+                float-left
+                rounded-xl
+                border-2 border-slate-400
+              "
+              size="md"
+              @click.native="$router.back()"
+            >
+              <font-awesome-icon
+                slot="start-icon"
+                :icon="['fas', 'long-arrow-alt-left']"
+              />
+            </Button>
+          </div>
           <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
           <h3 class="company-title">Asxox Ecommerce</h3>
           <h2 class="form-title mt-6"><slot name="form-title"></slot></h2>
@@ -31,7 +43,7 @@ export default {};
 
 <style lang="postcss" scoped>
 .auth-layout-container {
-  @apply w-full min-h-screen   flex flex-col md:flex-row  text-base md:text-lg lg:text-xl;
+  @apply w-full min-h-screen bg-slate-100 flex flex-col md:flex-row  text-base md:text-lg lg:text-xl;
 }
 
 .info-container-wrapper {
@@ -43,7 +55,7 @@ export default {};
 }
 
 .auth-form-container {
-  @apply container md:w-1/2 bg-white  rounded-lg flex flex-col justify-center items-center text-base animate-slideUp;
+  @apply container md:w-2/3  rounded-lg flex flex-col justify-center items-center text-base animate-slideUp;
 }
 
 .auth-form-container .logo {

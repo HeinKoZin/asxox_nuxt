@@ -22,7 +22,7 @@ export default {
   css: ["@/assets/css/main.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  // plugins: ['~/plugins/fontawesome.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
@@ -31,8 +31,11 @@ export default {
     { path: "~/components/Common", extensions: ["vue"] },
   ],
 
+  purgeCSS: {},
+
+  plugins: [],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxt/postcss8"],
+  buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -40,7 +43,12 @@ export default {
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
   ],
-  // plugins: ["~/plugins/fontawesome.js"],
+  fontawesome: {
+    icons: {
+      solid: true,
+      brands: true,
+    },
+  },
   auth: {
     strategies: {
       local: {
@@ -60,12 +68,6 @@ export default {
           user: { url: "/user", method: "get" },
         },
       },
-    },
-    redirect: {
-      login: "/login",
-      logout: "/",
-      callback: "/login",
-      home: "/",
     },
   },
 

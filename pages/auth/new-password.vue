@@ -60,7 +60,8 @@ export default {
   methods: {
     // === need to add token to data ===
     async resetPassword(data) {
-      this.errors = await this.generalPostApis("/password/reset", data, null);
+      const res = await this.generalPostApis("/password/reset", data);
+      this.errors = res.error;
     },
     errorsReset() {
       this.errors = {};

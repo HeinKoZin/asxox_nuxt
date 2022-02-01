@@ -14,7 +14,7 @@
         variant="primary"
         class="w-full mt-8"
         :disabled="!isFilledCode"
-        @click.native="verfiyMailOrPhone(two_factor_code)"
+        @click.native="verfiyMailOrPhone(verify.two_factor_code)"
       >
         Verify
       </Button>
@@ -27,7 +27,7 @@ import { generalMixins } from "../../mixins/general";
 import AuthLayout from "../../layouts/AuthLayout";
 export default {
   components: { AuthLayout },
-  middleware: "auth",
+  // middleware: "auth",
   mixins: [generalMixins],
   data() {
     return {
@@ -40,8 +40,15 @@ export default {
   },
 
   methods: {
-    verfiyMailOrPhone(two_factor_code) {
-      this.errors = this.generalPostApis("/verify", { two_factor_code }, null);
+    async verfiyMailOrPhone(two_factor_code) {
+      const res = await this.generalPostApis("/verify", { two_factor_code });
+      if (res.errors) {
+        this.errors = res.errors;
+      } else if (res.data.error) {
+        this.errors = res.data.error;
+      } else {
+        this.$router.push("/auth/verify");
+      }
     },
     errorsReset() {
       this.errors = {};
