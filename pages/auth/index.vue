@@ -22,9 +22,14 @@
           <h2 class="form-title mt-6">
             Register
             <span class="text-xl md:text-2xl float-right"
-              >Are you already sign up?
+              >Have you already signed up?
               <a
-                class="underline text-blue-600"
+                class="
+                  underline
+                  text-blue-600
+                  cursor-pointer
+                  underline-offset-2
+                "
                 @click.prevent="handleFormStatus"
                 >Login In</a
               ></span
@@ -75,9 +80,8 @@
           <p
             class="
               w-full
-              text-center
-              font-zen-kurenaido
-              text-xl
+              text-center text-2xl
+              font-dongle
               leading-4
               relative
               -mt-3
@@ -123,9 +127,14 @@
           <h2 class="form-title mt-6">
             Login
             <span class="text-xl md:text-2xl float-right"
-              >Are new member?
+              >Are you new member?
               <a
-                class="text-blue-600 underline"
+                class="
+                  text-blue-600
+                  underline
+                  cursor-pointer
+                  underline-offset-2
+                "
                 @click.prevent="handleFormStatus"
                 >Register here</a
               ></span
@@ -288,7 +297,7 @@ export default {
 }
 
 .form-container-wrapper .form-container {
-  @apply container md:w-1/2 bg-white  rounded-lg flex flex-col justify-center items-center text-base animate-slideUp;
+  @apply container md:w-3/5 bg-white  rounded-lg flex flex-col justify-center items-center text-base animate-slideUp;
 }
 
 .form-container .logo {
