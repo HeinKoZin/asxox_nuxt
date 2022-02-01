@@ -24,12 +24,7 @@
             <span class="text-xl md:text-2xl float-right"
               >Have you already signed up?
               <a
-                class="
-                  underline
-                  text-blue-600
-                  cursor-pointer
-                  underline-offset-2
-                "
+                class="underline text-blue-600 cursor-pointer underline-offset-2"
                 @click.prevent="handleFormStatus"
                 >Login In</a
               ></span
@@ -78,14 +73,7 @@
           />
 
           <p
-            class="
-              w-full
-              text-center text-2xl
-              font-dongle
-              leading-4
-              relative
-              -mt-3
-            "
+            class="w-full text-center text-2xl font-dongle leading-4 relative -mt-3"
           >
             <a href="#" class="text-blue-600 underline">Terms</a>
             <span> & </span>
@@ -129,12 +117,7 @@
             <span class="text-xl md:text-2xl float-right"
               >Are you new member?
               <a
-                class="
-                  text-blue-600
-                  underline
-                  cursor-pointer
-                  underline-offset-2
-                "
+                class="text-blue-600 underline cursor-pointer underline-offset-2"
                 @click.prevent="handleFormStatus"
                 >Register here</a
               ></span
@@ -293,11 +276,11 @@ export default {
 
 /* NOTE: Form container */
 .form-container-wrapper {
-  @apply w-full md:w-5/12 min-h-screen bg-white p-6 hidden flex-col  box-border justify-center items-center -z-10 absolute;
+  @apply w-full md:w-5/12 min-h-screen bg-slate-100 p-6 hidden flex-col  box-border justify-center items-center -z-10 absolute;
 }
 
 .form-container-wrapper .form-container {
-  @apply container md:w-3/5 bg-white  rounded-lg flex flex-col justify-center items-center text-base animate-slideUp;
+  @apply container md:w-3/5   rounded-lg flex flex-col justify-center items-center text-base animate-slideUp;
 }
 
 .form-container .logo {
