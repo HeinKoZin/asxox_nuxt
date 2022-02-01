@@ -16,11 +16,13 @@
         :disabled="!isFilledCode"
         @click.native="verfiyMailOrPhone(verify.two_factor_code)"
       >
+        <Spinner slot="loader" v-if="isSpin" />
         Verify
       </Button>
     </div>
   </AuthLayout>
 </template>
+
 
 <script>
 import { generalMixins } from "../../mixins/general";
@@ -36,19 +38,24 @@ export default {
       },
       isFilledCode: false,
       errors: {},
+      isSpin: false,
     };
   },
 
   methods: {
     async verfiyMailOrPhone(two_factor_code) {
+      this.isSpin = true;
       const res = await this.generalPostApis("/verify", { two_factor_code });
+      console.log(res);
       if (res.errors) {
         this.errors = res.errors;
       } else if (res.data.error) {
         this.errors = res.data.error;
       } else {
+        this.isSpin = false;
         this.$router.push("/auth/verify");
       }
+      this.isSpin = false;
     },
     errorsReset() {
       this.errors = {};

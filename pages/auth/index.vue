@@ -98,6 +98,7 @@
             :disabled="!isFilledRegister"
             @click.native="userRegister(register)"
           >
+            <Spinner slot="loader" v-if="isSpin" />
             Register
           </Button>
 
@@ -173,6 +174,7 @@
             :disabled="!isFilledLogin"
             @click.native="userLogin(login)"
           >
+            <Spinner slot="loader" v-if="isSpin" />
             Login
           </Button>
 
@@ -214,6 +216,7 @@ export default {
     isFilledLogin: false,
     isFilledRegister: false,
     errors: {},
+    isSpin: false,
   }),
   methods: {
     // ့handle form status
@@ -224,6 +227,7 @@ export default {
     // === login ===
     async userLogin(data) {
       try {
+        this.isSpin = true;
         this.errorsReset();
         let res = await this.$auth.loginWith("local", {
           data,
@@ -231,24 +235,27 @@ export default {
         this.$auth.setUserToken(res.data.data.token);
         this.$auth.$storage.setUniversal("user", res.data.data.user_info);
         this.$auth.$storage.setUniversal("loggedIn", true);
+        this.isSpin = false;
       } catch (err) {
         this.errors = err.response.data.data;
+        this.isSpin = false;
       }
     },
     // === register ===
     async userRegister(data) {
       try {
+        this.isSpin = true;
         this.errorsReset();
         const res = await this.generalPostApis("/register", data);
         this.errors = res ? res.data : null;
-        console.log(data);
         if (!this.errors) {
-          console.log(data);
           this.userLogin(data);
-
+          this.isSpin = false;
           this.$router.push("/auth/verify");
         }
+        this.isSpin = false;
       } catch (err) {
+        this.isSpin = false;
         this.errors = err.response.data.data;
       }
     },
