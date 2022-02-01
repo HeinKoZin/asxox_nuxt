@@ -13,6 +13,7 @@
       :disabled="!isFilledCode"
       @click.prevent="handleSubmit"
     >
+      <Spinner slot="loader" />
       Verify
     </Button>
   </div>
