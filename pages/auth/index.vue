@@ -35,14 +35,15 @@
             field="name"
             type="text"
             label="Name"
-            error="Name is required"
+            :error="errors['name'] ? errors['name'][0] : null"
             class="w-full"
           />
           <Input
             type="email"
             :data="register"
             field="email"
-            label="Email"
+            :error="errors['email'] ? errors['email'][0] : null"
+            label="Email or Phone"
             class="w-full"
           />
           <Input
@@ -50,13 +51,17 @@
             label="Password"
             :data="register"
             field="password"
+            :error="errors['password'] ? errors['password'][0] : null"
             class="w-full"
           />
           <Input
             type="password"
             label="Confirm Password"
             :data="register"
-            field="confirmPassword"
+            field="retype_password"
+            :error="
+              errors['retype_password'] ? errors['retype_password'][0] : null
+            "
             class="w-full"
           />
           <Input
@@ -68,7 +73,15 @@
           />
 
           <p
-            class="w-full text-center font-zen-kurenaido text-xl leading-4 relative -mt-3"
+            class="
+              w-full
+              text-center
+              font-zen-kurenaido
+              text-xl
+              leading-4
+              relative
+              -mt-3
+            "
           >
             <a href="#" class="text-blue-600 underline">Terms</a>
             <span> & </span>
@@ -79,6 +92,7 @@
             variant="primary"
             class="w-full mt-7"
             :disabled="!isFilledRegister"
+            @click.native="userRegister(register)"
           >
             Register
           </Button>
@@ -118,10 +132,11 @@
             >
           </h2>
           <Input
-            type="email"
+            type="text"
             :data="login"
             field="email"
-            label="Email"
+            label="Email Or Phone"
+            :error="errors['email'] ? errors['email'][0] : null"
             class="w-full"
           />
           <Input
@@ -129,6 +144,10 @@
             label="Password"
             :data="login"
             field="password"
+            :error="
+              (errors['password'] ? errors['password'][0] : null) ||
+              (errors['error'] ? errors['error'] : null)
+            "
             class="w-full"
           />
           <Input
@@ -139,7 +158,12 @@
             class="w-full"
           />
 
-          <Button variant="primary" class="w-full" :disabled="!isFilledLogin">
+          <Button
+            variant="primary"
+            class="w-full"
+            :disabled="!isFilledLogin"
+            @click.native="userLogin(login)"
+          >
             Login
           </Button>
 
@@ -159,7 +183,9 @@
 </template>
 
 <script>
+import { generalMixins } from "../../mixins/general";
 export default {
+  mixins: [generalMixins],
   data: () => ({
     login: {
       email: "",
@@ -171,21 +197,50 @@ export default {
       name: "",
       email: "",
       password: "",
-      confirmPassword: "",
+      retype_password: "",
       checkbox: false,
     },
 
     isLogin: true,
-    // checkbox: false,
     isFilledLogin: false,
     isFilledRegister: false,
+    errors: {},
   }),
   methods: {
-    //
-
     // ့handle form status
     handleFormStatus() {
       this.isLogin = !this.isLogin;
+      this.errorsReset();
+    },
+    // === login ===
+    async userLogin(data) {
+      try {
+        this.errorsReset();
+        let res = await this.$auth.loginWith("local", {
+          data,
+        });
+        this.$auth.setUserToken(res.data.data.token);
+        this.$auth.$storage.setUniversal("user", res.data.data.user_info);
+        this.$auth.$storage.setUniversal("loggedIn", true);
+      } catch (err) {
+        this.errors = err.response.data.data;
+      }
+    },
+    // === register ===
+    async userRegister(data) {
+      try {
+        this.errorsReset();
+        this.errors = await this.generalPostApis("/register", data, null);
+        console.log(this.errors);
+        if (!this.errors) {
+          this.userLogin(data);
+        }
+      } catch (err) {
+        this.errors = err.response.data.data;
+      }
+    },
+    errorsReset() {
+      this.errors = {};
     },
   },
   computed: {
@@ -210,7 +265,8 @@ export default {
           this.register.name.length > 0 &&
           this.register.email.length > 0 &&
           this.register.password.length > 0 &&
-          this.register.confirmPassword.length > 0;
+          this.register.retype_password.length > 0 &&
+          this.register.checkbox;
       },
     },
   },
@@ -274,5 +330,8 @@ export default {
 
 .info-container-wrapper.register {
   @apply animate-registerSlideUp right-0;
+}
+.input-error-message {
+  @apply text-red-600 w-full text-left text-sm font-sans font-semibold;
 }
 </style>
