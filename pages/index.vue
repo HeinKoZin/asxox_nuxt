@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full h-full">Home</div>
+  <div class="w-[3.5rem] h-full box-border p-4 float-left">
+    <ProductCard />
+  </div>
 </template>
 
 <script>
