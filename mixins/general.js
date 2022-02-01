@@ -7,7 +7,7 @@ export const generalMixins = {
 
         if (redirectLink) this.$router.push(redirectLink);
       } catch (error) {
-        return error.response.data.data;
+        return error.response.data.errors;
       }
     },
   },

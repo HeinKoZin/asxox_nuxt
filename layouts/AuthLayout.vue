@@ -14,10 +14,10 @@
         <div class="auth-form-container">
           <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
           <h3 class="company-title">Asxox Ecommerce</h3>
-          <h2 class="form-title mt-6">Verification</h2>
+          <h2 class="form-title mt-6"><slot name="form-title"></slot></h2>
           <div class="w-full">
             <!-- Child will be render here... -->
-            <Nuxt />
+            <slot name="form-body"></slot>
           </div>
         </div>
       </AnimationView>

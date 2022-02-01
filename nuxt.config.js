@@ -39,16 +39,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
-    "nuxt-fontawesome",
   ],
-  fontawesome: {
-    imports: [
-      {
-        set: "@fortawesome/free-solid-svg-icons",
-        icons: ["fas"],
-      },
-    ],
-  },
+  // plugins: ["~/plugins/fontawesome.js"],
   auth: {
     strategies: {
       local: {

@@ -240,7 +240,6 @@ export default {
       try {
         this.errorsReset();
         this.errors = await this.generalPostApis("/register", data, null);
-        console.log(this.errors);
         if (!this.errors) {
           this.userLogin(data);
         }
