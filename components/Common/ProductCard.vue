@@ -83,10 +83,10 @@ export default {
   @apply h-40 flex flex-col justify-between;
 }
 .product-card-container .card-body .card-header-title {
-  @apply text-sm font-semibold line-clamp-2 mt-2 hover:underline hover:underline-offset-2 h-10;
+  @apply text-sm  line-clamp-2 mt-2 hover:underline hover:underline-offset-2 h-10 font-comfortaa font-bold;
 }
 
 .product-card-container .product-description {
-  @apply text-sm font-semibold line-clamp-4 mt-2 text-slate-500 h-20;
+  @apply text-sm font-semibold line-clamp-4 mt-2 text-slate-500 h-20 font-quicksand;
 }
 </style>
