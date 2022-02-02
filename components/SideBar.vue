@@ -56,7 +56,7 @@ export default {};
 }
 
 .sidebar-menu .sidebar-menu-item {
-  @apply w-full h-16 flex flex-col items-center justify-center bg-slate-100 rounded-md transition-[all];
+  @apply w-full h-16 flex flex-col items-center justify-center bg-slate-100 rounded-md transition-[all] cursor-pointer;
 }
 
 .sidebar-menu .sidebar-menu-item.active {
