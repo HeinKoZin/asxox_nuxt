@@ -8,6 +8,6 @@ export default {};
 
 <style lang="postcss" scoped>
 .sidebar-container {
-  @apply w-14 bg-white float-left h-screen;
+  @apply w-16 bg-white h-screen;
 }
 </style>

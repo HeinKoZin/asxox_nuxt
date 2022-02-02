@@ -10,6 +10,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      variants: {
+        textColor: ['responsive', 'hover', 'focus', 'group-hover'],
+        backgroundColor: ['responsive', 'hover', 'focus', 'group-hover'],
+      },
       fontFamily: {
         "dongle": ['Dongle', defaultTheme.fontFamily.sans],
         "zen-kurenaido": ['Zen Kurenaido', defaultTheme.fontFamily.sans]
@@ -81,4 +85,5 @@ module.exports = {
   plugins: [
     require('@tailwindcss/line-clamp')
   ],
+
 }
