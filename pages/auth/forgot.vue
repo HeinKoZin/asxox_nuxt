@@ -16,11 +16,11 @@
       <Button
         variant="primary"
         class="w-full mt-8"
-        :disabled="!isFilledEmail"
+        :disabled="!isFilledEmail || isSpin"
         @click.native="forgetPasswordVerifyAndSendCode(forgot.email_or_phone)"
       >
         <Spinner slot="loader" v-if="isSpin" />
-        Submit
+        Submit{{ isSpin }}
       </Button>
     </div>
   </AuthLayout>
@@ -51,15 +51,15 @@ export default {
       const res = await this.generalPostApis("/password/create", {
         email_or_phone,
       });
-
-      this.errors = res ? (res.errors ? res.errors : res.data) : null;
-      this.isSpin = false;
-      if (!this.errors) {
+      if (res.success) {
         this.$router.push({
           name: "auth-verify",
           params: { path: "password/find/", type: "reset" },
         });
+      } else {
+        this.errors = res.data;
       }
+      this.isSpin = false;
     },
     errorsReset() {
       this.errors = {};

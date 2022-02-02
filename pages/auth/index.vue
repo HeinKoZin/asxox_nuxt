@@ -95,7 +95,7 @@
           <Button
             variant="primary"
             class="w-full mt-7"
-            :disabled="!isFilledRegister"
+            :disabled="!isFilledRegister || isSpin"
             @click.native="userRegister(register)"
           >
             <Spinner slot="loader" v-if="isSpin" />
@@ -171,7 +171,7 @@
           <Button
             variant="primary"
             class="w-full"
-            :disabled="!isFilledLogin"
+            :disabled="!isFilledLogin || isSpin"
             @click.native="userLogin(login, '/')"
           >
             <Spinner slot="loader" v-if="isSpin" />
@@ -197,6 +197,7 @@
 import { generalMixins } from "../../mixins/general";
 export default {
   mixins: [generalMixins],
+  middleware: "authenticated",
   data: () => ({
     login: {
       email: "",
@@ -226,42 +227,42 @@ export default {
     },
     // === login ===
     async userLogin(data, link) {
+      this.isSpin = true;
       try {
-        this.isSpin = true;
         this.errorsReset();
         let res = await this.$auth.loginWith("local", {
           data,
         });
-        this.$auth.setUserToken(res.data.data.token);
-        this.$auth.$storage.setUniversal("user", res.data.data.user_info);
-        this.$auth.$storage.setUniversal("loggedIn", true);
-        link ? this.$router.push(link) : null;
-        this.isSpin = false;
+        if (res.data.success) {
+          this.$auth.setUserToken(res.data.data.token);
+          this.$auth.$storage.setUniversal("user", res.data.data.user_info);
+          this.$auth.$storage.setUniversal("loggedIn", "true");
+          link ? this.$router.push("/") : null;
+        }
       } catch (err) {
         this.errors = err.response.data.data;
-        this.isSpin = false;
       }
+      this.isSpin = false;
     },
     // === register ===
     async userRegister(data) {
+      this.isSpin = true;
       try {
-        this.isSpin = true;
         this.errorsReset();
         const res = await this.generalPostApis("/register", data);
-        this.errors = res ? res.data : null;
-        if (!this.errors) {
+        if (res.success) {
           this.userLogin(data, null);
-          this.isSpin = false;
           this.$router.push({
             name: "auth-verify",
             params: { path: "/verify", type: "register" },
           });
+        } else {
+          this.errors = res.data;
         }
-        this.isSpin = false;
       } catch (err) {
-        this.isSpin = false;
         this.errors = err.response.data.data;
       }
+      this.isSpin = false;
     },
     errorsReset() {
       this.errors = {};

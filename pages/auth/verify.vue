@@ -32,7 +32,6 @@ import { generalMixins } from "../../mixins/general";
 import AuthLayout from "../../layouts/AuthLayout";
 export default {
   components: { AuthLayout },
-  middleware: "auth",
   mixins: [generalMixins],
   data() {
     return {
@@ -47,32 +46,36 @@ export default {
 
   methods: {
     async verifyMailOrPhone(two_factor_code) {
-      console.log(this.$route);
-      let link = "";
-      let res = {};
+      this.errorsReset();
       this.isSpin = true;
       if (this.$route.params.type === "reset") {
-        link = this.$route.params.path + two_factor_code;
-
-        res = await this.generalGetApis(link, null);
+        const link = this.$route.params.path + two_factor_code;
+        const res = await this.generalGetApis(link, null);
+        this.filterErrors(res);
+        if (res.success)
+          this.$router.push({
+            name: "auth-new-password",
+            params: { token: two_factor_code },
+          });
       } else {
-        link = this.$route.params.path;
-        res = await this.generalPostApis(link, {
+        const link = this.$route.params.path;
+        const res = await this.generalPostApis(link, {
           two_factor_code,
         });
-      }
-      if (res && res.errors) {
-        this.errors = res.errors;
-      } else if (res && res.data && res.data.error) {
-        this.errors = res.data;
-      } else {
-        this.isSpin = false;
-        this.$router.push("/");
+        this.filterErrors(res);
+        if (res.success) this.$router.push("/");
       }
       this.isSpin = false;
     },
     errorsReset() {
       this.errors = {};
+    },
+    filterErrors(res) {
+      if (res.errors) {
+        this.errors = res.errors;
+      } else if (res.data.error) {
+        this.errors = res.data;
+      }
     },
   },
 

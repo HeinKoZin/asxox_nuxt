@@ -32,9 +32,10 @@
       <Button
         variant="primary"
         class="w-full mt-8"
-        :disabled="!isFilled"
+        :disabled="!isFilled || isSpin"
         @click.native="resetPassword(password_reset)"
       >
+        <Spinner slot="loader" v-if="isSpin" />
         Reset Password
       </Button>
     </div>
@@ -53,28 +54,33 @@ export default {
         email_or_phone: "",
         password: "",
         password_confirmation: "",
-        token: "asfasdf",
+        token: this.$route.params.type,
       },
       isFilled: false,
       errors: {},
+      isSpin: false,
     };
   },
 
   methods: {
     // === need to add token to data ===
     async resetPassword(data) {
+      this.isSpin = true;
       const res = await this.generalPostApis("/password/reset", data);
-      console.log(res);
-      this.errors = res.errors ? res.errors : {};
-      if (!this.errors.length > 0) {
+      if (res.success) {
         this.errors = res.data;
+      } else {
+        this.errors = res.errors;
       }
+      this.isSpin = false;
     },
     errorsReset() {
       this.errors = {};
     },
   },
-
+  mounted() {
+    console.log(this.$route);
+  },
   watch: {
     password_reset: {
       deep: true,

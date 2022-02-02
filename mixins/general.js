@@ -4,6 +4,7 @@ export const generalMixins = {
     async generalPostApis(apiLink, data) {
       try {
         const res = await this.$axios.post(apiLink, data);
+        return res.data;
       } catch (error) {
         return error.response.data;
       }
@@ -11,8 +12,9 @@ export const generalMixins = {
     async generalGetApis(apiLink, data) {
       try {
         const res = await this.$axios.get(apiLink, data);
+        return res;
       } catch (error) {
-        return error.response.data;
+        return error.response;
       }
     },
   },

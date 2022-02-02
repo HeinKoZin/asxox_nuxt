@@ -8,5 +8,6 @@
 export default {
   layout: "MainLayout",
   name: "HomePage",
+  // middleware: "auth",
 };
 </script>

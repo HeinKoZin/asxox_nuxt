@@ -2,7 +2,6 @@ let apiLink = "http://localhost:8000/api";
 
 export default {
   mode: "universal",
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "Asxox Ecommerce",
@@ -42,6 +41,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
+    "cookie-universal-nuxt",
   ],
   fontawesome: {
     icons: {
@@ -50,6 +50,11 @@ export default {
     },
   },
   auth: {
+    // redirect: {
+    //   register: false,
+    //   logout: false,
+    //   home: false,
+    // },
     redirect: false,
     strategies: {
       local: {
