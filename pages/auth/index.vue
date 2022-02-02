@@ -172,7 +172,7 @@
             variant="primary"
             class="w-full"
             :disabled="!isFilledLogin"
-            @click.native="userLogin(login)"
+            @click.native="userLogin(login, '/')"
           >
             <Spinner slot="loader" v-if="isSpin" />
             Login
@@ -225,7 +225,7 @@ export default {
       this.errorsReset();
     },
     // === login ===
-    async userLogin(data) {
+    async userLogin(data, link) {
       try {
         this.isSpin = true;
         this.errorsReset();
@@ -235,6 +235,7 @@ export default {
         this.$auth.setUserToken(res.data.data.token);
         this.$auth.$storage.setUniversal("user", res.data.data.user_info);
         this.$auth.$storage.setUniversal("loggedIn", true);
+        link ? this.$router.push(link) : null;
         this.isSpin = false;
       } catch (err) {
         this.errors = err.response.data.data;
@@ -249,9 +250,12 @@ export default {
         const res = await this.generalPostApis("/register", data);
         this.errors = res ? res.data : null;
         if (!this.errors) {
-          this.userLogin(data);
+          this.userLogin(data, null);
           this.isSpin = false;
-          this.$router.push("/auth/verify");
+          this.$router.push({
+            name: "auth-verify",
+            params: { path: "/verify", type: "register" },
+          });
         }
         this.isSpin = false;
       } catch (err) {

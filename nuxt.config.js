@@ -50,6 +50,7 @@ export default {
     },
   },
   auth: {
+    redirect: false,
     strategies: {
       local: {
         token: {

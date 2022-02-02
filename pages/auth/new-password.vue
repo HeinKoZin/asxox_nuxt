@@ -2,6 +2,9 @@
   <AuthLayout>
     <div slot="form-title">New Password</div>
     <div class="w-full" slot="form-body">
+      <AuthErrorMessage v-if="errors['error']"
+        >Password reseting time out!</AuthErrorMessage
+      >
       <Input
         :data="password_reset"
         field="email_or_phone"
@@ -61,7 +64,11 @@ export default {
     // === need to add token to data ===
     async resetPassword(data) {
       const res = await this.generalPostApis("/password/reset", data);
-      this.errors = res.error;
+      console.log(res);
+      this.errors = res.errors ? res.errors : {};
+      if (!this.errors.length > 0) {
+        this.errors = res.data;
+      }
     },
     errorsReset() {
       this.errors = {};

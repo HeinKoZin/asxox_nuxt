@@ -8,5 +8,12 @@ export const generalMixins = {
         return error.response.data;
       }
     },
+    async generalGetApis(apiLink, data) {
+      try {
+        const res = await this.$axios.get(apiLink, data);
+      } catch (error) {
+        return error.response.data;
+      }
+    },
   },
 };

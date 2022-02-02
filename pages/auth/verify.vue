@@ -2,6 +2,9 @@
   <AuthLayout>
     <div slot="form-title">Verify</div>
     <div class="w-full" slot="form-body">
+      <AuthErrorMessage v-if="errors['error']">{{
+        errors["error"]
+      }}</AuthErrorMessage>
       <Input
         :data="verify"
         field="two_factor_code"
@@ -14,7 +17,7 @@
         variant="primary"
         class="w-full mt-8"
         :disabled="!isFilledCode"
-        @click.native="verfiyMailOrPhone(verify.two_factor_code)"
+        @click.native="verifyMailOrPhone(verify.two_factor_code)"
       >
         <Spinner slot="loader" v-if="isSpin" />
         Verify
@@ -29,7 +32,7 @@ import { generalMixins } from "../../mixins/general";
 import AuthLayout from "../../layouts/AuthLayout";
 export default {
   components: { AuthLayout },
-  // middleware: "auth",
+  middleware: "auth",
   mixins: [generalMixins],
   data() {
     return {
@@ -43,17 +46,28 @@ export default {
   },
 
   methods: {
-    async verfiyMailOrPhone(two_factor_code) {
+    async verifyMailOrPhone(two_factor_code) {
+      console.log(this.$route);
+      let link = "";
+      let res = {};
       this.isSpin = true;
-      const res = await this.generalPostApis("/verify", { two_factor_code });
-      console.log(res);
-      if (res.errors) {
+      if (this.$route.params.type === "reset") {
+        link = this.$route.params.path + two_factor_code;
+
+        res = await this.generalGetApis(link, null);
+      } else {
+        link = this.$route.params.path;
+        res = await this.generalPostApis(link, {
+          two_factor_code,
+        });
+      }
+      if (res && res.errors) {
         this.errors = res.errors;
-      } else if (res.data.error) {
-        this.errors = res.data.error;
+      } else if (res && res.data && res.data.error) {
+        this.errors = res.data;
       } else {
         this.isSpin = false;
-        this.$router.push("/auth/verify");
+        this.$router.push("/");
       }
       this.isSpin = false;
     },
@@ -74,6 +88,9 @@ export default {
       },
       deep: true,
     },
+  },
+  mounted() {
+    console.log(this.$route);
   },
 };
 </script>
