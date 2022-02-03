@@ -141,6 +141,6 @@ export default {
 
 <style lang="postcss" scoped>
 .home-container {
-  @apply flex flex-wrap h-screen p-4  w-[calc(100%_-_4rem)] overflow-y-scroll items-start;
+  @apply flex  flex-wrap;
 }
 </style>

@@ -1,7 +1,12 @@
 <template>
-  <div class="flex w-full h-full bg-slate-200">
-    <SideBar />
-    <Nuxt />
+  <div class="w-full h-full bg-slate-200">
+    <Header />
+    <div class="flex w-full h-[calc(100%-4rem)] flex-col-reverse md:flex-row">
+      <SideBar />
+      <div class="main-layout">
+        <Nuxt />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -24,4 +29,8 @@ export default {
 };
 </script>
 
-<style lang="postcss" scoped></style>
+<style lang="postcss" scoped>
+.main-layout {
+  @apply p-1 md:p-2  h-[calc(100vh-8rem)] md:h-[calc(100vh-4rem)] w-full md:w-[calc(100%_-_4rem)] overflow-y-scroll overflow-hidden items-start;
+}
+</style>
