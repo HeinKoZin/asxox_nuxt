@@ -69,8 +69,15 @@ export default {
         const res = await this.generalPostApis(link, {
           two_factor_code,
         });
-        if (res.success) this.$router.push("/");
-        else this.filterErrors(res);
+        if (res.success) {
+          this.$toast.open({
+            message: "Successfully Verified!",
+            type: "success",
+            position: "top-right",
+            duration: 5000,
+          });
+          this.$router.push("/");
+        } else this.filterErrors(res);
       }
       this.isSpin = false;
     },

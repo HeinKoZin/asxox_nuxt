@@ -232,12 +232,14 @@ export default {
           data,
         });
         if (res.data.success) {
-          this.$toast.open({
-            message: "Successfully Logged in!",
-            type: "success",
-            position: "top-right",
-            duration: 5000,
-          });
+          link
+            ? this.$toast.open({
+                message: "Successfully Logged in!",
+                type: "success",
+                position: "top-right",
+                duration: 5000,
+              })
+            : null;
           this.$auth.setUserToken(res.data.data.token);
           this.$auth.$storage.setUniversal("user", res.data.data.user_info);
           this.$auth.$storage.setUniversal("loggedIn", "true");
@@ -258,7 +260,10 @@ export default {
           this.userLogin(data, null);
           this.$router.push({
             name: "auth-verify",
-            params: { path: "/verify", type: "register" },
+          });
+          this.$auth.$storage.setLocalStorage("verify", {
+            path: "/verify",
+            type: "register",
           });
         } else this.errors = res.data;
       } catch (err) {
