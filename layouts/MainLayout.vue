@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen bg-slate-200">
+  <div class="flex w-full h-full bg-slate-200">
     <SideBar />
     <Nuxt />
   </div>

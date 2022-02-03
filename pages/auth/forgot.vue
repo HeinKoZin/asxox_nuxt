@@ -20,7 +20,7 @@
         @click.native="forgetPasswordVerifyAndSendCode(forgot.email_or_phone)"
       >
         <Spinner slot="loader" v-if="isSpin" />
-        Submit{{ isSpin }}
+        Submit
       </Button>
     </div>
   </AuthLayout>
@@ -38,8 +38,8 @@ export default {
         email_or_phone: "",
       },
       isFilledEmail: false,
-      errors: {},
       isSpin: false,
+      errors: {},
     };
   },
 
@@ -54,11 +54,12 @@ export default {
       if (res.success) {
         this.$router.push({
           name: "auth-verify",
-          params: { path: "password/find/", type: "reset" },
         });
-      } else {
-        this.errors = res.data;
-      }
+        this.$auth.$storage.setLocalStorage("verify", {
+          path: "password/find/",
+          type: "reset",
+        });
+      } else this.errors = res.data;
       this.isSpin = false;
     },
     errorsReset() {
@@ -70,11 +71,8 @@ export default {
     forgot: {
       handler(newValue) {
         const { email_or_phone } = newValue;
-        if (email_or_phone) {
-          this.isFilledEmail = true;
-        } else {
-          this.isFilledEmail = false;
-        }
+        if (email_or_phone) this.isFilledEmail = true;
+        else this.isFilledEmail = false;
       },
       deep: true,
     },

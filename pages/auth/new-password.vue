@@ -2,9 +2,9 @@
   <AuthLayout>
     <div slot="form-title">New Password</div>
     <div class="w-full" slot="form-body">
-      <AuthErrorMessage v-if="errors['error']"
-        >Password reseting time out!</AuthErrorMessage
-      >
+      <AuthErrorMessage v-if="errors['error']">{{
+        errors["error"]
+      }}</AuthErrorMessage>
       <Input
         :data="password_reset"
         field="email_or_phone"
@@ -54,7 +54,7 @@ export default {
         email_or_phone: "",
         password: "",
         password_confirmation: "",
-        token: this.$route.params.type,
+        token: this.$auth.$storage.getLocalStorage("token"),
       },
       isFilled: false,
       errors: {},
@@ -67,19 +67,13 @@ export default {
     async resetPassword(data) {
       this.isSpin = true;
       const res = await this.generalPostApis("/password/reset", data);
-      if (res.success) {
-        this.errors = res.data;
-      } else {
-        this.errors = res.errors;
-      }
+      if (res.success) this.$router.push("/auth/");
+      else this.errors = res.errors || res.data;
       this.isSpin = false;
     },
     errorsReset() {
       this.errors = {};
     },
-  },
-  mounted() {
-    console.log(this.$route);
   },
   watch: {
     password_reset: {

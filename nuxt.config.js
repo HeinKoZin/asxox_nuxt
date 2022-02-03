@@ -50,11 +50,6 @@ export default {
     },
   },
   auth: {
-    // redirect: {
-    //   register: false,
-    //   logout: false,
-    //   home: false,
-    // },
     redirect: false,
     strategies: {
       local: {
@@ -84,6 +79,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extractCSS: true,
     postcss: {
       plugins: {
         tailwindcss: {},

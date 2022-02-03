@@ -204,7 +204,6 @@ export default {
       password: "",
       checkbox: false,
     },
-
     register: {
       name: "",
       email: "",
@@ -212,12 +211,11 @@ export default {
       retype_password: "",
       checkbox: false,
     },
-
     isLogin: true,
     isFilledLogin: false,
     isFilledRegister: false,
-    errors: {},
     isSpin: false,
+    errors: {},
   }),
   methods: {
     // ့handle form status
@@ -256,9 +254,7 @@ export default {
             name: "auth-verify",
             params: { path: "/verify", type: "register" },
           });
-        } else {
-          this.errors = res.data;
-        }
+        } else this.errors = res.data;
       } catch (err) {
         this.errors = err.response.data.data;
       }
@@ -267,12 +263,6 @@ export default {
     errorsReset() {
       this.errors = {};
     },
-  },
-  computed: {
-    //
-  },
-  mounted() {
-    //-
   },
   watch: {
     // Check the length of email and password

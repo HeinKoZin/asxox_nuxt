@@ -10,9 +10,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      variants: {
+        textColor: ['responsive', 'hover', 'focus', 'group-hover'],
+        backgroundColor: ['responsive', 'hover', 'focus', 'group-hover'],
+      },
       fontFamily: {
         "dongle": ['Dongle', defaultTheme.fontFamily.sans],
-        "zen-kurenaido": ['Zen Kurenaido', defaultTheme.fontFamily.sans]
+        "zen-kurenaido": ['Zen Kurenaido', defaultTheme.fontFamily.sans],
+        "comfortaa": ['Comfortaa', 'cursive'],
+        "quicksand": ['Quicksand', defaultTheme.fontFamily.sans],
       },
       animation: {
         fadeIn: "fade-in 0.5s ease-in-out",
@@ -81,4 +87,5 @@ module.exports = {
   plugins: [
     require('@tailwindcss/line-clamp')
   ],
+
 }

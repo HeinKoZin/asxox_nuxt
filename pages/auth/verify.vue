@@ -48,22 +48,23 @@ export default {
     async verifyMailOrPhone(two_factor_code) {
       this.errorsReset();
       this.isSpin = true;
-      if (this.$route.params.type === "reset") {
-        const link = this.$route.params.path + two_factor_code;
+      const verify = this.$auth.$storage.getLocalStorage("verify");
+      this.$auth.$storage.setLocalStorage("token", two_factor_code);
+      if (verify.type === "reset") {
+        const link = verify.path + two_factor_code;
         const res = await this.generalGetApis(link, null);
-        this.filterErrors(res);
-        if (res.success)
+        if (res.data?.success)
           this.$router.push({
             name: "auth-new-password",
-            params: { token: two_factor_code },
           });
+        else this.filterErrors(res);
       } else {
-        const link = this.$route.params.path;
+        const link = verify.path;
         const res = await this.generalPostApis(link, {
           two_factor_code,
         });
-        this.filterErrors(res);
         if (res.success) this.$router.push("/");
+        else this.filterErrors(res);
       }
       this.isSpin = false;
     },
@@ -71,11 +72,9 @@ export default {
       this.errors = {};
     },
     filterErrors(res) {
-      if (res.errors) {
-        this.errors = res.errors;
-      } else if (res.data.error) {
-        this.errors = res.data;
-      }
+      if (res?.errors) this.errors = res.errors;
+      else if (res.data?.data?.error) this.errors = res.data.data;
+      else if (res.data?.error) this.errors = res.data;
     },
   },
 
@@ -83,19 +82,11 @@ export default {
     verify: {
       handler(newValue) {
         const { two_factor_code } = newValue;
-        if (two_factor_code) {
-          this.isFilledCode = true;
-        } else {
-          this.isFilledCode = false;
-        }
+        if (two_factor_code) this.isFilledCode = true;
+        else this.isFilledCode = false;
       },
       deep: true,
     },
   },
-  mounted() {
-    console.log(this.$route);
-  },
 };
 </script>
-
-<style lang="postcss" scoped></style>
