@@ -232,6 +232,12 @@ export default {
           data,
         });
         if (res.data.success) {
+          this.$toast.open({
+            message: "Successfully Logged in!",
+            type: "success",
+            position: "top-right",
+            duration: 5000,
+          });
           this.$auth.setUserToken(res.data.data.token);
           this.$auth.$storage.setUniversal("user", res.data.data.user_info);
           this.$auth.$storage.setUniversal("loggedIn", "true");

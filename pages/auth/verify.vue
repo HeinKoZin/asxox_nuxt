@@ -53,11 +53,17 @@ export default {
       if (verify.type === "reset") {
         const link = verify.path + two_factor_code;
         const res = await this.generalGetApis(link, null);
-        if (res.data?.success)
+        if (res.data?.success) {
+          this.$toast.open({
+            message: "Successfully Verified!",
+            type: "success",
+            position: "top-right",
+            duration: 5000,
+          });
           this.$router.push({
             name: "auth-new-password",
           });
-        else this.filterErrors(res);
+        } else this.filterErrors(res);
       } else {
         const link = verify.path;
         const res = await this.generalPostApis(link, {

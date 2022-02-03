@@ -18,7 +18,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ["@/assets/css/main.css"],
+  css: ["@/assets/css/main.css", "vue-toast-notification/dist/theme-sugar.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   // plugins: ['~/plugins/fontawesome.js'],
@@ -32,7 +32,7 @@ export default {
 
   purgeCSS: {},
 
-  plugins: [],
+  plugins: ["~/plugins/v-toast.js"],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],
 

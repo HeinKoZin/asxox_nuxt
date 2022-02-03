@@ -52,6 +52,12 @@ export default {
         email_or_phone,
       });
       if (res.success) {
+        this.$toast.open({
+          message: "We have sent code!",
+          type: "success",
+          position: "top-right",
+          duration: 5000,
+        });
         this.$router.push({
           name: "auth-verify",
         });

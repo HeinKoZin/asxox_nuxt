@@ -67,8 +67,15 @@ export default {
     async resetPassword(data) {
       this.isSpin = true;
       const res = await this.generalPostApis("/password/reset", data);
-      if (res.success) this.$router.push("/auth/");
-      else this.errors = res.errors || res.data;
+      if (res.success) {
+        this.$toast.open({
+          message: "Password was successfully changed!",
+          type: "success",
+          position: "top-right",
+          duration: 5000,
+        });
+        this.$router.push("/auth/");
+      } else this.errors = res.errors || res.data;
       this.isSpin = false;
     },
     errorsReset() {
