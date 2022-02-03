@@ -24,7 +24,12 @@
             <span class="text-xl md:text-2xl float-right"
               >Have you already signed up?
               <a
-                class="underline text-blue-600 cursor-pointer underline-offset-2"
+                class="
+                  underline
+                  text-blue-600
+                  cursor-pointer
+                  underline-offset-2
+                "
                 @click.prevent="handleFormStatus"
                 >Login In</a
               ></span
@@ -73,7 +78,14 @@
           />
 
           <p
-            class="w-full text-center text-2xl font-dongle leading-4 relative -mt-3"
+            class="
+              w-full
+              text-center text-2xl
+              font-dongle
+              leading-4
+              relative
+              -mt-3
+            "
           >
             <a href="#" class="text-blue-600 underline">Terms</a>
             <span> & </span>
@@ -83,9 +95,10 @@
           <Button
             variant="primary"
             class="w-full mt-7"
-            :disabled="!isFilledRegister"
+            :disabled="!isFilledRegister || isSpin"
             @click.native="userRegister(register)"
           >
+            <Spinner slot="loader" v-if="isSpin" />
             Register
           </Button>
 
@@ -117,7 +130,12 @@
             <span class="text-xl md:text-2xl float-right"
               >Are you new member?
               <a
-                class="text-blue-600 underline cursor-pointer underline-offset-2"
+                class="
+                  text-blue-600
+                  underline
+                  cursor-pointer
+                  underline-offset-2
+                "
                 @click.prevent="handleFormStatus"
                 >Register here</a
               ></span
@@ -153,9 +171,10 @@
           <Button
             variant="primary"
             class="w-full"
-            :disabled="!isFilledLogin"
-            @click.native="userLogin(login)"
+            :disabled="!isFilledLogin || isSpin"
+            @click.native="userLogin(login, '/')"
           >
+            <Spinner slot="loader" v-if="isSpin" />
             Login
           </Button>
 
@@ -178,13 +197,13 @@
 import { generalMixins } from "../../mixins/general";
 export default {
   mixins: [generalMixins],
+  middleware: "authenticated",
   data: () => ({
     login: {
       email: "",
       password: "",
       checkbox: false,
     },
-
     register: {
       name: "",
       email: "",
@@ -192,10 +211,10 @@ export default {
       retype_password: "",
       checkbox: false,
     },
-
     isLogin: true,
     isFilledLogin: false,
     isFilledRegister: false,
+    isSpin: false,
     errors: {},
   }),
   methods: {
@@ -205,41 +224,51 @@ export default {
       this.errorsReset();
     },
     // === login ===
-    async userLogin(data) {
+    async userLogin(data, link) {
+      this.isSpin = true;
       try {
         this.errorsReset();
         let res = await this.$auth.loginWith("local", {
           data,
         });
-        this.$auth.setUserToken(res.data.data.token);
-        this.$auth.$storage.setUniversal("user", res.data.data.user_info);
-        this.$auth.$storage.setUniversal("loggedIn", true);
-      } catch (err) {
-        this.errors = err.response.data.data;
-      }
-    },
-    // === register ===
-    async userRegister(data) {
-      try {
-        this.errorsReset();
-        this.errors = await this.generalPostApis("/register", data, null);
-        console.log(this.errors);
-        if (!this.errors) {
-          this.userLogin(data);
+        if (res.data.success) {
+          this.$toast.open({
+            message: "Successfully Logged in!",
+            type: "success",
+            position: "top-right",
+            duration: 5000,
+          });
+          this.$auth.setUserToken(res.data.data.token);
+          this.$auth.$storage.setUniversal("user", res.data.data.user_info);
+          this.$auth.$storage.setUniversal("loggedIn", "true");
+          link ? this.$router.push("/") : null;
         }
       } catch (err) {
         this.errors = err.response.data.data;
       }
+      this.isSpin = false;
+    },
+    // === register ===
+    async userRegister(data) {
+      this.isSpin = true;
+      try {
+        this.errorsReset();
+        const res = await this.generalPostApis("/register", data);
+        if (res.success) {
+          this.userLogin(data, null);
+          this.$router.push({
+            name: "auth-verify",
+            params: { path: "/verify", type: "register" },
+          });
+        } else this.errors = res.data;
+      } catch (err) {
+        this.errors = err.response.data.data;
+      }
+      this.isSpin = false;
     },
     errorsReset() {
       this.errors = {};
     },
-  },
-  computed: {
-    //
-  },
-  mounted() {
-    //-
   },
   watch: {
     // Check the length of email and password
