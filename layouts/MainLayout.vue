@@ -31,6 +31,6 @@ export default {
 
 <style lang="postcss" scoped>
 .main-layout {
-  @apply p-1 md:p-2  h-[calc(100vh-8rem)] md:h-[calc(100vh-4rem)] w-full md:w-[calc(100%_-_4rem)] overflow-y-scroll overflow-hidden items-start;
+  @apply p-1 md:p-2  h-[calc(100vh-4rem)]  w-full md:w-[calc(100%_-_4rem)] overflow-y-scroll overflow-hidden items-start;
 }
 </style>

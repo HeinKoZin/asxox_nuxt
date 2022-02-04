@@ -2,14 +2,20 @@
   <header>
     <div class="header-container">
       <div class="header-left">
+        <div class="mobile-header-menu">
+          <button>
+            <font-awesome-icon :icon="['fas', 'bars']" class="icon" />
+          </button>
+        </div>
         <div class="header-logo">
-          <a href="#">
+          <!-- <a href="#">
             <img src="https://via.placeholder.com/50" alt="logo" />
-          </a>
+          </a> -->
+          <img src="~/assets/img/logo-title.png" alt="" srcset="" />
         </div>
-        <div class="header-brand">
+        <!-- <div class="header-brand">
           <span>Asxox Ecommerce</span>
-        </div>
+        </div> -->
       </div>
       <div class="header-center group">
         <div class="header-search">
@@ -39,7 +45,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      //
+    };
+  },
+
+  methods: {
+    //
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -56,23 +72,23 @@ export default {};
 }
 
 .header-logo img {
-  @apply w-12 h-12 rounded-full;
+  @apply w-32 h-auto rounded-full;
 }
 
-.header-brand {
+/* .header-brand {
   @apply text-2xl first-letter:text-3xl font-zen-kurenaido text-slate-700 hidden md:block;
-}
+} */
 
 .header-right {
-  @apply flex flex-row h-12 items-center gap-5;
+  @apply flex flex-row h-12 items-center gap-1 md:gap-5;
 }
 
 .header-search {
-  @apply flex flex-row items-center  bg-white  rounded-md border border-slate-300;
+  @apply flex-row items-center  bg-white  rounded-md border border-slate-300 flex;
 }
 
 .header-search input {
-  @apply h-10 px-2 pl-4 bg-transparent  text-sm text-slate-700 w-28 md:w-52 transition-[width] focus-within:w-56  focus:outline-none active:outline-none;
+  @apply h-10 px-2 pl-4 bg-transparent  text-sm text-slate-700 w-48 md:w-52 transition-[width] md:focus-within:w-96 focus:outline-none active:outline-none;
 }
 
 .header-cart {
@@ -80,7 +96,7 @@ export default {};
 }
 
 .header-search .header-search-button {
-  @apply w-10 h-10 rounded-md bg-transparent text-slate-700 hover:text-slate-500;
+  @apply w-10 h-10 rounded-md bg-transparent text-slate-700 hover:text-slate-500 hover:bg-slate-100;
 }
 
 .header-cart .header-cart-button {
@@ -88,10 +104,14 @@ export default {};
 }
 
 .header-container .icon {
-  @apply rounded-full text-slate-500 hover:text-slate-700 text-3xl;
+  @apply rounded-full text-slate-500 hover:text-slate-700 text-2xl md:text-3xl;
 }
 
 .header-user-button {
   @apply w-10 h-10 rounded-full text-white hover:text-slate-500 text-xl;
+}
+
+.mobile-header-menu {
+  @apply block md:hidden mr-2;
 }
 </style>
