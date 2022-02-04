@@ -61,6 +61,7 @@ export default {
         this.$router.push({
           name: "auth-verify",
         });
+        this.$auth.$storage.setLocalStorage("forgot_mail", email_or_phone);
         this.$auth.$storage.setLocalStorage("verify", {
           path: "password/find/",
           type: "reset",
