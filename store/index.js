@@ -1,5 +1,7 @@
 // ==== state ====
-const state = () => ({});
+const state = () => ({
+  isMobileMenuOpen: false,
+});
 
 // ==== getters =====
 const getters = {
@@ -14,6 +16,10 @@ const getters = {
   token() {
     return localStorage.getItem("token");
   },
+
+  isMobileMenuOpen(state) {
+    return state.isMobileMenuOpen;
+  }
 };
 
 // ==== mutations =====
@@ -24,6 +30,9 @@ const mutations = {
 
     state.auth.user = JSON.parse(localStorage.getItem("user_info"));
   },
+  SET_MOBILE_MENU(state, data) {
+    state.isMobileMenuOpen = data;
+  },
 };
 
 // ==== actions ====
@@ -32,7 +41,7 @@ const actions = {
     try {
       const res = await axios.get("user");
       commit("SET_USER", res.data.data);
-    } catch (error) {}
+    } catch (error) { }
   },
 };
 
