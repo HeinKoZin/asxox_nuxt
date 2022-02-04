@@ -68,7 +68,7 @@ export default {
 
 <style lang="postcss" scoped>
 .sidebar-container {
-  @apply w-[4.4rem] bg-slate-100 h-[calc(100%_-_4rem)] md:h-[calc(100vh_-_4rem)] p-1 py-4 flex  flex-col justify-between absolute md:relative z-50 transition-[margin];
+  @apply w-[4.4rem] bg-slate-100 h-[calc(100%-4rem)] top-0 md:h-[calc(100%_-_4rem)] p-1 py-4 flex  flex-col justify-between fixed  z-50 transition-[margin] mt-16;
 }
 
 .sidebar-container.slide-up {
