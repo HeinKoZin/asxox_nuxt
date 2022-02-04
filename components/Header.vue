@@ -11,7 +11,12 @@
           <!-- <a href="#">
             <img src="https://via.placeholder.com/50" alt="logo" />
           </a> -->
-          <img src="~/assets/img/logo-title.png" alt="" srcset="" />
+          <img
+            src="~/assets/img/logo-title.png"
+            class="hidden md:block"
+            alt=""
+            srcset=""
+          />
         </div>
         <!-- <div class="header-brand">
           <span>Asxox Ecommerce</span>
@@ -72,7 +77,7 @@ export default {
 }
 
 .header-logo img {
-  @apply w-32 h-auto rounded-full;
+  @apply w-36 hidden md:block h-auto rounded-full;
 }
 
 /* .header-brand {
@@ -88,7 +93,7 @@ export default {
 }
 
 .header-search input {
-  @apply h-10 px-2 pl-4 bg-transparent  text-sm text-slate-700 w-48 md:w-52 transition-[width] md:focus-within:w-96 focus:outline-none active:outline-none;
+  @apply h-10 px-2 pl-4 bg-transparent  text-sm text-slate-700 w-24 focus:w-48 md:w-56 transition-[width] md:focus-within:w-[30rem] focus:outline-none active:outline-none;
 }
 
 .header-cart {
@@ -105,6 +110,10 @@ export default {
 
 .header-container .icon {
   @apply rounded-full text-slate-500 hover:text-slate-700 text-2xl md:text-3xl;
+}
+
+.header-user {
+  @apply flex flex-row h-12 items-center;
 }
 
 .header-user-button {
