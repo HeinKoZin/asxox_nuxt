@@ -26,9 +26,10 @@ module.exports = {
         slideUp: "slide-up 0.5s ease-in-out",
         slideDown: "slide-down 0.5s ease-in-out",
         slideLeft: "slide-left 0.5s ease-in-out",
-        slideRight: "slide-right 0.5s ease-in-out",
+        slideRight: "slide-right 0.3s ease-in-out",
         loginSlideUp: "login-slide-up 0.5s ease-in-out",
         registerSlideUp: "register-slide-up 0.5s ease-in-out",
+
       },
       keyframes: {
         "fade-in": {
@@ -56,6 +57,26 @@ module.exports = {
             opacity: 1,
             transform: "translateY(0)",
           }
+        },
+        "slide-left": {
+          "0%": {
+            opacity: 0,
+            transform: "translateX(0)",
+          },
+          "100%": {
+            opacity: 1,
+            transform: "translateX(-100%)",
+          }
+        },
+        "slide-right": {
+          "0%": {
+            opacity: 0,
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            opacity: 1,
+            transform: "translateX(0)",
+          },
         },
         "login-slide-up": {
           "0%": {

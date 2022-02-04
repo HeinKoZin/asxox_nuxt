@@ -3,7 +3,7 @@
     <div class="header-container">
       <div class="header-left">
         <div class="mobile-header-menu">
-          <button>
+          <button @click="SET_MOBILE_MENU(!isMobileMenuOpen)">
             <font-awesome-icon :icon="['fas', 'bars']" class="icon" />
           </button>
         </div>
@@ -50,15 +50,19 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {
       //
     };
   },
-
+  computed: {
+    ...mapGetters(["isMobileMenuOpen"]),
+  },
   methods: {
     //
+    ...mapMutations(["SET_MOBILE_MENU"]),
   },
 };
 </script>

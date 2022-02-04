@@ -1,5 +1,9 @@
 <template>
-  <div class="sidebar-container">
+  <div
+    :class="
+      'sidebar-container ' + (isMobileMenuOpen ? 'slide-up' : 'slide-down')
+    "
+  >
     <!-- NOTE: Menu -->
     <div class="sidebar-menu">
       <!-- NOTE: Item -->
@@ -18,14 +22,14 @@
       </div>
     </div>
 
-    <div class="sidebar-menu">
+    <!-- <div class="sidebar-menu">
       <div class="sidebar-menu-item mobile-cart-menu">
         <button class="btn">
           <font-awesome-icon class="icon" :icon="['fas', 'shopping-cart']" />
         </button>
         <span class="menu-label">Cart</span>
       </div>
-    </div>
+    </div> -->
 
     <!-- NOTE: Cart -->
     <div class="sidebar-menu">
@@ -47,24 +51,40 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  data() {
+    return {
+      //
+    };
+  },
+  computed: {
+    ...mapGetters({
+      isMobileMenuOpen: "isMobileMenuOpen",
+    }),
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
 .sidebar-container {
-  @apply w-full md:w-[4.4rem] bg-slate-100 h-[4rem] md:h-[calc(100vh-4rem)]  px-2 py-2 md:p-1 md:py-4 flex md:flex-col justify-between relative;
+  @apply w-[4.4rem] bg-slate-100 h-[calc(100vh_-_4rem)] p-1 py-4 flex  flex-col justify-between absolute md:relative z-50;
+}
+
+.sidebar-container.slide-up {
+  @apply animate-slideRight flex;
+}
+
+.sidebar-container.slide-down {
+  @apply hidden md:flex;
 }
 
 .sidebar-menu {
-  @apply flex flex-row md:flex-col justify-between gap-x-2 md:gap-y-2 w-1/3 md:w-full;
+  @apply w-full flex flex-col gap-y-2;
 }
 
 .sidebar-menu .sidebar-menu-item {
-  @apply md:w-full w-[4rem] h-full md:h-16 flex flex-col items-center justify-center bg-slate-100 rounded-md transition-[all] cursor-pointer;
-}
-
-.sidebar-menu .sidebar-menu-item.mobile-cart-menu {
-  @apply bg-orange-600 rounded-full w-[3.2rem] md:w-[4rem] h-[3.2rem] md:h-[4rem]  -mt-5 z-50 md:hidden mx-auto;
+  @apply w-full h-16 flex flex-col items-center justify-center bg-slate-100 rounded-md transition-[all] cursor-pointer;
 }
 
 .sidebar-menu .sidebar-menu-item.active {
@@ -72,27 +92,23 @@ export default {};
 }
 
 .sidebar-menu .sidebar-menu-item .btn {
-  @apply w-full  text-lg md:text-2xl relative h-full  md:h-auto;
+  @apply w-full  text-2xl relative;
 }
 
 .sidebar-menu .sidebar-menu-item.active .btn {
-  @apply before:bg-orange-600 before:absolute md:before:w-1 md:before:h-full md:before:left-0 before:rounded-t-lg before:rounded-b-lg before:h-1 before:w-8 before:bottom-0;
+  @apply before:bg-orange-600 before:absolute before:w-1 before:h-full before:left-0 before:rounded-t-lg before:rounded-b-lg;
 }
 
 .sidebar-menu .sidebar-menu-item .btn .icon {
   @apply text-gray-600;
 }
 
-.sidebar-menu .sidebar-menu-item.mobile-cart-menu .btn .icon {
-  @apply text-white w-8;
-}
-
 .sidebar-menu .sidebar-menu-item.active .btn .icon {
-  @apply text-orange-600 w-8;
+  @apply text-orange-600;
 }
 
 .sidebar-menu .sidebar-menu-item .menu-label {
-  @apply text-gray-600 text-xs hidden md:block;
+  @apply text-gray-600 text-xs;
 }
 
 .sidebar-menu .sidebar-menu-item.active .menu-label {
