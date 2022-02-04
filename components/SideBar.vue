@@ -68,15 +68,15 @@ export default {
 
 <style lang="postcss" scoped>
 .sidebar-container {
-  @apply w-[4.4rem] bg-slate-100 h-[calc(100vh_-_4rem)] p-1 py-4 flex  flex-col justify-between absolute md:relative z-50;
+  @apply w-[4.4rem] bg-slate-100 h-[calc(100%_-_4rem)] md:h-[calc(100vh_-_4rem)] p-1 py-4 flex  flex-col justify-between absolute md:relative z-50 transition-[margin];
 }
 
 .sidebar-container.slide-up {
-  @apply animate-slideRight flex;
+  @apply ml-0;
 }
 
 .sidebar-container.slide-down {
-  @apply hidden md:flex;
+  @apply -ml-[4.4rem] md:ml-0;
 }
 
 .sidebar-menu {
