@@ -23,13 +23,15 @@
         </div>
       </div>
       <div class="header-right">
+        <div class="header-user">
+          <button class="header-user-button" size="sm">
+            <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
+          </button>
+        </div>
         <div class="header-cart">
-          <Button class="header-cart-button" size="sm">
-            <font-awesome-icon
-              :icon="['fas', 'shopping-cart']"
-              class="text-slate-500 hover:text-slate-700"
-            />
-          </Button>
+          <button class="header-cart-button" size="sm">
+            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+          </button>
         </div>
       </div>
     </div>
@@ -70,7 +72,11 @@ export default {};
 }
 
 .header-search input {
-  @apply h-10 px-2 pl-4 bg-transparent  text-sm text-slate-700 w-28 md:w-52 transition-[width] focus-within:w-60 group-focus:w-96 focus:outline-none active:outline-none;
+  @apply h-10 px-2 pl-4 bg-transparent  text-sm text-slate-700 w-28 md:w-52 transition-[width] focus-within:w-56  focus:outline-none active:outline-none;
+}
+
+.header-cart {
+  @apply hidden md:block;
 }
 
 .header-search .header-search-button {
@@ -78,6 +84,14 @@ export default {};
 }
 
 .header-cart .header-cart-button {
-  @apply w-10 h-10 rounded-full text-white hover:text-slate-500 text-xl mr-2;
+  @apply w-10 h-10 rounded-full text-white hover:text-slate-500 mr-2;
+}
+
+.header-container .icon {
+  @apply rounded-full text-slate-500 hover:text-slate-700 text-3xl;
+}
+
+.header-user-button {
+  @apply w-10 h-10 rounded-full text-white hover:text-slate-500 text-xl;
 }
 </style>

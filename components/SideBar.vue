@@ -18,25 +18,29 @@
       </div>
     </div>
 
-    <!-- NOTE: Cart -->
     <div class="sidebar-menu">
-      <div class="mb-20 sidebar-menu-item">
-        <button class="btn">
-          <font-awesome-icon class="icon" :icon="['fas', 'bars']" />
-        </button>
-        <span class="menu-label">Category</span>
-      </div>
-      <div class="sidebar-menu-item">
+      <div class="sidebar-menu-item mobile-cart-menu">
         <button class="btn">
           <font-awesome-icon class="icon" :icon="['fas', 'shopping-cart']" />
         </button>
         <span class="menu-label">Cart</span>
       </div>
+    </div>
+
+    <!-- NOTE: Cart -->
+    <div class="sidebar-menu">
+      <div class="sidebar-menu-item active">
+        <button class="btn">
+          <font-awesome-icon class="icon" :icon="['fas', 'bars']" />
+        </button>
+        <span class="menu-label">Category</span>
+      </div>
+
       <div class="sidebar-menu-item">
         <button class="btn">
-          <font-awesome-icon class="icon" :icon="['fas', 'user-circle']" />
+          <font-awesome-icon class="icon" :icon="['fas', 'sign-out-alt']" />
         </button>
-        <span class="menu-label">User</span>
+        <span class="menu-label">Logout</span>
       </div>
     </div>
   </div>
@@ -48,15 +52,19 @@ export default {};
 
 <style lang="postcss" scoped>
 .sidebar-container {
-  @apply w-full md:w-[4.4rem] bg-slate-100 h-[4rem] md:h-[calc(100vh-4rem)]  px-2 py-2 md:p-1 md:py-4 flex md:flex-col justify-between;
+  @apply w-full md:w-[4.4rem] bg-slate-100 h-[4rem] md:h-[calc(100vh-4rem)]  px-2 py-2 md:p-1 md:py-4 flex md:flex-col justify-between relative;
 }
 
 .sidebar-menu {
-  @apply w-full  flex flex-row md:flex-col gap-x-2 md:gap-y-2;
+  @apply flex flex-row md:flex-col justify-between gap-x-2 md:gap-y-2 w-1/3 md:w-full;
 }
 
 .sidebar-menu .sidebar-menu-item {
   @apply md:w-full w-[4rem] h-full md:h-16 flex flex-col items-center justify-center bg-slate-100 rounded-md transition-[all] cursor-pointer;
+}
+
+.sidebar-menu .sidebar-menu-item.mobile-cart-menu {
+  @apply bg-orange-600 rounded-full w-[3.2rem] md:w-[4rem] h-[3.2rem] md:h-[4rem]  -mt-5 z-50 md:hidden mx-auto;
 }
 
 .sidebar-menu .sidebar-menu-item.active {
@@ -64,7 +72,7 @@ export default {};
 }
 
 .sidebar-menu .sidebar-menu-item .btn {
-  @apply w-full  text-2xl relative h-full  md:h-auto;
+  @apply w-full  text-lg md:text-2xl relative h-full  md:h-auto;
 }
 
 .sidebar-menu .sidebar-menu-item.active .btn {
@@ -73,6 +81,10 @@ export default {};
 
 .sidebar-menu .sidebar-menu-item .btn .icon {
   @apply text-gray-600;
+}
+
+.sidebar-menu .sidebar-menu-item.mobile-cart-menu .btn .icon {
+  @apply text-white w-8;
 }
 
 .sidebar-menu .sidebar-menu-item.active .btn .icon {
