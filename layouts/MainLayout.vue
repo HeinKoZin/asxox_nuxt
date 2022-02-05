@@ -8,7 +8,9 @@
       <div class="main-layout">
         <Nuxt />
       </div>
+      <Cart />
     </div>
+    <FabCartButton />
   </div>
 </template>
 

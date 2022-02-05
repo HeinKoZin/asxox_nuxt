@@ -44,12 +44,19 @@
       </div>
       <div class="header-right">
         <div class="header-user">
-          <button class="header-user-button" size="sm">
+          <button class="header-user-button" size="sm" @click="toggleUserMenu">
             <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
           </button>
+          <div v-if="isUserMenuOpen" class="user-menu">
+            <ul>
+              <li>Profile</li>
+              <li>Purchased History</li>
+              <li>Logout</li>
+            </ul>
+          </div>
         </div>
-        <div class="header-cart">
-          <button class="header-cart-button" size="sm">
+        <div class="header-cart" v-if="!isCartOpen">
+          <button class="header-cart-button" size="sm" @click="toggleCart">
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
         </div>
@@ -64,14 +71,21 @@ export default {
   data() {
     return {
       //
+      isUserMenuOpen: false,
     };
   },
   computed: {
-    ...mapGetters(["isMobileMenuOpen"]),
+    ...mapGetters(["isMobileMenuOpen", "isCartOpen"]),
   },
   methods: {
     //
-    ...mapMutations(["SET_MOBILE_MENU"]),
+    ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
+    toggleUserMenu() {
+      this.isUserMenuOpen = !this.isUserMenuOpen;
+    },
+    toggleCart() {
+      this.SET_CART(!this.isCartOpen);
+    },
   },
 };
 </script>
@@ -127,6 +141,18 @@ export default {
 
 .header-user {
   @apply flex flex-row h-12 items-center;
+}
+
+.header-user .user-menu {
+  @apply absolute top-16  right-2 md:right-6  bg-white rounded-md shadow-sm shadow-black z-50;
+}
+
+.header-user .user-menu ul {
+  @apply list-none;
+}
+
+.header-user .user-menu li {
+  @apply px-4 py-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer;
 }
 
 .header-user-button {
