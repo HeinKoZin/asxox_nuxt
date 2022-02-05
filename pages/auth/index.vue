@@ -35,6 +35,9 @@
               ></span
             >
           </h2>
+          <AuthErrorMessage v-if="errors['message']">{{
+            errors["message"]
+          }}</AuthErrorMessage>
           <Input
             :data="register"
             field="name"
@@ -256,6 +259,7 @@ export default {
       try {
         this.errorsReset();
         const res = await this.generalPostApis("/register", data);
+        console.log(res);
         if (res.success) {
           this.userLogin(data, null);
           this.$router.push({
@@ -265,7 +269,7 @@ export default {
             path: "/verify",
             type: "register",
           });
-        } else this.errors = res.data;
+        } else this.errors = res.data || res;
       } catch (err) {
         this.errors = err.response.data.data;
       }

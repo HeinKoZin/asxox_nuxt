@@ -5,14 +5,14 @@
       <AuthErrorMessage v-if="errors['error']">{{
         errors["error"]
       }}</AuthErrorMessage>
-      <Input
+      <!-- <Input
         :data="password_reset"
         field="email_or_phone"
         type="text"
         label="Email Address or Phone"
         :error="errors['email_or_phone'] ? errors['email_or_phone'][0] : null"
         class="w-full"
-      />
+      /> -->
       <Input
         :data="password_reset"
         field="password"
@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       password_reset: {
-        email_or_phone: "",
+        email_or_phone: this.$auth.$storage.getLocalStorage("forgot_mail"),
         password: "",
         password_confirmation: "",
         token: this.$auth.$storage.getLocalStorage("token"),
@@ -74,6 +74,7 @@ export default {
           position: "top-right",
           duration: 5000,
         });
+        this.$auth.$storage.removeLocalStorage("forgot_mail");
         this.$router.push("/auth/");
       } else this.errors = res.errors || res.data;
       this.isSpin = false;

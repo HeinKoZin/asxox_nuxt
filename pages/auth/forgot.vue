@@ -2,8 +2,8 @@
   <AuthLayout>
     <div slot="form-title">Forget your password?</div>
     <div class="w-full" slot="form-body">
-      <AuthErrorMessage v-if="errors['error']">{{
-        errors["error"]
+      <AuthErrorMessage v-if="errors['error'] || errors['message']">{{
+        errors["error"] || errors["message"]
       }}</AuthErrorMessage>
       <Input
         :data="forgot"
@@ -61,11 +61,12 @@ export default {
         this.$router.push({
           name: "auth-verify",
         });
+        this.$auth.$storage.setLocalStorage("forgot_mail", email_or_phone);
         this.$auth.$storage.setLocalStorage("verify", {
           path: "password/find/",
           type: "reset",
         });
-      } else this.errors = res.data;
+      } else this.errors = res.data || res;
       this.isSpin = false;
     },
     errorsReset() {
