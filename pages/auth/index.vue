@@ -1,72 +1,336 @@
 <template>
   <div class="auth-container">
-    <div class="info-container-wrapper">Info</div>
-    <div class="form-container-wrapper">
-      <div class="form-container">
-        <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
-        <h2 class="title">Login</h2>
-        <label for="email">Email</label>
-        <input name="email" type="email" placeholder="Email..." />
-        <label for="email">Password</label>
-        <input name="password" type="password" placeholder="Password..." />
-        <div class="flex flex-row items-center w-full mt-5 text-base">
-          <input type="checkbox" name="remember" /><span>Remember me</span>
-        </div>
-        <button class="login-btn">Login</button>
-
-        <div class="social-login-container">
-          <button class="social-login-btn">
-            <img src="~/assets/img/facebook.png" alt="Facebook" />
-          </button>
-          <p class="text-lg font-semibold">OR</p>
-          <button class="social-login-btn">
-            <img src="~/assets/img/google.png" alt="Google" />
-          </button>
-        </div>
+    <AnimationView>
+      <div
+        class="info-container-wrapper"
+        :class="isLogin ? 'login' : 'register'"
+      >
+        Info
       </div>
+    </AnimationView>
+
+    <!-- Register -->
+    <div
+      class="form-container-wrapper"
+      :class="!isLogin ? 'register' : ''"
+      v-show="!isLogin"
+    >
+      <AnimationView>
+        <div class="form-container">
+          <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
+          <h3 class="company-title">Asxox Ecommerce</h3>
+          <h2 class="form-title mt-6">
+            Register
+            <span class="text-xl md:text-2xl float-right"
+              >Have you already signed up?
+              <a
+                class="
+                  underline
+                  text-blue-600
+                  cursor-pointer
+                  underline-offset-2
+                "
+                @click.prevent="handleFormStatus"
+                >Login In</a
+              ></span
+            >
+          </h2>
+          <AuthErrorMessage v-if="errors['message']">{{
+            errors["message"]
+          }}</AuthErrorMessage>
+          <Input
+            :data="register"
+            field="name"
+            type="text"
+            label="Name"
+            :error="errors['name'] ? errors['name'][0] : null"
+            class="w-full"
+          />
+          <Input
+            type="email"
+            :data="register"
+            field="email"
+            :error="errors['email'] ? errors['email'][0] : null"
+            label="Email or Phone"
+            class="w-full"
+          />
+          <Input
+            type="password"
+            label="Password"
+            :data="register"
+            field="password"
+            :error="errors['password'] ? errors['password'][0] : null"
+            class="w-full"
+          />
+          <Input
+            type="password"
+            label="Confirm Password"
+            :data="register"
+            field="retype_password"
+            :error="
+              errors['retype_password'] ? errors['retype_password'][0] : null
+            "
+            class="w-full"
+          />
+          <Input
+            type="checkbox"
+            label="Accept team's terms and conditions"
+            :data="register"
+            field="checkbox"
+            class="w-full"
+          />
+
+          <p
+            class="
+              w-full
+              text-center text-2xl
+              font-dongle
+              leading-4
+              relative
+              -mt-3
+            "
+          >
+            <a href="#" class="text-blue-600 underline">Terms</a>
+            <span> & </span>
+            <a href="#" class="text-blue-600 underline">Conditions</a>
+          </p>
+
+          <Button
+            variant="primary"
+            class="w-full mt-7"
+            :disabled="!isFilledRegister || isSpin"
+            @click.native="userRegister(register)"
+          >
+            <Spinner slot="loader" v-if="isSpin" />
+            Register
+          </Button>
+
+          <div class="social-login-container">
+            <button class="social-login-btn">
+              <img src="~/assets/img/facebook.png" alt="Facebook" />
+            </button>
+            <p class="text-lg font-zen-kurenaido font-semibold">OR</p>
+            <button class="social-login-btn">
+              <img src="~/assets/img/google.png" alt="Google" />
+            </button>
+          </div>
+        </div>
+      </AnimationView>
+    </div>
+
+    <!-- Login -->
+    <div
+      class="form-container-wrapper"
+      :class="isLogin ? 'login' : ''"
+      v-show="isLogin"
+    >
+      <AnimationView>
+        <div class="form-container">
+          <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
+          <h3 class="company-title">Asxox Ecommerce</h3>
+          <h2 class="form-title mt-6">
+            Login
+            <span class="text-xl md:text-2xl float-right"
+              >Are you new member?
+              <a
+                class="
+                  text-blue-600
+                  underline
+                  cursor-pointer
+                  underline-offset-2
+                "
+                @click.prevent="handleFormStatus"
+                >Register here</a
+              ></span
+            >
+          </h2>
+          <Input
+            type="text"
+            :data="login"
+            field="email"
+            label="Email Or Phone"
+            :error="errors['email'] ? errors['email'][0] : null"
+            class="w-full"
+          />
+          <Input
+            type="password"
+            label="Password"
+            :data="login"
+            field="password"
+            :error="
+              (errors['password'] ? errors['password'][0] : null) ||
+              (errors['error'] ? errors['error'] : null)
+            "
+            class="w-full"
+          />
+          <Input
+            type="checkbox"
+            label="Remember me"
+            :data="login"
+            field="checkbox"
+            class="w-full"
+          />
+
+          <Button
+            variant="primary"
+            class="w-full"
+            :disabled="!isFilledLogin || isSpin"
+            @click.native="userLogin(login, '/')"
+          >
+            <Spinner slot="loader" v-if="isSpin" />
+            Login
+          </Button>
+
+          <div class="social-login-container">
+            <button class="social-login-btn">
+              <img src="~/assets/img/facebook.png" alt="Facebook" />
+            </button>
+            <p class="text-lg font-zen-kurenaido font-semibold">OR</p>
+            <button class="social-login-btn">
+              <img src="~/assets/img/google.png" alt="Google" />
+            </button>
+          </div>
+        </div>
+      </AnimationView>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { generalMixins } from "../../mixins/general";
+export default {
+  mixins: [generalMixins],
+  middleware: "authenticated",
+  data: () => ({
+    login: {
+      email: "",
+      password: "",
+      checkbox: false,
+    },
+    register: {
+      name: "",
+      email: "",
+      password: "",
+      retype_password: "",
+      checkbox: false,
+    },
+    isLogin: true,
+    isFilledLogin: false,
+    isFilledRegister: false,
+    isSpin: false,
+    errors: {},
+  }),
+  methods: {
+    // ့handle form status
+    handleFormStatus() {
+      this.isLogin = !this.isLogin;
+      this.errorsReset();
+    },
+    // === login ===
+    async userLogin(data, link) {
+      this.isSpin = true;
+      try {
+        this.errorsReset();
+        let res = await this.$auth.loginWith("local", {
+          data,
+        });
+        if (res.data.success) {
+          link
+            ? this.$toast.open({
+                message: "Successfully Logged in!",
+                type: "success",
+                position: "top-right",
+                duration: 5000,
+              })
+            : null;
+          this.$auth.setUserToken(res.data.data.token);
+          this.$auth.$storage.setUniversal("user", res.data.data.user_info);
+          this.$auth.$storage.setUniversal("loggedIn", "true");
+          link ? this.$router.push("/") : null;
+        }
+      } catch (err) {
+        this.errors = err.response.data.data;
+      }
+      this.isSpin = false;
+    },
+    // === register ===
+    async userRegister(data) {
+      this.isSpin = true;
+      try {
+        this.errorsReset();
+        const res = await this.generalPostApis("/register", data);
+        console.log(res);
+        if (res.success) {
+          this.userLogin(data, null);
+          this.$router.push({
+            name: "auth-verify",
+          });
+          this.$auth.$storage.setLocalStorage("verify", {
+            path: "/verify",
+            type: "register",
+          });
+        } else this.errors = res.data || res;
+      } catch (err) {
+        this.errors = err.response.data.data;
+      }
+      this.isSpin = false;
+    },
+    errorsReset() {
+      this.errors = {};
+    },
+  },
+  watch: {
+    // Check the length of email and password
+    login: {
+      deep: true,
+      handler() {
+        this.isFilledLogin =
+          this.login.email.length > 0 && this.login.password.length > 0;
+      },
+    },
+    register: {
+      deep: true,
+      handler() {
+        this.isFilledRegister =
+          this.register.name.length > 0 &&
+          this.register.email.length > 0 &&
+          this.register.password.length > 0 &&
+          this.register.retype_password.length > 0 &&
+          this.register.checkbox;
+      },
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
 .auth-container {
-  @apply w-full h-screen  flex flex-col md:flex-row  text-base md:text-lg lg:text-xl;
+  @apply w-full min-h-screen   flex flex-col md:flex-row  text-base md:text-lg lg:text-xl;
+}
+
+.animation-area {
+  @apply overflow-hidden w-full flex justify-center items-center;
 }
 
 /* NOTE: Form container */
 .form-container-wrapper {
-  @apply w-full md:w-1/2 bg-white p-6   flex flex-col  box-border justify-center items-center;
+  @apply w-full md:w-5/12 min-h-screen bg-slate-100 p-6 hidden flex-col  box-border justify-center items-center -z-10 absolute;
 }
 
 .form-container-wrapper .form-container {
-  @apply w-1/2 bg-white  rounded-lg flex flex-col justify-center items-center text-base;
+  @apply container md:w-3/5   rounded-lg flex flex-col justify-center items-center text-base animate-slideUp;
 }
 
 .form-container .logo {
   @apply w-16 h-16 mr-0 md:mr-4 mb-4;
 }
 
-.form-container .title {
-  @apply text-black bg-transparent mb-5  py-2 font-dongle text-xl font-bold text-left w-full border-b-2 border-gray-300;
+.form-container .company-title {
+  @apply font-zen-kurenaido text-4xl;
 }
 
-.form-container label {
-  @apply w-full text-left font-sans;
-}
-.form-container input {
-  @apply w-full px-4 p-2 my-2 rounded-lg border border-gray-400 focus:outline-none;
-}
-
-.form-container input[type="checkbox"] {
-  @apply h-4 md:h-5 w-4 md:w-5 mr-3 rounded-lg;
-}
-
-.form-container .login-btn {
-  @apply w-full p-2 mt-5 bg-orange-600 uppercase rounded-lg text-white;
+.form-container .form-title {
+  @apply text-black  p-3  mb-5  py-2 font-dongle text-3xl font-bold text-left w-full border-l-4 border-orange-600;
 }
 
 .social-login-container {
@@ -77,8 +341,27 @@ export default {};
   @apply rounded-full p-0 border-0 w-10 h-10;
 }
 
+.form-container-wrapper.login {
+  @apply right-0 z-50 flex;
+}
+
+.form-container-wrapper.register {
+  @apply left-0 z-50 flex;
+}
+
 /* NOTE: Info container */
 .info-container-wrapper {
-  @apply w-full md:w-1/2 bg-slate-600   flex flex-col p-6 box-border;
+  @apply w-full md:w-7/12 h-full  bg-slate-600   hidden md:flex flex-col p-6 box-border absolute z-40;
+}
+
+.info-container-wrapper.login {
+  @apply animate-loginSlideUp left-0;
+}
+
+.info-container-wrapper.register {
+  @apply animate-registerSlideUp right-0;
+}
+.input-error-message {
+  @apply text-red-600 w-full text-left text-sm font-sans font-semibold;
 }
 </style>
