@@ -18,36 +18,28 @@
         </div>
       </div>
       <div class="cart-body">
-        <div class="cart-item">
-          <div class="cart-item-image">
-            <img src="https://via.placeholder.com/50" alt="" />
-          </div>
-          <div class="cart-item-details">
-            <div class="flex flex-col flex-grow">
-              <div class="cart-item-title">
-                <h4>Product Name</h4>
-              </div>
-              <div class="cart-item-price">
-                <span>$10.00</span>
-              </div>
-            </div>
-            <div class="cart-item-quantity">
-              <div class="cart-item-quantity-input">
-                <button class="btn btn-sm btn-outline-primary">
-                  <font-awesome-icon :icon="['fas', 'minus']" class="icon" />
-                </button>
-                <input type="text" value="1" />
-                <button class="btn btn-sm btn-outline-primary">
-                  <font-awesome-icon :icon="['fas', 'plus']" class="icon" />
-                </button>
-              </div>
-            </div>
-            <div class="cart-item-action">
-              <button class="btn btn-sm btn-outline-primary">
-                <font-awesome-icon :icon="['fas', 'trash']" class="icon" />
-              </button>
-            </div>
-          </div>
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+      </div>
+      <!-- NOTE: Cart's bottom -->
+      <div class="cart-bottom">
+        <div class="cart-bottom-total">
+          <span>Total</span>
+          <span>$10.00</span>
+        </div>
+        <div class="cart-bottom-action">
+          <button class="btn btn-sm btn-primary">
+            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+            <span>Checkout</span>
+          </button>
         </div>
       </div>
     </div>
@@ -92,46 +84,28 @@ export default {
 }
 
 .cart-container .cart-body {
-  @apply flex flex-col justify-center p-6;
+  @apply flex flex-col p-2 h-full  overflow-y-scroll overflow-hidden;
 }
 
-.cart-container .cart-body .cart-item {
-  @apply flex flex-row items-center  w-auto p-2 h-auto bg-white m-1 rounded-lg relative;
+.cart-container .cart-body::-webkit-scrollbar {
+  width: 5px;
 }
 
-.cart-container
-  .cart-body
-  .cart-body-item
-  .cart-body-item-info
-  .cart-body-item-info-title {
-  @apply flex flex-row items-center w-full h-full justify-start;
+.cart-container .cart-body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
 }
 
-.cart-container .cart-body .cart-item .cart-item-image {
-  @apply w-24 rounded-md relative;
+.cart-container .cart-body::-webkit-scrollbar-thumb {
+  @apply bg-orange-600;
+  border-radius: 10px;
 }
 
-.cart-container .cart-body .cart-item .cart-item-image img {
-  @apply object-cover w-full h-auto;
+.cart-bottom {
+  @apply flex flex-row justify-between items-center py-6 px-4 bg-white rounded-bl-xl font-comfortaa;
 }
 
-.cart-quantity {
-  @apply flex flex-row items-center justify-items-end flex-1;
-}
-
-.cart-item-details {
-  @apply flex flex-row justify-start items-center h-full flex-grow px-2;
-}
-
-.cart-item-details input {
-  @apply p-2 w-8 text-center;
-}
-
-.cart-item-quantity {
-  @apply mr-8;
-}
-
-.cart-item-details .cart-item-action {
-  @apply flex flex-row items-center justify-center;
+.cart-bottom .cart-bottom-action button {
+  @apply bg-orange-600 p-2 rounded-lg text-white text-sm md:text-base;
 }
 </style>
