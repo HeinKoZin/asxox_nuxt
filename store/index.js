@@ -1,6 +1,7 @@
 // ==== state ====
 const state = () => ({
   isMobileMenuOpen: false,
+  isCartOpen: false,
 });
 
 // ==== getters =====
@@ -19,6 +20,10 @@ const getters = {
 
   isMobileMenuOpen(state) {
     return state.isMobileMenuOpen;
+  },
+
+  isCartOpen(state) {
+    return state.isCartOpen;
   }
 };
 
@@ -33,6 +38,10 @@ const mutations = {
   SET_MOBILE_MENU(state, data) {
     state.isMobileMenuOpen = data;
   },
+
+  SET_CART(state, data) {
+    state.isCartOpen = data;
+  }
 };
 
 // ==== actions ====
