@@ -19,12 +19,7 @@ export default {
       //
     };
   },
-  methods: {
-    //
-    toggleSidebar() {
-      this.$store.commit("toggleSidebar");
-    },
-  },
+  methods: {},
   computed: {
     //
   },

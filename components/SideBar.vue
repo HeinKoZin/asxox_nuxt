@@ -1,11 +1,16 @@
 <template>
   <div
-    :class="
-      'sidebar-container ' + (isMobileMenuOpen ? 'slide-up' : 'slide-down')
+    :class="'sidebar-container ' + (isMobileMenuOpen ? 'slide-up' : 'slide-down')
     "
   >
     <!-- NOTE: Menu -->
     <div class="sidebar-menu">
+      <!-- NOTE: Logo -->
+      <div class="sidebar-logo">
+        <a href="">
+          <img src="~/assets/img/logo.png" alt="" srcset="" />
+        </a>
+      </div>
       <!-- NOTE: Item -->
       <div class="sidebar-menu-item active">
         <button class="btn">
@@ -14,7 +19,7 @@
         <span class="menu-label">Home</span>
       </div>
       <!-- NOTE: Item -->
-      <div class="sidebar-menu-item active">
+      <div class="sidebar-menu-item">
         <button class="btn">
           <font-awesome-icon class="icon" :icon="['fas', 'store-alt']" />
         </button>
@@ -68,11 +73,12 @@ export default {
 
 <style lang="postcss" scoped>
 .sidebar-container {
-  @apply w-[4.4rem] bg-slate-100 h-[calc(100%-4rem)] top-0 md:h-[calc(100%_-_4rem)] p-1 py-4 flex  flex-col justify-between fixed  z-50 transition-[margin] mt-16;
+  @apply w-[4.4rem] bg-slate-100 h-[calc(100%-4rem)] top-0 md:h-[calc(100%_-_4rem)] p-2 md:px-1 py-4 flex  flex-col justify-between fixed  z-40 transition-[margin] mt-16;
+  /* box-shadow: 2px 10px 5px 1px rgba(0, 0, 0, 0.1); */
 }
 
 .sidebar-container.slide-up {
-  @apply ml-0;
+  @apply ml-0 shadow-md shadow-black md:shadow-none md:shadow-transparent;
 }
 
 .sidebar-container.slide-down {
@@ -83,8 +89,12 @@ export default {
   @apply w-full flex flex-col gap-y-2;
 }
 
+.sidebar-menu .sidebar-logo {
+  @apply w-12 h-auto block md:hidden mx-auto mb-2;
+}
+
 .sidebar-menu .sidebar-menu-item {
-  @apply w-full h-16 flex flex-col items-center justify-center bg-slate-100 rounded-md transition-[all] cursor-pointer;
+  @apply w-full h-14 md:h-16 flex flex-col items-center justify-center bg-slate-100 rounded-md transition-[all] cursor-pointer;
 }
 
 .sidebar-menu .sidebar-menu-item.active {
