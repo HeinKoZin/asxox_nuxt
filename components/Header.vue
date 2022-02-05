@@ -3,8 +3,17 @@
     <div class="header-container">
       <div class="header-left">
         <div class="mobile-header-menu">
-          <button @click="SET_MOBILE_MENU(!isMobileMenuOpen)">
+          <button
+            v-if="!isMobileMenuOpen"
+            @click="SET_MOBILE_MENU(!isMobileMenuOpen)"
+          >
             <font-awesome-icon :icon="['fas', 'bars']" class="icon" />
+          </button>
+          <button
+            v-if="isMobileMenuOpen"
+            @click="SET_MOBILE_MENU(!isMobileMenuOpen)"
+          >
+            <font-awesome-icon :icon="['fas', 'times']" class="icon" />
           </button>
         </div>
         <div class="header-logo">
