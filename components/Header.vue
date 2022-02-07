@@ -60,6 +60,11 @@
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
         </div>
+        <div class="header-wishlist">
+          <button class="header-wishlist-button">
+            <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -132,7 +137,7 @@ export default {
 }
 
 .header-cart .header-cart-button {
-  @apply w-10 h-10 rounded-full text-white hover:text-slate-500 mr-2;
+  @apply w-10 h-10 rounded-full text-white hover:text-slate-500;
 }
 
 .header-container .icon {
@@ -156,6 +161,10 @@ export default {
 }
 
 .header-user-button {
+  @apply w-10 h-10 rounded-full text-white hover:text-slate-500 text-xl;
+}
+
+.header-wishlist .header-wishlist-button {
   @apply w-10 h-10 rounded-full text-white hover:text-slate-500 text-xl;
 }
 
