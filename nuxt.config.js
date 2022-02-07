@@ -28,6 +28,7 @@ export default {
     // Equivalent to { path: '~/components' }
     "~/components",
     { path: "~/components/Common", extensions: ["vue"] },
+    { path: "~/components/Slider", extensions: ["vue"] },
   ],
 
   purgeCSS: {},

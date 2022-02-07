@@ -33,6 +33,6 @@ export default {
 
 <style lang="postcss" scoped>
 .main-layout {
-  @apply p-1 md:p-2 mt-16 ml-0 md:ml-[4.4rem]  min-h-[calc(100%-4rem)]  w-full md:w-[calc(100%_-_4rem)]  items-start;
+  @apply mt-16 ml-0 md:ml-[4.4rem]  min-h-[calc(100%-4rem)]  w-full md:w-[calc(100%_-_4rem)]  items-start;
 }
 </style>

@@ -7,6 +7,12 @@
         <div class="card-header-buttons">
           <button class="w-10 h-10 bg-white rounded-full">
             <font-awesome-icon
+              :icon="['fas', 'heart']"
+              class="text-slate-500 hover:text-slate-700"
+            />
+          </button>
+          <button class="w-10 h-10 bg-white rounded-full">
+            <font-awesome-icon
               :icon="['fas', 'shopping-cart']"
               class="text-slate-500 hover:text-slate-700"
             />

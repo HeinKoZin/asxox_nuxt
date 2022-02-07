@@ -9,13 +9,13 @@
           />
         </button>
         <div class="cart-header-title">
-          <h3>Cart</h3>
+          <h3>Your Cart</h3>
         </div>
-        <div class="cart-header-action">
+        <!-- <div class="cart-header-action">
           <button class="btn btn-sm btn-outline-primary">
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
-        </div>
+        </div> -->
       </div>
       <div class="cart-body">
         <CartItem />
@@ -72,11 +72,11 @@ export default {
 }
 
 .cart-container .cart-header {
-  @apply flex flex-row justify-between items-center p-2 px-4 bg-white rounded-tl-xl;
+  @apply flex flex-row  items-center p-2 px-4 bg-white rounded-tl-xl;
 }
 
 .cart-container .cart-header .cart-header-title {
-  @apply text-2xl;
+  @apply text-3xl flex-grow text-center font-dongle;
 }
 
 .cart-container .cart-header .close-icon {
