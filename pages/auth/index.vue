@@ -74,7 +74,7 @@
           />
           <Input
             type="checkbox"
-            label="Accept team's terms and conditions"
+            label="Accept terms and conditions"
             :data="register"
             field="checkbox"
             class="w-full"
