@@ -68,11 +68,15 @@
               </li>
               <li>
                 <font-awesome-icon
-                  :icon="['fas', 'sign-out-alt']"
+                  :icon="['fas', 'cog']"
                   class="icon"
-                />Logout
+                />Settings
               </li>
             </ul>
+            <button class="user-logout">
+              <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
+              Logout
+            </button>
           </div>
         </div>
         <div class="header-cart" v-if="!isCartOpen">
@@ -169,7 +173,7 @@ export default {
 }
 
 .header-user .user-menu {
-  @apply absolute top-16  right-0  bg-white rounded-md  z-50 p-2;
+  @apply absolute top-16  right-0  bg-white rounded-md  z-50 p-4;
 }
 
 .header-user .user-menu .user-menu-header {
@@ -189,11 +193,15 @@ export default {
 }
 
 .header-user .user-menu li {
-  @apply p-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer flex items-center;
+  @apply p-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer flex items-center rounded-md;
 }
 
-.header-user .user-menu li .icon {
+.header-user .user-menu .icon {
   @apply mr-2 text-xl;
+}
+
+.header-user .user-logout {
+  @apply p-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer w-full flex items-center border justify-center border-slate-300 mt-2 rounded-md;
 }
 
 .header-user-button {
