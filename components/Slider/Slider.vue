@@ -6,16 +6,20 @@
           class="slidable-items-wrapper"
           ref="slidableItems"
           @wheel.prevent="scrollWithWheel($event)"
+          @mouseover="pauseSlider"
+          @mouseleave="playSlider"
         >
           <SlidableItem
             v-for="(product, index) in products"
             :key="index"
             @click.native="setSlideItem(product)"
+            :image="product.image"
+            :isActive="selectImage.currentPosition === index ? true : false"
           />
         </div>
       </div>
       <div class="slider-items">
-        <SliderItem :image="selectImage" />
+        <SliderItem :image="selectImage.image" />
       </div>
     </div>
   </div>
@@ -30,7 +34,7 @@ export default {
       products: [
         {
           image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/seeder/ads/banner/banner4.jpg",
           title: "Hair Scope Alabaster",
         },
         {
@@ -40,11 +44,70 @@ export default {
         },
         {
           image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
+          title: "Hair Scope Alabaster",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
+          title: "Hair Scope Alabaster",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
+          title: "Hair Scope Alabaster",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
+          title: "Hair Scope Alabaster",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
+          title: "Hair Scope Alabaster",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
+          title: "Hair Scope Alabaster",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
+          title: "Hair Scope Alabaster",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
+          title: "Hair Scope Alabaster",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
+          title: "Hair Scope Alabaster",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
+          title: "Hair Scope Alabaster",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
+          title: "Hair Scope Alabaster",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
           title: "Hair Scope Alabaster",
         },
       ],
-      selectImage: null,
+      selectImage: {
+        currentPosition: null,
+        image: null,
+      },
+      sliderInterval: null,
     };
   },
   methods: {
@@ -56,23 +119,61 @@ export default {
       }
     },
 
-    // NOTE: Get current slidable item
+    // Set slide item
     setSlideItem(product) {
-      this.selectImage = product.image;
+      this.selectImage.currentPosition = this.products.indexOf(product);
+      this.selectImage.image = product.image;
+
+      // Note: scroll to current slide item in center of screen
+      this.$refs.slidableItems.scrollLeft =
+        this.$refs.slidableItems.scrollWidth *
+          (this.selectImage.currentPosition / this.products.length) -
+        this.$refs.slidableItems.clientWidth / 2;
     },
 
-    // Set slide item
+    //  Note: change slide item in every 3 seconds
+
+    changeSlideItem() {
+      this.sliderInterval = setInterval(() => {
+        if (this.selectImage.currentPosition < this.products.length - 1) {
+          this.selectImage.currentPosition++;
+        } else {
+          this.selectImage.currentPosition = 0;
+        }
+        this.selectImage.image =
+          this.products[this.selectImage.currentPosition].image;
+
+        // Note: scroll to current slide item in center of screen
+        this.$refs.slidableItems.scrollLeft =
+          this.$refs.slidableItems.scrollWidth *
+            (this.selectImage.currentPosition / this.products.length) -
+          this.$refs.slidableItems.clientWidth / 2;
+      }, 3000);
+    },
+
+    pauseSlider() {
+      clearInterval(this.sliderInterval);
+    },
+
+    playSlider() {
+      this.changeSlideItem();
+    },
   },
   computed: {},
   mounted() {
-    this.selectImage = this.products[0].image;
+    this.selectImage.image = this.products[0].image;
+
+    this.selectImage.currentPosition = 0;
+
+    // NOTE: slide items every 3 s
+    this.changeSlideItem();
   },
 };
 </script>
 
 <style lang="postcss" scoped>
 .slider-container {
-  @apply w-full relative;
+  @apply w-full relative mb-10 md:mb-0;
 }
 
 .slider-container .slider-wrapper {
@@ -80,7 +181,7 @@ export default {
 }
 
 .slider-container .slidable-items {
-  @apply w-full absolute bottom-0 z-40;
+  @apply w-full absolute -bottom-10  md:bottom-0 z-40;
 }
 
 .slider-container .slider-items {
@@ -88,7 +189,7 @@ export default {
 }
 
 .slider-container .slidable-items .slidable-items-wrapper {
-  @apply w-full h-auto  bg-gradient-to-t from-white via-slate-300 flex pt-10 overflow-x-scroll rounded-tl-3xl px-2;
+  @apply w-full h-auto  bg-gradient-to-t from-white via-slate-300 flex pt-5 md:pt-10 overflow-x-scroll rounded-tl-3xl px-2 scroll-smooth;
 }
 
 .slider-container .slidable-items .slidable-items-wrapper::-webkit-scrollbar {
