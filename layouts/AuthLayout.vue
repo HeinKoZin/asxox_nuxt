@@ -6,8 +6,17 @@
         <div class="auth-form-container">
           <div class="w-full">
             <Button
-              class="font-bold px-4 top-40 left-20 float-left rounded-xl border-2 border-slate-400"
+              class="
+                font-bold
+                px-4
+                top-40
+                left-20
+                float-left
+                rounded-xl
+                border-2 border-slate-400
+              "
               size="md"
+              @click.native="$router.back()"
             >
               <font-awesome-icon
                 slot="start-icon"
@@ -17,18 +26,11 @@
           </div>
           <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
           <h3 class="company-title">Asxox Ecommerce</h3>
-          <h2 class="form-title mt-6">Verification</h2>
-          <div class="auth-error-message">
-            <span class="h-6 w-6 mr-1"
-              ><font-awesome-icon
-                :icon="['fas', 'exclamation-triangle']"
-                class="w-full h-full"
-            /></span>
-            Error
-          </div>
+          <h2 class="form-title mt-6"><slot name="form-title"></slot></h2>
+          <!-- === error message === -->
           <div class="w-full">
             <!-- Child will be render here... -->
-            <Nuxt />
+            <slot name="form-body"></slot>
           </div>
         </div>
       </AnimationView>
