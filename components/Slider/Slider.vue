@@ -205,7 +205,7 @@ export default {
 }
 
 .slider-container .slidable-items {
-  @apply w-full absolute -bottom-10  md:bottom-0 z-40;
+  @apply w-full absolute -bottom-10  md:bottom-0 z-30;
 }
 
 .slider-container .slider-items {
