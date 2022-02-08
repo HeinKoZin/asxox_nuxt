@@ -1,10 +1,7 @@
 let apiLink = "http://localhost:8000/api";
 
-
-
 export default {
   mode: "universal",
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "Asxox Ecommerce",
@@ -21,7 +18,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ["@/assets/css/main.css"],
+  css: ["@/assets/css/main.css", "vue-toast-notification/dist/theme-sugar.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   // plugins: ['~/plugins/fontawesome.js'],
@@ -34,29 +31,30 @@ export default {
     { path: "~/components/Slider", extensions: ["vue"] },
   ],
 
-  purgeCSS: {
-  },
+  purgeCSS: {},
 
   plugins: [
-    "~/plugins/v-touch.js"
+    "~/plugins/v-touch.js",
+    "~/plugins/v-toast.js"
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxt/postcss8", '@nuxtjs/fontawesome'],
+  buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
-
+    "cookie-universal-nuxt",
   ],
   fontawesome: {
     icons: {
       solid: true,
-      brands: true
-    }
+      brands: true,
+    },
   },
   auth: {
+    redirect: false,
     strategies: {
       local: {
         token: {
@@ -75,12 +73,6 @@ export default {
           user: { url: "/user", method: "get" },
         },
       },
-    },
-    redirect: {
-      login: "/login",
-      logout: "/",
-      callback: "/login",
-      home: "/",
     },
   },
 
