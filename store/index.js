@@ -1,5 +1,8 @@
 // ==== state ====
-const state = () => ({});
+const state = () => ({
+  isMobileMenuOpen: false,
+  isCartOpen: false,
+});
 
 // ==== getters =====
 const getters = {
@@ -14,6 +17,14 @@ const getters = {
   token() {
     return localStorage.getItem("token");
   },
+
+  isMobileMenuOpen(state) {
+    return state.isMobileMenuOpen;
+  },
+
+  isCartOpen(state) {
+    return state.isCartOpen;
+  }
 };
 
 // ==== mutations =====
@@ -24,6 +35,13 @@ const mutations = {
 
     state.auth.user = JSON.parse(localStorage.getItem("user_info"));
   },
+  SET_MOBILE_MENU(state, data) {
+    state.isMobileMenuOpen = data;
+  },
+
+  SET_CART(state, data) {
+    state.isCartOpen = data;
+  }
 };
 
 // ==== actions ====
@@ -32,7 +50,7 @@ const actions = {
     try {
       const res = await axios.get("user");
       commit("SET_USER", res.data.data);
-    } catch (error) {}
+    } catch (error) { }
   },
 };
 

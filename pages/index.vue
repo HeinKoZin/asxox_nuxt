@@ -1,6 +1,11 @@
 <template>
   <div class="home-container">
-    <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
+    <div class="home-header">
+      <Slider />
+    </div>
+    <div class="product-container">
+      <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
+    </div>
   </div>
 </template>
 
@@ -105,34 +110,6 @@ export default {
           description: "This is a description of the product",
           price: "15000 MMK",
         },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
       ],
     };
   },
@@ -141,6 +118,14 @@ export default {
 
 <style lang="postcss" scoped>
 .home-container {
-  @apply flex flex-wrap h-screen p-4  w-[calc(100%_-_4rem)] overflow-y-scroll items-start;
+  @apply flex  flex-wrap;
+}
+
+.home-header {
+  @apply w-full;
+}
+
+.product-container {
+  @apply flex flex-wrap p-1 md:p-2;
 }
 </style>

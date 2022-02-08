@@ -28,11 +28,12 @@ export default {
     // Equivalent to { path: '~/components' }
     "~/components",
     { path: "~/components/Common", extensions: ["vue"] },
+    { path: "~/components/Slider", extensions: ["vue"] },
   ],
 
   purgeCSS: {},
 
-  plugins: ["~/plugins/v-toast.js"],
+  plugins: ["~/plugins/v-toast.js", "~/plugins/v-touch.js"],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],
 

@@ -1,7 +1,16 @@
 <template>
-  <div class="sidebar-container">
+  <div
+    :class="'sidebar-container ' + (isMobileMenuOpen ? 'slide-up' : 'slide-down')
+    "
+  >
     <!-- NOTE: Menu -->
     <div class="sidebar-menu">
+      <!-- NOTE: Logo -->
+      <div class="sidebar-logo">
+        <a href="">
+          <img src="~/assets/img/logo.png" alt="" srcset="" />
+        </a>
+      </div>
       <!-- NOTE: Item -->
       <div class="sidebar-menu-item active">
         <button class="btn">
@@ -18,45 +27,74 @@
       </div>
     </div>
 
-    <!-- NOTE: Cart -->
-    <div class="sidebar-menu">
-      <div class="mb-20 sidebar-menu-item">
-        <button class="btn">
-          <font-awesome-icon class="icon" :icon="['fas', 'bars']" />
-        </button>
-        <span class="menu-label">Category</span>
-      </div>
-      <div class="sidebar-menu-item">
+    <!-- <div class="sidebar-menu">
+      <div class="sidebar-menu-item mobile-cart-menu">
         <button class="btn">
           <font-awesome-icon class="icon" :icon="['fas', 'shopping-cart']" />
         </button>
         <span class="menu-label">Cart</span>
       </div>
+    </div> -->
+
+    <!-- NOTE: Cart -->
+    <div class="sidebar-menu">
+      <div class="sidebar-menu-item active">
+        <button class="btn">
+          <font-awesome-icon class="icon" :icon="['fas', 'bars']" />
+        </button>
+        <span class="menu-label">Category</span>
+      </div>
+
       <div class="sidebar-menu-item">
         <button class="btn">
-          <font-awesome-icon class="icon" :icon="['fas', 'user-circle']" />
+          <font-awesome-icon class="icon" :icon="['fas', 'sign-out-alt']" />
         </button>
-        <span class="menu-label">User</span>
+        <span class="menu-label">Logout</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  data() {
+    return {
+      //
+    };
+  },
+  computed: {
+    ...mapGetters({
+      isMobileMenuOpen: "isMobileMenuOpen",
+    }),
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
 .sidebar-container {
-  @apply w-[4.4rem] bg-slate-100 h-screen p-1 py-4 flex flex-col justify-between;
+  @apply w-[4.4rem] bg-slate-100 h-[calc(100%-4rem)] top-0 md:h-[calc(100%_-_4rem)] p-2 md:px-1 py-4 flex  flex-col justify-between fixed  z-40 transition-[margin] mt-16;
+  /* box-shadow: 2px 10px 5px 1px rgba(0, 0, 0, 0.1); */
+}
+
+.sidebar-container.slide-up {
+  @apply ml-0 shadow-md shadow-black md:shadow-none md:shadow-transparent;
+}
+
+.sidebar-container.slide-down {
+  @apply -ml-[4.4rem] md:ml-0;
 }
 
 .sidebar-menu {
-  @apply w-full  flex flex-col gap-y-2;
+  @apply w-full flex flex-col gap-y-2;
+}
+
+.sidebar-menu .sidebar-logo {
+  @apply w-12 h-auto block md:hidden mx-auto mb-2;
 }
 
 .sidebar-menu .sidebar-menu-item {
-  @apply w-full h-16 flex flex-col items-center justify-center bg-slate-100 rounded-md transition-[all] cursor-pointer;
+  @apply w-full h-14 md:h-16 flex flex-col items-center justify-center bg-slate-100 rounded-md transition-[all] cursor-pointer;
 }
 
 .sidebar-menu .sidebar-menu-item.active {
