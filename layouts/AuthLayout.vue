@@ -18,6 +18,14 @@
           <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
           <h3 class="company-title">Asxox Ecommerce</h3>
           <h2 class="form-title mt-6">Verification</h2>
+          <div class="auth-error-message">
+            <span class="h-6 w-6 mr-1"
+              ><font-awesome-icon
+                :icon="['fas', 'exclamation-triangle']"
+                class="w-full h-full"
+            /></span>
+            Error
+          </div>
           <div class="w-full">
             <!-- Child will be render here... -->
             <Nuxt />
@@ -59,5 +67,9 @@ export default {};
 
 .auth-form-container .form-title {
   @apply text-black  p-3  mb-5  py-2 font-dongle text-3xl font-bold text-left w-full border-l-4 border-orange-600;
+}
+
+.auth-error-message {
+  @apply text-white w-full font-bold py-2 px-3 text-lg mb-4 bg-red-500 rounded-lg flex  items-center;
 }
 </style>

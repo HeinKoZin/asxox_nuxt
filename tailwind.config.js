@@ -10,9 +10,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      variants: {
+        textColor: ['responsive', 'hover', 'focus', 'group-hover'],
+        backgroundColor: ['responsive', 'hover', 'focus', 'group-hover'],
+      },
       fontFamily: {
         "dongle": ['Dongle', defaultTheme.fontFamily.sans],
-        "zen-kurenaido": ['Zen Kurenaido', defaultTheme.fontFamily.sans]
+        "zen-kurenaido": ['Zen Kurenaido', defaultTheme.fontFamily.sans],
+        "comfortaa": ['Comfortaa', 'cursive'],
+        "quicksand": ['Quicksand', defaultTheme.fontFamily.sans],
       },
       animation: {
         fadeIn: "fade-in 0.5s ease-in-out",
@@ -20,9 +26,10 @@ module.exports = {
         slideUp: "slide-up 0.5s ease-in-out",
         slideDown: "slide-down 0.5s ease-in-out",
         slideLeft: "slide-left 0.5s ease-in-out",
-        slideRight: "slide-right 0.5s ease-in-out",
+        slideRight: "slide-right 0.3s ease-in-out",
         loginSlideUp: "login-slide-up 0.5s ease-in-out",
         registerSlideUp: "register-slide-up 0.5s ease-in-out",
+
       },
       keyframes: {
         "fade-in": {
@@ -51,6 +58,26 @@ module.exports = {
             transform: "translateY(0)",
           }
         },
+        "slide-left": {
+          "0%": {
+            opacity: 0,
+            transform: "translateX(0)",
+          },
+          "100%": {
+            opacity: 1,
+            transform: "translateX(-100%)",
+          }
+        },
+        "slide-right": {
+          "0%": {
+            opacity: 0,
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            opacity: 1,
+            transform: "translateX(0)",
+          },
+        },
         "login-slide-up": {
           "0%": {
             // transform: "translateX(100%)",
@@ -78,5 +105,8 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp')
+  ],
+
 }

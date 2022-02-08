@@ -1,7 +1,16 @@
 <template>
-  <div class="w-screen h-screen bg-slate-200">
-    <SideBar />
-    <Nuxt />
+  <div class="w-full h-full bg-slate-200">
+    <Header />
+    <div
+      class="flex w-full h-[calc(100%-4rem)] flex-col-reverse md:flex-row relative"
+    >
+      <SideBar />
+      <div class="main-layout">
+        <Nuxt />
+      </div>
+      <Cart />
+    </div>
+    <FabCartButton />
   </div>
 </template>
 
@@ -12,9 +21,7 @@ export default {
       //
     };
   },
-  methods: {
-    //
-  },
+  methods: {},
   computed: {
     //
   },
@@ -24,4 +31,8 @@ export default {
 };
 </script>
 
-<style lang="postcss" scoped></style>
+<style lang="postcss" scoped>
+.main-layout {
+  @apply mt-16 ml-0 md:ml-[4.4rem]  min-h-[calc(100%-4rem)]  w-full md:w-[calc(100%_-_4rem)]  items-start;
+}
+</style>
