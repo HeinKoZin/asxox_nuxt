@@ -18,7 +18,11 @@
           />
         </div>
       </div>
-      <div class="slider-items">
+      <div
+        class="slider-items"
+        v-touch:swipe.left="leftSwipeHandler"
+        v-touch:swipe.right="rightSwipeHandler"
+      >
         <SliderItem :image="selectImage.image" />
       </div>
     </div>
@@ -111,6 +115,31 @@ export default {
     };
   },
   methods: {
+    // Change slide item
+    changeSliderItem(action) {
+      if (action === "next") {
+        if (this.selectImage.currentPosition < this.products.length - 1) {
+          this.selectImage.currentPosition++;
+        } else {
+          this.selectImage.currentPosition = 0;
+        }
+      } else if (action === "prev") {
+        if (this.selectImage.currentPosition < 1) {
+          this.selectImage.currentPosition = this.products.length - 1;
+        } else {
+          this.selectImage.currentPosition--;
+        }
+      }
+      this.selectImage.image =
+        this.products[this.selectImage.currentPosition].image;
+
+      // Note: scroll to current slide item in center of screen
+      this.$refs.slidableItems.scrollLeft =
+        this.$refs.slidableItems.scrollWidth *
+          (this.selectImage.currentPosition / this.products.length) -
+        this.$refs.slidableItems.clientWidth / 2;
+    },
+
     scrollWithWheel(e) {
       if (e.deltaY > 0) {
         this.$refs.slidableItems.scrollLeft += 100;
@@ -133,21 +162,9 @@ export default {
 
     //  Note: change slide item in every 3 seconds
 
-    changeSlideItem() {
+    changeSliderItemWithTimer() {
       this.sliderInterval = setInterval(() => {
-        if (this.selectImage.currentPosition < this.products.length - 1) {
-          this.selectImage.currentPosition++;
-        } else {
-          this.selectImage.currentPosition = 0;
-        }
-        this.selectImage.image =
-          this.products[this.selectImage.currentPosition].image;
-
-        // Note: scroll to current slide item in center of screen
-        this.$refs.slidableItems.scrollLeft =
-          this.$refs.slidableItems.scrollWidth *
-            (this.selectImage.currentPosition / this.products.length) -
-          this.$refs.slidableItems.clientWidth / 2;
+        this.changeSliderItem("next");
       }, 3000);
     },
 
@@ -156,7 +173,14 @@ export default {
     },
 
     playSlider() {
-      this.changeSlideItem();
+      this.changeSliderItemWithTimer();
+    },
+
+    leftSwipeHandler() {
+      this.changeSliderItem("next");
+    },
+    rightSwipeHandler() {
+      this.changeSliderItem("prev");
     },
   },
   computed: {},
@@ -166,7 +190,7 @@ export default {
     this.selectImage.currentPosition = 0;
 
     // NOTE: slide items every 3 s
-    this.changeSlideItem();
+    this.changeSliderItemWithTimer();
   },
 };
 </script>
