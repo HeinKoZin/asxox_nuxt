@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <div class="home-header">
-      <Slider />
+      <Slider :products="sliderItems" />
     </div>
     <div class="product-container">
       <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
@@ -115,15 +115,15 @@ export default {
     };
   },
   methods: {
-    async fetchProducts() {
+    async fetchSlideAds() {
       try {
         const res = await this.$axios.get("ads/widget/6");
-        console.log(res);
+        this.sliderItems = res.data.data;
       } catch (error) {}
     },
   },
   mounted() {
-    this.fetchProducts();
+    this.fetchSlideAds();
   },
 };
 </script>

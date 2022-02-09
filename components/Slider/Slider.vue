@@ -13,7 +13,7 @@
             v-for="(product, index) in products"
             :key="index"
             @click.native="setSlideItem(product)"
-            :image="product.image"
+            :image="product.photo"
             :isActive="selectImage.currentPosition === index ? true : false"
           />
         </div>
@@ -31,43 +31,26 @@
 
 <script>
 export default {
+  props: ["products"],
   data() {
     return {
       //
       slidableItemsCount: this.$refs?.slidableItems?.childElementCount,
-      products: [
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/seeder/ads/banner/banner4.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-      ],
       selectImage: {
         currentPosition: null,
         image: null,
       },
       sliderInterval: null,
     };
+  },
+  watch: {
+    products: {
+      handler() {
+        this.selectImage.image = this.products[0]?.photo;
+        this.selectImage.currentPosition = 0;
+      },
+      immediate: true,
+    },
   },
   methods: {
     // Change slide item
@@ -86,7 +69,7 @@ export default {
         }
       }
       this.selectImage.image =
-        this.products[this.selectImage.currentPosition].image;
+        this.products[this.selectImage.currentPosition].photo;
 
       // Note: scroll to current slide item in center of screen
       this.$refs.slidableItems.scrollLeft =
@@ -106,7 +89,7 @@ export default {
     // Set slide item
     setSlideItem(product) {
       this.selectImage.currentPosition = this.products.indexOf(product);
-      this.selectImage.image = product.image;
+      this.selectImage.image = product.photo;
 
       // Note: scroll to current slide item in center of screen
       this.$refs.slidableItems.scrollLeft =
@@ -138,11 +121,16 @@ export default {
       this.changeSliderItem("prev");
     },
   },
-  computed: {},
+  computed: {
+    test() {
+      // console.log(this.products);
+      // if (this.products[1]) this.products[0].photo;
+    },
+  },
   mounted() {
-    this.selectImage.image = this.products[0].image;
+    // this.selectImage.image = this.products[0].photo;
 
-    this.selectImage.currentPosition = 0;
+    // this.selectImage.currentPosition = 0;
 
     // NOTE: slide items every 3 s
     this.changeSliderItemWithTimer();
