@@ -47,7 +47,10 @@
           <button class="header-user-button" size="sm" @click="toggleUserMenu">
             <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
           </button>
-          <div v-if="isUserMenuOpen && $auth.loggedIn" class="user-menu">
+          <div
+            v-if="isUserMenuOpen && $auth.$storage.getLocalStorage('loggedIn')"
+            class="user-menu"
+          >
             <div class="user-menu-header">
               <span class="username"
                 >Hi, {{ $auth.user ? $auth.user.data.name : "" }}</span
