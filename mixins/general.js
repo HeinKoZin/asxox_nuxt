@@ -17,6 +17,8 @@ export const generalMixins = {
         return error.response;
       }
     },
+
+    // === toast ===
     toast(message, type) {
       this.$toast.open({
         message,

@@ -106,7 +106,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["isMobileMenuOpen", "isCartOpen"]),
+    ...mapGetters(["isMobileMenuOpen", "isCartOpen", "isAuthenticated"]),
   },
   methods: {
     ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
@@ -120,14 +120,14 @@ export default {
     },
     // === logout ===
     async userLogout() {
-      const res = await this.generalPostApis("/logout");
-      if (res.success) {
+      await this.$auth.logout("local");
+
+      // === no response from auth logout so reuse isAuthenticated ===
+      if (!this.isAuthenticated) {
         this.$auth.$storage.removeUniversal("user");
         this.$auth.$storage.removeUniversal("loggedIn");
         this.toast("You have been logged out!", "success");
-      } else {
-        this.toast("Fail to log out!", "error");
-      }
+      } else this.toast("Fail to log out!", "error");
     },
   },
 };

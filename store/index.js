@@ -24,7 +24,7 @@ const getters = {
 
   isCartOpen(state) {
     return state.isCartOpen;
-  }
+  },
 };
 
 // ==== mutations =====
@@ -41,7 +41,7 @@ const mutations = {
 
   SET_CART(state, data) {
     state.isCartOpen = data;
-  }
+  },
 };
 
 // ==== actions ====
@@ -50,7 +50,7 @@ const actions = {
     try {
       const res = await axios.get("user");
       commit("SET_USER", res.data.data);
-    } catch (error) { }
+    } catch (error) {}
   },
 };
 
