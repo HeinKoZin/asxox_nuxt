@@ -3,6 +3,7 @@
     <div class="home-header">
       <Slider />
     </div>
+    <CategoryBar />
     <div class="product-container">
       <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
     </div>
@@ -10,7 +11,9 @@
 </template>
 
 <script>
+import Category from "../components/Common/Category.vue";
 export default {
+  components: { Category },
   layout: "MainLayout",
   name: "HomePage",
 
@@ -118,7 +121,7 @@ export default {
 
 <style lang="postcss" scoped>
 .home-container {
-  @apply flex  flex-wrap;
+  @apply w-full;
 }
 
 .home-header {

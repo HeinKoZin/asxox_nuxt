@@ -197,7 +197,7 @@ export default {
 
 <style lang="postcss" scoped>
 .slider-container {
-  @apply w-full relative mb-10 md:mb-0;
+  @apply w-full relative mb-0 md:mb-0;
 }
 
 .slider-container .slider-wrapper {
@@ -205,7 +205,7 @@ export default {
 }
 
 .slider-container .slidable-items {
-  @apply w-full absolute -bottom-10  md:bottom-0 z-30;
+  @apply w-full absolute  bottom-0 z-30;
 }
 
 .slider-container .slider-items {
@@ -217,7 +217,7 @@ export default {
 }
 
 .slider-container .slidable-items .slidable-items-wrapper::-webkit-scrollbar {
-  @apply h-2;
+  @apply h-2 hidden md:block;
 }
 
 .slider-container
