@@ -17,5 +17,13 @@ export const generalMixins = {
         return error.response;
       }
     },
+    toast(message, type) {
+      this.$toast.open({
+        message,
+        type,
+        position: "top-right",
+        duration: 5000,
+      });
+    },
   },
 };

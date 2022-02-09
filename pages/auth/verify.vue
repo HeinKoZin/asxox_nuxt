@@ -28,8 +28,8 @@
 
 
 <script>
-import { generalMixins } from "../../mixins/general";
-import AuthLayout from "../../layouts/AuthLayout";
+import { generalMixins } from "@/mixins/general";
+import AuthLayout from "@/layouts/AuthLayout";
 export default {
   components: { AuthLayout },
   mixins: [generalMixins],
@@ -54,12 +54,7 @@ export default {
         const link = verify.path + two_factor_code;
         const res = await this.generalGetApis(link, null);
         if (res.data?.success) {
-          this.$toast.open({
-            message: "Successfully Verified!",
-            type: "success",
-            position: "top-right",
-            duration: 5000,
-          });
+          this.toast("Successfully Verified", "success");
           this.$router.push({
             name: "auth-new-password",
           });
@@ -70,12 +65,7 @@ export default {
           two_factor_code,
         });
         if (res.success) {
-          this.$toast.open({
-            message: "Successfully Verified!",
-            type: "success",
-            position: "top-right",
-            duration: 5000,
-          });
+          this.toast("Successfully Verfified", "success");
           this.$router.push("/");
         } else this.filterErrors(res);
       }

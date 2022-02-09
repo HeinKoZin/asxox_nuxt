@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import AuthLayout from "../../layouts/AuthLayout.vue";
-import { generalMixins } from "../../mixins/general";
+import AuthLayout from "@/layouts/AuthLayout.vue";
+import { generalMixins } from "@/mixins/general";
 export default {
   components: { AuthLayout },
   mixins: [generalMixins],
@@ -52,12 +52,7 @@ export default {
         email_or_phone,
       });
       if (res.success) {
-        this.$toast.open({
-          message: "We have sent code!",
-          type: "success",
-          position: "top-right",
-          duration: 5000,
-        });
+        this.toast("We have sent code!", "success");
         this.$router.push({
           name: "auth-verify",
         });

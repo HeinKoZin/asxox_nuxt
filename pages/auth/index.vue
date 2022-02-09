@@ -197,7 +197,7 @@
 </template>
 
 <script>
-import { generalMixins } from "../../mixins/general";
+import { generalMixins } from "@/mixins/general";
 export default {
   mixins: [generalMixins],
   middleware: "authenticated",
@@ -235,14 +235,7 @@ export default {
           data,
         });
         if (res.data.success) {
-          link
-            ? this.$toast.open({
-                message: "Successfully Logged in!",
-                type: "success",
-                position: "top-right",
-                duration: 5000,
-              })
-            : null;
+          link ? this.toast("Successfully Logged in!", "success") : null;
           this.$auth.setUserToken(res.data.data.token);
           this.$auth.$storage.setUniversal("user", res.data.data.user_info);
           this.$auth.$storage.setUniversal("loggedIn", "true");
@@ -259,7 +252,6 @@ export default {
       try {
         this.errorsReset();
         const res = await this.generalPostApis("/register", data);
-        console.log(res);
         if (res.success) {
           this.userLogin(data, null);
           this.$router.push({

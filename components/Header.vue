@@ -73,7 +73,7 @@
                 />Settings
               </li>
             </ul>
-            <button class="user-logout">
+            <button class="user-logout" @click="userLogout">
               <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
               Logout
             </button>
@@ -96,7 +96,9 @@
 
 <script>
 import { mapMutations, mapGetters } from "vuex";
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
   data() {
     return {
       //
@@ -107,13 +109,25 @@ export default {
     ...mapGetters(["isMobileMenuOpen", "isCartOpen"]),
   },
   methods: {
-    //
     ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
+
     toggleUserMenu() {
       this.isUserMenuOpen = !this.isUserMenuOpen;
     },
+
     toggleCart() {
       this.SET_CART(!this.isCartOpen);
+    },
+    // === logout ===
+    async userLogout() {
+      const res = await this.generalPostApis("/logout");
+      if (res.success) {
+        this.$auth.$storage.removeUniversal("user");
+        this.$auth.$storage.removeUniversal("loggedIn");
+        this.toast("You have been logged out!", "success");
+      } else {
+        this.toast("Fail to log out!", "error");
+      }
     },
   },
 };
