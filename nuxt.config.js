@@ -77,7 +77,9 @@ export default {
   axios: {
     baseURL: apiLink,
   },
-
+  router: {
+    middleware: ["setDefaultToken"],
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extractCSS: true,

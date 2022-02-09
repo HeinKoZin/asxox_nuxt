@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       //
+      sliderItems: {},
       datas: [
         {
           image:
@@ -112,6 +113,17 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    async fetchProducts() {
+      try {
+        const res = await this.$axios.get("ads/widget/6");
+        console.log(res);
+      } catch (error) {}
+    },
+  },
+  mounted() {
+    this.fetchProducts();
   },
 };
 </script>

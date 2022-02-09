@@ -61,51 +61,6 @@ export default {
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
           title: "Hair Scope Alabaster",
         },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/29/ads/29-05-2021_Asxox_460b1d14fa7bd84.72902738.jpg",
-          title: "Hair Scope Alabaster",
-        },
       ],
       selectImage: {
         currentPosition: null,

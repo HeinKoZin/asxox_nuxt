@@ -24,7 +24,7 @@ export const generalMixins = {
         message,
         type,
         position: "top-right",
-        duration: 5000,
+        duration: 4000,
       });
     },
   },
