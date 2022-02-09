@@ -47,10 +47,15 @@
           <button class="header-user-button" size="sm" @click="toggleUserMenu">
             <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
           </button>
-          <div v-if="isUserMenuOpen" class="user-menu">
+          <div v-if="isUserMenuOpen && $auth.loggedIn" class="user-menu">
             <div class="user-menu-header">
-              <span class="username">Hi, Hein Ko Zin</span>
-              <span class="user-email">heinkozin4@gmail.com</span>
+              <span class="username"
+                >Hi, {{ $auth.user ? $auth.user.data.name : "" }}</span
+              >
+              <span class="user-email">{{
+                ($auth.user ? $auth.user.data.email : "") ||
+                ($auth.user ? $auth.user.data.phone : "")
+              }}</span>
             </div>
             <hr />
             <ul>
@@ -106,7 +111,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["isMobileMenuOpen", "isCartOpen", "isAuthenticated"]),
+    ...mapGetters([
+      "isMobileMenuOpen",
+      "isCartOpen",
+      "isAuthenticated",
+      "loggedInUser",
+    ]),
   },
   methods: {
     ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
