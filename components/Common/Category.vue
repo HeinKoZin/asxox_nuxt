@@ -11,13 +11,17 @@ export default {};
 
 <style lang="postcss" scoped>
 .category {
-  @apply flex p-2 px-4 rounded-full border border-slate-400 bg-slate-100  text-sm md:text-base font-comfortaa;
+  @apply flex p-2 px-4 rounded-md border border-slate-400   text-sm md:text-base font-comfortaa;
 }
 .active {
-  @apply bg-white;
+  @apply bg-orange-600 text-white;
 }
 
 .category .icon {
-  @apply text-lg mr-2 text-orange-600;
+  @apply text-lg mr-2 text-slate-500;
+}
+
+.category.active .icon {
+  @apply text-white;
 }
 </style>

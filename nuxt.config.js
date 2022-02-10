@@ -32,6 +32,8 @@ export default {
     "~/components",
     { path: "~/components/Common", extensions: ["vue"] },
     { path: "~/components/Slider", extensions: ["vue"] },
+    { path: "~/components/AdsShop", extensions: ["vue"] },
+
   ],
 
   purgeCSS: {

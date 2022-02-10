@@ -44,11 +44,11 @@ export default {
 
 <style lang="postcss" scoped>
 .category-bar-container {
-  @apply w-full h-16 my-5 sticky top-16 z-20;
+  @apply w-full h-16 my-5 relative z-20;
 }
 
 .category-bar-wrapper {
-  @apply w-full overflow-x-scroll flex absolute p-4  bg-slate-100 gap-4;
+  @apply w-full overflow-x-scroll flex absolute p-4   gap-4;
 }
 
 .category-bar-wrapper::-webkit-scrollbar {

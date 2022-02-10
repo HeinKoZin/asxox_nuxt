@@ -213,11 +213,11 @@ export default {
 }
 
 .slider-container .slidable-items .slidable-items-wrapper {
-  @apply w-full h-auto  bg-gradient-to-t from-white via-slate-300 flex pt-5 md:pt-10 overflow-x-scroll rounded-tl-3xl px-2 scroll-smooth;
+  @apply w-full h-auto  bg-gradient-to-t from-slate-200 via-slate-300 flex pt-5 md:pt-10 overflow-x-scroll rounded-tl-3xl px-2 scroll-smooth;
 }
 
 .slider-container .slidable-items .slidable-items-wrapper::-webkit-scrollbar {
-  @apply h-2 hidden md:block;
+  @apply hidden;
 }
 
 .slider-container
