@@ -29,6 +29,8 @@ export default {
     "~/components",
     { path: "~/components/Common", extensions: ["vue"] },
     { path: "~/components/Slider", extensions: ["vue"] },
+    { path: "~/components/AdsShop", extensions: ["vue"] },
+
   ],
 
   purgeCSS: {},
@@ -51,7 +53,8 @@ export default {
     icons: {
       solid: true,
       brands: true,
-    },
+      regular: true
+    }
   },
   auth: {
     redirect: false,
