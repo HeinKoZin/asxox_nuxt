@@ -1,5 +1,9 @@
 <template>
-  <div class="product-card-container-wrapper group">
+  <div
+    :class="'group ' +
+      (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
+    "
+  >
     <div
       class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md"
     >
@@ -42,7 +46,7 @@
 
 <script>
 export default {
-  props: ["data"],
+  props: { data: Object, isAdsProduct: Boolean },
   data() {
     return {
       //
@@ -63,6 +67,10 @@ export default {
 <style lang="postcss" scoped>
 .product-card-container-wrapper {
   @apply w-6/12 md:w-[20%] xl:w-[12.5%] h-auto p-1;
+}
+
+.ads-product {
+  @apply min-w-[60%] max-w-[60%] md:min-w-[25%] md:max-w-[25%] xl:min-w-[14.285%] xl:max-w-[14.285%] h-auto p-1 text-slate-800;
 }
 
 .product-card-container {
