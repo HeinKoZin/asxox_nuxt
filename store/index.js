@@ -2,6 +2,7 @@
 const state = () => ({
   isMobileMenuOpen: false,
   isCartOpen: false,
+  cartProductList: [],
 });
 
 // ==== getters =====
@@ -25,6 +26,10 @@ const getters = {
   isCartOpen(state) {
     return state.isCartOpen;
   },
+
+  cartProductList(state) {
+    return state.cartProductList;
+  },
 };
 
 // ==== mutations =====
@@ -41,6 +46,10 @@ const mutations = {
 
   SET_CART(state, data) {
     state.isCartOpen = data;
+  },
+
+  SET_CART_PRODUCTS(state, data) {
+    state.cartProductList = data;
   },
 };
 

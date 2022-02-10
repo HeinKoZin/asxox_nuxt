@@ -1,11 +1,20 @@
 <template>
   <div class="product-card-container-wrapper group">
     <div
-      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md"
+      class="
+        transition-[translate]
+        product-card-container
+        group-hover:shadow-slate-300
+        group-hover:-translate-y-[0.05rem]
+        group-hover:shadow-md
+      "
     >
       <div class="card-header">
         <div class="card-header-buttons">
-          <button class="w-10 h-10 bg-white rounded-full">
+          <button
+            class="w-10 h-10 bg-white rounded-full"
+            @click="addToCart(data.id)"
+          >
             <font-awesome-icon
               :icon="['fas', 'heart']"
               class="text-slate-500 hover:text-slate-700"
@@ -41,7 +50,9 @@
 </template>
 
 <script>
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
   props: ["data"],
   data() {
     return {
@@ -49,7 +60,13 @@ export default {
     };
   },
   methods: {
-    //
+    async addToCart(product_id) {
+      if (!this.checkAuthenticated()) return true;
+      const res = await this.generalPostApis("/wishlists", { product_id });
+      if (res.status === "success") {
+        this.toast(res.message, "success");
+      } else this.toast(res.message, "error");
+    },
   },
   computed: {
     //

@@ -23,6 +23,7 @@ export default {
       sliderItems: {},
       datas: [
         {
+          id: 1,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",
@@ -30,6 +31,7 @@ export default {
           price: "15000 MMK",
         },
         {
+          id: 2,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",
@@ -37,6 +39,7 @@ export default {
           price: "15000 MMK",
         },
         {
+          id: 3,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5023f807938.62020912.jpg",
           title: "Elastic Fitness Stick",
@@ -45,6 +48,7 @@ export default {
           price: "36000 MMK",
         },
         {
+          id: 4,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",
@@ -52,6 +56,7 @@ export default {
           price: "15000 MMK",
         },
         {
+          id: 5,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",
@@ -59,6 +64,7 @@ export default {
           price: "15000 MMK",
         },
         {
+          id: 6,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",
@@ -66,6 +72,7 @@ export default {
           price: "15000 MMK",
         },
         {
+          id: 7,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",
@@ -73,6 +80,7 @@ export default {
           price: "15000 MMK",
         },
         {
+          id: 8,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",
@@ -80,6 +88,7 @@ export default {
           price: "15000 MMK",
         },
         {
+          id: 9,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",
@@ -87,6 +96,7 @@ export default {
           price: "15000 MMK",
         },
         {
+          id: 10,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",
@@ -94,6 +104,7 @@ export default {
           price: "15000 MMK",
         },
         {
+          id: 11,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",
@@ -101,6 +112,7 @@ export default {
           price: "15000 MMK",
         },
         {
+          id: 12,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",
@@ -108,6 +120,7 @@ export default {
           price: "15000 MMK",
         },
         {
+          id: 13,
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
           title: "Hair Scope Alabaster",

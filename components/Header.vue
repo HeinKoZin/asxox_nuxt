@@ -119,10 +119,11 @@ export default {
       "isCartOpen",
       "isAuthenticated",
       "loggedInUser",
+      "cartProductList",
     ]),
   },
   methods: {
-    ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
+    ...mapMutations(["SET_MOBILE_MENU", "SET_CART", "SET_CART_PRODUCTS"]),
 
     toggleUserMenu() {
       this.isUserMenuOpen = !this.isUserMenuOpen;
@@ -142,6 +143,9 @@ export default {
         this.toast("You have been logged out!", "success");
       } else this.toast("Fail to log out!", "error");
     },
+  },
+  mounted() {
+    // this.SET_CART_PRODUCTS()
   },
 };
 </script>

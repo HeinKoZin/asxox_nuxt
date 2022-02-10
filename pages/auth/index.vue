@@ -235,11 +235,13 @@ export default {
           data,
         });
         if (res.data.success) {
-          link ? this.toast("Successfully Logged in!", "success") : null;
+          if (link) {
+            this.toast("Successfully Logged in!", "success");
+            this.$router.push("/");
+          }
           this.$auth.setUserToken(res.data.data.token);
           this.$auth.$storage.setUniversal("user", res.data.data.user_info);
           this.$auth.$storage.setUniversal("loggedIn", "true");
-          link ? this.$router.push("/") : null;
         }
       } catch (err) {
         this.errors = err.response.data.data;

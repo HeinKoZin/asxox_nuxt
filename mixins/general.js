@@ -27,5 +27,14 @@ export const generalMixins = {
         duration: 4000,
       });
     },
+
+    // === check authenticated ===
+    checkAuthenticated() {
+      if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
+        this.$router.push("/auth");
+        return false;
+      }
+      return true;
+    },
   },
 };
