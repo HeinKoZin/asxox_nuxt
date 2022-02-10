@@ -197,7 +197,7 @@ export default {
 
 <style lang="postcss" scoped>
 .slider-container {
-  @apply w-full relative mb-0 md:mb-0;
+  @apply w-full relative mb-20 md:mb-0;
 }
 
 .slider-container .slider-wrapper {
@@ -205,7 +205,7 @@ export default {
 }
 
 .slider-container .slidable-items {
-  @apply w-full absolute  bottom-0 z-30;
+  @apply w-full absolute  -bottom-20 md:bottom-0 z-30 bg-gradient-to-t from-slate-200 via-slate-300;
 }
 
 .slider-container .slider-items {
@@ -213,7 +213,7 @@ export default {
 }
 
 .slider-container .slidable-items .slidable-items-wrapper {
-  @apply w-full h-auto  bg-gradient-to-t from-slate-200 via-slate-300 flex pt-5 md:pt-10 overflow-x-scroll rounded-tl-3xl px-2 scroll-smooth;
+  @apply w-full h-auto   flex pt-5 md:pt-10 overflow-x-scroll rounded-tl-3xl px-2 scroll-smooth;
 }
 
 .slider-container .slidable-items .slidable-items-wrapper::-webkit-scrollbar {

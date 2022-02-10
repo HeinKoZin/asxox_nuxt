@@ -121,7 +121,7 @@ export default {
 
 <style lang="postcss" scoped>
 .home-container {
-  @apply w-full;
+  @apply w-full pb-4;
 }
 
 .home-header {
