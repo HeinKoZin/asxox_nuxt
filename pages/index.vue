@@ -31,7 +31,7 @@
       <div class="products-container">
         <div class="flex items-center justify-between w-full p-1">
           <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-          <button class="see-all-btn">See All</button>
+          <a class="see-all-btn">See All</a>
         </div>
         <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
       </div>
@@ -124,7 +124,7 @@ export default {
 }
 
 .products-list-container {
-  @apply w-full p-1 md:p-2 flex gap-10 flex-col;
+  @apply w-full p-1 md:p-3 flex gap-10 flex-col;
 }
 
 .products-container {
@@ -136,6 +136,6 @@ export default {
 }
 
 .products-container .see-all-btn {
-  @apply p-2 px-4 text-base font-bold font-quicksand bg-orange-600 text-white border hover:bg-slate-100 hover:text-slate-700 rounded-md;
+  @apply p-2 px-4 text-sm font-bold font-quicksand underline border text-orange-600  hover:text-slate-800 rounded-md;
 }
 </style>

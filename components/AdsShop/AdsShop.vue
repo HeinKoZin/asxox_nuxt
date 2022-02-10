@@ -1,27 +1,29 @@
 <template>
-  <div class="ads-shop-container">
-    <div class="shop-info">
-      <div class="shop-image">
-        <img src="https://asxox.com.mm/assets/photo/logo/asxox%20Logo.png" />
+  <div class="ads-shop-container-wrapper">
+    <div class="ads-shop-container">
+      <div class="shop-info">
+        <div class="shop-image">
+          <img src="https://asxox.com.mm/assets/photo/logo/asxox%20Logo.png" />
+        </div>
+        <div class="shop-title">
+          <h1>Asxox</h1>
+        </div>
+        <div class="shop-see-all-btn">
+          <button>See All</button>
+        </div>
       </div>
-      <div class="shop-title">
-        <h1>Asxox</h1>
+      <div
+        class="products-list"
+        @wheel.prevent="scrollWithWheel($event)"
+        ref="adsShopContainer"
+      >
+        <ProductCard
+          :data="data"
+          v-for="(data, index) in datas"
+          :key="index"
+          isAdsProduct
+        />
       </div>
-      <div class="shop-see-all-btn">
-        <button>See All</button>
-      </div>
-    </div>
-    <div
-      class="products-list"
-      @wheel.prevent="scrollWithWheel($event)"
-      ref="adsShopContainer"
-    >
-      <ProductCard
-        :data="data"
-        v-for="(data, index) in datas"
-        :key="index"
-        isAdsProduct
-      />
     </div>
   </div>
 </template>
@@ -98,8 +100,12 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+.ads-shop-container-wrapper {
+  @apply p-1;
+}
+
 .ads-shop-container {
-  @apply w-full p-5 bg-slate-800 flex text-white rounded-lg flex-col md:flex-row;
+  @apply w-full p-5 bg-slate-700 flex text-white rounded-lg flex-col md:flex-row;
 }
 
 .ads-shop-container .shop-info {
@@ -115,7 +121,7 @@ export default {
 }
 
 .ads-shop-container .shop-info .shop-see-all-btn {
-  @apply bg-slate-700 p-2 px-4 rounded-md text-lg font-quicksand;
+  @apply bg-slate-900 p-2 px-6 mt-2 rounded-md  font-quicksand text-base md:text-lg hover:bg-slate-800;
 }
 
 .ads-shop-container .products-list {
