@@ -48,11 +48,35 @@
             <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
           </button>
           <div v-if="isUserMenuOpen" class="user-menu">
+            <div class="user-menu-header">
+              <span class="username">Hi, Hein Ko Zin</span>
+              <span class="user-email">heinkozin4@gmail.com</span>
+            </div>
+            <hr />
             <ul>
-              <li>Profile</li>
-              <li>Purchased History</li>
-              <li>Logout</li>
+              <li>
+                <font-awesome-icon
+                  :icon="['fas', 'user-circle']"
+                  class="icon"
+                />Profile
+              </li>
+              <li>
+                <font-awesome-icon
+                  :icon="['fas', 'history']"
+                  class="icon"
+                />Purchased History
+              </li>
+              <li>
+                <font-awesome-icon
+                  :icon="['fas', 'cog']"
+                  class="icon"
+                />Settings
+              </li>
             </ul>
+            <button class="user-logout">
+              <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
+              Logout
+            </button>
           </div>
         </div>
         <div class="header-cart" v-if="!isCartOpen">
@@ -145,11 +169,23 @@ export default {
 }
 
 .header-user {
-  @apply flex flex-row h-12 items-center;
+  @apply flex flex-row h-12 items-center relative;
 }
 
 .header-user .user-menu {
-  @apply absolute top-16  right-2 md:right-6  bg-white rounded-md shadow-sm shadow-black z-50;
+  @apply absolute top-16  right-0  bg-white rounded-md  z-50 p-4;
+}
+
+.header-user .user-menu .user-menu-header {
+  @apply flex flex-col justify-start p-2;
+}
+
+.header-user .user-menu .user-menu-header .username {
+  @apply text-slate-700 text-base font-bold;
+}
+
+.header-user .user-menu .user-menu-header .user-email {
+  @apply text-slate-600 text-sm;
 }
 
 .header-user .user-menu ul {
@@ -157,7 +193,15 @@ export default {
 }
 
 .header-user .user-menu li {
-  @apply px-4 py-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer;
+  @apply p-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer flex items-center rounded-md;
+}
+
+.header-user .user-menu .icon {
+  @apply mr-2 text-xl;
+}
+
+.header-user .user-logout {
+  @apply p-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer w-full flex items-center border justify-center border-slate-300 mt-2 rounded-md;
 }
 
 .header-user-button {

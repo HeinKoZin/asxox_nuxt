@@ -1,55 +1,35 @@
 <template>
-  <div class="home-container">
-    <div class="home-header">
-      <Slider />
+  <div class="ads-shop-container">
+    <div class="shop-info">
+      <div class="shop-image">
+        <img src="https://asxox.com.mm/assets/photo/logo/asxox%20Logo.png" />
+      </div>
+      <div class="shop-title">
+        <h1>Asxox</h1>
+      </div>
+      <div class="shop-see-all-btn">
+        <button>See All</button>
+      </div>
     </div>
-    <!-- <CategoryBar /> -->
-    <!-- Product list container -->
-    <div class="products-list-container">
-      <div class="products-container">
-        <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-          <button class="see-all-btn">See All</button>
-        </div>
-        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
-      </div>
-      <div class="products-container">
-        <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-          <button class="see-all-btn">See All</button>
-        </div>
-        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
-      </div>
-      <AdsShop />
-      <div class="products-container">
-        <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-          <button class="see-all-btn">See All</button>
-        </div>
-        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
-      </div>
-      <div class="products-container">
-        <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-          <button class="see-all-btn">See All</button>
-        </div>
-        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
-      </div>
-      <AdsShop />
+    <div
+      class="products-list"
+      @wheel.prevent="scrollWithWheel($event)"
+      ref="adsShopContainer"
+    >
+      <ProductCard
+        :data="data"
+        v-for="(data, index) in datas"
+        :key="index"
+        isAdsProduct
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Category from "../components/Common/Category.vue";
 export default {
-  components: { Category },
-  layout: "MainLayout",
-  name: "HomePage",
-
   data() {
     return {
-      //
       datas: [
         {
           image:
@@ -101,41 +81,52 @@ export default {
           description: "This is a description of the product",
           price: "15000 MMK",
         },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
       ],
     };
+  },
+
+  methods: {
+    scrollWithWheel(e) {
+      if (e.deltaY > 0) {
+        this.$refs.adsShopContainer.scrollLeft += 100;
+      } else {
+        this.$refs.adsShopContainer.scrollLeft -= 100;
+      }
+    },
   },
 };
 </script>
 
 <style lang="postcss" scoped>
-.home-container {
-  @apply w-full;
+.ads-shop-container {
+  @apply w-full p-5 bg-slate-800 flex text-white rounded-lg flex-col md:flex-row;
 }
 
-.home-header {
-  @apply w-full;
+.ads-shop-container .shop-info {
+  @apply w-full md:w-1/3 lg:w-3/12 flex flex-col items-center justify-center gap-2 mb-4 md:mb-0;
 }
 
-.products-list-container {
-  @apply w-full p-1 md:p-2 flex gap-10 flex-col;
+.ads-shop-container .shop-info .shop-image {
+  @apply w-32 h-auto;
 }
 
-.products-container {
-  @apply flex flex-wrap;
+.ads-shop-container .shop-info .shop-title {
+  @apply w-full text-center line-clamp-2 text-2xl font-zen-kurenaido;
 }
 
-.products-container .icon {
-  @apply text-2xl text-slate-700;
+.ads-shop-container .shop-info .shop-see-all-btn {
+  @apply bg-slate-700 p-2 px-4 rounded-md text-lg font-quicksand;
 }
 
-.products-container .see-all-btn {
-  @apply p-2 px-4 text-base font-bold font-quicksand bg-orange-600 text-white border hover:bg-slate-100 hover:text-slate-700 rounded-md;
+.ads-shop-container .products-list {
+  @apply w-full md:w-2/3 lg:w-9/12 flex  items-center overflow-hidden overflow-x-scroll;
+}
+
+.ads-shop-container .products-list::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.ads-shop-container .products-list::-webkit-scrollbar-thumb {
+  @apply bg-slate-400 rounded-md;
 }
 </style>

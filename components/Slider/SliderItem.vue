@@ -23,7 +23,7 @@ export default {
 }
 
 .slider-item .slider-item-info button {
-  @apply bg-slate-800 p-1 px-3 md:p-2 md:px-6 text-sm md:text-lg bg-opacity-75 text-white rounded-md hover:bg-slate-700;
+  @apply bg-slate-800 p-1 absolute px-3 md:p-2 md:px-6 text-sm md:text-lg bg-opacity-75 top-1/3 md:top-1/2 text-white rounded-md hover:bg-slate-700;
 }
 
 .slider-item img {
