@@ -5,8 +5,13 @@
     "
   >
     <div
-      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md"
+      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
     >
+      <div
+        class="absolute z-40 w-full text-center text-white rotate-45 bg-orange-600 top-6 p-1 -right-[25%]"
+      >
+        Discount
+      </div>
       <div class="card-header">
         <div class="card-header-buttons">
           <button class="w-10 h-10 bg-white rounded-full">
