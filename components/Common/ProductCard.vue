@@ -11,21 +11,21 @@
         <div class="card-header-buttons">
           <button class="w-10 h-10 bg-white rounded-full">
             <font-awesome-icon
+              v-if="!isInWishlist"
+              :icon="['far', 'heart']"
+              class="icon"
+            />
+            <font-awesome-icon
+              v-if="isInWishlist"
               :icon="['fas', 'heart']"
-              class="text-slate-500 hover:text-slate-700"
+              class="icon active"
             />
           </button>
           <button class="w-10 h-10 bg-white rounded-full">
-            <font-awesome-icon
-              :icon="['fas', 'shopping-cart']"
-              class="text-slate-500 hover:text-slate-700"
-            />
+            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
           <button class="w-10 h-10 bg-white rounded-full">
-            <font-awesome-icon
-              :icon="['fas', 'eye']"
-              class="text-slate-500 hover:text-slate-700"
-            />
+            <font-awesome-icon :icon="['fas', 'eye']" class="icon" />
           </button>
         </div>
         <img class="card-header-image" :src="data.image" />
@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  props: { data: Object, isAdsProduct: Boolean },
+  props: { data: Object, isAdsProduct: Boolean, isInWishlist: Boolean },
   data() {
     return {
       //
@@ -102,5 +102,13 @@ export default {
 
 .product-card-container .product-description {
   @apply text-sm font-semibold line-clamp-4 mt-2 text-slate-500 h-20 font-quicksand;
+}
+
+.icon {
+  @apply text-slate-500 hover:text-slate-700;
+}
+
+.icon.active {
+  @apply text-red-500;
 }
 </style>

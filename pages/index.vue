@@ -11,7 +11,12 @@
           <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
           <button class="see-all-btn">See All</button>
         </div>
-        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
+        <ProductCard
+          :data="data"
+          v-for="(data, index) in datas"
+          :key="index"
+          isInWishlist
+        />
       </div>
       <div class="products-container">
         <div class="flex items-center justify-between w-full p-1">
