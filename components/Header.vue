@@ -97,13 +97,14 @@
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
           </button>
         </div>
+        <!-- {{ cartProductList.length }} -->
       </div>
     </div>
   </header>
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapMutations, mapGetters, mapActions } from "vuex";
 import { generalMixins } from "@/mixins/general";
 export default {
   mixins: [generalMixins],
@@ -123,7 +124,9 @@ export default {
     ]),
   },
   methods: {
-    ...mapMutations(["SET_MOBILE_MENU", "SET_CART", "SET_CART_PRODUCTS"]),
+    ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
+
+    ...mapActions(["getCartProducts"]),
 
     toggleUserMenu() {
       this.isUserMenuOpen = !this.isUserMenuOpen;
@@ -145,7 +148,7 @@ export default {
     },
   },
   mounted() {
-    // this.SET_CART_PRODUCTS()
+    if (!this.cartProductList?.length > 0) this.getCartProducts();
   },
 };
 </script>

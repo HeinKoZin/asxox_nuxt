@@ -2,7 +2,7 @@
 const state = () => ({
   isMobileMenuOpen: false,
   isCartOpen: false,
-  cartProductList: [],
+  cartProductList: null,
 });
 
 // ==== getters =====
@@ -55,10 +55,16 @@ const mutations = {
 
 // ==== actions ====
 const actions = {
-  async getUser(state) {
+  async getUser({ commit }) {
     try {
       const res = await axios.get("user");
       commit("SET_USER", res.data.data);
+    } catch (error) {}
+  },
+  async getCartProducts({ commit }) {
+    try {
+      const res = await this.$axios.get("wishlists");
+      commit("SET_CART_PRODUCTS", res.data.data);
     } catch (error) {}
   },
 };
