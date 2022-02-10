@@ -1,6 +1,7 @@
 <template>
   <div class="fab-container" v-if="!isCartOpen">
     <button class="fab-container-btn" @click="toggleCart">
+      <span class="badge">2</span>
       <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
     </button>
   </div>
@@ -39,10 +40,14 @@ export default {
 }
 
 .fab-container-btn {
-  @apply w-14 h-14;
+  @apply w-14 h-14 relative;
 }
 
 .fab-container .fab-container-btn .icon {
   @apply rounded-full text-white hover:text-slate-200 text-lg md:text-xl;
+}
+
+.badge {
+  @apply absolute w-5 h-5 font-bold  p-[2px] top-2 right-2 rounded-full text-orange-600 bg-white flex justify-center items-center;
 }
 </style>

@@ -80,12 +80,14 @@
           </div>
         </div>
         <div class="header-cart" v-if="!isCartOpen">
-          <button class="header-cart-button" size="sm" @click="toggleCart">
+          <button class="header-button" @click="toggleCart">
+            <span class="badge">2</span>
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
         </div>
         <div class="header-wishlist">
-          <button class="header-wishlist-button">
+          <button class="header-button">
+            <span class="badge">2</span>
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
           </button>
         </div>
@@ -160,9 +162,9 @@ export default {
   @apply w-10 h-10 rounded-md bg-transparent text-slate-700 hover:text-slate-500 hover:bg-slate-100;
 }
 
-.header-cart .header-cart-button {
+/* .header-cart .header-cart-button {
   @apply w-10 h-10 rounded-full text-white hover:text-slate-500;
-}
+} */
 
 .header-container .icon {
   @apply rounded-full text-slate-500 hover:text-slate-700 text-2xl md:text-3xl;
@@ -208,11 +210,23 @@ export default {
   @apply w-10 h-10 rounded-full text-white hover:text-slate-500 text-xl;
 }
 
-.header-wishlist .header-wishlist-button {
+.header-wishlist .header-button {
   @apply w-10 h-10 rounded-full text-white hover:text-slate-500 text-xl;
 }
 
 .mobile-header-menu {
   @apply block md:hidden mr-2;
+}
+
+.header-wishlist {
+  @apply relative;
+}
+
+.header-cart {
+  @apply relative;
+}
+
+.badge {
+  @apply absolute flex justify-center items-center  text-sm  bg-orange-600 text-white w-6 h-6 -top-2 -right-2 text-center  rounded-full;
 }
 </style>
