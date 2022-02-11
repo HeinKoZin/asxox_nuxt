@@ -1,20 +1,42 @@
 <template>
   <div
-    :class="'group ' +
+    :class="
+      'group ' +
       (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
     "
   >
     <div
-      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
+      class="
+        transition-[translate]
+        product-card-container
+        group-hover:shadow-slate-300
+        group-hover:-translate-y-[0.05rem]
+        group-hover:shadow-md
+        relative
+        overflow-hidden
+      "
     >
       <div
-        class="absolute z-40 w-full text-center text-white rotate-45 bg-orange-600 top-6 p-1 -right-[25%]"
+        class="
+          absolute
+          z-40
+          w-full
+          text-center text-white
+          rotate-45
+          bg-orange-600
+          top-6
+          p-1
+          -right-[25%]
+        "
       >
         Discount
       </div>
       <div class="card-header">
         <div class="card-header-buttons">
-          <button class="w-10 h-10 bg-white rounded-full">
+          <button
+            class="w-10 h-10 bg-white rounded-full"
+            @click="addToWishList(data.id)"
+          >
             <font-awesome-icon
               v-if="!isInWishlist"
               :icon="['far', 'heart']"
@@ -33,16 +55,16 @@
             <font-awesome-icon :icon="['fas', 'eye']" class="icon" />
           </button>
         </div>
-        <img class="card-header-image" :src="data.image" />
+        <img class="card-header-image" :src="data.temp_photo" />
       </div>
       <div class="card-body">
         <a href="#" class="card-header-title">
-          {{ data.title }}
+          {{ data.name }}
         </a>
         <p class="product-description">{{ data.description }}</p>
         <div class="product-price">
           <span class="text-orange-600">$</span>
-          <span class="text-orange-600">{{ data.price }}</span>
+          <span class="text-orange-600">{{ data.sell_price }}</span>
         </div>
       </div>
     </div>
@@ -50,7 +72,9 @@
 </template>
 
 <script>
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
   props: { data: Object, isAdsProduct: Boolean, isInWishlist: Boolean },
   data() {
     return {
@@ -58,7 +82,18 @@ export default {
     };
   },
   methods: {
-    //
+    async addToWishList(product_id) {
+      if (!this.checkAuthenticated("redirect")) return true;
+      const res = await this.generalPostApis("/wishlists", { product_id });
+      if (res.status === "success") {
+        this.toast(res.message, "success");
+      } else {
+        const deleteRes = await this.generalDeleteApis("/wishlists", {
+          product_id,
+        });
+        this.toast(deleteRes.message, "error");
+      }
+    },
   },
   computed: {
     //

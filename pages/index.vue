@@ -1,52 +1,38 @@
 <template>
   <div class="home-container">
     <div class="home-header">
-      <Slider />
+      <Slider :products="sliderItems" />
     </div>
     <!-- <CategoryBar /> -->
     <!-- Product list container -->
     <div class="products-list-container">
-      <div class="products-container">
+      <!-- <div> -->
+      <div
+        class="products-container"
+        v-for="(category, catIndex) in categoryProducts"
+        :key="catIndex"
+      >
         <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
+          <h4 class="p-1 text-lg font-bold font-quicksand">
+            {{ category.categoryName }}
+          </h4>
           <button class="see-all-btn">See All</button>
         </div>
         <ProductCard
-          :data="data"
-          v-for="(data, index) in datas"
+          :data="product"
+          v-for="(product, index) in category.products"
           :key="index"
-          isInWishlist
+          :isInWishlist="product.is_wishlist"
         />
+        <AdsShop v-if="category.shop" />
       </div>
-      <div class="products-container">
-        <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-          <button class="see-all-btn">See All</button>
-        </div>
-        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
-      </div>
-      <AdsShop />
-      <div class="products-container">
-        <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-          <button class="see-all-btn">See All</button>
-        </div>
-        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
-      </div>
-      <div class="products-container">
-        <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-          <a class="see-all-btn">See All</a>
-        </div>
-        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
-      </div>
-      <AdsShop />
     </div>
   </div>
 </template>
 
 <script>
 import Category from "../components/Common/Category.vue";
+import { mapMutations, mapGetters, mapActions } from "vuex";
 export default {
   components: { Category },
   layout: "MainLayout",
@@ -54,67 +40,48 @@ export default {
 
   data() {
     return {
-      //
-      datas: [
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5023f807938.62020912.jpg",
-          title: "Elastic Fitness Stick",
-          description:
-            " This is a description of the product This is a description of the product This is a description of the product This is a description of the product This is a description of the product This is a description of the product",
-          price: "36000 MMK",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-      ],
+      sliderItems: {},
     };
+  },
+  computed: {
+    ...mapGetters([
+      "isMobileMenuOpen",
+      "categories",
+      "adsShops",
+      "categoryProducts",
+    ]),
+  },
+  methods: {
+    ...mapActions(["getAdsShops", "getCategories", "getProductsByCategory"]),
+    async fetchSlideAds() {
+      try {
+        const res = await this.$axios.get("ads/widget/6");
+        this.sliderItems = res.data.data;
+      } catch (error) {}
+    },
+    async fetch() {
+      await this.fetchSlideAds();
+      await this.getAdsShops();
+      await this.getCategories();
+      let shopIndex = 0;
+      await this.categories.map((category, index) => {
+        console.log(
+          index % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null
+        );
+        this.getProductsByCategory({
+          categoryId: category.id,
+          categoryName: category.name,
+          limit: 16,
+          shopIndex:
+            index % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null,
+        });
+        index % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
+      });
+    },
+  },
+  fetchOnServer: true,
+  mounted() {
+    this.fetch();
   },
 };
 </script>

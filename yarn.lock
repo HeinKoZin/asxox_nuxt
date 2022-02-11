@@ -8215,16 +8215,26 @@ vue-template-es2015-compiler@^1.9.0:
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+vue-toast-notification@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/vue-toast-notification/-/vue-toast-notification-0.6.2.tgz#44bb164505c310f6a721ff96921761b006ebb5cc"
+  integrity sha512-fIsgALA3yQAtTnZjyUg5Y1tbVrYkLNBCET/ZvvDTS7tnmaWz8L1IzkESrRs1KIiqIGRVbBbiZAzUImrVBEziDA==
+>>>>>>> 7e997e61908cbaa7178d12559eca14b6c8c70c55
 vue2-touch-events@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/vue2-touch-events/-/vue2-touch-events-3.2.2.tgz#77b760a70659ed8a75e7c685163e73497be87042"
   integrity sha512-rGV8jxgOQEJYkJCp7uOBe3hjvmG1arThrq1wGtJHwJTgi65+P2a+0l4CYcQO/U1ZFqTq2/TT2+oTE6H7Y+6Eog==
+<<<<<<< HEAD
 =======
 vue-toast-notification@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/vue-toast-notification/-/vue-toast-notification-0.6.2.tgz#44bb164505c310f6a721ff96921761b006ebb5cc"
   integrity sha512-fIsgALA3yQAtTnZjyUg5Y1tbVrYkLNBCET/ZvvDTS7tnmaWz8L1IzkESrRs1KIiqIGRVbBbiZAzUImrVBEziDA==
 >>>>>>> 01f20976226fb07bd6a8dc462aed64f5c1b54bcf
+=======
+>>>>>>> 7e997e61908cbaa7178d12559eca14b6c8c70c55
 
 vue@^2.6.12, vue@^2.6.14:
   version "2.6.14"

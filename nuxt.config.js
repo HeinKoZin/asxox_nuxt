@@ -1,4 +1,4 @@
-let apiLink = "http://localhost:8000/api";
+let apiLink = "https://asxox.com.mm/api";
 
 export default {
   mode: "universal",
@@ -30,7 +30,6 @@ export default {
     { path: "~/components/Common", extensions: ["vue"] },
     { path: "~/components/Slider", extensions: ["vue"] },
     { path: "~/components/AdsShop", extensions: ["vue"] },
-
   ],
 
   purgeCSS: {},
@@ -83,7 +82,9 @@ export default {
   axios: {
     baseURL: apiLink,
   },
-
+  router: {
+    middleware: ["setDefaultToken"],
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extractCSS: true,

@@ -47,10 +47,18 @@
           <button class="header-user-button" size="sm" @click="toggleUserMenu">
             <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
           </button>
-          <div v-if="isUserMenuOpen" class="user-menu">
+          <div
+            v-if="isUserMenuOpen && $auth.$storage.getLocalStorage('loggedIn')"
+            class="user-menu"
+          >
             <div class="user-menu-header">
-              <span class="username">Hi, Hein Ko Zin</span>
-              <span class="user-email">heinkozin4@gmail.com</span>
+              <span class="username"
+                >Hi, {{ $auth.user ? $auth.user.data.name : "" }}</span
+              >
+              <span class="user-email">{{
+                ($auth.user ? $auth.user.data.email : "") ||
+                ($auth.user ? $auth.user.data.phone : "")
+              }}</span>
             </div>
             <hr />
             <ul>
@@ -73,7 +81,7 @@
                 />Settings
               </li>
             </ul>
-            <button class="user-logout">
+            <button class="user-logout" @click="userLogout">
               <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
               Logout
             </button>
@@ -87,18 +95,21 @@
         </div>
         <div class="header-wishlist">
           <button class="header-button">
-            <span class="badge">2</span>
+            <span class="badge">{{ wishListProductList.length }}</span>
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
           </button>
         </div>
+        <!-- {{ cartProductList.length }} -->
       </div>
     </div>
   </header>
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapMutations, mapGetters, mapActions } from "vuex";
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
   data() {
     return {
       //
@@ -106,17 +117,41 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["isMobileMenuOpen", "isCartOpen"]),
+    ...mapGetters([
+      "isMobileMenuOpen",
+      "isCartOpen",
+      "isAuthenticated",
+      "loggedInUser",
+      "wishListProductList",
+    ]),
   },
   methods: {
-    //
     ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
+
+    ...mapActions(["getWishListProducts"]),
+
     toggleUserMenu() {
       this.isUserMenuOpen = !this.isUserMenuOpen;
     },
+
     toggleCart() {
       this.SET_CART(!this.isCartOpen);
     },
+    // === logout ===
+    async userLogout() {
+      await this.$auth.logout("local");
+
+      // === no response from auth logout so reuse isAuthenticated ===
+      if (!this.isAuthenticated) {
+        this.$auth.$storage.removeUniversal("user");
+        this.$auth.$storage.removeUniversal("loggedIn");
+        this.toast("You have been logged out!", "success");
+      } else this.toast("Fail to log out!", "error");
+    },
+  },
+  mounted() {
+    if (!this.wishListProductList.length > 0 && this.checkAuthenticated())
+      this.getWishListProducts();
   },
 };
 </script>
