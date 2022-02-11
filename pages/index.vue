@@ -6,6 +6,7 @@
     <!-- <CategoryBar /> -->
     <!-- Product list container -->
     <div class="products-list-container">
+      <!-- <div> -->
       <div
         class="products-container"
         v-for="(category, catIndex) in categoryProducts"
@@ -23,30 +24,8 @@
           :key="index"
           :isInWishlist="product.is_wishlist"
         />
+        <AdsShop v-if="category.shop" />
       </div>
-      <!-- <div class="products-container">
-        <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-          <button class="see-all-btn">See All</button>
-        </div>
-        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
-      </div>
-      <AdsShop />
-      <div class="products-container">
-        <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-          <button class="see-all-btn">See All</button>
-        </div>
-        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
-      </div>
-      <div class="products-container">
-        <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-          <a class="see-all-btn">See All</a>
-        </div>
-        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
-      </div>
-      <AdsShop /> -->
     </div>
   </div>
 </template>
@@ -61,115 +40,7 @@ export default {
 
   data() {
     return {
-      //
       sliderItems: {},
-      datas: [
-        {
-          id: 1,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          id: 2,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          id: 3,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5023f807938.62020912.jpg",
-          title: "Elastic Fitness Stick",
-          description:
-            " This is a description of the product This is a description of the product This is a description of the product This is a description of the product This is a description of the product This is a description of the product",
-          price: "36000 MMK",
-        },
-        {
-          id: 4,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          id: 5,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          id: 6,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          id: 7,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          id: 8,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          id: 9,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          id: 10,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          id: 11,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          id: 12,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-        {
-          id: 13,
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
-          description: "This is a description of the product",
-          price: "15000 MMK",
-        },
-      ],
     };
   },
   computed: {
@@ -188,22 +59,29 @@ export default {
         this.sliderItems = res.data.data;
       } catch (error) {}
     },
-  },
-  async mounted() {
-    await this.fetchSlideAds();
-    await this.getAdsShops();
-    await this.getCategories();
-    let shopIndex = 0;
-    await this.categories.map((category, index) => {
-      this.getProductsByCategory({
-        categoryId: category.id,
-        categoryName: category.name,
-        limit: 16,
-        shopIndex:
-          index % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null,
+    async fetch() {
+      await this.fetchSlideAds();
+      await this.getAdsShops();
+      await this.getCategories();
+      let shopIndex = 0;
+      await this.categories.map((category, index) => {
+        console.log(
+          index % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null
+        );
+        this.getProductsByCategory({
+          categoryId: category.id,
+          categoryName: category.name,
+          limit: 16,
+          shopIndex:
+            index % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null,
+        });
+        index % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
       });
-      shopIndex++;
-    });
+    },
+  },
+  fetchOnServer: true,
+  mounted() {
+    this.fetch();
   },
 };
 </script>
