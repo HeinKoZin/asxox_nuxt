@@ -7,7 +7,7 @@
       <SideBar />
       <div class="main-layout">
         <Nuxt />
-        <Footer />
+        <Footer v-if="checkRoute()" />
       </div>
       <Cart />
     </div>
@@ -22,7 +22,11 @@ export default {
       //
     };
   },
-  methods: {},
+  methods: {
+    checkRoute() {
+      return this.$nuxt.$route.name === "product-id" ? false : true;
+    },
+  },
   computed: {
     //
   },
@@ -34,6 +38,6 @@ export default {
 
 <style lang="postcss" scoped>
 .main-layout {
-  @apply mt-16 ml-0 md:ml-[4.4rem]  min-h-[calc(100%-4rem)]  w-full md:w-[calc(100%_-_4rem)]  items-start;
+  @apply mt-16 ml-0 md:ml-[4.4rem]  min-h-[calc(100%-4rem)]   w-full md:w-[calc(100%_-_4rem)]  items-start;
 }
 </style>

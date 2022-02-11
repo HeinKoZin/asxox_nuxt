@@ -1,36 +1,18 @@
 <template>
   <div
-    :class="
-      'group ' +
+    :class="'group ' +
       (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
     "
   >
     <div
-      class="
-        transition-[translate]
-        product-card-container
-        group-hover:shadow-slate-300
-        group-hover:-translate-y-[0.05rem]
-        group-hover:shadow-md
-        relative
-        overflow-hidden
-      "
+      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
     >
-      <div
-        class="
-          absolute
-          z-40
-          w-full
-          text-center text-white
-          rotate-45
-          bg-orange-600
-          top-6
-          p-1
-          -right-[25%]
-        "
+      <!-- NOTE: Later feature -->
+      <!-- <div
+        class="absolute z-40 w-full text-center text-white rotate-45 bg-orange-600 top-6 p-1 -right-[35%] md:-right-[30%] text-sm md:text-base"
       >
         Discount
-      </div>
+      </div> -->
       <div class="card-header">
         <div class="card-header-buttons">
           <button
