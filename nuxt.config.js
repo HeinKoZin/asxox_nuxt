@@ -33,6 +33,7 @@ export default {
     { path: "~/components/Common", extensions: ["vue"] },
     { path: "~/components/Slider", extensions: ["vue"] },
     { path: "~/components/AdsShop", extensions: ["vue"] },
+    { path: "~/components/ProductDetail", extensions: ["vue"] },
 
   ],
 

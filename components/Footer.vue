@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-    <div class="flex w-full px-20 mt-10">
+    <div class="flex w-full px-10 mt-10 md:px-20">
       <div class="flex justify-between w-full border-t border-slate-400">
         <!-- Copyright -->
         <div class="w-full py-3 text-center footer-copyright">
