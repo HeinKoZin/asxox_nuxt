@@ -18,6 +18,15 @@ export const generalMixins = {
       }
     },
 
+    async generalDeleteApis(apiLink, data) {
+      try {
+        const res = await this.$axios.delete(apiLink, data);
+        return res;
+      } catch (error) {
+        return error.response;
+      }
+    },
+
     // === toast ===
     toast(message, type) {
       this.$toast.open({

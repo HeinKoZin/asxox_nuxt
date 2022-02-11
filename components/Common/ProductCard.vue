@@ -55,16 +55,16 @@
             <font-awesome-icon :icon="['fas', 'eye']" class="icon" />
           </button>
         </div>
-        <img class="card-header-image" :src="data.image" />
+        <img class="card-header-image" :src="data.temp_photo" />
       </div>
       <div class="card-body">
         <a href="#" class="card-header-title">
-          {{ data.title }}
+          {{ data.name }}
         </a>
         <p class="product-description">{{ data.description }}</p>
         <div class="product-price">
           <span class="text-orange-600">$</span>
-          <span class="text-orange-600">{{ data.price }}</span>
+          <span class="text-orange-600">{{ data.sell_price }}</span>
         </div>
       </div>
     </div>
@@ -87,7 +87,12 @@ export default {
       const res = await this.generalPostApis("/wishlists", { product_id });
       if (res.status === "success") {
         this.toast(res.message, "success");
-      } else this.toast(res.message, "error");
+      } else {
+        const deleteRes = await this.generalDeleteApis("/wishlists", {
+          product_id,
+        });
+        this.toast(deleteRes.message, "error");
+      }
     },
   },
   computed: {

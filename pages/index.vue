@@ -6,19 +6,25 @@
     <!-- <CategoryBar /> -->
     <!-- Product list container -->
     <div class="products-list-container">
-      <div class="products-container">
+      <div
+        class="products-container"
+        v-for="(category, catIndex) in categoryProducts"
+        :key="catIndex"
+      >
         <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
+          <h4 class="p-1 text-lg font-bold font-quicksand">
+            {{ category.categoryName }}
+          </h4>
           <button class="see-all-btn">See All</button>
         </div>
         <ProductCard
-          :data="data"
-          v-for="(data, index) in datas"
+          :data="product"
+          v-for="(product, index) in category.products"
           :key="index"
-          isInWishlist
+          :isInWishlist="product.is_wishlist"
         />
       </div>
-      <div class="products-container">
+      <!-- <div class="products-container">
         <div class="flex items-center justify-between w-full p-1">
           <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
           <button class="see-all-btn">See All</button>
@@ -40,13 +46,14 @@
         </div>
         <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
       </div>
-      <AdsShop />
+      <AdsShop /> -->
     </div>
   </div>
 </template>
 
 <script>
 import Category from "../components/Common/Category.vue";
+import { mapMutations, mapGetters, mapActions } from "vuex";
 export default {
   components: { Category },
   layout: "MainLayout",
@@ -165,7 +172,16 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapGetters([
+      "isMobileMenuOpen",
+      "categories",
+      "adsShops",
+      "categoryProducts",
+    ]),
+  },
   methods: {
+    ...mapActions(["getAdsShops", "getCategories", "getProductsByCategory"]),
     async fetchSlideAds() {
       try {
         const res = await this.$axios.get("ads/widget/6");
@@ -173,8 +189,21 @@ export default {
       } catch (error) {}
     },
   },
-  mounted() {
-    this.fetchSlideAds();
+  async mounted() {
+    await this.fetchSlideAds();
+    await this.getAdsShops();
+    await this.getCategories();
+    let shopIndex = 0;
+    await this.categories.map((category, index) => {
+      this.getProductsByCategory({
+        categoryId: category.id,
+        categoryName: category.name,
+        limit: 16,
+        shopIndex:
+          index % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null,
+      });
+      shopIndex++;
+    });
   },
 };
 </script>
