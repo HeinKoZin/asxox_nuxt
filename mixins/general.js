@@ -29,9 +29,9 @@ export const generalMixins = {
     },
 
     // === check authenticated ===
-    checkAuthenticated() {
+    checkAuthenticated(type = null) {
       if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
-        this.$router.push("/auth");
+        if (type) this.$router.push("/auth");
         return false;
       }
       return true;

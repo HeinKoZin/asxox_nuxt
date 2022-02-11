@@ -7,6 +7,7 @@
       <SideBar />
       <div class="main-layout">
         <Nuxt />
+        <Footer />
       </div>
       <Cart />
     </div>

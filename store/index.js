@@ -2,7 +2,7 @@
 const state = () => ({
   isMobileMenuOpen: false,
   isCartOpen: false,
-  cartProductList: null,
+  wishListProductList: [],
 });
 
 // ==== getters =====
@@ -27,8 +27,8 @@ const getters = {
     return state.isCartOpen;
   },
 
-  cartProductList(state) {
-    return state.cartProductList;
+  wishListProductList(state) {
+    return state.wishListProductList;
   },
 };
 
@@ -48,8 +48,8 @@ const mutations = {
     state.isCartOpen = data;
   },
 
-  SET_CART_PRODUCTS(state, data) {
-    state.cartProductList = data;
+  SET_WISHLISH_PRODUCTS(state, data) {
+    state.wishListProductList = data;
   },
 };
 
@@ -61,10 +61,10 @@ const actions = {
       commit("SET_USER", res.data.data);
     } catch (error) {}
   },
-  async getCartProducts({ commit }) {
+  async getWishListProducts({ commit }) {
     try {
       const res = await this.$axios.get("wishlists");
-      commit("SET_CART_PRODUCTS", res.data.data);
+      commit("SET_WISHLISH_PRODUCTS", res?.data?.data);
     } catch (error) {}
   },
 };

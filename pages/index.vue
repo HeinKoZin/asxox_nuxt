@@ -3,9 +3,44 @@
     <div class="home-header">
       <Slider :products="sliderItems" />
     </div>
-    <CategoryBar />
-    <div class="product-container">
-      <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
+    <!-- <CategoryBar /> -->
+    <!-- Product list container -->
+    <div class="products-list-container">
+      <div class="products-container">
+        <div class="flex items-center justify-between w-full p-1">
+          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
+          <button class="see-all-btn">See All</button>
+        </div>
+        <ProductCard
+          :data="data"
+          v-for="(data, index) in datas"
+          :key="index"
+          isInWishlist
+        />
+      </div>
+      <div class="products-container">
+        <div class="flex items-center justify-between w-full p-1">
+          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
+          <button class="see-all-btn">See All</button>
+        </div>
+        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
+      </div>
+      <AdsShop />
+      <div class="products-container">
+        <div class="flex items-center justify-between w-full p-1">
+          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
+          <button class="see-all-btn">See All</button>
+        </div>
+        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
+      </div>
+      <div class="products-container">
+        <div class="flex items-center justify-between w-full p-1">
+          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
+          <a class="see-all-btn">See All</a>
+        </div>
+        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
+      </div>
+      <AdsShop />
     </div>
   </div>
 </template>
@@ -146,14 +181,26 @@ export default {
 
 <style lang="postcss" scoped>
 .home-container {
-  @apply w-full;
+  @apply w-full pb-4;
 }
 
 .home-header {
   @apply w-full;
 }
 
-.product-container {
-  @apply flex flex-wrap p-1 md:p-2;
+.products-list-container {
+  @apply w-full p-1 md:p-3 flex gap-10 flex-col;
+}
+
+.products-container {
+  @apply flex flex-wrap;
+}
+
+.products-container .icon {
+  @apply text-2xl text-slate-700;
+}
+
+.products-container .see-all-btn {
+  @apply p-2 px-4 text-sm font-bold font-quicksand underline border text-orange-600  hover:text-slate-800 rounded-md;
 }
 </style>

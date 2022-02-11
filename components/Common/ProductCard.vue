@@ -1,5 +1,10 @@
 <template>
-  <div class="product-card-container-wrapper group">
+  <div
+    :class="
+      'group ' +
+      (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
+    "
+  >
     <div
       class="
         transition-[translate]
@@ -7,30 +12,47 @@
         group-hover:shadow-slate-300
         group-hover:-translate-y-[0.05rem]
         group-hover:shadow-md
+        relative
+        overflow-hidden
       "
     >
+      <div
+        class="
+          absolute
+          z-40
+          w-full
+          text-center text-white
+          rotate-45
+          bg-orange-600
+          top-6
+          p-1
+          -right-[25%]
+        "
+      >
+        Discount
+      </div>
       <div class="card-header">
         <div class="card-header-buttons">
           <button
             class="w-10 h-10 bg-white rounded-full"
-            @click="addToCart(data.id)"
+            @click="addToWishList(data.id)"
           >
             <font-awesome-icon
+              v-if="!isInWishlist"
+              :icon="['far', 'heart']"
+              class="icon"
+            />
+            <font-awesome-icon
+              v-if="isInWishlist"
               :icon="['fas', 'heart']"
-              class="text-slate-500 hover:text-slate-700"
+              class="icon active"
             />
           </button>
           <button class="w-10 h-10 bg-white rounded-full">
-            <font-awesome-icon
-              :icon="['fas', 'shopping-cart']"
-              class="text-slate-500 hover:text-slate-700"
-            />
+            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
           <button class="w-10 h-10 bg-white rounded-full">
-            <font-awesome-icon
-              :icon="['fas', 'eye']"
-              class="text-slate-500 hover:text-slate-700"
-            />
+            <font-awesome-icon :icon="['fas', 'eye']" class="icon" />
           </button>
         </div>
         <img class="card-header-image" :src="data.image" />
@@ -53,15 +75,15 @@
 import { generalMixins } from "@/mixins/general";
 export default {
   mixins: [generalMixins],
-  props: ["data"],
+  props: { data: Object, isAdsProduct: Boolean, isInWishlist: Boolean },
   data() {
     return {
       //
     };
   },
   methods: {
-    async addToCart(product_id) {
-      if (!this.checkAuthenticated()) return true;
+    async addToWishList(product_id) {
+      if (!this.checkAuthenticated("redirect")) return true;
       const res = await this.generalPostApis("/wishlists", { product_id });
       if (res.status === "success") {
         this.toast(res.message, "success");
@@ -80,6 +102,10 @@ export default {
 <style lang="postcss" scoped>
 .product-card-container-wrapper {
   @apply w-6/12 md:w-[20%] xl:w-[12.5%] h-auto p-1;
+}
+
+.ads-product {
+  @apply min-w-[60%] max-w-[60%] md:min-w-[25%] md:max-w-[25%] xl:min-w-[14.285%] xl:max-w-[14.285%] h-auto p-1 text-slate-800;
 }
 
 .product-card-container {
@@ -111,5 +137,13 @@ export default {
 
 .product-card-container .product-description {
   @apply text-sm font-semibold line-clamp-4 mt-2 text-slate-500 h-20 font-quicksand;
+}
+
+.icon {
+  @apply text-slate-500 hover:text-slate-700;
+}
+
+.icon.active {
+  @apply text-red-500;
 }
 </style>
