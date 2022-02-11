@@ -48,6 +48,6 @@ export default {
 }
 
 .badge {
-  @apply absolute w-5 h-5 font-bold  p-[2px] top-2 right-2 rounded-full text-orange-600 bg-white flex justify-center items-center;
+  @apply absolute w-4 h-4 font-semibold text-sm md:font-bold  p-[2px] top-3 right-3 rounded-full text-orange-600 bg-white flex justify-center items-center;
 }
 </style>
