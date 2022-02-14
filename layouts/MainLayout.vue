@@ -2,7 +2,7 @@
   <div class="w-full h-full bg-slate-200">
     <Header />
     <div
-      class="flex w-full h-[calc(100%-4rem)] flex-col-reverse md:flex-row relative"
+      class="flex w-full h-[calc(100%-4rem)] flex-col-reverse md:flex-row relative backdrop-filter"
     >
       <SideBar />
       <div class="main-layout">
