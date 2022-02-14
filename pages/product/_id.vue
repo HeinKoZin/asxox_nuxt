@@ -22,7 +22,7 @@ export default {
 }
 
 .product-cover {
-  @apply w-1/5 h-[calc(100vh-4rem)];
+  @apply w-1/5 min-h-[calc(100vh-4rem)];
 }
 
 .product-detail {
