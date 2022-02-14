@@ -26,7 +26,7 @@
         <div class="card-header-buttons">
           <button
             class="w-10 h-10 bg-white rounded-full"
-            @click="addToWishList(data.id)"
+            @click="addToWishList(data.id, data.is_wishlist)"
           >
             <font-awesome-icon
               v-if="!isInWishlist"
@@ -73,16 +73,20 @@ export default {
     };
   },
   methods: {
-    async addToWishList(product_id) {
+    async addToWishList(product_id, is_wishlist) {
+      console.log(is_wishlist);
       if (!this.checkAuthenticated("redirect")) return true;
-      const res = await this.generalPostApis("/wishlists", { product_id });
-      if (res.status === "success") {
-        this.toast(res.message, "success");
+      let res;
+      if (!is_wishlist) {
+        res = await this.generalPostApis("/wishlists", { product_id });
       } else {
-        const deleteRes = await this.generalDeleteApis("/wishlists", {
-          product_id,
-        });
-        this.toast(deleteRes.message, "error");
+        res = await this.generalDeleteApis(`/wishlists/${product_id}`);
+      }
+      console.log(res);
+      if (res?.data?.status || res?.status === "success") {
+        this.toast(res?.data?.message || res?.message, "success");
+      } else {
+        this.toast(res?.data?.message || res?.message, "error");
       }
     },
   },
