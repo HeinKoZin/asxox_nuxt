@@ -30,6 +30,11 @@ const mutations = {
   SET_ADS_SHOPS(state, data) {
     state.adsShops = data;
   },
+
+  SET_CATEGORY_PRODUCT_FAVOURITE(state, { categoryIndex, productIndex }) {
+    state.categoryProducts[categoryIndex].products[productIndex].is_wishlist =
+      !state.categoryProducts[categoryIndex].products[productIndex].is_wishlist;
+  },
 };
 
 export default mutations;

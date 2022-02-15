@@ -64,15 +64,24 @@
 
 <script>
 import { generalMixins } from "@/mixins/general";
+import { mapMutations, mapActions } from "vuex";
 export default {
   mixins: [generalMixins],
-  props: { data: Object, isAdsProduct: Boolean, isInWishlist: Boolean },
+  props: {
+    data: Object,
+    isAdsProduct: Boolean,
+    isInWishlist: Boolean,
+    categoryIndex: Number,
+    productIndex: Number,
+  },
   data() {
     return {
       //
     };
   },
   methods: {
+    ...mapMutations(["SET_CATEGORY_PRODUCT_FAVOURITE"]),
+    ...mapActions(["getWishListProducts"]),
     async addToWishList(product_id, is_wishlist) {
       if (!this.checkAuthenticated("redirect")) return true;
       let res;
@@ -83,6 +92,11 @@ export default {
       }
       if (res?.data?.status || res?.status === "success") {
         this.toast(res?.data?.message || res?.message, "success");
+        this.SET_CATEGORY_PRODUCT_FAVOURITE({
+          categoryIndex: this.categoryIndex,
+          productIndex: this.productIndex,
+        });
+        this.getWishListProducts();
       } else {
         this.toast(res?.data?.message || res?.message, "error");
       }

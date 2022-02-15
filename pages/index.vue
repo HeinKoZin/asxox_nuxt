@@ -1,6 +1,6 @@
 <template>
   <!-- <p v-if="$fetchState.pending">Fetching mountains...</p> -->
-  <div class="home-container">
+  <div class="home-container" keep-alive>
     <div class="home-header">
       <Slider :products="sliderItems" />
     </div>
@@ -21,6 +21,8 @@
         </div>
         <ProductCard
           :data="product"
+          :categoryIndex="catIndex"
+          :productIndex="index"
           v-for="(product, index) in category.products"
           :key="index"
           :isInWishlist="product.is_wishlist"
