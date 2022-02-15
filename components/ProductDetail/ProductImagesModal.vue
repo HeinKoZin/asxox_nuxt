@@ -5,28 +5,26 @@
         <span><font-awesome-icon class="icon" :icon="['fas', 'times']" /></span>
       </button>
       <div class="photos-slide-btn-group">
-        <button class="photos-slide-btn">
+        <button class="photos-slide-btn" @click="prevPhoto()">
           <font-awesome-icon class="icon" :icon="['fas', 'angle-left']" />
         </button>
-        <button class="photos-slide-btn">
+        <button class="photos-slide-btn" @click="nextPhoto()">
           <font-awesome-icon class="icon" :icon="['fas', 'angle-right']" />
         </button>
       </div>
       <div class="product-images-modal-wrapper">
         <div class="product-image-container">
-          <img
-            src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg"
-            alt=""
-            srcset=""
-          />
+          <img :src="photos[currentPhotoIndex].image" alt="" srcset="" />
         </div>
         <!-- Photo count of counts -->
         <div class="label-container">
-          <h5>Photo <span>1</span></h5>
+          <h5>
+            Photo <span>{{ currentPhotoIndex + 1 }}</span>
+          </h5>
           <div class="label-number">
-            <span>1</span>
+            <span>{{ currentPhotoIndex + 1 }}</span>
             <span>/</span>
-            <span>3</span>
+            <span>{{ photos.length }}</span>
           </div>
         </div>
       </div>
@@ -38,6 +36,43 @@
 import Button from "../Common/Button.vue";
 export default {
   components: { Button },
+
+  data() {
+    return {
+      //
+      currentPhotoIndex: 0,
+      photos: [
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
+        },
+        {
+          image:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
+        },
+      ],
+    };
+  },
+
+  methods: {
+    // Next photo
+    nextPhoto() {
+      this.currentPhotoIndex++;
+      if (this.currentPhotoIndex > this.photos.length - 1) {
+        this.currentPhotoIndex = 0;
+      }
+    },
+    prevPhoto() {
+      this.currentPhotoIndex--;
+      if (this.currentPhotoIndex < 0) {
+        this.currentPhotoIndex = this.photos.length - 1;
+      }
+    },
+  },
 };
 </script>
 
