@@ -1,4 +1,5 @@
 <template>
+  <!-- <p v-if="$fetchState.pending">Fetching mountains...</p> -->
   <div class="home-container">
     <div class="home-header">
       <Slider :products="sliderItems" />
@@ -32,7 +33,7 @@
 
 <script>
 import Category from "../components/Common/Category.vue";
-import { mapMutations, mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: { Category },
   layout: "MainLayout",
@@ -59,29 +60,21 @@ export default {
         this.sliderItems = res.data.data;
       } catch (error) {}
     },
-    async fetch() {
-      await this.fetchSlideAds();
-      await this.getAdsShops();
-      await this.getCategories();
-      let shopIndex = 0;
-      await this.categories.map((category, index) => {
-        console.log(
-          index % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null
-        );
-        this.getProductsByCategory({
-          categoryId: category.id,
-          categoryName: category.name,
-          limit: 16,
-          shopIndex:
-            index % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null,
-        });
-        index % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
-      });
-    },
   },
-  fetchOnServer: true,
-  mounted() {
-    this.fetch();
+  async fetch() {
+    await this.fetchSlideAds();
+    await this.getAdsShops();
+    await this.getCategories();
+    let shopIndex = 0;
+    for (let i = 0; i < this.categories.length; i++) {
+      await this.getProductsByCategory({
+        categoryId: this.categories[i].id,
+        categoryName: this.categories[i].name,
+        limit: 16,
+        shopIndex: i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null,
+      });
+      i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
+    }
   },
 };
 </script>

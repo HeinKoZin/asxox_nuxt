@@ -111,7 +111,7 @@ const actions = {
         categoryId,
         categoryName,
         products: res?.data?.data,
-        shop: state.adsShops[shopIndex],
+        shop: shopIndex || shopIndex == 0 ? state.adsShops[shopIndex] : null,
       };
       commit("SET_PRODUCTS_BY_CATEGORY", products);
     } catch (error) {}

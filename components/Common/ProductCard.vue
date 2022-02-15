@@ -74,7 +74,6 @@ export default {
   },
   methods: {
     async addToWishList(product_id, is_wishlist) {
-      console.log(is_wishlist);
       if (!this.checkAuthenticated("redirect")) return true;
       let res;
       if (!is_wishlist) {
@@ -82,19 +81,12 @@ export default {
       } else {
         res = await this.generalDeleteApis(`/wishlists/${product_id}`);
       }
-      console.log(res);
       if (res?.data?.status || res?.status === "success") {
         this.toast(res?.data?.message || res?.message, "success");
       } else {
         this.toast(res?.data?.message || res?.message, "error");
       }
     },
-  },
-  computed: {
-    //
-  },
-  mounted() {
-    //
   },
 };
 </script>

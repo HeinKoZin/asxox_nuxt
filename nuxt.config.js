@@ -1,4 +1,4 @@
-let apiLink = "http://localhost:8000/api";
+let apiLink = "http://127.0.0.1:8001/api";
 
 export default {
   mode: "universal",
@@ -19,9 +19,6 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["@/assets/css/main.css", "vue-toast-notification/dist/theme-sugar.css"],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  // plugins: ['~/plugins/fontawesome.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [

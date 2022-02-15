@@ -101,7 +101,7 @@ export default {
 
 <style lang="postcss" scoped>
 .ads-shop-container-wrapper {
-  @apply p-1;
+  @apply p-1 w-full mt-5;
 }
 
 .ads-shop-container {
