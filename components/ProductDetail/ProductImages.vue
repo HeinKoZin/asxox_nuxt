@@ -40,6 +40,7 @@ export default {
         "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
         "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
         "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
+        "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/11/13/products/feature/13-11-2021_Asxox_4618f41f811c9c7.80369118.jpg",
       ],
     };
   },
@@ -81,7 +82,7 @@ export default {
 }
 
 .header {
-  @apply flex w-full bg-slate-50 border-b rounded-t-lg border-slate-300 p-2;
+  @apply flex w-full bg-slate-50 border-b rounded-t-lg border-slate-300 p-2 font-quicksand font-bold;
 }
 
 .body {

@@ -18,14 +18,14 @@ export default {
 
 <style lang="postcss" scoped>
 .product-detail-container {
-  @apply flex w-full flex-row h-full bg-slate-100 gap-x-2 px-2;
+  @apply flex w-full md:flex-row flex-col h-full bg-slate-100 gap-2 md:gap-y-0 px-2;
 }
 
 .product-cover {
-  @apply w-1/5 min-h-[calc(100vh-4rem)];
+  @apply w-full md:w-1/5 min-h-[calc(100vh-4rem)];
 }
 
 .product-detail {
-  @apply w-4/5 flex gap-y-2 flex-col;
+  @apply w-full md:w-4/5 flex gap-y-2 flex-col pb-4;
 }
 </style>

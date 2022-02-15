@@ -118,6 +118,20 @@
         </div>
       </div>
 
+      <!-- NOTE: Quantity -->
+      <div class="product-quantity">
+        <div class="product-quantity-label">Quantity:</div>
+        <div class="product-quantity-value">
+          <button @click="decreaseQuantity()">
+            <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
+          </button>
+          <input type="number" :value="quantity" />
+          <button @click="increaseQuantity()">
+            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
+          </button>
+        </div>
+      </div>
+
       <!-- NOTE: Add to cart -->
       <div class="add-to-cart">
         <button>
@@ -135,6 +149,23 @@
 import Button from "../Common/Button.vue";
 export default {
   components: { Button },
+
+  data() {
+    return {
+      quantity: 1,
+    };
+  },
+
+  methods: {
+    increaseQuantity() {
+      this.quantity++;
+    },
+    decreaseQuantity() {
+      if (this.quantity > 1) {
+        this.quantity--;
+      }
+    },
+  },
 };
 </script>
 
@@ -237,5 +268,25 @@ export default {
 
 .categories a {
   @apply px-2 py-1 bg-slate-50 text-slate-800 border border-slate-300 text-sm rounded-full;
+}
+
+.product-quantity {
+  @apply flex flex-col gap-y-2 w-full;
+}
+
+.product-quantity-label {
+  @apply text-base font-quicksand font-bold;
+}
+
+.product-quantity-value {
+  @apply flex w-full;
+}
+
+.product-quantity-value input {
+  @apply w-full text-center p-2 focus:outline-slate-500;
+}
+
+.product-quantity-value button {
+  @apply px-4 py-1 bg-slate-300;
 }
 </style>
