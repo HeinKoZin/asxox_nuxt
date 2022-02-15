@@ -1,0 +1,52 @@
+// ==== actions ====
+const actions = {
+  async getUser({ commit }) {
+    try {
+      const res = await axios.get("user");
+      commit("SET_USER", res.data.data);
+    } catch (error) {}
+  },
+
+  async getWishListProducts({ commit }) {
+    try {
+      const res = await this.$axios.get("wishlists");
+      commit("SET_WISHLISH_PRODUCTS", res?.data?.data);
+    } catch (error) {}
+  },
+
+  async getProductsByCategory(
+    { commit, state },
+    { categoryId, categoryName, limit, shopIndex }
+  ) {
+    try {
+      const res = await this.$axios.get("products/category/" + categoryId, {
+        params: {
+          limit,
+        },
+      });
+      const products = {
+        categoryId,
+        categoryName,
+        products: res?.data?.data,
+        shop: shopIndex || shopIndex == 0 ? state.adsShops[shopIndex] : null,
+      };
+      commit("SET_PRODUCTS_BY_CATEGORY", products);
+    } catch (error) {}
+  },
+
+  async getCategories({ commit }) {
+    try {
+      const res = await this.$axios.get("categories");
+      commit("SET_CATEGORIES", res?.data?.data);
+    } catch (error) {}
+  },
+
+  async getAdsShops({ commit }) {
+    try {
+      const res = await this.$axios.get("shops");
+      commit("SET_ADS_SHOPS", res?.data?.data);
+    } catch (error) {}
+  },
+};
+
+export default actions;
