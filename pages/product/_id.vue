@@ -1,5 +1,6 @@
 <template>
   <div class="product-detail-container">
+    <button @click="$router.push('/')">To Home</button>
     <div class="product-cover">
       <ProductCover />
     </div>

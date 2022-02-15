@@ -32,7 +32,11 @@ export default {
 
   purgeCSS: {},
 
-  plugins: ["~/plugins/v-toast.js", "~/plugins/v-touch.js"],
+  plugins: [
+    "~/plugins/v-toast.js",
+    "~/plugins/v-touch.js",
+    "~/plugins/inject.js",
+  ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],
 

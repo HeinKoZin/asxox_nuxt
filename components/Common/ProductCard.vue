@@ -49,7 +49,13 @@
         <img class="card-header-image" :src="data.temp_photo" />
       </div>
       <div class="card-body">
-        <a href="#" class="card-header-title">
+        <a
+          href="#"
+          class="card-header-title"
+          @click.prevent="
+            $router.push(`/product/${$asxox.asxox_encode(data.id)}`)
+          "
+        >
           {{ data.name }}
         </a>
         <p class="product-description">{{ data.description }}</p>

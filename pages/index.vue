@@ -1,13 +1,11 @@
 <template>
-  <!-- <p v-if="$fetchState.pending">Fetching mountains...</p> -->
   <div class="home-container" keep-alive>
+    <button>To Detail</button>
     <div class="home-header">
       <Slider :products="sliderItems" />
     </div>
-    <!-- <CategoryBar /> -->
     <!-- Product list container -->
     <div class="products-list-container">
-      <!-- <div> -->
       <div
         class="products-container"
         v-for="(category, catIndex) in categoryProducts"
@@ -17,7 +15,7 @@
           <h4 class="p-1 text-lg font-bold font-quicksand">
             {{ category.categoryName }}
           </h4>
-          <button class="see-all-btn">See All</button>
+          <button class="see-all-btn" @click="test">See All</button>
         </div>
         <ProductCard
           :data="product"
@@ -55,6 +53,11 @@ export default {
     ]),
   },
   methods: {
+    test() {
+      // const encodedCode = btoa(1 + "asxox-ecommerce-nuxt-encode");
+      // console.log(encodedCode);
+      console.log(atob("MWFzeG94LWVjb21tZXJjZS1udXh0LWVuY29kZQ=="));
+    },
     ...mapActions(["getAdsShops", "getCategories", "getProductsByCategory"]),
     async fetchSlideAds() {
       try {
