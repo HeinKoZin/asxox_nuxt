@@ -11,19 +11,21 @@
         ref="productImagesWrapper"
         @wheel.prevent="scrollWithWheel($event)"
       >
-        <ProductImageCard />
-        <ProductImageCard />
-        <ProductImageCard />
-        <ProductImageCard />
-        <ProductImageCard />
-        <ProductImageCard />
-        <ProductImageCard />
-        <ProductImageCard />
-        <ProductImageCard />
+        <ProductImageCard
+          v-for="(photo, index) in photos"
+          :key="index"
+          :photo="photo"
+          @click.native="openModal(index)"
+        />
       </div>
     </div>
 
-    <ProductImagesModal />
+    <ProductImagesModal
+      :currentIndex="currentPhotoIndex"
+      :photos="photos"
+      v-if="isShowModal"
+      @closeModal="closeModal()"
+    />
   </div>
 </template>
 
@@ -32,14 +34,26 @@ export default {
   data() {
     return {
       isShowModal: false,
+
+      currentPhotoIndex: 0,
+      photos: [
+        "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
+        "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
+        "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
+      ],
     };
   },
 
   methods: {
     //
 
-    toggleModal() {
-      this.isShowModal = !this.isShowModal;
+    openModal(index) {
+      this.currentPhotoIndex = index;
+      this.isShowModal = true;
+    },
+
+    closeModal(value) {
+      this.isShowModal = value;
     },
 
     scrollWithWheel(e) {

@@ -1,13 +1,18 @@
 <template>
   <div class="product-image-card">
-    <img
-      src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg"
-    />
+    <img :src="photo" />
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    photo: {
+      type: String,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
