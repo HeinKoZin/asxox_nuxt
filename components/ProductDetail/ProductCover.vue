@@ -41,13 +41,10 @@
         <p>Categories:</p>
 
         <div class="categories">
-          <button>Fancy</button>
-          <button>Fancy</button>
-          <button>Fancy</button>
-          <button>Fancy</button>
-          <button>Fancy</button>
-          <button>Fancy</button>
-          <button>Fancy</button>
+          <a href="#">Fancy</a>
+          <a href="#">Fancy</a>
+          <a href="#">Fancy</a>
+          <a href="#">Fancy</a>
         </div>
       </div>
       <!-- NOTE: variants -->
@@ -85,6 +82,54 @@
             /></label>
           </fieldset>
         </div>
+
+        <div class="product-variant">
+          <div class="product-variant-title">
+            <span>Pattern</span>
+          </div>
+          <fieldset class="product-variant-options" id="size">
+            <label for="white" class="product-variant-option"
+              >Pattern A<input type="radio" name="size" id="small"
+            /></label>
+            <label for="red" class="product-variant-option"
+              >Pattern B<input type="radio" name="size" id="medium"
+            /></label>
+            <label for="blue" class="product-variant-option active"
+              >Pattern C<input type="radio" name="size" id="large"
+            /></label>
+          </fieldset>
+        </div>
+
+        <div class="product-variant">
+          <div class="product-variant-title">
+            <span>Accessories</span>
+          </div>
+          <fieldset class="product-variant-options" id="size">
+            <label for="white" class="product-variant-option"
+              >Accessories A<input type="radio" name="size" id="small"
+            /></label>
+            <label for="red" class="product-variant-option"
+              >Accessories B<input type="radio" name="size" id="medium"
+            /></label>
+            <label for="blue" class="product-variant-option active"
+              >Accessories C<input type="radio" name="size" id="large"
+            /></label>
+          </fieldset>
+        </div>
+      </div>
+
+      <!-- NOTE: Quantity -->
+      <div class="product-quantity">
+        <div class="product-quantity-label">Quantity:</div>
+        <div class="product-quantity-value">
+          <button @click="decreaseQuantity()">
+            <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
+          </button>
+          <input type="number" :value="quantity" />
+          <button @click="increaseQuantity()">
+            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
+          </button>
+        </div>
       </div>
 
       <!-- NOTE: Add to cart -->
@@ -104,12 +149,29 @@
 import Button from "../Common/Button.vue";
 export default {
   components: { Button },
+
+  data() {
+    return {
+      quantity: 1,
+    };
+  },
+
+  methods: {
+    increaseQuantity() {
+      this.quantity++;
+    },
+    decreaseQuantity() {
+      if (this.quantity > 1) {
+        this.quantity--;
+      }
+    },
+  },
 };
 </script>
 
 <style lang="postcss" scoped>
 .product-cover-container {
-  @apply flex w-full h-full bg-slate-50 p-1 flex-col border border-slate-300 rounded-lg justify-center items-center relative;
+  @apply flex w-full h-full bg-slate-50 p-4 flex-col border border-slate-300 rounded-lg justify-center items-center relative;
 }
 
 .product-cover-container-wrapper {
@@ -129,7 +191,7 @@ export default {
 }
 
 .product-header {
-  @apply rounded-lg w-full flex flex-col items-center justify-center  gap-y-2 py-4;
+  @apply rounded-lg w-full flex flex-col items-center justify-center  gap-y-2 pb-4;
 }
 
 .product-cover {
@@ -169,7 +231,7 @@ export default {
 }
 
 .product-variant-options {
-  @apply flex gap-x-2;
+  @apply flex gap-2 flex-wrap;
 }
 
 .product-variant-option {
@@ -192,6 +254,10 @@ export default {
   @apply text-slate-800 font-bold text-base font-quicksand w-full;
 }
 
+.product-code span {
+  @apply font-medium;
+}
+
 .categories-container {
   @apply flex flex-col gap-y-2 w-full font-quicksand font-bold;
 }
@@ -200,7 +266,27 @@ export default {
   @apply flex flex-wrap gap-2;
 }
 
-.categories button {
-  @apply px-2 py-1 bg-slate-50 text-slate-800 border border-slate-300 rounded-full;
+.categories a {
+  @apply px-2 py-1 bg-slate-50 text-slate-800 border border-slate-300 text-sm rounded-full;
+}
+
+.product-quantity {
+  @apply flex flex-col gap-y-2 w-full;
+}
+
+.product-quantity-label {
+  @apply text-base font-quicksand font-bold;
+}
+
+.product-quantity-value {
+  @apply flex w-full;
+}
+
+.product-quantity-value input {
+  @apply w-full text-center p-2 focus:outline-slate-500 border border-slate-400 font-bold;
+}
+
+.product-quantity-value button {
+  @apply px-4 py-1 bg-slate-300;
 }
 </style>
