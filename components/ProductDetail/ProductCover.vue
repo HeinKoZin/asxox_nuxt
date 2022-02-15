@@ -283,7 +283,7 @@ export default {
 }
 
 .product-quantity-value input {
-  @apply w-full text-center p-2 focus:outline-slate-500;
+  @apply w-full text-center p-2 focus:outline-slate-500 border border-slate-400 font-bold;
 }
 
 .product-quantity-value button {
