@@ -226,11 +226,11 @@ export default {
 
 <style lang="postcss" scoped>
 .product-cover-container {
-  @apply flex w-full h-full bg-slate-50 p-4 flex-col border border-slate-300 rounded-lg justify-center items-center relative;
+  @apply flex w-full h-full bg-slate-50 px-0 py-8 flex-col border border-slate-300 rounded-lg justify-center items-center relative;
 }
 
 .product-cover-container-wrapper {
-  @apply flex flex-col items-center w-3/4 gap-y-2;
+  @apply flex flex-col items-center w-[80%] gap-y-2;
 }
 
 .availability-container {
