@@ -87,6 +87,20 @@ export default {
     rightSwipeHandler() {
       this.prevPhoto();
     },
+    keyUpHandler(e) {
+      if (e.key === "ArrowRight") this.nextPhoto();
+      if (e.key === "ArrowLeft") this.prevPhoto();
+    },
+  },
+  mounted() {
+    window.addEventListener("keyup", (e) => {
+      this.keyUpHandler(e);
+    });
+  },
+  beforeDestroy() {
+    window.removeEventListener("keyup", (e) => {
+      this.keyUpHandler(e);
+    });
   },
 };
 </script>
