@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container" keep-alive>
+  <div class="home-container">
     <button>To Detail</button>
     <div class="home-header">
       <Slider :products="sliderItems" />
@@ -66,16 +66,15 @@ export default {
     await this.getAdsShops();
     await this.getCategories();
     let shopIndex = 0;
-    if (!this.categoryProducts.length > 0)
-      for (let i = 0; i < this.categories.length; i++) {
-        await this.getProductsByCategory({
-          categoryId: this.categories[i].id,
-          categoryName: this.categories[i].name,
-          limit: 16,
-          shopIndex: i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null,
-        });
-        i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
-      }
+    for (let i = 0; i < this.categories.length; i++) {
+      await this.getProductsByCategory({
+        categoryId: this.categories[i].id,
+        categoryName: this.categories[i].name,
+        limit: 16,
+        shopIndex: i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null,
+      });
+      i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
+    }
   },
 };
 </script>

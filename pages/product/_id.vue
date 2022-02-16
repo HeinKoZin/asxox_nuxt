@@ -2,7 +2,6 @@
   <div
     class="product-detail-container"
     v-if="!$fetchState.pending && !$fetchState.error"
-    keep-alive
   >
     <NuxtLink to="/">Home page</NuxtLink>
     <div class="product-cover">
