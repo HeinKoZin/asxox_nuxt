@@ -3,9 +3,7 @@
     <div class="product-cover-container-wrapper">
       <div class="product-header">
         <div class="product-cover">
-          <img
-            src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg"
-          />
+          <img :src="product.feature_photos[0].photo" />
         </div>
         <div class="product-name">
           <h3>Folding Saw</h3>
@@ -148,6 +146,7 @@
 <script>
 import Button from "../Common/Button.vue";
 export default {
+  props: ["product"],
   components: { Button },
 
   data() {

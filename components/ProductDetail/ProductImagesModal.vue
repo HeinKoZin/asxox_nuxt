@@ -19,7 +19,7 @@
       @keydown.right="test('right')"
     >
       <div class="product-image-container">
-        <img :src="photos[currentPhotoIndex]" alt="" srcset="" />
+        <img :src="photos[currentPhotoIndex].photo" alt="" srcset="" />
       </div>
       <!-- Photo count of counts -->
       <div class="label-container">

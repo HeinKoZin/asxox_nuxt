@@ -2,18 +2,31 @@
   <div class="product-detail-container">
     <button @click="$router.push('/')">To Home</button>
     <div class="product-cover">
-      <ProductCover />
+      <ProductCover :product="product" />
     </div>
     <div class="product-detail">
-      <ProductImages />
+      <ProductImages :description_photos="product.description_photos" />
       <ProductDescription />
     </div>
   </div>
 </template>
 
 <script>
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
   layout: "MainLayout",
+  data() {
+    return {
+      product: [],
+    };
+  },
+  async fetch() {
+    const res = await this.generalGetApis(
+      `/products/${this.$asxox.asxox_decode(this.$route.params.id)}`
+    );
+    this.product = res.data.data;
+  },
 };
 </script>
 
