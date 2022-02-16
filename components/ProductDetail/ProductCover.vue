@@ -10,7 +10,7 @@
           <div
             class="product-cover-feature-photos"
             @wheel.prevent="scrollWithWheel($event)"
-            v-if="product.feature_photos.length > 1"
+            v-if="isHasFeaturedPhotos"
           >
             <div
               class="product-cover-feature-photos-wrapper"
@@ -169,7 +169,7 @@
 <script>
 import Button from "../Common/Button.vue";
 export default {
-  props: ["product"],
+  props: { product: Object },
   components: { Button },
 
   data() {
@@ -200,6 +200,11 @@ export default {
   computed: {
     featurePhoto() {
       return this.product.feature_photos[0]?.photo;
+    },
+    isHasFeaturedPhotos() {
+      if (this.product.feature_photos?.length > 1) return true;
+      else return false;
+      // console.log(this.product.feature_photos.length);
     },
   },
   methods: {

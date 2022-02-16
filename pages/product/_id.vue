@@ -7,7 +7,7 @@
       <ProductCover :product="product" />
     </div>
     <div class="product-detail">
-      <ProductImages :description_photos="product.description_photos" />
+      <ProductImages :description_photos="product.description_photos || null" />
       <ProductDescription />
     </div>
   </div>
@@ -28,7 +28,7 @@ export default {
       if (
         !this.$fetchState.pending &&
         !this.$fetchState.error &&
-        this.product?.feature_photos.length > 0
+        this.product?.feature_photos?.length > 0
       )
         return this.product.feature_photos[0].photo;
       else return "test";
@@ -44,7 +44,7 @@ export default {
         },
         {
           property: "og:description",
-          content: this.product.detail,
+          content: this.product.detail || "",
         },
         {
           property: "og:image",
