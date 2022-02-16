@@ -18,7 +18,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ["@/assets/css/main.css", "vue-toast-notification/dist/theme-sugar.css"],
+  css: ["@/assets/css/main.css"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
