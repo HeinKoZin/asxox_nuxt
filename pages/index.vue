@@ -1,6 +1,5 @@
 <template>
   <div class="home-container">
-    <button>To Detail</button>
     <div class="home-header">
       <Slider :products="sliderItems" />
     </div>

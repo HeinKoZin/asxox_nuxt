@@ -3,7 +3,6 @@
     class="product-detail-container"
     v-if="!$fetchState.pending && !$fetchState.error"
   >
-    <NuxtLink to="/">Home page</NuxtLink>
     <div class="product-cover">
       <ProductCover :product="product" />
     </div>

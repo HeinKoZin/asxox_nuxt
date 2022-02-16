@@ -42,21 +42,16 @@
           <button class="w-10 h-10 bg-white rounded-full">
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
-          <button class="w-10 h-10 bg-white rounded-full">
+          <button
+            class="w-10 h-10 bg-white rounded-full"
+            @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
+          >
             <font-awesome-icon :icon="['fas', 'eye']" class="icon" />
           </button>
         </div>
         <img class="card-header-image" :src="data.temp_photo" />
       </div>
       <div class="card-body">
-        <!-- <a
-          class="card-header-title"
-          @click.prevent="
-            $router.push(`/product/${$asxox.asxox_encode(data.id)}`)
-          "
-        >
-          {{ data.name }}
-        </a> -->
         <NuxtLink
           class="card-header-title"
           :to="encodedLink(`/product/${$asxox.asxox_encode(data.id)}`)"
