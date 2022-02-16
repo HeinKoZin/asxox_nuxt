@@ -101,7 +101,11 @@ export default {
 }
 
 .product-image-container {
-  @apply max-w-sm md:max-w-xl mx-auto h-auto;
+  @apply max-w-sm md:max-w-xl max-h-full mx-auto;
+}
+
+.product-image-container img {
+  @apply object-cover w-auto mx-auto max-h-[calc(100vh_-_4rem_-_5rem)];
 }
 
 .label-container {
