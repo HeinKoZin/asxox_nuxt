@@ -1,11 +1,20 @@
 <template>
   <div
-    :class="'group ' +
+    :class="
+      'group ' +
       (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
     "
   >
     <div
-      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
+      class="
+        transition-[translate]
+        product-card-container
+        group-hover:shadow-slate-300
+        group-hover:-translate-y-[0.05rem]
+        group-hover:shadow-md
+        relative
+        overflow-hidden
+      "
     >
       <!-- NOTE: Later feature -->
       <!-- <div
@@ -17,7 +26,7 @@
         <div class="card-header-buttons">
           <button
             class="w-10 h-10 bg-white rounded-full"
-            @click="addToWishList(data.id)"
+            @click="addToWishList(data.id, data.is_wishlist)"
           >
             <font-awesome-icon
               v-if="!isInWishlist"
@@ -33,16 +42,23 @@
           <button class="w-10 h-10 bg-white rounded-full">
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
-          <button class="w-10 h-10 bg-white rounded-full">
+          <button
+            class="w-10 h-10 bg-white rounded-full"
+            @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
+          >
             <font-awesome-icon :icon="['fas', 'eye']" class="icon" />
           </button>
         </div>
         <img class="card-header-image" :src="data.temp_photo" />
       </div>
       <div class="card-body">
-        <a href="#" class="card-header-title">
-          {{ data.name }}
-        </a>
+        <NuxtLink
+          class="card-header-title"
+          :to="encodedLink(`/product/${$asxox.asxox_encode(data.id)}`)"
+        >
+          {{ data.name }}</NuxtLink
+        >
+
         <p class="product-description">{{ data.description }}</p>
         <div class="product-price">
           <span class="text-orange-600">$</span>
@@ -55,33 +71,46 @@
 
 <script>
 import { generalMixins } from "@/mixins/general";
+import { mapMutations, mapActions } from "vuex";
 export default {
   mixins: [generalMixins],
-  props: { data: Object, isAdsProduct: Boolean, isInWishlist: Boolean },
+  props: {
+    data: Object,
+    isAdsProduct: Boolean,
+    isInWishlist: Boolean,
+    categoryIndex: Number,
+    productIndex: Number,
+  },
   data() {
     return {
       //
     };
   },
   methods: {
-    async addToWishList(product_id) {
+    encodedLink(data) {
+      return data;
+    },
+    ...mapMutations(["SET_CATEGORY_PRODUCT_FAVOURITE"]),
+    ...mapActions(["getWishListProducts"]),
+    async addToWishList(product_id, is_wishlist) {
       if (!this.checkAuthenticated("redirect")) return true;
-      const res = await this.generalPostApis("/wishlists", { product_id });
-      if (res.status === "success") {
-        this.toast(res.message, "success");
+      let res;
+      if (!is_wishlist) {
+        res = await this.generalPostApis("/wishlists", { product_id });
       } else {
-        const deleteRes = await this.generalDeleteApis("/wishlists", {
-          product_id,
+        res = await this.generalDeleteApis(`/wishlists/${product_id}`);
+      }
+      if (res?.data?.status || res?.status === "success") {
+        this.toast(res?.data?.message || res?.message, "success");
+        this.SET_CATEGORY_PRODUCT_FAVOURITE({
+          categoryIndex: this.categoryIndex,
+          productIndex: this.productIndex,
         });
-        this.toast(deleteRes.message, "error");
+        this.getWishListProducts();
+      } else {
+        this.toast(res?.data?.message || res?.message, "error");
       }
     },
-  },
-  computed: {
-    //
-  },
-  mounted() {
-    //
   },
 };
 </script>

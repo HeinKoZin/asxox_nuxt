@@ -4,19 +4,40 @@
       <div class="product-header">
         <div class="product-cover">
           <img
-            src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg"
+            class="feature-photo"
+            :src="product.feature_photos[currentImageIndex].photo"
           />
+          <div
+            class="product-cover-feature-photos"
+            @wheel.prevent="scrollWithWheel($event)"
+            v-if="product.feature_photos.length > 1"
+          >
+            <div
+              class="product-cover-feature-photos-wrapper"
+              ref="featuredImageWrapper"
+            >
+              <div
+                class="product-cover-feature-photos-item"
+                v-for="(featuredImage, index) in product.feature_photos"
+                :key="index"
+                @click="changeImage(index)"
+                :class="{ active: index === currentImageIndex }"
+              >
+                <img :src="featuredImage.photo" />
+              </div>
+            </div>
+          </div>
         </div>
         <div class="product-name">
-          <h3>Folding Saw</h3>
+          <h3>{{ product.name }}</h3>
         </div>
         <div class="product-brand">
-          <a href="#">Asxox</a>
+          <a href="#">{{ product.brand.name }}</a>
         </div>
         <div class="product-price-and-rating">
           <div class="product-price">
             <span>$</span>
-            <span>15,000 MMK</span>
+            <span>{{ product.sell_price }} {{ product.currency }}</span>
           </div>
           <span>|</span>
           <div class="product-rating">
@@ -41,13 +62,10 @@
         <p>Categories:</p>
 
         <div class="categories">
-          <button>Fancy</button>
-          <button>Fancy</button>
-          <button>Fancy</button>
-          <button>Fancy</button>
-          <button>Fancy</button>
-          <button>Fancy</button>
-          <button>Fancy</button>
+          <a href="#">Fancy</a>
+          <a href="#">Fancy</a>
+          <a href="#">Fancy</a>
+          <a href="#">Fancy</a>
         </div>
       </div>
       <!-- NOTE: variants -->
@@ -85,6 +103,54 @@
             /></label>
           </fieldset>
         </div>
+
+        <div class="product-variant">
+          <div class="product-variant-title">
+            <span>Pattern</span>
+          </div>
+          <fieldset class="product-variant-options" id="size">
+            <label for="white" class="product-variant-option"
+              >Pattern A<input type="radio" name="size" id="small"
+            /></label>
+            <label for="red" class="product-variant-option"
+              >Pattern B<input type="radio" name="size" id="medium"
+            /></label>
+            <label for="blue" class="product-variant-option active"
+              >Pattern C<input type="radio" name="size" id="large"
+            /></label>
+          </fieldset>
+        </div>
+
+        <div class="product-variant">
+          <div class="product-variant-title">
+            <span>Accessories</span>
+          </div>
+          <fieldset class="product-variant-options" id="size">
+            <label for="white" class="product-variant-option"
+              >Accessories A<input type="radio" name="size" id="small"
+            /></label>
+            <label for="red" class="product-variant-option"
+              >Accessories B<input type="radio" name="size" id="medium"
+            /></label>
+            <label for="blue" class="product-variant-option active"
+              >Accessories C<input type="radio" name="size" id="large"
+            /></label>
+          </fieldset>
+        </div>
+      </div>
+
+      <!-- NOTE: Quantity -->
+      <div class="product-quantity">
+        <div class="product-quantity-label">Quantity:</div>
+        <div class="product-quantity-value">
+          <button @click="decreaseQuantity()">
+            <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
+          </button>
+          <input type="number" :value="quantity" />
+          <button @click="increaseQuantity()">
+            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
+          </button>
+        </div>
       </div>
 
       <!-- NOTE: Add to cart -->
@@ -103,13 +169,72 @@
 <script>
 import Button from "../Common/Button.vue";
 export default {
+  props: ["product"],
   components: { Button },
+
+  data() {
+    return {
+      quantity: 1,
+      currentImageIndex: 0,
+
+      featuredImages: [
+        {
+          photo:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
+        },
+        {
+          photo:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/16/products/feature/16-02-2022_Asxox_4620c81928ca3d5.46644212.jpg",
+        },
+        {
+          photo:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
+        },
+        {
+          photo:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
+        },
+      ],
+    };
+  },
+  computed: {
+    featurePhoto() {
+      return this.product.feature_photos[0]?.photo;
+    },
+  },
+  methods: {
+    // NOTE: Change image
+    changeImage(index) {
+      this.currentImageIndex = index;
+    },
+
+    increaseQuantity() {
+      this.quantity++;
+    },
+    decreaseQuantity() {
+      if (this.quantity > 1) {
+        this.quantity--;
+      }
+    },
+
+    // NOTE: scroll with mouse wheel
+    scrollWithWheel(e) {
+      if (e.deltaY > 0) {
+        this.$refs.featuredImageWrapper.scrollLeft += 100;
+      } else {
+        this.$refs.featuredImageWrapper.scrollLeft -= 100;
+      }
+    },
+  },
+  mounted() {
+    console.log(this.product);
+  },
 };
 </script>
 
 <style lang="postcss" scoped>
 .product-cover-container {
-  @apply flex w-full h-full bg-slate-50 p-1 flex-col border border-slate-300 rounded-lg justify-center items-center relative;
+  @apply flex w-full h-full bg-slate-50 p-4 flex-col border border-slate-300 rounded-lg justify-center items-center relative;
 }
 
 .product-cover-container-wrapper {
@@ -129,15 +254,36 @@ export default {
 }
 
 .product-header {
-  @apply rounded-lg w-full flex flex-col items-center justify-center  gap-y-2 py-4;
+  @apply rounded-lg w-full flex flex-col items-center justify-center  gap-y-2 pb-4;
 }
 
 .product-cover {
-  @apply w-48 h-auto rounded-full;
+  @apply w-full h-auto rounded-full;
 }
 
-.product-cover img {
+.product-cover .feature-photo {
   @apply w-full h-auto rounded-lg object-cover;
+}
+
+.product-cover .product-cover-feature-photos-wrapper {
+  @apply flex mt-4 gap-x-2 overflow-hidden overflow-x-scroll;
+}
+
+.product-cover-feature-photos-wrapper::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.product-cover-feature-photos-wrapper .product-cover-feature-photos-item {
+  @apply min-w-[35%] max-w-[35%]  h-auto   rounded-lg border-slate-500;
+}
+
+.product-cover-feature-photos-wrapper
+  .product-cover-feature-photos-item.active {
+  @apply border-orange-600 border-2;
+}
+
+.product-cover-feature-photos-item img {
+  @apply w-full h-full object-cover rounded-md;
 }
 
 .product-name {
@@ -169,7 +315,7 @@ export default {
 }
 
 .product-variant-options {
-  @apply flex gap-x-2;
+  @apply flex gap-2 flex-wrap;
 }
 
 .product-variant-option {
@@ -192,6 +338,10 @@ export default {
   @apply text-slate-800 font-bold text-base font-quicksand w-full;
 }
 
+.product-code span {
+  @apply font-medium;
+}
+
 .categories-container {
   @apply flex flex-col gap-y-2 w-full font-quicksand font-bold;
 }
@@ -200,7 +350,27 @@ export default {
   @apply flex flex-wrap gap-2;
 }
 
-.categories button {
-  @apply px-2 py-1 bg-slate-50 text-slate-800 border border-slate-300 rounded-full;
+.categories a {
+  @apply px-2 py-1 bg-slate-50 text-slate-800 border border-slate-300 text-sm rounded-full;
+}
+
+.product-quantity {
+  @apply flex flex-col gap-y-2 w-full;
+}
+
+.product-quantity-label {
+  @apply text-base font-quicksand font-bold;
+}
+
+.product-quantity-value {
+  @apply flex w-full;
+}
+
+.product-quantity-value input {
+  @apply w-full text-center p-2 focus:outline-slate-500 border border-slate-400 font-bold;
+}
+
+.product-quantity-value button {
+  @apply px-4 py-1 bg-slate-300;
 }
 </style>

@@ -20,9 +20,6 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["@/assets/css/main.css", "vue-toast-notification/dist/theme-sugar.css"],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  // plugins: ['~/plugins/fontawesome.js'],
-
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
     // Equivalent to { path: '~/components' }
@@ -31,14 +28,14 @@ export default {
     { path: "~/components/Slider", extensions: ["vue"] },
     { path: "~/components/AdsShop", extensions: ["vue"] },
     { path: "~/components/ProductDetail", extensions: ["vue"] },
-
   ],
 
   purgeCSS: {},
 
   plugins: [
+    "~/plugins/v-toast.js",
     "~/plugins/v-touch.js",
-    "~/plugins/v-toast.js"
+    "~/plugins/inject.js",
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],
@@ -54,8 +51,8 @@ export default {
     icons: {
       solid: true,
       brands: true,
-      regular: true
-    }
+      regular: true,
+    },
   },
   auth: {
     redirect: false,
