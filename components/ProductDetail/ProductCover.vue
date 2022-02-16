@@ -10,6 +10,7 @@
           <div
             class="product-cover-feature-photos"
             @wheel.prevent="scrollWithWheel($event)"
+            v-if="featuredImages.length > 1"
           >
             <div
               class="product-cover-feature-photos-wrapper"
