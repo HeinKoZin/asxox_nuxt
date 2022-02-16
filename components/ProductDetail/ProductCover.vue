@@ -6,15 +6,15 @@
           <img :src="featurePhoto" />
         </div>
         <div class="product-name">
-          <h3>Folding Saw</h3>
+          <h3>{{ product.name }}</h3>
         </div>
         <div class="product-brand">
-          <a href="#">Asxox</a>
+          <a href="#">{{ product.brand.name }}</a>
         </div>
         <div class="product-price-and-rating">
           <div class="product-price">
             <span>$</span>
-            <span>15,000 MMK</span>
+            <span>{{ product.sell_price }} {{ product.currency }}</span>
           </div>
           <span>|</span>
           <div class="product-rating">
@@ -168,6 +168,9 @@ export default {
         this.quantity--;
       }
     },
+  },
+  mounted() {
+    console.log(this.product);
   },
 };
 </script>
