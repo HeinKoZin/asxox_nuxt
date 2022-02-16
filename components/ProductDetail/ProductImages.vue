@@ -40,8 +40,6 @@ export default {
   },
 
   methods: {
-    //
-
     openModal(index) {
       this.currentPhotoIndex = index;
       this.isShowModal = true;

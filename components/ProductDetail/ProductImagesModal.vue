@@ -87,6 +87,28 @@ export default {
     rightSwipeHandler() {
       this.prevPhoto();
     },
+    keyUpHandler(e) {
+      if (e.key === "ArrowRight") this.nextPhoto();
+      if (e.key === "ArrowLeft") this.prevPhoto();
+    },
+  },
+  mounted() {
+    window.addEventListener(
+      "keydown",
+      (e) => {
+        this.keyUpHandler(e);
+      },
+      true
+    );
+  },
+  beforeDestroy() {
+    window.removeEventListener(
+      "keydown",
+      (e) => {
+        this.keyUpHandler(e);
+      },
+      true
+    );
   },
 };
 </script>
@@ -101,7 +123,11 @@ export default {
 }
 
 .product-image-container {
-  @apply max-w-sm md:max-w-xl mx-auto h-auto;
+  @apply max-w-sm md:max-w-xl max-h-full mx-auto;
+}
+
+.product-image-container img {
+  @apply object-cover w-auto mx-auto max-h-[calc(100vh_-_4rem_-_5rem)];
 }
 
 .label-container {
