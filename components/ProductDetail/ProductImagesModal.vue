@@ -93,14 +93,22 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener("keyup", (e) => {
-      this.keyUpHandler(e);
-    });
+    window.addEventListener(
+      "keydown",
+      (e) => {
+        this.keyUpHandler(e);
+      },
+      true
+    );
   },
   beforeDestroy() {
-    window.removeEventListener("keyup", (e) => {
-      this.keyUpHandler(e);
-    });
+    window.removeEventListener(
+      "keydown",
+      (e) => {
+        this.keyUpHandler(e);
+      },
+      true
+    );
   },
 };
 </script>
