@@ -1,6 +1,8 @@
 const asxox = {
   asxox_encode(data) {
-    return btoa("asxox-ecommerce-nuxt-method-" + data);
+    const buffer = new Buffer("asxox-ecommerce-nuxt-method-" + data);
+    const base64Data = buffer.toString("base64");
+    return base64Data;
   },
 
   asxox_decode(data) {

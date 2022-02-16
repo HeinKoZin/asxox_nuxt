@@ -49,15 +49,21 @@
         <img class="card-header-image" :src="data.temp_photo" />
       </div>
       <div class="card-body">
-        <a
-          href="#"
+        <!-- <a
           class="card-header-title"
           @click.prevent="
             $router.push(`/product/${$asxox.asxox_encode(data.id)}`)
           "
         >
           {{ data.name }}
-        </a>
+        </a> -->
+        <NuxtLink
+          class="card-header-title"
+          :to="encodedLink(`/product/${$asxox.asxox_encode(data.id)}`)"
+        >
+          {{ data.name }}</NuxtLink
+        >
+
         <p class="product-description">{{ data.description }}</p>
         <div class="product-price">
           <span class="text-orange-600">$</span>
@@ -86,6 +92,9 @@ export default {
     };
   },
   methods: {
+    encodedLink(data) {
+      return data;
+    },
     ...mapMutations(["SET_CATEGORY_PRODUCT_FAVOURITE"]),
     ...mapActions(["getWishListProducts"]),
     async addToWishList(product_id, is_wishlist) {

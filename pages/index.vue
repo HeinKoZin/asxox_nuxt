@@ -15,7 +15,7 @@
           <h4 class="p-1 text-lg font-bold font-quicksand">
             {{ category.categoryName }}
           </h4>
-          <button class="see-all-btn" @click="test">See All</button>
+          <button class="see-all-btn">See All</button>
         </div>
         <ProductCard
           :data="product"
@@ -53,11 +53,6 @@ export default {
     ]),
   },
   methods: {
-    test() {
-      // const encodedCode = btoa(1 + "asxox-ecommerce-nuxt-encode");
-      // console.log(encodedCode);
-      console.log(atob("MWFzeG94LWVjb21tZXJjZS1udXh0LWVuY29kZQ=="));
-    },
     ...mapActions(["getAdsShops", "getCategories", "getProductsByCategory"]),
     async fetchSlideAds() {
       try {
@@ -71,15 +66,16 @@ export default {
     await this.getAdsShops();
     await this.getCategories();
     let shopIndex = 0;
-    for (let i = 0; i < this.categories.length; i++) {
-      await this.getProductsByCategory({
-        categoryId: this.categories[i].id,
-        categoryName: this.categories[i].name,
-        limit: 16,
-        shopIndex: i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null,
-      });
-      i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
-    }
+    if (!this.categoryProducts.length > 0)
+      for (let i = 0; i < this.categories.length; i++) {
+        await this.getProductsByCategory({
+          categoryId: this.categories[i].id,
+          categoryName: this.categories[i].name,
+          limit: 16,
+          shopIndex: i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null,
+        });
+        i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
+      }
   },
 };
 </script>

@@ -1,6 +1,10 @@
 <template>
-  <div class="product-detail-container">
-    <button @click="$router.push('/')">To Home</button>
+  <div
+    class="product-detail-container"
+    v-if="!$fetchState.pending && !$fetchState.error"
+    keep-alive
+  >
+    <NuxtLink to="/">Home page</NuxtLink>
     <div class="product-cover">
       <ProductCover :product="product" />
     </div>

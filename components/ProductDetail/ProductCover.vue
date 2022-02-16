@@ -3,7 +3,7 @@
     <div class="product-cover-container-wrapper">
       <div class="product-header">
         <div class="product-cover">
-          <img :src="product.feature_photos[0].photo" />
+          <img :src="featurePhoto" />
         </div>
         <div class="product-name">
           <h3>Folding Saw</h3>
@@ -154,7 +154,11 @@ export default {
       quantity: 1,
     };
   },
-
+  computed: {
+    featurePhoto() {
+      return this.product.feature_photos[0]?.photo;
+    },
+  },
   methods: {
     increaseQuantity() {
       this.quantity++;
