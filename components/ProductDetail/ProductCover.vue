@@ -3,7 +3,30 @@
     <div class="product-cover-container-wrapper">
       <div class="product-header">
         <div class="product-cover">
-          <img :src="featurePhoto" />
+          <img
+            class="feature-photo"
+            :src="product.feature_photos[currentImageIndex].photo"
+          />
+          <div
+            class="product-cover-feature-photos"
+            @wheel.prevent="scrollWithWheel($event)"
+            v-if="product.feature_photos.length > 1"
+          >
+            <div
+              class="product-cover-feature-photos-wrapper"
+              ref="featuredImageWrapper"
+            >
+              <div
+                class="product-cover-feature-photos-item"
+                v-for="(featuredImage, index) in product.feature_photos"
+                :key="index"
+                @click="changeImage(index)"
+                :class="{ active: index === currentImageIndex }"
+              >
+                <img :src="featuredImage.photo" />
+              </div>
+            </div>
+          </div>
         </div>
         <div class="product-name">
           <h3>{{ product.name }}</h3>
@@ -152,6 +175,26 @@ export default {
   data() {
     return {
       quantity: 1,
+      currentImageIndex: 0,
+
+      featuredImages: [
+        {
+          photo:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
+        },
+        {
+          photo:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/16/products/feature/16-02-2022_Asxox_4620c81928ca3d5.46644212.jpg",
+        },
+        {
+          photo:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
+        },
+        {
+          photo:
+            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
+        },
+      ],
     };
   },
   computed: {
@@ -160,12 +203,26 @@ export default {
     },
   },
   methods: {
+    // NOTE: Change image
+    changeImage(index) {
+      this.currentImageIndex = index;
+    },
+
     increaseQuantity() {
       this.quantity++;
     },
     decreaseQuantity() {
       if (this.quantity > 1) {
         this.quantity--;
+      }
+    },
+
+    // NOTE: scroll with mouse wheel
+    scrollWithWheel(e) {
+      if (e.deltaY > 0) {
+        this.$refs.featuredImageWrapper.scrollLeft += 100;
+      } else {
+        this.$refs.featuredImageWrapper.scrollLeft -= 100;
       }
     },
   },
@@ -201,11 +258,32 @@ export default {
 }
 
 .product-cover {
-  @apply w-48 h-auto rounded-full;
+  @apply w-full h-auto rounded-full;
 }
 
-.product-cover img {
+.product-cover .feature-photo {
   @apply w-full h-auto rounded-lg object-cover;
+}
+
+.product-cover .product-cover-feature-photos-wrapper {
+  @apply flex mt-4 gap-x-2 overflow-hidden overflow-x-scroll;
+}
+
+.product-cover-feature-photos-wrapper::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.product-cover-feature-photos-wrapper .product-cover-feature-photos-item {
+  @apply min-w-[35%] max-w-[35%]  h-auto   rounded-lg border-slate-500;
+}
+
+.product-cover-feature-photos-wrapper
+  .product-cover-feature-photos-item.active {
+  @apply border-orange-600 border-2;
+}
+
+.product-cover-feature-photos-item img {
+  @apply w-full h-full object-cover rounded-md;
 }
 
 .product-name {
