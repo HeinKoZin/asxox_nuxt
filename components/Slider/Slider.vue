@@ -3,11 +3,11 @@
     <div class="slider-wrapper">
       <div class="slidable-items">
         <div
-          class="slidable-items-wrapper"
+          :class="'slidable-items-wrapper ' + (isScroll ? '' : 'scroll-smooth')"
           ref="slidableItems"
-          @wheel.prevent="scrollWithWheel($event)"
           @mouseover="pauseSlider"
           @mouseleave="playSlider"
+          v-dragscroll
         >
           <SlidableItem
             v-for="(product, index) in products"
@@ -41,6 +41,9 @@ export default {
         image: null,
       },
       sliderInterval: null,
+
+      // isScroll
+      isScroll: false,
     };
   },
   watch: {
@@ -107,10 +110,12 @@ export default {
     },
 
     pauseSlider() {
+      this.isScroll = true;
       clearInterval(this.sliderInterval);
     },
 
     playSlider() {
+      this.isScroll = false;
       this.changeSliderItemWithTimer();
     },
 
@@ -156,7 +161,7 @@ export default {
 }
 
 .slider-container .slidable-items .slidable-items-wrapper {
-  @apply w-full h-auto   flex pt-5 md:pt-10 overflow-x-scroll rounded-tl-3xl px-2 scroll-smooth;
+  @apply w-full h-auto   flex pt-5 md:pt-10 overflow-x-scroll rounded-tl-3xl px-2;
 }
 
 .slider-container .slidable-items .slidable-items-wrapper::-webkit-scrollbar {

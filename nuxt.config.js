@@ -40,6 +40,7 @@ export default {
     "~/plugins/v-toast.js",
     "~/plugins/v-touch.js",
     "~/plugins/inject.js",
+    { src: "~/plugins/v-dragscroll.js", ssr: false },
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],

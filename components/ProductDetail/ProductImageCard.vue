@@ -21,6 +21,6 @@ export default {
 }
 
 .product-image-card img {
-  @apply w-full h-auto object-cover rounded-lg;
+  @apply w-full h-auto object-cover rounded-lg pointer-events-none;
 }
 </style>
