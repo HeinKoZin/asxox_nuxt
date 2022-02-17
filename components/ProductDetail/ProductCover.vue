@@ -62,10 +62,9 @@
         <p>Categories:</p>
 
         <div class="categories">
-          <a href="#">Fancy</a>
-          <a href="#">Fancy</a>
-          <a href="#">Fancy</a>
-          <a href="#">Fancy</a>
+          <a href="#" v-for="(cat, index) in product.categories" :key="index">{{
+            cat.name
+          }}</a>
         </div>
       </div>
       <!-- NOTE: variants -->
