@@ -41,7 +41,8 @@ export default {
   },
 
   plugins: [
-    "~/plugins/v-touch.js"
+    "~/plugins/v-touch.js",
+    { src: "~/plugins/v-dragscroll.js", ssr: false },
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/postcss8", '@nuxtjs/fontawesome'],

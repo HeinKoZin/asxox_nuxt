@@ -1,15 +1,11 @@
 <template>
   <div class="product-images-container">
     <div class="header">Product Images</div>
-    <div
-      class="body"
-      v-touch:swipe.left="leftSwipeHandler"
-      v-touch:swipe.right="rightSwipeHandler"
-    >
+    <div class="body">
       <div
         class="product-images-wrapper"
         ref="productImagesWrapper"
-        @wheel.prevent="scrollWithWheel($event)"
+        v-dragscroll
       >
         <ProductImageCard
           v-for="(photo, index) in photos"
@@ -57,20 +53,12 @@ export default {
       this.isShowModal = value;
     },
 
-    scrollWithWheel(e) {
-      if (e.deltaY > 0) {
-        this.$refs.productImagesWrapper.scrollLeft += 100;
-      } else {
-        this.$refs.productImagesWrapper.scrollLeft -= 100;
-      }
-    },
-
     leftSwipeHandler() {
-      this.$refs.productImagesWrapper.scrollLeft += 100;
+      this.$refs.productImagesWrapper.scrollLeft += 200;
     },
 
     rightSwipeHandler() {
-      this.$refs.productImagesWrapper.scrollLeft -= 100;
+      this.$refs.productImagesWrapper.scrollLeft -= 200;
     },
   },
 };
@@ -86,7 +74,7 @@ export default {
 }
 
 .body {
-  @apply w-full;
+  @apply w-full cursor-auto;
 }
 
 .product-images-wrapper {

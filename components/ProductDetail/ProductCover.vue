@@ -15,6 +15,7 @@
             <div
               class="product-cover-feature-photos-wrapper"
               ref="featuredImageWrapper"
+              v-dragscroll
             >
               <div
                 class="product-cover-feature-photos-item"
