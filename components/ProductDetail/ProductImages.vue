@@ -5,13 +5,15 @@
       <div
         class="product-images-wrapper"
         ref="productImagesWrapper"
+        v-on:dragscrollstart="dragStartListener"
+        v-on:dragscrollend="dragEndListener"
         v-dragscroll
       >
         <ProductImageCard
           v-for="(photo, index) in photos"
           :key="index"
           :photo="photo"
-          @click.native="openModal(index)"
+          @click.native="isDrag ? null : openModal(index)"
         />
       </div>
     </div>
@@ -30,6 +32,7 @@ export default {
   data() {
     return {
       isShowModal: false,
+      isDrag: false,
 
       currentPhotoIndex: 0,
       photos: [
@@ -59,6 +62,16 @@ export default {
 
     rightSwipeHandler() {
       this.$refs.productImagesWrapper.scrollLeft -= 200;
+    },
+
+    dragStartListener() {
+      this.isDrag = true;
+    },
+
+    dragEndListener() {
+      setTimeout(() => {
+        this.isDrag = false;
+      }, 50);
     },
   },
 };
