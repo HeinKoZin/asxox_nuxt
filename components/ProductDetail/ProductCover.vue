@@ -3,10 +3,31 @@
     <div class="product-cover-container-wrapper">
       <div class="product-header">
         <div class="product-cover">
-          <img
-            class="feature-photo"
-            :src="featuredImages[currentImageIndex].photo"
-          />
+          <!-- NOTE: Test -->
+          <div class="relative">
+            <div class="product-price-and-rating">
+              <div class="product-price">
+                <span>$</span>
+                <span>15,000 MMK</span>
+              </div>
+              <span>|</span>
+              <div class="product-rating">
+                <span
+                  ><font-awesome-icon
+                    class="text-orange-500"
+                    :icon="['fas', 'star']"
+                /></span>
+                <span>4.5</span>
+                <span>/5</span>
+              </div>
+            </div>
+
+            <img
+              class="feature-photo"
+              :src="featuredImages[currentImageIndex].photo"
+            />
+          </div>
+
           <div
             class="product-cover-feature-photos"
             v-if="featuredImages.length > 1"
@@ -33,10 +54,14 @@
         <div class="product-name">
           <h3>Folding Saw</h3>
         </div>
-        <div class="product-brand">
+
+        <!-- WARNING: Do not remove -->
+        <!-- <div class="product-brand">
           <a href="#">Asxox</a>
-        </div>
-        <div class="product-price-and-rating">
+        </div> -->
+
+        <!-- WARNING: Do not remove -->
+        <!-- <div class="product-price-and-rating">
           <div class="product-price">
             <span>$</span>
             <span>15,000 MMK</span>
@@ -51,21 +76,24 @@
             <span>4.5</span>
             <span>/5</span>
           </div>
-        </div>
+        </div> -->
       </div>
 
-      <div class="product-code">
+      <!-- WARNING: Do not remove -->
+      <!-- <div class="product-code">
         <p>Product code: <span>#74324545</span></p>
-      </div>
+      </div> -->
 
+      <!-- WARNING: Do not remove -->
       <!-- NOTE: Availability container -->
-      <div class="availability-container">
+      <!-- <div class="availability-container">
         <div class="availability-label">Availability:</div>
         <div class="availability-value">In Stock</div>
-      </div>
+      </div> -->
 
+      <!-- WARNING: Do not remove -->
       <!-- NOTE: Categories -->
-      <div class="categories-container">
+      <!-- <div class="categories-container">
         <p>Categories:</p>
 
         <div class="categories">
@@ -74,7 +102,8 @@
           <a href="#">Fancy</a>
           <a href="#">Fancy</a>
         </div>
-      </div>
+      </div> -->
+
       <!-- NOTE: variants -->
       <div class="product-variants">
         <div class="product-variant">
@@ -282,7 +311,7 @@ export default {
 }
 
 .product-cover {
-  @apply w-full h-auto rounded-full;
+  @apply w-full h-auto rounded-full relative;
 }
 
 .product-cover .feature-photo {
@@ -318,12 +347,21 @@ export default {
   @apply w-full text-center text-blue-500 font-semibold text-xl  underline font-zen-kurenaido;
 }
 
-.product-price-and-rating {
+.product-price-and-rating-old {
   @apply flex  gap-x-2 text-base mt-4 font-quicksand items-center font-semibold;
 }
 
-.product-price-and-rating .product-price {
+.product-price-and-rating-old .product-price {
   @apply text-slate-50 px-4 p-2 font-semibold text-base bg-orange-500 rounded-lg;
+}
+
+/* NOTE: New */
+.product-price-and-rating {
+  @apply flex  gap-x-2 text-base mt-4 font-quicksand items-center  absolute bottom-0 w-full bg-slate-900 bg-opacity-50 text-slate-100 justify-evenly p-2 rounded-b-lg;
+}
+
+.product-price-and-rating .product-price {
+  @apply text-slate-50 bg-orange-600 rounded-lg p-2 px-4  font-bold  text-base;
 }
 
 /* NOTE: Footer btn group */
@@ -347,7 +385,7 @@ export default {
   @apply h-12 flex gap-x-3 bg-slate-200 text-slate-800 rounded-lg text-base items-center flex-grow justify-center;
 }
 
-span {
+.footer-btn-group span {
   @apply font-bold;
 }
 
