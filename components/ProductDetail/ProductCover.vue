@@ -9,7 +9,6 @@
           />
           <div
             class="product-cover-feature-photos"
-            @wheel.prevent="scrollWithWheel($event)"
             v-if="featuredImages.length > 1"
           >
             <div
@@ -44,6 +43,11 @@
           </div>
           <span>|</span>
           <div class="product-rating">
+            <span
+              ><font-awesome-icon
+                class="text-orange-500"
+                :icon="['fas', 'star']"
+            /></span>
             <span>4.5</span>
             <span>/5</span>
           </div>
@@ -156,13 +160,27 @@
         </div>
       </div>
 
-      <!-- NOTE: Add to cart -->
-      <div class="add-to-cart">
-        <button>
+      <div class="footer-btn-group">
+        <div class="flex gap-x-2">
+          <!-- NOTE: Add to cart -->
+          <button class="add-to-cart">
+            <span
+              ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
+            /></span>
+            <span>Add to Cart</span>
+          </button>
+          <!-- NOTE: Favorite -->
+          <button class="favorite">
+            <font-awesome-icon class="icon" :icon="['fas', 'heart']" />
+          </button>
+        </div>
+
+        <!-- NOTE: Buy now -->
+        <button class="buy-now">
           <span
-            ><font-awesome-icon class="icon" :icon="['fas', 'shopping-cart']"
+            ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
           /></span>
-          <span>Add to Cart</span>
+          <span>Buy now</span>
         </button>
       </div>
     </div>
@@ -252,11 +270,11 @@ export default {
 }
 
 .availability-container .availability-label {
-  @apply font-bold;
+  @apply font-semibold;
 }
 
 .availability-container .availability-value {
-  @apply p-2 rounded-lg bg-orange-600 text-white text-sm;
+  @apply p-2  bg-green-600 text-white text-sm font-medium;
 }
 
 .product-header {
@@ -280,7 +298,7 @@ export default {
 }
 
 .product-cover-feature-photos-wrapper .product-cover-feature-photos-item {
-  @apply min-w-[35%] max-w-[35%]  h-auto   rounded-lg border-slate-500;
+  @apply min-w-[25%] max-w-[25%]  h-auto   rounded-lg border-slate-500;
 }
 
 .product-cover-feature-photos-wrapper
@@ -297,22 +315,43 @@ export default {
 }
 
 .product-brand {
-  @apply w-full text-center text-blue-500 font-bold text-xl  underline font-zen-kurenaido;
+  @apply w-full text-center text-blue-500 font-semibold text-xl  underline font-zen-kurenaido;
 }
 
 .product-price-and-rating {
-  @apply flex  gap-x-2 text-base font-quicksand;
+  @apply flex  gap-x-2 text-base mt-4 font-quicksand items-center font-semibold;
 }
 
 .product-price-and-rating .product-price {
-  @apply text-orange-600 font-semibold text-base;
+  @apply text-slate-50 px-4 p-2 font-semibold text-base bg-orange-500 rounded-lg;
 }
 
-.add-to-cart button {
-  @apply px-4 py-2 flex gap-x-3 bg-orange-600 text-white rounded-lg mt-4;
+/* NOTE: Footer btn group */
+.footer-btn-group {
+  @apply flex flex-col gap-y-2 mt-4 w-full;
 }
 
-.product-variants {
+.buy-now {
+  @apply h-12 flex gap-x-3 bg-orange-500 text-slate-50 rounded-lg items-center flex-grow justify-center font-semibold;
+}
+
+.favorite {
+  @apply border-2 border-slate-500 text-slate-500 text-xl md:text-2xl h-12 w-12 rounded-lg;
+}
+
+.favorite.active {
+  @apply border-red-600 text-red-500;
+}
+
+.add-to-cart {
+  @apply h-12 flex gap-x-3 bg-slate-200 text-slate-800 rounded-lg text-base items-center flex-grow justify-center;
+}
+
+span {
+  @apply font-bold;
+}
+
+.ad .product-variants {
   @apply flex flex-col gap-y-2 w-full;
 }
 
@@ -325,15 +364,15 @@ export default {
 }
 
 .product-variant-option {
-  @apply px-2 py-1 text-base font-quicksand bg-slate-300 cursor-pointer hover:bg-slate-200 rounded-lg;
+  @apply px-2 py-1 text-base font-quicksand bg-slate-300 cursor-pointer hover:bg-slate-200;
 }
 
 .product-variant-title {
-  @apply text-base font-quicksand font-bold;
+  @apply text-base font-quicksand font-semibold;
 }
 
 .product-variant-option.active {
-  @apply bg-orange-600 text-white;
+  @apply bg-slate-700 text-slate-50;
 }
 
 .product-variant-option input {
@@ -341,7 +380,7 @@ export default {
 }
 
 .product-code {
-  @apply text-slate-800 font-bold text-base font-quicksand w-full;
+  @apply text-slate-800 font-semibold text-base font-quicksand w-full;
 }
 
 .product-code span {
@@ -349,7 +388,7 @@ export default {
 }
 
 .categories-container {
-  @apply flex flex-col gap-y-2 w-full font-quicksand font-bold;
+  @apply flex flex-col gap-y-2 w-full font-quicksand font-semibold;
 }
 
 .categories {
@@ -365,7 +404,7 @@ export default {
 }
 
 .product-quantity-label {
-  @apply text-base font-quicksand font-bold;
+  @apply text-base font-quicksand font-semibold;
 }
 
 .product-quantity-value {
