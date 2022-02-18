@@ -287,7 +287,7 @@ export default {
 
 <style lang="postcss" scoped>
 .product-cover-container {
-  @apply flex w-full h-full bg-slate-50 px-0 py-8 flex-col border border-slate-300 rounded-lg justify-center items-center relative;
+  @apply flex w-full h-full bg-slate-50  py-8 flex-col border border-slate-300 rounded-lg justify-center items-center relative;
 }
 
 .product-cover-container-wrapper {
@@ -307,7 +307,7 @@ export default {
 }
 
 .product-header {
-  @apply rounded-lg w-full flex flex-col items-center justify-center  gap-y-2 pb-4;
+  @apply rounded-lg w-full flex flex-col items-center justify-center  gap-y-2;
 }
 
 .product-cover {
@@ -344,7 +344,7 @@ export default {
 }
 
 .product-brand {
-  @apply w-full text-center text-blue-500 font-semibold text-xl  underline font-zen-kurenaido;
+  @apply w-full text-justify text-blue-500 font-semibold text-xl  underline font-zen-kurenaido;
 }
 
 .product-price-and-rating-old {

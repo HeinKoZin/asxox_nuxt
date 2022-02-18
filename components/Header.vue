@@ -16,6 +16,11 @@
             <font-awesome-icon :icon="['fas', 'times']" class="icon" />
           </button>
         </div>
+        <div class="header-back-button">
+          <button>
+            <font-awesome-icon :icon="['fas', 'arrow-left']" />
+          </button>
+        </div>
         <div class="header-logo">
           <!-- <a href="#">
             <img src="https://via.placeholder.com/50" alt="logo" />
@@ -128,6 +133,14 @@ export default {
 
 .header-left {
   @apply flex flex-row h-12 items-center;
+}
+
+.header-back-button {
+  @apply flex flex-row items-center mr-2;
+}
+
+.header-back-button button {
+  @apply w-10 h-10 text-slate-500 hover:text-slate-700 text-lg;
 }
 
 .header-logo {
