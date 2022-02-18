@@ -35,6 +35,10 @@ const getters = {
   adsShops(state) {
     return state.adsShops;
   },
+
+  cartProducts(state) {
+    return state.cartProducts;
+  },
 };
 
 export default getters;

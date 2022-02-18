@@ -7,7 +7,7 @@
       <ProductCover :product="product" />
     </div>
     <div class="product-detail">
-      <ProductImages :description_photos="product.description_photos || null" />
+      <ProductImages :description_photos="product.description_photos" />
       <ProductDescription />
     </div>
   </div>

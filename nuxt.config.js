@@ -45,6 +45,8 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],
 
+  ssr: true,
+  target: "server",
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
@@ -52,6 +54,7 @@ export default {
     "@nuxtjs/auth-next",
     "cookie-universal-nuxt",
   ],
+
   fontawesome: {
     icons: {
       solid: true,
@@ -87,7 +90,7 @@ export default {
     baseURL: apiLink,
   },
   router: {
-    middleware: ["setDefaultToken"],
+    middleware: ["setDefaultToken", "defaultStore"],
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

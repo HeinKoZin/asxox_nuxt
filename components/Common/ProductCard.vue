@@ -39,7 +39,10 @@
               class="icon active"
             />
           </button>
-          <button class="w-10 h-10 bg-white rounded-full">
+          <button
+            class="w-10 h-10 bg-white rounded-full"
+            @click="data.is_varient ? null : addProductToCart(data)"
+          >
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
           <button
@@ -91,7 +94,7 @@ export default {
       return data;
     },
     ...mapMutations(["SET_CATEGORY_PRODUCT_FAVOURITE"]),
-    ...mapActions(["getWishListProducts"]),
+    ...mapActions(["getWishListProducts", "addProductToCart"]),
     async addToWishList(product_id, is_wishlist) {
       if (!this.checkAuthenticated("redirect")) return true;
       let res;

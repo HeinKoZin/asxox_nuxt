@@ -47,6 +47,22 @@ const actions = {
       commit("SET_ADS_SHOPS", res?.data?.data);
     } catch (error) {}
   },
+
+  addProductToCart({ commit }, data) {
+    const newData = {
+      id: data.id,
+      qty: 1,
+      is_article: data.is_article_promotion,
+      is_flashsale: data.is_flashsale_promotion,
+      original_unit_price: data.sell_price,
+      sell_price: data.sell_price,
+    };
+    commit("SET_PRODUCT_TO_CART", newData);
+  },
+
+  updateProductInCart({ commit }, { cartId, productQty }) {
+    commit("UPDATE_PRODUCT_IN_CART", { cartId, productQty });
+  },
 };
 
 export default actions;

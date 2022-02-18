@@ -15,13 +15,15 @@
             <div
               class="product-cover-feature-photos-wrapper"
               ref="featuredImageWrapper"
+              v-on:dragscrollstart="dragStartListener"
+              v-on:dragscrollend="dragEndListener"
               v-dragscroll
             >
               <div
                 class="product-cover-feature-photos-item"
                 v-for="(featuredImage, index) in product.feature_photos"
                 :key="index"
-                @click="changeImage(index)"
+                @click="isDrag ? null : changeImage(index)"
                 :class="{ active: index === currentImageIndex }"
               >
                 <img :src="featuredImage.photo" />
@@ -176,6 +178,7 @@ export default {
     return {
       quantity: 1,
       currentImageIndex: 0,
+      isDrag: false,
 
       featuredImages: [
         {
@@ -229,6 +232,16 @@ export default {
       } else {
         this.$refs.featuredImageWrapper.scrollLeft -= 100;
       }
+    },
+
+    dragStartListener() {
+      this.isDrag = true;
+    },
+
+    dragEndListener() {
+      setTimeout(() => {
+        this.isDrag = false;
+      }, 50);
     },
   },
   mounted() {

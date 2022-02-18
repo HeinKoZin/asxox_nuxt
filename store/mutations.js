@@ -35,6 +35,29 @@ const mutations = {
     state.categoryProducts[categoryIndex].products[productIndex].is_wishlist =
       !state.categoryProducts[categoryIndex].products[productIndex].is_wishlist;
   },
+
+  SET_PRODUCT_TO_CART(state, data) {
+    const filteredIndex = state.cartProducts.findIndex(
+      (product) => product.id === data.id
+    );
+    if (filteredIndex !== -1) state.cartProducts[filteredIndex].qty++;
+    else state.cartProducts.push(data);
+
+    this.app.$cookies.remove("cartProducts");
+    this.app.$cookies.set("cartProducts", state.cartProducts, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+  },
+
+  UPDATE_PRODUCT_IN_CART(state, { cartId, productQty }) {
+    state.cartProducts[cartId].qty = productQty;
+    this.app.$cookies.remove("cartProducts");
+    this.app.$cookies.set("cartProducts", state.cartProducts, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+  },
 };
 
 export default mutations;

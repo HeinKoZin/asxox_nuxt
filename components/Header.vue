@@ -93,6 +93,7 @@
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
         </div>
+        {{ cartProducts }}
         <div class="header-wishlist">
           <button class="header-button">
             <span class="badge">{{ wishListProductList.length }}</span>
@@ -123,6 +124,7 @@ export default {
       "isAuthenticated",
       "loggedInUser",
       "wishListProductList",
+      "cartProducts",
     ]),
   },
   methods: {

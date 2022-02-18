@@ -1,17 +1,19 @@
 <template>
-  <div class="product-images-container">
+  <div class="product-images-container" v-if="description_photos">
     <div class="header">Product Images</div>
     <div class="body">
       <div
         class="product-images-wrapper"
         ref="productImagesWrapper"
+        v-on:dragscrollstart="dragStartListener"
+        v-on:dragscrollend="dragEndListener"
         v-dragscroll
       >
         <ProductImageCard
           v-for="(description_photo, index) in description_photos"
           :key="index"
           :photo="description_photo.photo"
-          @click.native="openModal(index)"
+          @click.native="isDrag ? null : openModal(index)"
         />
       </div>
     </div>
@@ -27,10 +29,12 @@
 
 <script>
 export default {
-  props: ["description_photos"],
+  props: { description_photos: Array },
   data() {
     return {
       isShowModal: false,
+      isDrag: false,
+
       currentPhotoIndex: 0,
     };
   },
@@ -51,6 +55,16 @@ export default {
 
     rightSwipeHandler() {
       this.$refs.productImagesWrapper.scrollLeft -= 200;
+    },
+
+    dragStartListener() {
+      this.isDrag = true;
+    },
+
+    dragEndListener() {
+      setTimeout(() => {
+        this.isDrag = false;
+      }, 50);
     },
   },
 };
