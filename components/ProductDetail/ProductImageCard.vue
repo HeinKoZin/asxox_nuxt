@@ -17,7 +17,7 @@ export default {
 
 <style lang="postcss" scoped>
 .product-image-card {
-  @apply md:min-w-[26%] md:max-w-[26%] w-full h-full  rounded-lg;
+  @apply min-w-[45%] max-w-[45%] md:min-w-[26%] md:max-w-[26%]  rounded-lg;
 }
 
 .product-image-card img {

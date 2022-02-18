@@ -83,7 +83,7 @@ export default {
 }
 
 .header {
-  @apply flex w-full bg-slate-50 border-b rounded-t-lg border-slate-300 h-12 items-center px-2 font-quicksand text-lg font-bold;
+  @apply flex w-full bg-slate-50 border-b rounded-t-lg border-slate-300 h-12 items-center px-2 font-quicksand text-base md:text-lg font-bold;
 }
 
 .body {
