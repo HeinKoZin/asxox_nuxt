@@ -89,18 +89,16 @@
         </div>
         <div class="header-cart" v-if="!isCartOpen">
           <button class="header-button" @click="toggleCart">
-            <span class="badge">2</span>
+            <span class="badge">{{ cartProducts.length }}</span>
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
         </div>
-        {{ cartProducts }}
         <div class="header-wishlist">
           <button class="header-button">
             <span class="badge">{{ wishListProductList.length }}</span>
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
           </button>
         </div>
-        <!-- {{ cartProductList.length }} -->
       </div>
     </div>
   </header>
