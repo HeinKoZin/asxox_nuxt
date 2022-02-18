@@ -4,7 +4,13 @@
     v-if="!$fetchState.pending && !$fetchState.error"
   >
     <div class="product-cover">
-      <ProductCover :product="product" />
+      <ProductCover
+        :product="product"
+        :sizes="sizes"
+        :colors="colors"
+        :patterns="patterns"
+        :accessories="accessories"
+      />
     </div>
     <div class="product-detail">
       <ProductImages :description_photos="product.description_photos" />
@@ -20,7 +26,11 @@ export default {
   layout: "MainLayout",
   data() {
     return {
-      product: [],
+      product: {},
+      sizes: [],
+      colors: [],
+      patterns: [],
+      accessories: [],
     };
   },
   methods: {
@@ -32,6 +42,11 @@ export default {
       )
         return this.product.feature_photos[0].photo;
       else return "test";
+    },
+    setToProductVariant(type) {
+      if (type && this.colors.indexOf(type) === -1) {
+        this.colors.push(type);
+      }
     },
   },
   head() {
@@ -58,6 +73,14 @@ export default {
       `/products/${this.$asxox.asxox_decode(this.$route.params.id)}`
     );
     this.product = res.data.data;
+    if (this.product.product_varients?.length > 0) {
+      this.product.product_varients.map((product) => {
+        this.setToProductVariant(product.size?.name);
+        this.setToProductVariant(product.color?.name);
+        this.setToProductVariant(product.pattern?.name);
+        this.setToProductVariant(product.accessories?.name);
+      });
+    }
   },
 };
 </script>

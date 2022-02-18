@@ -72,70 +72,62 @@
       </div>
       <!-- NOTE: variants -->
       <div class="product-variants">
-        <div class="product-variant">
+        <div class="product-variant" v-if="colors.length > 0">
           <div class="product-variant-title">
             <span>Color:</span>
           </div>
           <fieldset class="product-variant-options" id="color">
-            <label for="white" class="product-variant-option"
-              >White<input type="radio" name="color" id="white"
-            /></label>
-            <label for="red" class="product-variant-option active"
-              >Red<input type="radio" name="color" id="red"
-            /></label>
-            <label for="blue" class="product-variant-option"
-              >Blue<input type="radio" name="color" id="blue"
+            <label
+              for="white"
+              class="product-variant-option"
+              v-for="(color, index) in colors"
+              :key="index"
+              >{{ color }}<input type="radio" name="color" id="white"
             /></label>
           </fieldset>
         </div>
 
-        <div class="product-variant">
+        <div class="product-variant" v-if="sizes.length > 0">
           <div class="product-variant-title">
             <span>Size:</span>
           </div>
           <fieldset class="product-variant-options" id="size">
-            <label for="white" class="product-variant-option"
-              >Small<input type="radio" name="size" id="small"
-            /></label>
-            <label for="red" class="product-variant-option"
-              >Medium<input type="radio" name="size" id="medium"
-            /></label>
-            <label for="blue" class="product-variant-option active"
-              >Large<input type="radio" name="size" id="large"
+            <label
+              for="white"
+              class="product-variant-option"
+              v-for="(size, index) in sizes"
+              :key="index"
+              >{{ size }}<input type="radio" name="size" id="small"
             /></label>
           </fieldset>
         </div>
 
-        <div class="product-variant">
+        <div class="product-variant" v-if="patterns.length > 0">
           <div class="product-variant-title">
             <span>Pattern</span>
           </div>
           <fieldset class="product-variant-options" id="size">
-            <label for="white" class="product-variant-option"
-              >Pattern A<input type="radio" name="size" id="small"
-            /></label>
-            <label for="red" class="product-variant-option"
-              >Pattern B<input type="radio" name="size" id="medium"
-            /></label>
-            <label for="blue" class="product-variant-option active"
-              >Pattern C<input type="radio" name="size" id="large"
+            <label
+              for="white"
+              class="product-variant-option"
+              v-for="(pattern, index) in patterns"
+              :key="index"
+              >{{ pattern }}<input type="radio" name="size" id="small"
             /></label>
           </fieldset>
         </div>
 
-        <div class="product-variant">
+        <div class="product-variant" v-if="accessories.length > 0">
           <div class="product-variant-title">
             <span>Accessories</span>
           </div>
           <fieldset class="product-variant-options" id="size">
-            <label for="white" class="product-variant-option"
-              >Accessories A<input type="radio" name="size" id="small"
-            /></label>
-            <label for="red" class="product-variant-option"
-              >Accessories B<input type="radio" name="size" id="medium"
-            /></label>
-            <label for="blue" class="product-variant-option active"
-              >Accessories C<input type="radio" name="size" id="large"
+            <label
+              for="white"
+              class="product-variant-option"
+              v-for="(accessory, index) in accessories"
+              :key="index"
+              >{{ accessory }}<input type="radio" name="size" id="small"
             /></label>
           </fieldset>
         </div>
@@ -171,7 +163,13 @@
 <script>
 import Button from "../Common/Button.vue";
 export default {
-  props: { product: Object },
+  props: {
+    product: Object,
+    colors: Array,
+    sizes: Array,
+    accessories: Array,
+    patterns: Array,
+  },
   components: { Button },
 
   data() {
