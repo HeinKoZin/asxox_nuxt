@@ -61,7 +61,6 @@
         >
           {{ data.name }}</NuxtLink
         >
-
         <p class="product-description">{{ data.description }}</p>
         <div class="product-price">
           <span class="text-orange-600">$</span>

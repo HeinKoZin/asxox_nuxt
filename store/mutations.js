@@ -50,6 +50,10 @@ const mutations = {
     });
   },
 
+  SET_WHOLE_PRODUCTS_TO_CART(state, data) {
+    state.cartProducts = data;
+  },
+
   UPDATE_PRODUCT_IN_CART(state, { cartId, productQty }) {
     state.cartProducts[cartId].qty = productQty;
     this.app.$cookies.remove("cartProducts");
