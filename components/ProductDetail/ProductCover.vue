@@ -56,13 +56,13 @@
 
       <!-- NOTE: Availability container -->
       <div class="availability-container">
-        <div class="availability-label">Availability:</div>
+        <div class="availability-label">Availability :</div>
         <div class="availability-value">In Stock</div>
       </div>
 
       <!-- NOTE: Categories -->
       <div class="categories-container">
-        <p>Categories:</p>
+        <p>Categories :</p>
 
         <div class="categories">
           <a href="#" v-for="(cat, index) in product.categories" :key="index">{{
@@ -76,13 +76,15 @@
           <div class="product-variant-title">
             <span>Color:</span>
           </div>
-          <fieldset class="product-variant-options" id="color">
+          <fieldset class="product-variant-options">
             <label
               for="white"
               class="product-variant-option"
+              :class="{ active: color.isActive }"
               v-for="(color, index) in colors"
               :key="index"
-              >{{ color }}<input type="radio" name="color" id="white"
+              @click="selectVariant(color, 'colors', index)"
+              >{{ color.name }}<input type="radio"
             /></label>
           </fieldset>
         </div>
@@ -91,13 +93,15 @@
           <div class="product-variant-title">
             <span>Size:</span>
           </div>
-          <fieldset class="product-variant-options" id="size">
+          <fieldset class="product-variant-options">
             <label
               for="white"
               class="product-variant-option"
+              :class="{ active: size.isActive }"
               v-for="(size, index) in sizes"
               :key="index"
-              >{{ size }}<input type="radio" name="size" id="small"
+              @click="selectVariant(size, 'sizes', index)"
+              >{{ size.name }}<input type="radio"
             /></label>
           </fieldset>
         </div>
@@ -106,13 +110,15 @@
           <div class="product-variant-title">
             <span>Pattern</span>
           </div>
-          <fieldset class="product-variant-options" id="size">
+          <fieldset class="product-variant-options">
             <label
               for="white"
               class="product-variant-option"
+              :class="{ active: pattern.isActive }"
               v-for="(pattern, index) in patterns"
               :key="index"
-              >{{ pattern }}<input type="radio" name="size" id="small"
+              @click="selectVariant(pattern, 'patterns', index)"
+              >{{ pattern.name }}<input type="radio"
             /></label>
           </fieldset>
         </div>
@@ -121,21 +127,24 @@
           <div class="product-variant-title">
             <span>Accessories</span>
           </div>
-          <fieldset class="product-variant-options" id="size">
+          <fieldset class="product-variant-options">
             <label
               for="white"
               class="product-variant-option"
+              :class="{ active: accessory.isActive }"
               v-for="(accessory, index) in accessories"
               :key="index"
-              >{{ accessory }}<input type="radio" name="size" id="small"
+              @click="selectVariant(accessory, 'accessories', index)"
+              >{{ accessory.name }}<input type="radio"
             /></label>
           </fieldset>
         </div>
+        {{ selectedVariant }}
       </div>
 
       <!-- NOTE: Quantity -->
       <div class="product-quantity">
-        <div class="product-quantity-label">Quantity:</div>
+        <div class="product-quantity-label">Quantity :</div>
         <div class="product-quantity-value">
           <button @click="decreaseQuantity()">
             <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
@@ -177,6 +186,8 @@ export default {
       quantity: 1,
       currentImageIndex: 0,
       isDrag: false,
+      variantLength: this.calculateVariantLength(),
+      selectedVariant: [],
 
       featuredImages: [
         {
@@ -205,10 +216,39 @@ export default {
     isHasFeaturedPhotos() {
       if (this.product.feature_photos?.length > 1) return true;
       else return false;
-      // console.log(this.product.feature_photos.length);
     },
   },
   methods: {
+    selectVariant(data, type, index) {
+      console.log(data, type, index);
+      if (this[type][index].isActive) {
+        const removedIndex = this.selectedVariant.findIndex(
+          (variant) => variant.data === data.name
+        );
+        this.selectedVariant.splice(removedIndex, 1);
+        this[type][index].isActive = !this[type][index].isActive;
+        return false;
+      }
+      this[type][index].isActive = !this[type][index].isActive;
+
+      const currentSelectedVariant = this.selectedVariant.filter(
+        (variant) => variant.type === type
+      );
+      if (currentSelectedVariant.length > 0) {
+        const currendSelectIndex = this[type].findIndex(
+          (variant) => variant.name === currentSelectedVariant[0].data
+        );
+        this[type][currendSelectIndex].isActive = false;
+      }
+
+      const isVariantSelectedIndex = this.selectedVariant.findIndex(
+        (variant) => variant.type === type
+      );
+      isVariantSelectedIndex !== -1
+        ? this.selectedVariant.splice(isVariantSelectedIndex, 1)
+        : null;
+      this.selectedVariant.push({ data: data.name, type });
+    },
     // NOTE: Change image
     changeImage(index) {
       this.currentImageIndex = index;
@@ -221,6 +261,14 @@ export default {
       if (this.quantity > 1) {
         this.quantity--;
       }
+    },
+    calculateVariantLength() {
+      let variantLength = 0;
+      if (this.colors?.length > 0) variantLength++;
+      if (this.sizes?.length > 0) variantLength++;
+      if (this.patterns?.length > 0) variantLength++;
+      if (this.accessories?.length > 0) variantLength++;
+      return variantLength;
     },
 
     // NOTE: scroll with mouse wheel
@@ -241,9 +289,6 @@ export default {
         this.isDrag = false;
       }, 50);
     },
-  },
-  mounted() {
-    console.log(this.product);
   },
 };
 </script>

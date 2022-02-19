@@ -43,9 +43,9 @@ export default {
         return this.product.feature_photos[0].photo;
       else return "test";
     },
-    setToProductVariant(type) {
-      if (type && this.colors.indexOf(type) === -1) {
-        this.colors.push(type);
+    setToProductVariant(type, main) {
+      if (type && main.filter((data) => data.name === type).length === 0) {
+        main.push({ name: type, isActive: false });
       }
     },
   },
@@ -75,10 +75,10 @@ export default {
     this.product = res.data.data;
     if (this.product.product_varients?.length > 0) {
       this.product.product_varients.map((product) => {
-        this.setToProductVariant(product.size?.name);
-        this.setToProductVariant(product.color?.name);
-        this.setToProductVariant(product.pattern?.name);
-        this.setToProductVariant(product.accessories?.name);
+        this.setToProductVariant(product.size?.name, this.sizes);
+        this.setToProductVariant(product.color?.name, this.colors);
+        this.setToProductVariant(product.pattern?.name, this.patterns);
+        this.setToProductVariant(product.accessories?.name, this.accessories);
       });
     }
   },
