@@ -5,7 +5,9 @@
         <div class="product-cover">
           <img
             class="feature-photo"
-            :src="product.feature_photos[currentImageIndex].photo"
+            :src="
+              variantPhoto || product.feature_photos[currentImageIndex].photo
+            "
           />
           <div
             class="product-cover-feature-photos"
@@ -72,7 +74,7 @@
       </div>
       <!-- NOTE: variants -->
       <div class="product-variants">
-        <div class="product-variant" v-if="colors.length > 0">
+        <div class="product-variant" v-if="color.length > 0">
           <div class="product-variant-title">
             <span>Color:</span>
           </div>
@@ -80,16 +82,16 @@
             <label
               for="white"
               class="product-variant-option"
-              :class="{ active: color.isActive }"
-              v-for="(color, index) in colors"
+              :class="{ active: col.isActive }"
+              v-for="(col, index) in color"
               :key="index"
-              @click="selectVariant(color, 'colors', index)"
-              >{{ color.name }}<input type="radio"
+              @click="selectVariant(col, 'color', index)"
+              >{{ col.name }}<input type="radio"
             /></label>
           </fieldset>
         </div>
 
-        <div class="product-variant" v-if="sizes.length > 0">
+        <div class="product-variant" v-if="size.length > 0">
           <div class="product-variant-title">
             <span>Size:</span>
           </div>
@@ -97,16 +99,16 @@
             <label
               for="white"
               class="product-variant-option"
-              :class="{ active: size.isActive }"
-              v-for="(size, index) in sizes"
+              :class="{ active: sizeChild.isActive }"
+              v-for="(sizeChild, index) in size"
               :key="index"
-              @click="selectVariant(size, 'sizes', index)"
-              >{{ size.name }}<input type="radio"
+              @click="selectVariant(sizeChild, 'size', index)"
+              >{{ sizeChild.name }}<input type="radio"
             /></label>
           </fieldset>
         </div>
 
-        <div class="product-variant" v-if="patterns.length > 0">
+        <div class="product-variant" v-if="pattern.length > 0">
           <div class="product-variant-title">
             <span>Pattern</span>
           </div>
@@ -114,11 +116,11 @@
             <label
               for="white"
               class="product-variant-option"
-              :class="{ active: pattern.isActive }"
-              v-for="(pattern, index) in patterns"
+              :class="{ active: patternChild.isActive }"
+              v-for="(patternChild, index) in pattern"
               :key="index"
-              @click="selectVariant(pattern, 'patterns', index)"
-              >{{ pattern.name }}<input type="radio"
+              @click="selectVariant(patternChild, 'pattern', index)"
+              >{{ patternChild.name }}<input type="radio"
             /></label>
           </fieldset>
         </div>
@@ -162,7 +164,7 @@
           <span
             ><font-awesome-icon class="icon" :icon="['fas', 'shopping-cart']"
           /></span>
-          <span>Add to Cart</span>
+          <span @click="selectVarianPhoto()">Add to Cart</span>
         </button>
       </div>
     </div>
@@ -174,21 +176,21 @@ import Button from "../Common/Button.vue";
 export default {
   props: {
     product: Object,
-    colors: Array,
-    sizes: Array,
+    color: Array,
+    size: Array,
     accessories: Array,
-    patterns: Array,
+    pattern: Array,
   },
   components: { Button },
 
   data() {
     return {
+      variantPhoto: null,
       quantity: 1,
       currentImageIndex: 0,
       isDrag: false,
       variantLength: this.calculateVariantLength(),
       selectedVariant: [],
-
       featuredImages: [
         {
           photo:
@@ -262,11 +264,33 @@ export default {
         this.quantity--;
       }
     },
+    selectVarianPhoto() {
+      let variantLength = 0;
+      this.selectedVariant.map((selectVar, index) => {
+        // console.log(selectVar);
+        // this.product.product_varients.map((variant) => {
+        for (let i = 0; i < this.product.product_varients.length; i++) {
+          if (
+            this.product.product_varients[i][selectVar.type].name ===
+            selectVar.data
+          )
+            variantLength++;
+          if (this.variantLength === variantLength) {
+            this.variantPhoto = this.product.product_varients[i].varient_photo;
+            console.log(this.variantPhoto);
+            console.log(this.variantLength);
+            break;
+          }
+        }
+
+        // });
+      });
+    },
     calculateVariantLength() {
       let variantLength = 0;
-      if (this.colors?.length > 0) variantLength++;
-      if (this.sizes?.length > 0) variantLength++;
-      if (this.patterns?.length > 0) variantLength++;
+      if (this.color?.length > 0) variantLength++;
+      if (this.size?.length > 0) variantLength++;
+      if (this.pattern?.length > 0) variantLength++;
       if (this.accessories?.length > 0) variantLength++;
       return variantLength;
     },

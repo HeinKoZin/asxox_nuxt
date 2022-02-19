@@ -6,9 +6,9 @@
     <div class="product-cover">
       <ProductCover
         :product="product"
-        :sizes="sizes"
-        :colors="colors"
-        :patterns="patterns"
+        :size="sizes"
+        :color="colors"
+        :pattern="patterns"
         :accessories="accessories"
       />
     </div>
