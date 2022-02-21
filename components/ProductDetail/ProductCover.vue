@@ -287,7 +287,7 @@ export default {
 
 <style lang="postcss" scoped>
 .product-cover-container {
-  @apply flex w-full h-auto bg-slate-50  py-8 flex-col border border-slate-300 rounded-lg justify-center items-center sticky bottom-0;
+  @apply flex w-full h-auto bg-slate-50  py-8 flex-col border border-slate-300 rounded-lg justify-center items-center relative md:sticky md:bottom-0;
 }
 
 .product-cover-container-wrapper {

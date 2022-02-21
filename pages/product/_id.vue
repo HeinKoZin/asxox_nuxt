@@ -39,7 +39,7 @@ export default {
 }
 
 .product-cover {
-  @apply w-full h-full md:w-1/5  sticky top-0 bottom-0;
+  @apply w-full h-full md:w-1/5  md:sticky md:top-0 md:bottom-0;
 }
 
 .product-detail {
