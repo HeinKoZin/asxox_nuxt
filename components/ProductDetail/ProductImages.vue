@@ -9,6 +9,16 @@
         v-on:dragscrollend="dragEndListener"
         v-dragscroll
       >
+        <!-- <div class="youtube-video-container">
+          <iframe
+            src="https://www.youtube.com/embed/J_16Vo5ZU6o"
+            frameborder="0"
+            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            class="max-w-[40%] min-h-[40%] md:min-w-[25%] md:min-h-[25%] h-[40%] w-[40%] md:w-[25%] md:h-[25%]"
+          ></iframe>
+        </div> -->
+
         <ProductImageCard
           v-for="(photo, index) in photos"
           :key="index"
@@ -33,9 +43,10 @@ export default {
     return {
       isShowModal: false,
       isDrag: false,
-
       currentPhotoIndex: 0,
+      youtubeURL: "https://www.youtube.com/embed/r9jwGansp1E",
       photos: [
+        "https://www.youtube.com/embed/r9jwGansp1E",
         "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/16/products/description/16-02-2022_Asxox_4620c81a88e95c3.54638706.jpg",
         "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
         "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
@@ -96,5 +107,13 @@ export default {
 
 .product-images-wrapper::-webkit-scrollbar {
   @apply hidden;
+}
+
+.youtube-video-container {
+  @apply flex flex-col w-[512px];
+}
+
+.youtube-video-container iframe {
+  @apply max-w-[40%] min-h-[40%] md:min-w-[25%] md:min-h-[25%] h-[40%] w-[40%] md:w-[25%] md:h-[25%];
 }
 </style>

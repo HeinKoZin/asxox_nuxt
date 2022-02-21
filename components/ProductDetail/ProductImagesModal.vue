@@ -19,7 +19,21 @@
       @keydown.right="test('right')"
     >
       <div class="product-image-container">
-        <img :src="photos[currentPhotoIndex]" alt="" srcset="" />
+        <img
+          :src="this.checkImageOrVideo"
+          alt=""
+          srcset=""
+          v-if="!this.isVideo"
+        />
+        <iframe
+          :src="this.checkImageOrVideo"
+          v-if="this.isVideo"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          width="100%"
+          height="100%"
+        />
       </div>
       <!-- Photo count of counts -->
       <div class="label-container">
@@ -56,6 +70,8 @@ export default {
     return {
       //
       currentPhotoIndex: this.currentIndex,
+
+      isVideo: false,
     };
   },
 
@@ -88,6 +104,21 @@ export default {
       this.prevPhoto();
     },
   },
+
+  computed: {
+    //
+    checkImageOrVideo() {
+      if (this.photos[this.currentPhotoIndex].includes("youtube")) {
+        // const videoId = this.photo.split("/")[4];
+        // console.log(videoId);
+
+        this.isVideo = true;
+        return this.photos[this.currentPhotoIndex];
+      }
+      this.isVideo = false;
+      return this.photos[this.currentPhotoIndex];
+    },
+  },
 };
 </script>
 
@@ -106,6 +137,10 @@ export default {
 
 .product-image-container img {
   @apply object-cover w-auto mx-auto max-h-[calc(100vh_-_4rem_-_5rem)];
+}
+
+.product-image-container iframe {
+  @apply mx-auto aspect-[16/9];
 }
 
 .label-container {
