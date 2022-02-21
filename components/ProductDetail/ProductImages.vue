@@ -9,16 +9,6 @@
         v-on:dragscrollend="dragEndListener"
         v-dragscroll
       >
-        <!-- <div class="youtube-video-container">
-          <iframe
-            src="https://www.youtube.com/embed/J_16Vo5ZU6o"
-            frameborder="0"
-            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            class="max-w-[40%] min-h-[40%] md:min-w-[25%] md:min-h-[25%] h-[40%] w-[40%] md:w-[25%] md:h-[25%]"
-          ></iframe>
-        </div> -->
-
         <ProductImageCard
           v-for="(photo, index) in photos"
           :key="index"
@@ -107,13 +97,5 @@ export default {
 
 .product-images-wrapper::-webkit-scrollbar {
   @apply hidden;
-}
-
-.youtube-video-container {
-  @apply flex flex-col w-[512px];
-}
-
-.youtube-video-container iframe {
-  @apply max-w-[40%] min-h-[40%] md:min-w-[25%] md:min-h-[25%] h-[40%] w-[40%] md:w-[25%] md:h-[25%];
 }
 </style>
