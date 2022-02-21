@@ -9,6 +9,12 @@
               variantPhoto || product.feature_photos[currentImageIndex].photo
             "
           />
+          <img
+            v-for="(prod, index) in product.product_varients"
+            :key="index"
+            :src="prod.varient_photo"
+            class="hidden"
+          />
           <div
             class="product-cover-feature-photos"
             @wheel.prevent="scrollWithWheel($event)"
@@ -189,7 +195,7 @@ export default {
       quantity: 1,
       currentImageIndex: 0,
       isDrag: false,
-      variantLength: this.calculateVariantLength(),
+      // variantLength: this.calculateVariantLength(),
       selectedVariant: [],
       featuredImages: [
         {
@@ -220,9 +226,16 @@ export default {
       else return false;
     },
   },
+  watch: {
+    selectedVariant: {
+      handler() {
+        console.log("hello");
+        this.selectVarianPhoto();
+      },
+    },
+  },
   methods: {
     selectVariant(data, type, index) {
-      console.log(data, type, index);
       if (this[type][index].isActive) {
         const removedIndex = this.selectedVariant.findIndex(
           (variant) => variant.data === data.name
@@ -251,11 +264,12 @@ export default {
         : null;
       this.selectedVariant.push({ data: data.name, type });
     },
+
     // NOTE: Change image
     changeImage(index) {
+      this.variantPhoto = null;
       this.currentImageIndex = index;
     },
-
     increaseQuantity() {
       this.quantity++;
     },
@@ -265,35 +279,42 @@ export default {
       }
     },
     selectVarianPhoto() {
-      let variantLength = 0;
-      this.selectedVariant.map((selectVar, index) => {
-        // console.log(selectVar);
-        // this.product.product_varients.map((variant) => {
-        for (let i = 0; i < this.product.product_varients.length; i++) {
+      for (let i = 0; i < this.product.product_varients.length; i++) {
+        let variantLength = 0;
+        this.selectedVariant.map((selectVar, index) => {
           if (
-            this.product.product_varients[i][selectVar.type].name ===
+            this.product.product_varients[i][selectVar.type]?.name ===
             selectVar.data
-          )
+          ) {
             variantLength++;
-          if (this.variantLength === variantLength) {
+          }
+          if (
+            this.calculateCurrentVariantLength(
+              this.product.product_varients[i]
+            ) === variantLength
+          ) {
             this.variantPhoto = this.product.product_varients[i].varient_photo;
             console.log(this.variantPhoto);
-            console.log(this.variantLength);
-            break;
           }
-        }
-
-        // });
-      });
+        });
+      }
     },
-    calculateVariantLength() {
+    calculateCurrentVariantLength(variant) {
       let variantLength = 0;
-      if (this.color?.length > 0) variantLength++;
-      if (this.size?.length > 0) variantLength++;
-      if (this.pattern?.length > 0) variantLength++;
-      if (this.accessories?.length > 0) variantLength++;
+      if (variant.color) variantLength++;
+      if (variant.size) variantLength++;
+      if (variant.pattern) variantLength++;
+      if (variant.accessories) variantLength++;
       return variantLength;
     },
+    // calculateVariantLength() {
+    //   let variantLength = 0;
+    //   if (this.color?.length > 0) variantLength++;
+    //   if (this.size?.length > 0) variantLength++;
+    //   if (this.pattern?.length > 0) variantLength++;
+    //   if (this.accessories?.length > 0) variantLength++;
+    //   return variantLength;
+    // },
 
     // NOTE: scroll with mouse wheel
     scrollWithWheel(e) {
