@@ -54,13 +54,14 @@ const actions = {
       qty: 1,
       parent_product_name: data.name,
       variant_name: data.variant_name,
-      cover_photo: data.temp_photo,
+      cover_photo: data.temp_photo || data.feature_photos[0].photo,
       currency: data.currency,
       is_article: data.is_article_promotion,
       is_flashsale: data.is_flashsale_promotion,
       original_unit_price: data.sell_price,
       sell_price: data.sell_price,
     };
+    console.log(data);
     commit("SET_PRODUCT_TO_CART", newData);
   },
 

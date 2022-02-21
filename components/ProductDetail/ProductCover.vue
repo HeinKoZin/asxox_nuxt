@@ -203,7 +203,7 @@
             <span
               ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
             /></span>
-            <span>Add to Cart</span>
+            <span @click="addProductToCart(product)">Add to Cart</span>
           </button>
           <!-- NOTE: Favorite -->
           <button class="favorite">
@@ -225,6 +225,7 @@
 
 <script>
 import Button from "../Common/Button.vue";
+import { mapActions } from "vuex";
 export default {
   props: {
     product: Object,
@@ -281,6 +282,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["addProductToCart"]),
     selectVariant(data, type, index) {
       if (this[type][index].isActive) {
         const removedIndex = this.selectedVariant.findIndex(

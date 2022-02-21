@@ -94,7 +94,7 @@
         </div>
         <div class="header-cart" v-if="!isCartOpen">
           <button class="header-button" @click="toggleCart">
-            <span class="badge">{{ cartProducts.length }}</span>
+            <span class="badge">{{ calculateCartProductQuantity }}</span>
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
         </div>
@@ -129,6 +129,13 @@ export default {
       "wishListProductList",
       "cartProducts",
     ]),
+    calculateCartProductQuantity() {
+      let qty = 0;
+      for (let product of this.cartProducts) {
+        qty += product.qty;
+      }
+      return qty;
+    },
   },
   methods: {
     ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
