@@ -8,7 +8,10 @@
             <div class="product-price-and-rating">
               <div class="product-price">
                 <span>$</span>
-                <span>15,000 MMK</span>
+                <span
+                  >{{ Number(product.sell_price.toFixed(1)).toLocaleString() }}
+                  {{ product.currency }}</span
+                >
               </div>
               <span>|</span>
               <div class="product-rating">
@@ -350,14 +353,6 @@ export default {
       if (variant.accessories) variantLength++;
       return variantLength;
     },
-    // calculateVariantLength() {
-    //   let variantLength = 0;
-    //   if (this.color?.length > 0) variantLength++;
-    //   if (this.size?.length > 0) variantLength++;
-    //   if (this.pattern?.length > 0) variantLength++;
-    //   if (this.accessories?.length > 0) variantLength++;
-    //   return variantLength;
-    // },
 
     // NOTE: scroll with mouse wheel
     scrollWithWheel(e) {
