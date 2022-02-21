@@ -16,7 +16,6 @@
       <ProductImages :description_photos="product.description_photos" />
       <ProductDescription />
       <RecommendedProducts />
-      <AdsShop />
     </div>
   </div>
 </template>
