@@ -17,7 +17,7 @@
           </button>
         </div>
         <div class="header-back-button">
-          <button>
+          <button @click="$router.back()">
             <font-awesome-icon :icon="['fas', 'arrow-left']" />
           </button>
         </div>
