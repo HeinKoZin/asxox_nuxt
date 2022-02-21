@@ -3,23 +3,40 @@
     <div class="product-cover-container-wrapper">
       <div class="product-header">
         <div class="product-cover">
-          <img
-            class="feature-photo"
-            :src="
-              variantPhoto || product.feature_photos[currentImageIndex].photo
-            "
-          />
-          <img
-            v-for="(prod, index) in product.product_varients"
-            :key="index"
-            :src="prod.varient_photo"
-            class="hidden"
-          />
-          <div
-            class="product-cover-feature-photos"
-            @wheel.prevent="scrollWithWheel($event)"
-            v-if="isHasFeaturedPhotos"
-          >
+          <!-- NOTE: Test -->
+          <div class="relative">
+            <div class="product-price-and-rating">
+              <div class="product-price">
+                <span>$</span>
+                <span>15,000 MMK</span>
+              </div>
+              <span>|</span>
+              <div class="product-rating">
+                <span
+                  ><font-awesome-icon
+                    class="text-orange-500"
+                    :icon="['fas', 'star']"
+                /></span>
+                <span>4.5</span>
+                <span>/5</span>
+              </div>
+            </div>
+
+            <img
+              class="feature-photo"
+              :src="
+                variantPhoto || product.feature_photos[currentImageIndex].photo
+              "
+            />
+            <img
+              v-for="(prod, index) in product.product_varients"
+              :key="index"
+              :src="prod.varient_photo"
+              class="hidden"
+            />
+          </div>
+
+          <div class="product-cover-feature-photos" v-if="isHasFeaturedPhotos">
             <div
               class="product-cover-feature-photos-wrapper"
               ref="featuredImageWrapper"
@@ -42,42 +59,55 @@
         <div class="product-name">
           <h3>{{ product.name }}</h3>
         </div>
-        <div class="product-brand">
-          <a href="#">{{ product.brand.name }}</a>
-        </div>
-        <div class="product-price-and-rating">
+
+        <!-- WARNING: Do not remove -->
+        <!-- <div class="product-brand">
+          <a href="#">Asxox</a>
+        </div> -->
+
+        <!-- WARNING: Do not remove -->
+        <!-- <div class="product-price-and-rating">
           <div class="product-price">
             <span>$</span>
             <span>{{ product.sell_price }} {{ product.currency }}</span>
           </div>
           <span>|</span>
           <div class="product-rating">
+            <span
+              ><font-awesome-icon
+                class="text-orange-500"
+                :icon="['fas', 'star']"
+            /></span>
             <span>4.5</span>
             <span>/5</span>
           </div>
-        </div>
+        </div> -->
       </div>
 
-      <div class="product-code">
+      <!-- WARNING: Do not remove -->
+      <!-- <div class="product-code">
         <p>Product code: <span>#74324545</span></p>
-      </div>
+      </div> -->
 
+      <!-- WARNING: Do not remove -->
       <!-- NOTE: Availability container -->
-      <div class="availability-container">
-        <div class="availability-label">Availability :</div>
+      <!-- <div class="availability-container">
+        <div class="availability-label">Availability:</div>
         <div class="availability-value">In Stock</div>
-      </div>
+      </div> -->
 
+      <!-- WARNING: Do not remove -->
       <!-- NOTE: Categories -->
-      <div class="categories-container">
-        <p>Categories :</p>
+      <!-- <div class="categories-container">
+        <p>Categories:</p>
 
         <div class="categories">
           <a href="#" v-for="(cat, index) in product.categories" :key="index">{{
             cat.name
           }}</a>
         </div>
-      </div>
+      </div> -->
+
       <!-- NOTE: variants -->
       <div class="product-variants">
         <div class="product-variant" v-if="color.length > 0">
@@ -147,7 +177,6 @@
             /></label>
           </fieldset>
         </div>
-        {{ selectedVariant }}
       </div>
 
       <!-- NOTE: Quantity -->
@@ -164,13 +193,27 @@
         </div>
       </div>
 
-      <!-- NOTE: Add to cart -->
-      <div class="add-to-cart">
-        <button>
+      <div class="footer-btn-group">
+        <div class="flex gap-x-2">
+          <!-- NOTE: Add to cart -->
+          <button class="add-to-cart">
+            <span
+              ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
+            /></span>
+            <span>Add to Cart</span>
+          </button>
+          <!-- NOTE: Favorite -->
+          <button class="favorite">
+            <font-awesome-icon class="icon" :icon="['fas', 'heart']" />
+          </button>
+        </div>
+
+        <!-- NOTE: Buy now -->
+        <button class="buy-now">
           <span
-            ><font-awesome-icon class="icon" :icon="['fas', 'shopping-cart']"
+            ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
           /></span>
-          <span @click="selectVarianPhoto()">Add to Cart</span>
+          <span>Buy now</span>
         </button>
       </div>
     </div>
@@ -340,7 +383,7 @@ export default {
 
 <style lang="postcss" scoped>
 .product-cover-container {
-  @apply flex w-full h-full bg-slate-50 px-0 py-8 flex-col border border-slate-300 rounded-lg justify-center items-center relative;
+  @apply flex w-full h-auto bg-slate-50  py-8 flex-col border border-slate-300 rounded-lg justify-center items-center sticky bottom-0;
 }
 
 .product-cover-container-wrapper {
@@ -352,19 +395,19 @@ export default {
 }
 
 .availability-container .availability-label {
-  @apply font-bold;
+  @apply font-semibold;
 }
 
 .availability-container .availability-value {
-  @apply p-2 rounded-lg bg-orange-600 text-white text-sm;
+  @apply p-2  bg-green-600 text-white text-sm font-medium;
 }
 
 .product-header {
-  @apply rounded-lg w-full flex flex-col items-center justify-center  gap-y-2 pb-4;
+  @apply rounded-lg w-full flex flex-col items-center justify-center  gap-y-2;
 }
 
 .product-cover {
-  @apply w-full h-auto rounded-full;
+  @apply w-full h-auto rounded-full relative;
 }
 
 .product-cover .feature-photo {
@@ -380,7 +423,7 @@ export default {
 }
 
 .product-cover-feature-photos-wrapper .product-cover-feature-photos-item {
-  @apply min-w-[35%] max-w-[35%]  h-auto   rounded-lg border-slate-500;
+  @apply min-w-[25%] max-w-[25%]  h-auto   rounded-lg border-slate-500;
 }
 
 .product-cover-feature-photos-wrapper
@@ -397,22 +440,52 @@ export default {
 }
 
 .product-brand {
-  @apply w-full text-center text-blue-500 font-bold text-xl  underline font-zen-kurenaido;
+  @apply w-full text-justify text-blue-500 font-semibold text-xl  underline font-zen-kurenaido;
 }
 
+.product-price-and-rating-old {
+  @apply flex  gap-x-2 text-base mt-4 font-quicksand items-center font-semibold;
+}
+
+.product-price-and-rating-old .product-price {
+  @apply text-slate-50 px-4 p-2 font-semibold text-base bg-orange-500 rounded-lg;
+}
+
+/* NOTE: New */
 .product-price-and-rating {
-  @apply flex  gap-x-2 text-base font-quicksand;
+  @apply flex  gap-x-2 text-base mt-4 font-quicksand items-center  absolute bottom-0 w-full bg-slate-900 bg-opacity-50 text-slate-100 justify-evenly p-2 rounded-b-lg;
 }
 
 .product-price-and-rating .product-price {
-  @apply text-orange-600 font-semibold text-base;
+  @apply text-slate-50 bg-orange-600 rounded-lg p-2 px-4  font-bold  text-base;
 }
 
-.add-to-cart button {
-  @apply px-4 py-2 flex gap-x-3 bg-orange-600 text-white rounded-lg mt-4;
+/* NOTE: Footer btn group */
+.footer-btn-group {
+  @apply flex flex-col gap-y-2 mt-4 w-full;
 }
 
-.product-variants {
+.buy-now {
+  @apply h-12 flex gap-x-3 bg-orange-500 text-slate-50 rounded-lg items-center flex-grow justify-center font-semibold;
+}
+
+.favorite {
+  @apply border-2 border-slate-500 text-slate-500 text-xl md:text-2xl h-12 w-12 rounded-lg;
+}
+
+.favorite.active {
+  @apply border-red-600 text-red-500;
+}
+
+.add-to-cart {
+  @apply h-12 flex gap-x-3 bg-slate-200 text-slate-800 rounded-lg text-base items-center flex-grow justify-center;
+}
+
+.footer-btn-group span {
+  @apply font-bold;
+}
+
+.ad .product-variants {
   @apply flex flex-col gap-y-2 w-full;
 }
 
@@ -425,15 +498,15 @@ export default {
 }
 
 .product-variant-option {
-  @apply px-2 py-1 text-base font-quicksand bg-slate-300 cursor-pointer hover:bg-slate-200 rounded-lg;
+  @apply px-2 py-1 text-base font-quicksand bg-slate-300 cursor-pointer hover:bg-slate-200;
 }
 
 .product-variant-title {
-  @apply text-base font-quicksand font-bold;
+  @apply text-base font-quicksand font-semibold;
 }
 
 .product-variant-option.active {
-  @apply bg-orange-600 text-white;
+  @apply bg-slate-700 text-slate-50;
 }
 
 .product-variant-option input {
@@ -441,7 +514,7 @@ export default {
 }
 
 .product-code {
-  @apply text-slate-800 font-bold text-base font-quicksand w-full;
+  @apply text-slate-800 font-semibold text-base font-quicksand w-full;
 }
 
 .product-code span {
@@ -449,7 +522,7 @@ export default {
 }
 
 .categories-container {
-  @apply flex flex-col gap-y-2 w-full font-quicksand font-bold;
+  @apply flex flex-col gap-y-2 w-full font-quicksand font-semibold;
 }
 
 .categories {
@@ -465,7 +538,7 @@ export default {
 }
 
 .product-quantity-label {
-  @apply text-base font-quicksand font-bold;
+  @apply text-base font-quicksand font-semibold;
 }
 
 .product-quantity-value {
