@@ -7,7 +7,6 @@
       <ProductImages />
       <ProductDescription />
       <RecommendedProducts />
-      <AdsShop />
     </div>
   </div>
 </template>
