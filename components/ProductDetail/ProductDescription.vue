@@ -1,7 +1,7 @@
 <template>
   <div class="product-description-container">
     <div class="header">Description</div>
-    <div class="body">Body</div>
+    <div class="body">This is description of product.</div>
   </div>
 </template>
 

@@ -42,7 +42,7 @@ export default {};
 }
 
 .header {
-  @apply flex w-full bg-slate-50 border-b rounded-t-lg border-slate-300 p-2 font-quicksand font-bold;
+  @apply flex w-full bg-slate-50 border-b rounded-t-lg border-slate-300 p-2 text-base md:text-lg font-quicksand font-bold;
 }
 
 .body {
