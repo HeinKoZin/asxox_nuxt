@@ -16,22 +16,6 @@
 <script>
 export default {
   layout: "MainLayout",
-
-  data() {
-    return {
-      //get height
-      height: 0,
-    };
-  },
-  computed: {
-    getHeight() {
-      return `h-[1050px]`;
-    },
-  },
-
-  mounted() {
-    this.height = this.$refs.productCoverRef.$el.clientHeight;
-  },
 };
 </script>
 
