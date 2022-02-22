@@ -181,7 +181,6 @@
           </fieldset>
         </div>
       </div>
-      {{ product.quantity }}
       <!-- NOTE: Quantity -->
       <div class="product-quantity">
         <div class="product-quantity-label">Quantity :</div>
