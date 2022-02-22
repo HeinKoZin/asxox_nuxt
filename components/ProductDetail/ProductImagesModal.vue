@@ -18,16 +18,12 @@
       @keyup.esc="test('left')"
       @keydown.right="test('right')"
     >
-      <div class="product-image-container">
-        <img
-          :src="this.checkImageOrVideo"
-          alt=""
-          srcset=""
-          v-if="!this.isVideo"
-        />
+      <div class="product-image-container" v-if="!this.isVideo">
+        <img :src="this.checkImageOrVideo" alt="" srcset="" />
+      </div>
+      <div class="product-video-container" v-if="this.isVideo">
         <iframe
           :src="this.checkImageOrVideo"
-          v-if="this.isVideo"
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
@@ -37,9 +33,10 @@
       </div>
       <!-- Photo count of counts -->
       <div class="label-container">
-        <h5>
+        <h5 v-if="!isVideo">
           Photo <span>{{ currentPhotoIndex + 1 }}</span>
         </h5>
+        <h5 v-if="isVideo">Sample Video</h5>
         <div class="label-number">
           <span>{{ currentPhotoIndex + 1 }}</span>
           <span>/</span>
@@ -139,7 +136,11 @@ export default {
   @apply object-cover w-auto mx-auto max-h-[calc(100vh_-_4rem_-_5rem)];
 }
 
-.product-image-container iframe {
+.product-video-container {
+  @apply max-w-sm md:max-w-6xl aspect-[16/9] max-h-full mx-auto;
+}
+
+.product-video-container iframe {
   @apply mx-auto aspect-[16/9];
 }
 
