@@ -1,12 +1,14 @@
 <template>
-  <div class="product-detail-container">
-    <div class="product-cover">
-      <ProductCover ref="productCoverRef" />
-    </div>
-    <div class="product-detail">
-      <ProductImages />
-      <ProductDescription />
-      <RecommendedProducts />
+  <div class="w-full min-h-screen bg-slate-100">
+    <div class="product-detail-container">
+      <div class="product-cover">
+        <ProductCover ref="productCoverRef" />
+      </div>
+      <div class="product-detail">
+        <ProductImages />
+        <ProductDescription />
+        <RecommendedProducts />
+      </div>
     </div>
   </div>
 </template>
@@ -35,7 +37,7 @@ export default {
 
 <style lang="postcss" scoped>
 .product-detail-container {
-  @apply flex w-full md:flex-row flex-col bg-slate-100 gap-2 md:gap-y-0 px-2;
+  @apply flex w-full  md:flex-row flex-col bg-slate-100 gap-2 md:gap-y-0 px-2 pb-2;
 }
 
 .product-cover {
