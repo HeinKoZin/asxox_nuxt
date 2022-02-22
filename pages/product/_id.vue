@@ -7,6 +7,7 @@
       <div class="product-detail">
         <ProductImages />
         <ProductInfo />
+        <ProductDescription />
         <RecommendedProducts />
       </div>
     </div>
