@@ -19,6 +19,6 @@ export default {};
 }
 
 .body {
-  @apply w-full;
+  @apply w-full p-2;
 }
 </style>
