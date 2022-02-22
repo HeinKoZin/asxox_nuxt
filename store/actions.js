@@ -51,7 +51,7 @@ const actions = {
   addProductToCart({ commit }, data) {
     const newData = {
       id: data.id,
-      qty: 1,
+      qty: data.quantity || 1,
       parent_product_name: data.name,
       variant_name: data.variant_name,
       cover_photo: data.temp_photo || data.feature_photos[0].photo,

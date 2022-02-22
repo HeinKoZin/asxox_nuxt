@@ -181,7 +181,7 @@
           </fieldset>
         </div>
       </div>
-
+      {{ product.quantity }}
       <!-- NOTE: Quantity -->
       <div class="product-quantity">
         <div class="product-quantity-label">Quantity :</div>
@@ -189,7 +189,7 @@
           <button @click="decreaseQuantity()">
             <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
           </button>
-          <input type="number" :value="quantity" />
+          <input type="number" :value="product.quantity" />
           <button @click="increaseQuantity()">
             <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
           </button>
@@ -319,11 +319,11 @@ export default {
       this.currentImageIndex = index;
     },
     increaseQuantity() {
-      this.quantity++;
+      this.product.quantity++;
     },
     decreaseQuantity() {
-      if (this.quantity > 1) {
-        this.quantity--;
+      if (this.product.quantity > 1) {
+        this.product.quantity--;
       }
     },
     selectVarianPhoto() {
