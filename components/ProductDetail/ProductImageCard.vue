@@ -32,14 +32,13 @@ export default {
     checkImageOrVideo() {
       if (this.photo.includes("youtube")) {
         const videoId = this.photo.split("/")[4];
-        console.log(videoId);
         const ampersandPosition = videoId.indexOf("&");
         if (ampersandPosition !== -1) {
           videoId.slice(0, ampersandPosition);
         }
 
         this.isVideo = true;
-        return (this.photo = `https://img.youtube.com/vi/${videoId}/0.jpg`);
+        return `https://img.youtube.com/vi/${videoId}/0.jpg`;
       } else {
         this.isVideo = false;
         return this.photo;
