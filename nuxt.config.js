@@ -34,6 +34,7 @@ export default {
     { path: "~/components/Slider", extensions: ["vue"] },
     { path: "~/components/AdsShop", extensions: ["vue"] },
     { path: "~/components/ProductDetail", extensions: ["vue"] },
+    { path: "~/components/Checkout", extensions: ["vue"] },
 
   ],
 
