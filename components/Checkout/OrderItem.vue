@@ -14,7 +14,7 @@
         </div>
 
         <div class="order-item-variant">
-          <span>Color:</span>
+          <span>Size:</span>
           <span>{{ product.size }}</span>
         </div>
       </div>
@@ -71,7 +71,7 @@ export default {
 }
 
 .order-item-info-title {
-  @apply text-slate-800 text-lg font-bold font-quicksand line-clamp-2;
+  @apply text-slate-800 text-lg font-bold font-quicksand line-clamp-2 w-full break-all;
 }
 
 .order-item-variants-container {
