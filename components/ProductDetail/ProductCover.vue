@@ -339,9 +339,14 @@ export default {
         });
       }
     },
+
     selectVarianPhoto() {
       // if (!this.isVariantSelect) return false;
       for (let i = 0; i < this.product.product_varients.length; i++) {
+        // if (this.isVariantHas) {
+        //   this.variantPhoto = null;
+        //   break;
+        // }
         let variantLength = 0;
         this.selectedVariant.map((selectVar, index) => {
           if (
@@ -356,6 +361,7 @@ export default {
             ) === variantLength
           ) {
             this.variantPhoto = this.product.product_varients[i].varient_photo;
+            // console.log(this.product.product_varients[i].varient_photo);
             this.isVariantHas = true;
             [
               this.isVariantObject.selectedVariantId,
@@ -369,6 +375,7 @@ export default {
               this.product.product_varients[i].sell_price,
             ];
             this.isVariantSelect = true;
+            console.log(this.variantPhoto);
             return false;
           } else this.isVariantHas = false;
           console.log(variantLength);
