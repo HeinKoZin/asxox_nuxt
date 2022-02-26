@@ -2,7 +2,18 @@
   <div class="customer-info-container">
     <div class="customer-data-container">
       <div class="customer-data-title">
-        <span>Customer Info</span>
+        <div class="flex gap-x-2">
+          <span>
+            <font-awesome-icon class="shopping-icon" :icon="['fas', 'user']" />
+          </span>
+          <span>Customer Info</span>
+        </div>
+        <div>
+          <button>
+            <font-awesome-icon class="icon" :icon="['fas', 'edit']" />
+            Edit
+          </button>
+        </div>
       </div>
       <div class="customer-data-content">
         <div class="customer-data-item">
@@ -18,10 +29,13 @@
 
     <div class="address-container">
       <div class="address-title">
-        <div>
-          <span
-            ><font-awesome-icon class="icon" :icon="['fas', 'heart']"
-          /></span>
+        <div class="flex gap-x-2">
+          <span>
+            <font-awesome-icon
+              class="shopping-icon"
+              :icon="['fas', 'map-marker-alt']"
+            />
+          </span>
           <span>Shipping Address</span>
         </div>
         <div>
@@ -32,7 +46,7 @@
         </div>
       </div>
       <div class="address-contents-container">
-        <fieldset id="address" @change="test">
+        <fieldset id="address">
           <AddressContentItem />
           <AddressContentItem />
         </fieldset>
@@ -52,17 +66,13 @@ export default {
     return {};
   },
 
-  methods: {
-    test() {
-      console.log("test");
-    },
-  },
+  methods: {},
 };
 </script>
 
 <style lang="postcss" scoped>
 .customer-info-container {
-  @apply w-3/4 flex flex-col gap-y-2;
+  @apply w-[70%] flex flex-col gap-y-2;
 }
 
 .header {
@@ -70,7 +80,7 @@ export default {
 }
 
 .order-note-container {
-  @apply w-full flex flex-col gap-y-2  border border-slate-300 p-2 rounded-lg;
+  @apply w-full flex flex-col gap-y-2  border border-slate-300 p-10 rounded-lg;
 }
 
 .order-note-container textarea {
@@ -86,7 +96,7 @@ export default {
 }
 
 .customer-data-title {
-  @apply text-slate-800 text-xl font-bold font-quicksand border-b border-slate-300 py-2;
+  @apply text-slate-800 text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
 }
 
 .address-container {
@@ -94,14 +104,18 @@ export default {
 }
 
 .address-container .address-title {
-  @apply text-slate-800 text-xl flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
+  @apply text-slate-800 text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
 }
 
 .address-contents-container {
   @apply flex flex-col gap-y-2;
 }
 
-.address-title button {
-  @apply text-base font-bold font-quicksand border bg-orange-500 text-slate-50 rounded-lg border-slate-300 p-2 px-4;
+button {
+  @apply text-base font-bold font-quicksand border bg-slate-600 active:bg-slate-700 text-slate-50 rounded-lg border-slate-300 p-2 px-4 flex items-center gap-x-2;
+}
+
+.shopping-icon {
+  @apply text-xl;
 }
 </style>

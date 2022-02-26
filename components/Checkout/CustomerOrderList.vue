@@ -1,12 +1,22 @@
 <template>
   <div class="customer-order-container">
-    <div class="header">Your Order</div>
+    <div class="header">
+      <div class="flex gap-x-2">
+        <span>
+          <font-awesome-icon class="order-icon" :icon="['fas', 'box-open']" />
+        </span>
+        <span>Your Order</span>
+      </div>
+    </div>
     <div class="body">
-      <OrderItem
-        v-for="(product, index) in orders"
-        :product="product"
-        :key="index"
-      />
+      <div class="order-list-container">
+        <!-- TODO: implement active design  -->
+        <OrderItem
+          v-for="(product, index) in orders"
+          :product="product"
+          :key="index"
+        />
+      </div>
 
       <div class="total-price-container">
         <div class="total-price-wrapper">
@@ -57,16 +67,6 @@ export default {
           size: "L",
           quantity: 2,
         },
-        {
-          id: 2,
-          name: "Product 3 Product 3 Product 3 Product 3 Product 3 ",
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/17/products/feature/17-02-2022_Asxox_4620e0be52ed334.63359488.jpg",
-          price: "200",
-          color: "Blue",
-          size: "L",
-          quantity: 2,
-        },
       ],
     };
   },
@@ -75,15 +75,19 @@ export default {
 
 <style lang="postcss" scoped>
 .customer-order-container {
-  @apply w-1/4 flex flex-col gap-y-2 border border-slate-300 p-4 px-10 rounded-lg;
+  @apply w-[30%] flex flex-col gap-y-2 border border-slate-300 p-10 rounded-lg;
 }
 
 .header {
-  @apply text-slate-800 text-xl font-bold font-quicksand w-full border-b border-slate-300 py-4;
+  @apply text-slate-800 text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
 }
 
 .body {
-  @apply w-full flex flex-col gap-y-2;
+  @apply w-full flex flex-col flex-grow;
+}
+
+.order-list-container {
+  @apply w-full flex flex-col gap-y-2 flex-grow;
 }
 
 .total-price-container {
@@ -95,6 +99,10 @@ export default {
 }
 
 .total-price-container .subtotal-price-wrapper {
-  @apply flex w-full gap-y-2 justify-between p-4 py-6 rounded-lg bg-slate-200 text-xl font-bold;
+  @apply flex w-full gap-y-2 justify-between p-4 py-6 rounded-lg bg-slate-200 text-lg font-bold;
+}
+
+.order-icon {
+  @apply text-slate-900 text-xl;
 }
 </style>

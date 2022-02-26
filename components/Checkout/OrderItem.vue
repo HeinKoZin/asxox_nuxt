@@ -59,7 +59,7 @@ export default {
 }
 
 .order-item-image-container {
-  @apply w-[40%];
+  @apply w-[45%];
 }
 
 .order-item-image-container img {
@@ -71,7 +71,7 @@ export default {
 }
 
 .order-item-info-title {
-  @apply text-slate-800 text-lg font-bold font-quicksand line-clamp-2 w-full break-all;
+  @apply text-slate-800 text-base font-bold font-quicksand line-clamp-2 w-full break-all;
 }
 
 .order-item-variants-container {
@@ -79,15 +79,15 @@ export default {
 }
 
 .order-item-variant span {
-  @apply text-slate-800 text-sm font-bold first:text-slate-600 first:font-medium;
+  @apply text-slate-800 text-xs font-bold first:text-slate-600 first:font-medium;
 }
 
 .order-item-info-price-quantity {
-  @apply flex gap-x-2 text-sm text-slate-600 items-center;
+  @apply flex gap-x-2 text-xs text-slate-600 items-center;
 }
 
 .order-item-info-price-quantity span {
-  @apply first:text-lg font-quicksand first:text-slate-800 first:font-bold last:text-base;
+  @apply first:text-base font-quicksand first:text-slate-800 first:font-bold last:text-base;
 }
 
 .icon {

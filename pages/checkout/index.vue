@@ -31,6 +31,6 @@ export default {
 }
 
 .body {
-  @apply w-full flex gap-x-2;
+  @apply w-full flex gap-x-2 mt-5;
 }
 </style>

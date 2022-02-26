@@ -1,15 +1,35 @@
 <template>
   <div>
-    <label :for="id" class="address-content-container">
+    <label
+      :for="id"
+      class="address-content-container"
+      :class="isChecked ? 'active' : ''"
+    >
       <div class="address-content-checkbox">
-        <input type="radio" name="address" :id="id" />
+        <input
+          type="radio"
+          name="address"
+          :id="id"
+          :value="id"
+          @change="handleCheckbox($event)"
+        />
       </div>
-      <div class="flex-grow">
-        <div class="address-content-address">
-          <span>Anywhere</span>
+      <div class="flex flex-grow">
+        <div class="flex flex-col justify-center flex-grow gap-y-2">
+          <div class="address-content-address">
+            <span>Anywhere</span>
+          </div>
+          <div class="address-content-phone">
+            <span>09950668891</span>
+          </div>
         </div>
-        <div class="address-content-phone">
-          <span>09950668891</span>
+        <div class="flex flex-col justify-center gap-y-2">
+          <div>
+            <span> Yangon, Myanmar </span>
+          </div>
+          <div>
+            <span> No.243, St. 123, Street, </span>
+          </div>
         </div>
       </div>
     </label>
@@ -26,8 +46,9 @@ export default {
   },
 
   methods: {
-    handleCheckbox() {
-      this.isChecked = true;
+    handleCheckbox(e) {
+      this.isChecked = e.target.value;
+      console.log(e.target.value);
     },
   },
 
@@ -39,14 +60,17 @@ export default {
 
 <style lang="postcss" scoped>
 .address-content-container {
-  @apply flex bg-slate-100 p-4 px-6 items-center gap-x-4 rounded-lg my-1;
+  @apply flex bg-slate-100 p-4 px-6 items-center border-2 border-transparent gap-x-4 rounded-lg my-2 font-quicksand font-bold text-sm;
 }
 
 .address-content-checkbox {
   @apply flex-shrink-0 flex items-center;
 }
-
 .address-content-checkbox input {
   @apply h-5 w-5;
+}
+
+.active {
+  @apply border-blue-500;
 }
 </style>
