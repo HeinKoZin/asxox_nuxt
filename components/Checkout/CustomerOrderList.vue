@@ -1,41 +1,43 @@
 <template>
-  <div class="customer-order-container">
-    <div class="header">
-      <div class="flex gap-x-4">
-        <span class="order-badge">
-          <font-awesome-icon class="order-icon" :icon="['fas', 'box-open']" />
-          <span>2</span>
-        </span>
-        <span>Your Order</span>
-      </div>
-    </div>
-    <div class="body">
-      <div class="order-list-container">
-        <!-- TODO: implement active design  -->
-        <OrderItem
-          v-for="(product, index) in orders"
-          :product="product"
-          :key="index"
-        />
-      </div>
-
-      <div class="total-price-container">
-        <div class="total-price-wrapper">
-          <div class="total-price-label">Total Price</div>
-          <div class="total-price">20000 MMK</div>
+  <div class="customer-order-container-wrapper">
+    <div class="customer-order-container">
+      <div class="header">
+        <div class="flex gap-x-4">
+          <span class="order-badge">
+            <font-awesome-icon class="order-icon" :icon="['fas', 'box-open']" />
+            <span>2</span>
+          </span>
+          <span>Your Order</span>
         </div>
-        <div class="total-price-wrapper">
-          <div class="total-price-label">Delivery:</div>
-          <div class="total-price">2000 MMK</div>
-        </div>
-        <div class="total-price-wrapper">
-          <div class="total-price-label">Discount:</div>
-          <div class="total-price">2000 MMK</div>
+      </div>
+      <div class="body">
+        <div class="order-list-container">
+          <!-- TODO: implement active design  -->
+          <OrderItem
+            v-for="(product, index) in orders"
+            :product="product"
+            :key="index"
+          />
         </div>
 
-        <div class="subtotal-price-wrapper">
-          <div class="total-price-label">Subtotal:</div>
-          <div class="total-price">2000 MMK</div>
+        <div class="total-price-container">
+          <div class="total-price-wrapper">
+            <div class="total-price-label">Total Price</div>
+            <div class="total-price">20000 MMK</div>
+          </div>
+          <div class="total-price-wrapper">
+            <div class="total-price-label">Delivery:</div>
+            <div class="total-price">2000 MMK</div>
+          </div>
+          <div class="total-price-wrapper">
+            <div class="total-price-label">Discount:</div>
+            <div class="total-price">2000 MMK</div>
+          </div>
+
+          <div class="subtotal-price-wrapper">
+            <div class="total-price-label">Subtotal:</div>
+            <div class="total-price">2000 MMK</div>
+          </div>
         </div>
       </div>
     </div>
@@ -75,8 +77,12 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+.customer-order-container-wrapper {
+  @apply w-[30%] p-1 flex;
+}
+
 .customer-order-container {
-  @apply w-[30%] flex flex-col gap-y-2 border border-slate-300 p-10 rounded-lg;
+  @apply w-full flex flex-col gap-y-2 border border-slate-300 p-10 rounded-lg;
 }
 
 .header {

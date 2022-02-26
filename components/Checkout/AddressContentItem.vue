@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-1/2 p-1">
     <label
       :for="id"
       class="address-content-container"
@@ -60,7 +60,7 @@ export default {
 
 <style lang="postcss" scoped>
 .address-content-container {
-  @apply flex bg-slate-100 p-4 px-6 items-center border-2 border-transparent gap-x-4 rounded-lg my-2 font-quicksand font-bold text-sm;
+  @apply flex w-full bg-slate-100 p-4 px-6 items-center border-2 border-transparent gap-x-4 rounded-lg my-2 font-quicksand font-bold text-sm;
 }
 
 .address-content-checkbox {
