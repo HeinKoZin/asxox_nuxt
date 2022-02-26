@@ -1,6 +1,7 @@
 <template>
   <div
-    :class="'sidebar-container ' + (isMobileMenuOpen ? 'slide-up' : 'slide-down')
+    :class="
+      'sidebar-container ' + (isMobileMenuOpen ? 'slide-up' : 'slide-down')
     "
   >
     <!-- NOTE: Menu -->
@@ -13,7 +14,7 @@
       </div>
       <!-- NOTE: Item -->
       <div class="sidebar-menu-item active">
-        <button class="btn">
+        <button class="btn" @click="$router.push('/')">
           <font-awesome-icon class="icon" :icon="['fas', 'home']" />
         </button>
         <span class="menu-label">Home</span>

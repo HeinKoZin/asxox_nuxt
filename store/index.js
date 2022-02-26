@@ -1,49 +1,8 @@
-// ==== state ====
-const state = () => ({
-  isMobileMenuOpen: false,
-});
-
-// ==== getters =====
-const getters = {
-  isAuthenticated(state) {
-    return state.auth.loggedIn;
-  },
-
-  loggedInUser(state) {
-    return state.auth.user;
-  },
-
-  token() {
-    return localStorage.getItem("token");
-  },
-
-  isMobileMenuOpen(state) {
-    return state.isMobileMenuOpen;
-  }
-};
-
-// ==== mutations =====
-const mutations = {
-  SET_USER(state, data) {
-    localStorage.setItem("user_info", JSON.stringify(data.user_info));
-    localStorage.setItem("loggedIn", JSON.stringify(true));
-
-    state.auth.user = JSON.parse(localStorage.getItem("user_info"));
-  },
-  SET_MOBILE_MENU(state, data) {
-    state.isMobileMenuOpen = data;
-  },
-};
-
-// ==== actions ====
-const actions = {
-  async getUser(state) {
-    try {
-      const res = await axios.get("user");
-      commit("SET_USER", res.data.data);
-    } catch (error) { }
-  },
-};
+// import { state } from "@/store/state.js";
+import actions from "./actions";
+import state from "./state";
+import mutations from "./mutations";
+import getters from "./getters";
 
 export default {
   state,

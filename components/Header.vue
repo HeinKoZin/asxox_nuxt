@@ -16,6 +16,11 @@
             <font-awesome-icon :icon="['fas', 'times']" class="icon" />
           </button>
         </div>
+        <div class="header-back-button">
+          <button @click="$router.back()">
+            <font-awesome-icon :icon="['fas', 'arrow-left']" />
+          </button>
+        </div>
         <div class="header-logo">
           <!-- <a href="#">
             <img src="https://via.placeholder.com/50" alt="logo" />
@@ -44,13 +49,59 @@
       </div>
       <div class="header-right">
         <div class="header-user">
-          <button class="header-user-button" size="sm">
+          <button class="header-user-button" size="sm" @click="toggleUserMenu">
             <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
           </button>
+          <div
+            v-if="isUserMenuOpen && $auth.$storage.getLocalStorage('loggedIn')"
+            class="user-menu"
+          >
+            <div class="user-menu-header">
+              <span class="username"
+                >Hi, {{ $auth.user ? $auth.user.data.name : "" }}</span
+              >
+              <span class="user-email">{{
+                ($auth.user ? $auth.user.data.email : "") ||
+                ($auth.user ? $auth.user.data.phone : "")
+              }}</span>
+            </div>
+            <hr />
+            <ul>
+              <li>
+                <font-awesome-icon
+                  :icon="['fas', 'user-circle']"
+                  class="icon"
+                />Profile
+              </li>
+              <li>
+                <font-awesome-icon
+                  :icon="['fas', 'history']"
+                  class="icon"
+                />Purchased History
+              </li>
+              <li>
+                <font-awesome-icon
+                  :icon="['fas', 'cog']"
+                  class="icon"
+                />Settings
+              </li>
+            </ul>
+            <button class="user-logout" @click="userLogout">
+              <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
+              Logout
+            </button>
+          </div>
         </div>
-        <div class="header-cart">
-          <button class="header-cart-button" size="sm">
+        <div class="header-cart" v-if="!isCartOpen">
+          <button class="header-button" @click="toggleCart">
+            <span class="badge">{{ calculateCartProductQuantity }}</span>
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+          </button>
+        </div>
+        <div class="header-wishlist">
+          <button class="header-button">
+            <span class="badge">{{ wishListProductList.length }}</span>
+            <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
           </button>
         </div>
       </div>
@@ -59,19 +110,60 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapMutations, mapGetters, mapActions } from "vuex";
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
   data() {
     return {
       //
+      isUserMenuOpen: false,
     };
   },
   computed: {
-    ...mapGetters(["isMobileMenuOpen"]),
+    ...mapGetters([
+      "isMobileMenuOpen",
+      "isCartOpen",
+      "isAuthenticated",
+      "loggedInUser",
+      "wishListProductList",
+      "cartProducts",
+    ]),
+    calculateCartProductQuantity() {
+      let qty = 0;
+      for (let product of this.cartProducts) {
+        qty += product.qty;
+      }
+      return qty;
+    },
   },
   methods: {
-    //
-    ...mapMutations(["SET_MOBILE_MENU"]),
+    ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
+
+    ...mapActions(["getWishListProducts"]),
+
+    toggleUserMenu() {
+      this.isUserMenuOpen = !this.isUserMenuOpen;
+    },
+
+    toggleCart() {
+      this.SET_CART(!this.isCartOpen);
+    },
+    // === logout ===
+    async userLogout() {
+      await this.$auth.logout("local");
+
+      // === no response from auth logout so reuse isAuthenticated ===
+      if (!this.isAuthenticated) {
+        this.$auth.$storage.removeUniversal("user");
+        this.$auth.$storage.removeUniversal("loggedIn");
+        this.toast("You have been logged out!", "success");
+      } else this.toast("Fail to log out!", "error");
+    },
+  },
+  mounted() {
+    if (!this.wishListProductList.length > 0 && this.checkAuthenticated())
+      this.getWishListProducts();
   },
 };
 </script>
@@ -83,6 +175,14 @@ export default {
 
 .header-left {
   @apply flex flex-row h-12 items-center;
+}
+
+.header-back-button {
+  @apply flex flex-row items-center mr-2;
+}
+
+.header-back-button button {
+  @apply w-10 h-10 text-slate-500 hover:text-slate-700 text-lg;
 }
 
 .header-logo {
@@ -117,23 +217,71 @@ export default {
   @apply w-10 h-10 rounded-md bg-transparent text-slate-700 hover:text-slate-500 hover:bg-slate-100;
 }
 
-.header-cart .header-cart-button {
-  @apply w-10 h-10 rounded-full text-white hover:text-slate-500 mr-2;
-}
+/* .header-cart .header-cart-button {
+  @apply w-10 h-10 rounded-full text-white hover:text-slate-500;
+} */
 
 .header-container .icon {
   @apply rounded-full text-slate-500 hover:text-slate-700 text-2xl md:text-3xl;
 }
 
 .header-user {
-  @apply flex flex-row h-12 items-center;
+  @apply flex flex-row h-12 items-center relative;
+}
+
+.header-user .user-menu {
+  @apply absolute top-16  right-0  bg-white rounded-md  z-50 p-4;
+}
+
+.header-user .user-menu .user-menu-header {
+  @apply flex flex-col justify-start p-2;
+}
+
+.header-user .user-menu .user-menu-header .username {
+  @apply text-slate-700 text-base font-bold;
+}
+
+.header-user .user-menu .user-menu-header .user-email {
+  @apply text-slate-600 text-sm;
+}
+
+.header-user .user-menu ul {
+  @apply list-none;
+}
+
+.header-user .user-menu li {
+  @apply p-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer flex items-center rounded-md;
+}
+
+.header-user .user-menu .icon {
+  @apply mr-2 text-xl;
+}
+
+.header-user .user-logout {
+  @apply p-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer w-full flex items-center border justify-center border-slate-300 mt-2 rounded-md;
 }
 
 .header-user-button {
   @apply w-10 h-10 rounded-full text-white hover:text-slate-500 text-xl;
 }
 
+.header-wishlist .header-button {
+  @apply w-10 h-10 rounded-full text-white hover:text-slate-500 text-xl;
+}
+
 .mobile-header-menu {
   @apply block md:hidden mr-2;
+}
+
+.header-wishlist {
+  @apply relative;
+}
+
+.header-cart {
+  @apply relative;
+}
+
+.badge {
+  @apply absolute flex justify-center items-center  text-sm  bg-orange-600 text-white w-6 h-6 -top-2 -right-2 text-center  rounded-full;
 }
 </style>

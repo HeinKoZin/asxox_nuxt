@@ -74,7 +74,7 @@
           />
           <Input
             type="checkbox"
-            label="Accept team's terms and conditions"
+            label="Accept terms and conditions"
             :data="register"
             field="checkbox"
             class="w-full"
@@ -197,7 +197,7 @@
 </template>
 
 <script>
-import { generalMixins } from "../../mixins/general";
+import { generalMixins } from "@/mixins/general";
 export default {
   mixins: [generalMixins],
   middleware: "authenticated",
@@ -235,18 +235,13 @@ export default {
           data,
         });
         if (res.data.success) {
-          link
-            ? this.$toast.open({
-                message: "Successfully Logged in!",
-                type: "success",
-                position: "top-right",
-                duration: 5000,
-              })
-            : null;
+          if (link) {
+            this.toast("Successfully Logged in!", "success");
+            this.$router.push("/");
+          }
           this.$auth.setUserToken(res.data.data.token);
           this.$auth.$storage.setUniversal("user", res.data.data.user_info);
           this.$auth.$storage.setUniversal("loggedIn", "true");
-          link ? this.$router.push("/") : null;
         }
       } catch (err) {
         this.errors = err.response.data.data;
@@ -259,7 +254,6 @@ export default {
       try {
         this.errorsReset();
         const res = await this.generalPostApis("/register", data);
-        console.log(res);
         if (res.success) {
           this.userLogin(data, null);
           this.$router.push({

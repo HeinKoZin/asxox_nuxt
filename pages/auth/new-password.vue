@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import { generalMixins } from "../../mixins/general";
-import AuthLayout from "../../layouts/AuthLayout";
+import { generalMixins } from "@/mixins/general";
+import AuthLayout from "@/layouts/AuthLayout";
 export default {
   components: { AuthLayout },
   mixins: [generalMixins],

@@ -1,33 +1,70 @@
 <template>
-  <div class="product-card-container-wrapper group">
+  <div
+    :class="
+      'group ' +
+      (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
+    "
+  >
     <div
-      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md"
+      class="
+        transition-[translate]
+        product-card-container
+        group-hover:shadow-slate-300
+        group-hover:-translate-y-[0.05rem]
+        group-hover:shadow-md
+        relative
+        overflow-hidden
+      "
     >
+      <!-- NOTE: Later feature -->
+      <!-- <div
+        class="absolute z-40 w-full text-center text-white rotate-45 bg-orange-600 top-6 p-1 -right-[35%] md:-right-[30%] text-sm md:text-base"
+      >
+        Discount
+      </div> -->
       <div class="card-header">
         <div class="card-header-buttons">
-          <button class="w-10 h-10 bg-white rounded-full">
+          <button
+            class="w-10 h-10 bg-white rounded-full"
+            @click="addToWishList(data.id, data.is_wishlist)"
+          >
             <font-awesome-icon
-              :icon="['fas', 'shopping-cart']"
-              class="text-slate-500 hover:text-slate-700"
+              v-if="!isInWishlist"
+              :icon="['far', 'heart']"
+              class="icon"
+            />
+            <font-awesome-icon
+              v-if="isInWishlist"
+              :icon="['fas', 'heart']"
+              class="icon active"
             />
           </button>
-          <button class="w-10 h-10 bg-white rounded-full">
-            <font-awesome-icon
-              :icon="['fas', 'eye']"
-              class="text-slate-500 hover:text-slate-700"
-            />
+          <button
+            class="w-10 h-10 bg-white rounded-full"
+            @click="data.is_varient ? null : addProductToCart(data)"
+          >
+            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+          </button>
+          <button
+            class="w-10 h-10 bg-white rounded-full"
+            @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
+          >
+            <font-awesome-icon :icon="['fas', 'eye']" class="icon" />
           </button>
         </div>
-        <img class="card-header-image" :src="data.image" />
+        <img class="card-header-image" :src="data.temp_photo" />
       </div>
       <div class="card-body">
-        <a href="#" class="card-header-title">
-          {{ data.title }}
-        </a>
+        <NuxtLink
+          class="card-header-title"
+          :to="encodedLink(`/product/${$asxox.asxox_encode(data.id)}`)"
+        >
+          {{ data.name }}</NuxtLink
+        >
         <p class="product-description">{{ data.description }}</p>
         <div class="product-price">
           <span class="text-orange-600">$</span>
-          <span class="text-orange-600">{{ data.price }}</span>
+          <span class="text-orange-600">{{ data.sell_price }}</span>
         </div>
       </div>
     </div>
@@ -35,21 +72,47 @@
 </template>
 
 <script>
+import { generalMixins } from "@/mixins/general";
+import { mapMutations, mapActions } from "vuex";
 export default {
-  props: ["data"],
+  mixins: [generalMixins],
+  props: {
+    data: Object,
+    isAdsProduct: Boolean,
+    isInWishlist: Boolean,
+    categoryIndex: Number,
+    productIndex: Number,
+  },
   data() {
     return {
       //
     };
   },
   methods: {
-    //
-  },
-  computed: {
-    //
-  },
-  mounted() {
-    //
+    encodedLink(data) {
+      return data;
+    },
+    ...mapMutations(["SET_CATEGORY_PRODUCT_FAVOURITE"]),
+    ...mapActions(["getWishListProducts", "addProductToCart"]),
+    async addToWishList(product_id, is_wishlist) {
+      if (!this.checkAuthenticated("redirect")) return true;
+      let res;
+      if (!is_wishlist) {
+        res = await this.generalPostApis("/wishlists", { product_id });
+      } else {
+        res = await this.generalDeleteApis(`/wishlists/${product_id}`);
+      }
+      if (res?.data?.status || res?.status === "success") {
+        this.toast(res?.data?.message || res?.message, "success");
+        this.SET_CATEGORY_PRODUCT_FAVOURITE({
+          categoryIndex: this.categoryIndex,
+          productIndex: this.productIndex,
+        });
+        this.getWishListProducts();
+      } else {
+        this.toast(res?.data?.message || res?.message, "error");
+      }
+    },
   },
 };
 </script>
@@ -57,6 +120,10 @@ export default {
 <style lang="postcss" scoped>
 .product-card-container-wrapper {
   @apply w-6/12 md:w-[20%] xl:w-[12.5%] h-auto p-1;
+}
+
+.ads-product {
+  @apply min-w-[60%] max-w-[60%] md:min-w-[25%] md:max-w-[25%] xl:min-w-[14.285%] xl:max-w-[14.285%] h-auto p-1 text-slate-800;
 }
 
 .product-card-container {
@@ -88,5 +155,13 @@ export default {
 
 .product-card-container .product-description {
   @apply text-sm font-semibold line-clamp-4 mt-2 text-slate-500 h-20 font-quicksand;
+}
+
+.icon {
+  @apply text-slate-500 hover:text-slate-700;
+}
+
+.icon.active {
+  @apply text-red-500;
 }
 </style>

@@ -1,4 +1,4 @@
-let apiLink = "http://localhost:8000/api";
+let apiLink = "http://127.0.0.1:8000/api";
 
 export default {
   mode: "universal",
@@ -11,7 +11,11 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" },
+      {
+        hid: "description",
+        name: "description",
+        content: "Asxox - The Best Ecommerce in Myanmar",
+      },
       { name: "format-detection", content: "telephone=no" },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
@@ -20,22 +24,30 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["@/assets/css/main.css", "vue-toast-notification/dist/theme-sugar.css"],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  // plugins: ['~/plugins/fontawesome.js'],
-
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
     // Equivalent to { path: '~/components' }
     "~/components",
     { path: "~/components/Common", extensions: ["vue"] },
+    { path: "~/components/Slider", extensions: ["vue"] },
+    { path: "~/components/AdsShop", extensions: ["vue"] },
+    { path: "~/components/ProductDetail", extensions: ["vue"] },
+    { path: "~/components/Checkout", extensions: ["vue"] },
   ],
 
   purgeCSS: {},
 
-  plugins: ["~/plugins/v-toast.js"],
+  plugins: [
+    "~/plugins/v-toast.js",
+    "~/plugins/v-touch.js",
+    "~/plugins/inject.js",
+    { src: "~/plugins/v-dragscroll.js", ssr: false },
+  ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],
 
+  ssr: true,
+  target: "server",
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
@@ -43,10 +55,12 @@ export default {
     "@nuxtjs/auth-next",
     "cookie-universal-nuxt",
   ],
+
   fontawesome: {
     icons: {
       solid: true,
       brands: true,
+      regular: true,
     },
   },
   auth: {
@@ -76,7 +90,9 @@ export default {
   axios: {
     baseURL: apiLink,
   },
-
+  router: {
+    middleware: ["setDefaultToken", "defaultStore"],
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extractCSS: true,
