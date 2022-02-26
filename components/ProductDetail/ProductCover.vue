@@ -389,7 +389,7 @@ export default {
   @apply font-bold;
 }
 
-.ad .product-variants {
+.product-variants {
   @apply flex flex-col gap-y-2 w-full;
 }
 
