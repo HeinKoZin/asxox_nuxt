@@ -1,9 +1,10 @@
 <template>
   <div class="customer-order-container">
     <div class="header">
-      <div class="flex gap-x-2">
-        <span>
+      <div class="flex gap-x-4">
+        <span class="order-badge">
           <font-awesome-icon class="order-icon" :icon="['fas', 'box-open']" />
+          <span>2</span>
         </span>
         <span>Your Order</span>
       </div>
@@ -103,6 +104,14 @@ export default {
 }
 
 .order-icon {
-  @apply text-slate-900 text-xl;
+  @apply text-slate-900 text-2xl;
+}
+
+.order-badge {
+  @apply flex flex-col relative;
+}
+
+.order-badge span {
+  @apply text-slate-50 text-sm absolute bg-orange-500 rounded-full h-6 w-6 justify-center items-center flex text-center -top-3 -right-3;
 }
 </style>
