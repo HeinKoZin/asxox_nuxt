@@ -193,6 +193,7 @@
             <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
           </button>
         </div>
+        {{ selectedVariant }}
       </div>
 
       <div class="footer-btn-group">
@@ -202,9 +203,9 @@
             <span
               ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
             /></span>
-            <span @click="addProductToCart(product)">Add to Cart</span>
+            <span @click="addToCartFinal(product)">Add to Cart</span>
           </button>
-          <!-- NOTE: Favorite -->
+
           <button class="favorite">
             <font-awesome-icon class="icon" :icon="['fas', 'heart']" />
           </button>
@@ -215,7 +216,7 @@
           <span
             ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
           /></span>
-          <span>Buy now</span>
+          <span>Buy now {{ isVariantHas }}</span>
         </button>
       </div>
     </div>
@@ -241,7 +242,10 @@ export default {
       quantity: 1,
       currentImageIndex: 0,
       isDrag: false,
+      isVariantSelect: false,
+      isVariantHas: false,
       // variantLength: this.calculateVariantLength(),
+      isVariantObject: {},
       selectedVariant: [],
       featuredImages: [
         {
@@ -275,13 +279,13 @@ export default {
   watch: {
     selectedVariant: {
       handler() {
-        console.log("hello");
         this.selectVarianPhoto();
       },
     },
   },
   methods: {
     ...mapActions(["addProductToCart"]),
+
     selectVariant(data, type, index) {
       if (this[type][index].isActive) {
         const removedIndex = this.selectedVariant.findIndex(
@@ -325,7 +329,18 @@ export default {
         this.product.quantity--;
       }
     },
+    addToCartFinal(product) {
+      if (!product.is_varient) {
+        this.addProductToCart(product);
+      } else {
+        this.addProductToCart({
+          ...product,
+          ...this.isVariantObject,
+        });
+      }
+    },
     selectVarianPhoto() {
+      // if (!this.isVariantSelect) return false;
       for (let i = 0; i < this.product.product_varients.length; i++) {
         let variantLength = 0;
         this.selectedVariant.map((selectVar, index) => {
@@ -341,10 +356,34 @@ export default {
             ) === variantLength
           ) {
             this.variantPhoto = this.product.product_varients[i].varient_photo;
-            console.log(this.variantPhoto);
-          }
+            this.isVariantHas = true;
+            [
+              this.isVariantObject.selectedVariantId,
+              this.isVariantObject.selectedVariantName,
+              this.isVariantObject.variantPhoto,
+              this.isVariantObject.variantSellPrice,
+            ] = [
+              this.product.product_varients[i].id,
+              this.generateVariantName(),
+              this.product.product_varients[i].varient_photo,
+              this.product.product_varients[i].sell_price,
+            ];
+            this.isVariantSelect = true;
+            return false;
+          } else this.isVariantHas = false;
+          console.log(variantLength);
         });
       }
+    },
+
+    generateVariantName() {
+      let variant_name = "";
+      this.selectedVariant.map((variant, index) => {
+        if (this.selectedVariant.length === index + 1)
+          variant_name += variant.data;
+        else variant_name += variant.data + " / ";
+      });
+      return variant_name;
     },
     calculateCurrentVariantLength(variant) {
       let variantLength = 0;

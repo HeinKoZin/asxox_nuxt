@@ -37,10 +37,20 @@ const mutations = {
   },
 
   SET_PRODUCT_TO_CART(state, data) {
-    const filteredIndex = state.cartProducts.findIndex(
-      (product) => product.id === data.id
-    );
-    if (filteredIndex !== -1) state.cartProducts[filteredIndex].qty++;
+    console.log(data);
+    const filteredIndex = state.cartProducts.findIndex((product) => {
+      // product.id === data.id;
+      if (data.variant_name && product.id === data.id) {
+        return product.is_variant === data.is_variant;
+      } else {
+        return product.id === data.id;
+      }
+    });
+    console.log(state.cartProducts);
+    if (filteredIndex !== -1 && !data.qty)
+      state.cartProducts[filteredIndex].qty++;
+    else if (filteredIndex !== -1 && data.qty)
+      state.cartProducts[filteredIndex].qty += data.qty;
     else state.cartProducts.push(data);
 
     this.app.$cookies.remove("cartProducts");

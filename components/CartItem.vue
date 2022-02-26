@@ -6,7 +6,10 @@
     <div class="cart-item-details">
       <div class="flex flex-col flex-grow">
         <div class="cart-item-title">
-          <h4>{{ product.parent_product_name }}</h4>
+          <h4>
+            {{ product.parent_product_name }}
+            <b>({{ product.variant_name }})</b>
+          </h4>
         </div>
         <div class="cart-item-price">
           <span>{{ product.sell_price }} {{ product.currency }}</span>
@@ -63,6 +66,9 @@ export default {
       type === "minus" ? newQty-- : newQty++;
       this.UPDATE_PRODUCT_IN_CART({ productId: this.productId, newQty });
     },
+  },
+  mounted() {
+    console.log(this.product);
   },
 };
 </script>
