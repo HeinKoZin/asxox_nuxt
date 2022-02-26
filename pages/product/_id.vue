@@ -1,14 +1,25 @@
 <template>
   <div
-    class="product-detail-container"
+    class="w-full min-h-screen bg-slate-100"
     v-if="!$fetchState.pending && !$fetchState.error"
   >
-    <div class="product-cover">
-      <ProductCover :product="product" />
-    </div>
-    <div class="product-detail">
-      <ProductImages :description_photos="product.description_photos || null" />
-      <ProductDescription />
+    <div class="product-detail-container">
+      <div class="product-cover">
+        <ProductCover
+          ref="productCoverRef"
+          :product="product"
+          :size="sizes"
+          :color="colors"
+          :pattern="patterns"
+          :accessories="accessories"
+        />
+      </div>
+      <div class="product-detail">
+        <ProductImages :description_photos="product.description_photos" />
+        <ProductInfo />
+        <ProductDescription />
+        <RecommendedProducts />
+      </div>
     </div>
   </div>
 </template>
@@ -20,7 +31,11 @@ export default {
   layout: "MainLayout",
   data() {
     return {
-      product: [],
+      product: {},
+      sizes: [],
+      colors: [],
+      patterns: [],
+      accessories: [],
     };
   },
   methods: {
@@ -32,6 +47,11 @@ export default {
       )
         return this.product.feature_photos[0].photo;
       else return "test";
+    },
+    setToProductVariant(type, main) {
+      if (type && main.filter((data) => data.name === type).length === 0) {
+        main.push({ name: type, isActive: false });
+      }
     },
   },
   head() {
@@ -58,20 +78,32 @@ export default {
       `/products/${this.$asxox.asxox_decode(this.$route.params.id)}`
     );
     this.product = res.data.data;
+    if (this.product.product_varients?.length > 0) {
+      this.product.product_varients.map((product) => {
+        this.setToProductVariant(product.size?.name, this.sizes);
+        this.setToProductVariant(product.color?.name, this.colors);
+        this.setToProductVariant(product.pattern?.name, this.patterns);
+        this.setToProductVariant(product.accessories?.name, this.accessories);
+      });
+    }
   },
 };
 </script>
 
 <style lang="postcss" scoped>
 .product-detail-container {
-  @apply flex w-full md:flex-row flex-col h-full bg-slate-100 gap-2 md:gap-y-0 px-2;
+  @apply flex w-full  md:flex-row flex-col bg-slate-100 gap-2 md:gap-y-0 px-2 pb-2;
 }
 
 .product-cover {
-  @apply w-full md:w-1/5 min-h-[calc(100vh-4rem)];
+  @apply w-full h-full md:w-1/5  md:sticky md:top-0 md:bottom-0;
 }
 
 .product-detail {
-  @apply w-full md:w-4/5 flex gap-y-2 flex-col pb-4;
+  @apply w-full md:w-4/5 flex gap-y-2 flex-col;
+}
+
+.product-detail-container::-webkit-scrollbar {
+  @apply hidden;
 }
 </style>

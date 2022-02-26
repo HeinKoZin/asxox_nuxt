@@ -1,4 +1,4 @@
-let apiLink = "https://asxox.com.mm/api";
+let apiLink = "http://127.0.0.1:8000/api";
 
 export default {
   mode: "universal",
@@ -32,6 +32,7 @@ export default {
     { path: "~/components/Slider", extensions: ["vue"] },
     { path: "~/components/AdsShop", extensions: ["vue"] },
     { path: "~/components/ProductDetail", extensions: ["vue"] },
+    { path: "~/components/Checkout", extensions: ["vue"] },
   ],
 
   purgeCSS: {},
@@ -40,10 +41,13 @@ export default {
     "~/plugins/v-toast.js",
     "~/plugins/v-touch.js",
     "~/plugins/inject.js",
+    { src: "~/plugins/v-dragscroll.js", ssr: false },
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],
 
+  ssr: true,
+  target: "server",
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
@@ -51,6 +55,7 @@ export default {
     "@nuxtjs/auth-next",
     "cookie-universal-nuxt",
   ],
+
   fontawesome: {
     icons: {
       solid: true,
@@ -86,7 +91,7 @@ export default {
     baseURL: apiLink,
   },
   router: {
-    middleware: ["setDefaultToken"],
+    middleware: ["setDefaultToken", "defaultStore"],
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

@@ -1,21 +1,19 @@
 <template>
-  <div class="product-images-container">
+  <div class="product-images-container" v-if="description_photos">
     <div class="header">Product Images</div>
-    <div
-      class="body"
-      v-touch:swipe.left="leftSwipeHandler"
-      v-touch:swipe.right="rightSwipeHandler"
-    >
+    <div class="body">
       <div
         class="product-images-wrapper"
         ref="productImagesWrapper"
-        @wheel.prevent="scrollWithWheel($event)"
+        v-on:dragscrollstart="dragStartListener"
+        v-on:dragscrollend="dragEndListener"
+        v-dragscroll
       >
         <ProductImageCard
           v-for="(description_photo, index) in description_photos"
           :key="index"
           :photo="description_photo.photo"
-          @click.native="openModal(index)"
+          @click.native="isDrag ? null : openModal(index)"
         />
       </div>
     </div>
@@ -31,11 +29,20 @@
 
 <script>
 export default {
-  props: ["description_photos"],
+  props: { description_photos: Array },
   data() {
     return {
       isShowModal: false,
+      isDrag: false,
       currentPhotoIndex: 0,
+      youtubeURL: "https://www.youtube.com/embed/r9jwGansp1E",
+      photos: [
+        "https://www.youtube.com/embed/r9jwGansp1E",
+        "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/16/products/description/16-02-2022_Asxox_4620c81a88e95c3.54638706.jpg",
+        "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
+        "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
+        "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/11/13/products/feature/13-11-2021_Asxox_4618f41f811c9c7.80369118.jpg",
+      ],
     };
   },
 
@@ -49,20 +56,22 @@ export default {
       this.isShowModal = value;
     },
 
-    scrollWithWheel(e) {
-      if (e.deltaY > 0) {
-        this.$refs.productImagesWrapper.scrollLeft += 100;
-      } else {
-        this.$refs.productImagesWrapper.scrollLeft -= 100;
-      }
-    },
-
     leftSwipeHandler() {
-      this.$refs.productImagesWrapper.scrollLeft += 100;
+      this.$refs.productImagesWrapper.scrollLeft += 200;
     },
 
     rightSwipeHandler() {
-      this.$refs.productImagesWrapper.scrollLeft -= 100;
+      this.$refs.productImagesWrapper.scrollLeft -= 200;
+    },
+
+    dragStartListener() {
+      this.isDrag = true;
+    },
+
+    dragEndListener() {
+      setTimeout(() => {
+        this.isDrag = false;
+      }, 50);
     },
   },
 };
@@ -74,11 +83,11 @@ export default {
 }
 
 .header {
-  @apply flex w-full bg-slate-50 border-b rounded-t-lg border-slate-300 p-2 font-quicksand font-bold;
+  @apply flex w-full bg-slate-50 border-b rounded-t-lg border-slate-300 h-12 items-center px-2 font-quicksand text-base md:text-lg font-bold;
 }
 
 .body {
-  @apply w-full;
+  @apply w-full cursor-auto;
 }
 
 .product-images-wrapper {

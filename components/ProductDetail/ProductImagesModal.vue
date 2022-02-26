@@ -18,14 +18,28 @@
       @keyup.esc="test('left')"
       @keydown.right="test('right')"
     >
-      <div class="product-image-container">
+      <!-- <div class="product-image-container">
         <img :src="photos[currentPhotoIndex].photo" alt="" srcset="" />
+         -->
+      <div class="product-image-container" v-if="!this.isVideo">
+        <img :src="this.checkImageOrVideo" alt="" srcset="" />
+      </div>
+      <div class="product-video-container" v-if="this.isVideo">
+        <iframe
+          :src="this.checkImageOrVideo"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          width="100%"
+          height="100%"
+        />
       </div>
       <!-- Photo count of counts -->
       <div class="label-container">
-        <h5>
+        <h5 v-if="!isVideo">
           Photo <span>{{ currentPhotoIndex + 1 }}</span>
         </h5>
+        <h5 v-if="isVideo">Sample Video</h5>
         <div class="label-number">
           <span>{{ currentPhotoIndex + 1 }}</span>
           <span>/</span>
@@ -56,6 +70,8 @@ export default {
     return {
       //
       currentPhotoIndex: this.currentIndex,
+
+      isVideo: false,
     };
   },
 
@@ -110,6 +126,21 @@ export default {
       true
     );
   },
+
+  computed: {
+    //
+    checkImageOrVideo() {
+      if (this.photos[this.currentPhotoIndex].includes("youtube")) {
+        // const videoId = this.photo.split("/")[4];
+        // console.log(videoId);
+
+        this.isVideo = true;
+        return this.photos[this.currentPhotoIndex];
+      }
+      this.isVideo = false;
+      return this.photos[this.currentPhotoIndex];
+    },
+  },
 };
 </script>
 
@@ -128,6 +159,14 @@ export default {
 
 .product-image-container img {
   @apply object-cover w-auto mx-auto max-h-[calc(100vh_-_4rem_-_5rem)];
+}
+
+.product-video-container {
+  @apply max-w-sm md:max-w-6xl aspect-[16/9] max-h-full mx-auto;
+}
+
+.product-video-container iframe {
+  @apply mx-auto aspect-[16/9];
 }
 
 .label-container {

@@ -16,6 +16,11 @@
             <font-awesome-icon :icon="['fas', 'times']" class="icon" />
           </button>
         </div>
+        <div class="header-back-button">
+          <button @click="$router.back()">
+            <font-awesome-icon :icon="['fas', 'arrow-left']" />
+          </button>
+        </div>
         <div class="header-logo">
           <!-- <a href="#">
             <img src="https://via.placeholder.com/50" alt="logo" />
@@ -89,7 +94,7 @@
         </div>
         <div class="header-cart" v-if="!isCartOpen">
           <button class="header-button" @click="toggleCart">
-            <span class="badge">2</span>
+            <span class="badge">{{ calculateCartProductQuantity }}</span>
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
         </div>
@@ -99,7 +104,6 @@
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
           </button>
         </div>
-        <!-- {{ cartProductList.length }} -->
       </div>
     </div>
   </header>
@@ -123,7 +127,15 @@ export default {
       "isAuthenticated",
       "loggedInUser",
       "wishListProductList",
+      "cartProducts",
     ]),
+    calculateCartProductQuantity() {
+      let qty = 0;
+      for (let product of this.cartProducts) {
+        qty += product.qty;
+      }
+      return qty;
+    },
   },
   methods: {
     ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
@@ -163,6 +175,14 @@ export default {
 
 .header-left {
   @apply flex flex-row h-12 items-center;
+}
+
+.header-back-button {
+  @apply flex flex-row items-center mr-2;
+}
+
+.header-back-button button {
+  @apply w-10 h-10 text-slate-500 hover:text-slate-700 text-lg;
 }
 
 .header-logo {

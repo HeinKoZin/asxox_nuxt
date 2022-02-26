@@ -18,16 +18,12 @@
         </div> -->
       </div>
       <div class="cart-body">
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
+        <CartItem
+          v-for="(product, index) in cartProducts"
+          :key="index"
+          :product="product"
+          :productId="index"
+        />
       </div>
       <!-- NOTE: Cart's bottom -->
       <div class="cart-bottom">
@@ -50,7 +46,7 @@
 import { mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["isCartOpen"]),
+    ...mapGetters(["isCartOpen", "cartProducts"]),
   },
   methods: {
     ...mapMutations(["SET_CART"]),

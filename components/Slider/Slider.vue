@@ -3,16 +3,18 @@
     <div class="slider-wrapper">
       <div class="slidable-items">
         <div
-          class="slidable-items-wrapper"
+          :class="'slidable-items-wrapper ' + (isScroll ? '' : 'scroll-smooth')"
           ref="slidableItems"
-          @wheel.prevent="scrollWithWheel($event)"
           @mouseover="pauseSlider"
           @mouseleave="playSlider"
+          v-on:dragscrollstart="dragStartListener"
+          v-on:dragscrollend="dragEndListener"
+          v-dragscroll
         >
           <SlidableItem
             v-for="(product, index) in products"
             :key="index"
-            @click.native="setSlideItem(product)"
+            @click.native="isDrag ? null : setSlideItem(product)"
             :image="product.photo"
             :isActive="selectImage.currentPosition === index ? true : false"
           />
@@ -41,6 +43,12 @@ export default {
         image: null,
       },
       sliderInterval: null,
+
+      // isScroll
+      isScroll: false,
+
+      // isDrag
+      isDrag: false,
     };
   },
   watch: {
@@ -53,6 +61,11 @@ export default {
     },
   },
   methods: {
+    // Test
+    scrollHandler() {
+      console.log("scroll");
+    },
+
     // Change slide item
     changeSliderItem(action) {
       if (action === "next") {
@@ -88,14 +101,16 @@ export default {
 
     // Set slide item
     setSlideItem(product) {
-      this.selectImage.currentPosition = this.products.indexOf(product);
-      this.selectImage.image = product.photo;
+      if (!this.isDrag) {
+        this.selectImage.currentPosition = this.products.indexOf(product);
+        this.selectImage.image = product.photo;
 
-      // Note: scroll to current slide item in center of screen
-      this.$refs.slidableItems.scrollLeft =
-        this.$refs.slidableItems.scrollWidth *
-          (this.selectImage.currentPosition / this.products.length) -
-        this.$refs.slidableItems.clientWidth / 2;
+        // Note: scroll to current slide item in center of screen
+        this.$refs.slidableItems.scrollLeft =
+          this.$refs.slidableItems.scrollWidth *
+            (this.selectImage.currentPosition / this.products.length) -
+          this.$refs.slidableItems.clientWidth / 2;
+      }
     },
 
     //  Note: change slide item in every 3 seconds
@@ -119,6 +134,20 @@ export default {
     },
     rightSwipeHandler() {
       this.changeSliderItem("prev");
+    },
+
+    // NOTE: drag start listener
+    dragStartListener(e) {
+      this.isScroll = true;
+      this.isDrag = true;
+    },
+
+    // NOTE: drag end listener
+    dragEndListener(e) {
+      this.isScroll = false;
+      setTimeout(() => {
+        this.isDrag = false;
+      }, 50);
     },
   },
   computed: {
@@ -156,7 +185,7 @@ export default {
 }
 
 .slider-container .slidable-items .slidable-items-wrapper {
-  @apply w-full h-auto   flex pt-5 md:pt-10 overflow-x-scroll rounded-tl-3xl px-2 scroll-smooth;
+  @apply w-full h-auto   flex pt-5 md:pt-10 overflow-x-scroll rounded-tl-3xl px-2;
 }
 
 .slider-container .slidable-items .slidable-items-wrapper::-webkit-scrollbar {

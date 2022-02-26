@@ -6,6 +6,7 @@ const state = () => ({
   categories: [],
   categoryProducts: [],
   adsShops: [],
+  cartProducts: [],
 });
 
 export default state;

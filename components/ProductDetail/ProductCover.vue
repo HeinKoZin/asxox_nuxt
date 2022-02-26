@@ -3,24 +3,55 @@
     <div class="product-cover-container-wrapper">
       <div class="product-header">
         <div class="product-cover">
-          <img
-            class="feature-photo"
-            :src="product.feature_photos[currentImageIndex].photo"
-          />
-          <div
-            class="product-cover-feature-photos"
-            @wheel.prevent="scrollWithWheel($event)"
-            v-if="isHasFeaturedPhotos"
-          >
+          <!-- NOTE: Test -->
+          <div class="relative">
+            <div class="product-price-and-rating">
+              <div class="product-price">
+                <span>$</span>
+                <span
+                  >{{ Number(product.sell_price.toFixed(1)).toLocaleString() }}
+                  {{ product.currency }}</span
+                >
+              </div>
+              <span>|</span>
+              <div class="product-rating">
+                <span
+                  ><font-awesome-icon
+                    class="text-orange-500"
+                    :icon="['fas', 'star']"
+                /></span>
+                <span>4.5</span>
+                <span>/5</span>
+              </div>
+            </div>
+
+            <img
+              class="feature-photo"
+              :src="
+                variantPhoto || product.feature_photos[currentImageIndex].photo
+              "
+            />
+            <img
+              v-for="(prod, index) in product.product_varients"
+              :key="index"
+              :src="prod.varient_photo"
+              class="hidden"
+            />
+          </div>
+
+          <div class="product-cover-feature-photos" v-if="isHasFeaturedPhotos">
             <div
               class="product-cover-feature-photos-wrapper"
               ref="featuredImageWrapper"
+              v-on:dragscrollstart="dragStartListener"
+              v-on:dragscrollend="dragEndListener"
+              v-dragscroll
             >
               <div
                 class="product-cover-feature-photos-item"
                 v-for="(featuredImage, index) in product.feature_photos"
                 :key="index"
-                @click="changeImage(index)"
+                @click="isDrag ? null : changeImage(index)"
                 :class="{ active: index === currentImageIndex }"
               >
                 <img :src="featuredImage.photo" />
@@ -31,135 +62,161 @@
         <div class="product-name">
           <h3>{{ product.name }}</h3>
         </div>
-        <div class="product-brand">
-          <a href="#">{{ product.brand.name }}</a>
-        </div>
-        <div class="product-price-and-rating">
+
+        <!-- WARNING: Do not remove -->
+        <!-- <div class="product-brand">
+          <a href="#">Asxox</a>
+        </div> -->
+
+        <!-- WARNING: Do not remove -->
+        <!-- <div class="product-price-and-rating">
           <div class="product-price">
             <span>$</span>
             <span>{{ product.sell_price }} {{ product.currency }}</span>
           </div>
           <span>|</span>
           <div class="product-rating">
+            <span
+              ><font-awesome-icon
+                class="text-orange-500"
+                :icon="['fas', 'star']"
+            /></span>
             <span>4.5</span>
             <span>/5</span>
           </div>
-        </div>
+        </div> -->
       </div>
 
-      <div class="product-code">
+      <!-- WARNING: Do not remove -->
+      <!-- <div class="product-code">
         <p>Product code: <span>#74324545</span></p>
-      </div>
+      </div> -->
 
+      <!-- WARNING: Do not remove -->
       <!-- NOTE: Availability container -->
-      <div class="availability-container">
+      <!-- <div class="availability-container">
         <div class="availability-label">Availability:</div>
         <div class="availability-value">In Stock</div>
-      </div>
+      </div> -->
 
+      <!-- WARNING: Do not remove -->
       <!-- NOTE: Categories -->
-      <div class="categories-container">
+      <!-- <div class="categories-container">
         <p>Categories:</p>
 
         <div class="categories">
-          <a href="#">Fancy</a>
-          <a href="#">Fancy</a>
-          <a href="#">Fancy</a>
-          <a href="#">Fancy</a>
+          <a href="#" v-for="(cat, index) in product.categories" :key="index">{{
+            cat.name
+          }}</a>
         </div>
-      </div>
+      </div> -->
+
       <!-- NOTE: variants -->
       <div class="product-variants">
-        <div class="product-variant">
+        <div class="product-variant" v-if="color.length > 0">
           <div class="product-variant-title">
             <span>Color:</span>
           </div>
-          <fieldset class="product-variant-options" id="color">
-            <label for="white" class="product-variant-option"
-              >White<input type="radio" name="color" id="white"
-            /></label>
-            <label for="red" class="product-variant-option active"
-              >Red<input type="radio" name="color" id="red"
-            /></label>
-            <label for="blue" class="product-variant-option"
-              >Blue<input type="radio" name="color" id="blue"
+          <fieldset class="product-variant-options">
+            <label
+              for="white"
+              class="product-variant-option"
+              :class="{ active: col.isActive }"
+              v-for="(col, index) in color"
+              :key="index"
+              @click="selectVariant(col, 'color', index)"
+              >{{ col.name }}<input type="radio"
             /></label>
           </fieldset>
         </div>
 
-        <div class="product-variant">
+        <div class="product-variant" v-if="size.length > 0">
           <div class="product-variant-title">
             <span>Size:</span>
           </div>
-          <fieldset class="product-variant-options" id="size">
-            <label for="white" class="product-variant-option"
-              >Small<input type="radio" name="size" id="small"
-            /></label>
-            <label for="red" class="product-variant-option"
-              >Medium<input type="radio" name="size" id="medium"
-            /></label>
-            <label for="blue" class="product-variant-option active"
-              >Large<input type="radio" name="size" id="large"
+          <fieldset class="product-variant-options">
+            <label
+              for="white"
+              class="product-variant-option"
+              :class="{ active: sizeChild.isActive }"
+              v-for="(sizeChild, index) in size"
+              :key="index"
+              @click="selectVariant(sizeChild, 'size', index)"
+              >{{ sizeChild.name }}<input type="radio"
             /></label>
           </fieldset>
         </div>
 
-        <div class="product-variant">
+        <div class="product-variant" v-if="pattern.length > 0">
           <div class="product-variant-title">
             <span>Pattern</span>
           </div>
-          <fieldset class="product-variant-options" id="size">
-            <label for="white" class="product-variant-option"
-              >Pattern A<input type="radio" name="size" id="small"
-            /></label>
-            <label for="red" class="product-variant-option"
-              >Pattern B<input type="radio" name="size" id="medium"
-            /></label>
-            <label for="blue" class="product-variant-option active"
-              >Pattern C<input type="radio" name="size" id="large"
+          <fieldset class="product-variant-options">
+            <label
+              for="white"
+              class="product-variant-option"
+              :class="{ active: patternChild.isActive }"
+              v-for="(patternChild, index) in pattern"
+              :key="index"
+              @click="selectVariant(patternChild, 'pattern', index)"
+              >{{ patternChild.name }}<input type="radio"
             /></label>
           </fieldset>
         </div>
 
-        <div class="product-variant">
+        <div class="product-variant" v-if="accessories.length > 0">
           <div class="product-variant-title">
             <span>Accessories</span>
           </div>
-          <fieldset class="product-variant-options" id="size">
-            <label for="white" class="product-variant-option"
-              >Accessories A<input type="radio" name="size" id="small"
-            /></label>
-            <label for="red" class="product-variant-option"
-              >Accessories B<input type="radio" name="size" id="medium"
-            /></label>
-            <label for="blue" class="product-variant-option active"
-              >Accessories C<input type="radio" name="size" id="large"
+          <fieldset class="product-variant-options">
+            <label
+              for="white"
+              class="product-variant-option"
+              :class="{ active: accessory.isActive }"
+              v-for="(accessory, index) in accessories"
+              :key="index"
+              @click="selectVariant(accessory, 'accessories', index)"
+              >{{ accessory.name }}<input type="radio"
             /></label>
           </fieldset>
         </div>
       </div>
-
       <!-- NOTE: Quantity -->
       <div class="product-quantity">
-        <div class="product-quantity-label">Quantity:</div>
+        <div class="product-quantity-label">Quantity :</div>
         <div class="product-quantity-value">
           <button @click="decreaseQuantity()">
             <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
           </button>
-          <input type="number" :value="quantity" />
+          <input type="number" :value="product.quantity" />
           <button @click="increaseQuantity()">
             <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
           </button>
         </div>
+        {{ selectedVariant }}
       </div>
 
-      <!-- NOTE: Add to cart -->
-      <div class="add-to-cart">
-        <button>
+      <div class="footer-btn-group">
+        <div class="flex gap-x-2">
+          <!-- NOTE: Add to cart -->
+          <button class="add-to-cart" disabled>
+            <span
+              ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
+            /></span>
+            <span @click="addToCartFinal(product)">Add to Cart</span>
+          </button>
+
+          <button class="favorite">
+            <font-awesome-icon class="icon" :icon="['fas', 'heart']" />
+          </button>
+        </div>
+
+        <!-- NOTE: Buy now -->
+        <button class="buy-now" disabled>
           <span
-            ><font-awesome-icon class="icon" :icon="['fas', 'shopping-cart']"
+            ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
           /></span>
-          <span>Add to Cart</span>
+          <span>Buy now {{ isVariantHas }}</span>
         </button>
       </div>
     </div>
@@ -168,15 +225,28 @@
 
 <script>
 import Button from "../Common/Button.vue";
+import { mapActions } from "vuex";
 export default {
-  props: { product: Object },
+  props: {
+    product: Object,
+    color: Array,
+    size: Array,
+    accessories: Array,
+    pattern: Array,
+  },
   components: { Button },
 
   data() {
     return {
+      variantPhoto: null,
       quantity: 1,
       currentImageIndex: 0,
-
+      isDrag: false,
+      isVariantSelect: false,
+      isVariantHas: false,
+      // variantLength: this.calculateVariantLength(),
+      isVariantObject: {},
+      selectedVariant: [],
       featuredImages: [
         {
           photo:
@@ -204,22 +274,124 @@ export default {
     isHasFeaturedPhotos() {
       if (this.product.feature_photos?.length > 1) return true;
       else return false;
-      // console.log(this.product.feature_photos.length);
+    },
+  },
+  watch: {
+    selectedVariant: {
+      handler() {
+        this.selectVarianPhoto();
+      },
     },
   },
   methods: {
-    // NOTE: Change image
-    changeImage(index) {
-      this.currentImageIndex = index;
+    ...mapActions(["addProductToCart"]),
+
+    selectVariant(data, type, index) {
+      if (this[type][index].isActive) {
+        const removedIndex = this.selectedVariant.findIndex(
+          (variant) => variant.data === data.name
+        );
+        this.selectedVariant.splice(removedIndex, 1);
+        this[type][index].isActive = !this[type][index].isActive;
+        return false;
+      }
+      this[type][index].isActive = !this[type][index].isActive;
+
+      const currentSelectedVariant = this.selectedVariant.filter(
+        (variant) => variant.type === type
+      );
+      if (currentSelectedVariant.length > 0) {
+        const currendSelectIndex = this[type].findIndex(
+          (variant) => variant.name === currentSelectedVariant[0].data
+        );
+        this[type][currendSelectIndex].isActive = false;
+      }
+
+      const isVariantSelectedIndex = this.selectedVariant.findIndex(
+        (variant) => variant.type === type
+      );
+      isVariantSelectedIndex !== -1
+        ? this.selectedVariant.splice(isVariantSelectedIndex, 1)
+        : null;
+      this.selectedVariant.push({ data: data.name, type });
     },
 
+    // NOTE: Change image
+    changeImage(index) {
+      this.variantPhoto = null;
+      this.currentImageIndex = index;
+    },
     increaseQuantity() {
-      this.quantity++;
+      this.product.quantity++;
     },
     decreaseQuantity() {
-      if (this.quantity > 1) {
-        this.quantity--;
+      if (this.product.quantity > 1) {
+        this.product.quantity--;
       }
+    },
+    addToCartFinal(product) {
+      if (!product.is_varient) {
+        this.addProductToCart(product);
+      } else {
+        this.addProductToCart({
+          ...product,
+          ...this.isVariantObject,
+        });
+      }
+    },
+    selectVarianPhoto() {
+      // if (!this.isVariantSelect) return false;
+      for (let i = 0; i < this.product.product_varients.length; i++) {
+        let variantLength = 0;
+        this.selectedVariant.map((selectVar, index) => {
+          if (
+            this.product.product_varients[i][selectVar.type]?.name ===
+            selectVar.data
+          ) {
+            variantLength++;
+          }
+          if (
+            this.calculateCurrentVariantLength(
+              this.product.product_varients[i]
+            ) === variantLength
+          ) {
+            this.variantPhoto = this.product.product_varients[i].varient_photo;
+            this.isVariantHas = true;
+            [
+              this.isVariantObject.selectedVariantId,
+              this.isVariantObject.selectedVariantName,
+              this.isVariantObject.variantPhoto,
+              this.isVariantObject.variantSellPrice,
+            ] = [
+              this.product.product_varients[i].id,
+              this.generateVariantName(),
+              this.product.product_varients[i].varient_photo,
+              this.product.product_varients[i].sell_price,
+            ];
+            this.isVariantSelect = true;
+            return false;
+          } else this.isVariantHas = false;
+          console.log(variantLength);
+        });
+      }
+    },
+
+    generateVariantName() {
+      let variant_name = "";
+      this.selectedVariant.map((variant, index) => {
+        if (this.selectedVariant.length === index + 1)
+          variant_name += variant.data;
+        else variant_name += variant.data + " / ";
+      });
+      return variant_name;
+    },
+    calculateCurrentVariantLength(variant) {
+      let variantLength = 0;
+      if (variant.color) variantLength++;
+      if (variant.size) variantLength++;
+      if (variant.pattern) variantLength++;
+      if (variant.accessories) variantLength++;
+      return variantLength;
     },
 
     // NOTE: scroll with mouse wheel
@@ -230,16 +402,23 @@ export default {
         this.$refs.featuredImageWrapper.scrollLeft -= 100;
       }
     },
-  },
-  mounted() {
-    console.log(this.product);
+
+    dragStartListener() {
+      this.isDrag = true;
+    },
+
+    dragEndListener() {
+      setTimeout(() => {
+        this.isDrag = false;
+      }, 50);
+    },
   },
 };
 </script>
 
 <style lang="postcss" scoped>
 .product-cover-container {
-  @apply flex w-full h-full bg-slate-50 px-0 py-8 flex-col border border-slate-300 rounded-lg justify-center items-center relative;
+  @apply flex w-full h-auto bg-slate-50  py-8 flex-col border border-slate-300 rounded-lg justify-center items-center relative md:sticky md:bottom-0;
 }
 
 .product-cover-container-wrapper {
@@ -251,19 +430,19 @@ export default {
 }
 
 .availability-container .availability-label {
-  @apply font-bold;
+  @apply font-semibold;
 }
 
 .availability-container .availability-value {
-  @apply p-2 rounded-lg bg-orange-600 text-white text-sm;
+  @apply p-2  bg-green-600 text-white text-sm font-medium;
 }
 
 .product-header {
-  @apply rounded-lg w-full flex flex-col items-center justify-center  gap-y-2 pb-4;
+  @apply rounded-lg w-full flex flex-col items-center justify-center  gap-y-2;
 }
 
 .product-cover {
-  @apply w-full h-auto rounded-full;
+  @apply w-full h-auto rounded-full relative;
 }
 
 .product-cover .feature-photo {
@@ -279,7 +458,7 @@ export default {
 }
 
 .product-cover-feature-photos-wrapper .product-cover-feature-photos-item {
-  @apply min-w-[35%] max-w-[35%]  h-auto   rounded-lg border-slate-500;
+  @apply min-w-[25%] max-w-[25%]  h-auto   rounded-lg border-slate-500;
 }
 
 .product-cover-feature-photos-wrapper
@@ -296,22 +475,52 @@ export default {
 }
 
 .product-brand {
-  @apply w-full text-center text-blue-500 font-bold text-xl  underline font-zen-kurenaido;
+  @apply w-full text-justify text-blue-500 font-semibold text-xl  underline font-zen-kurenaido;
 }
 
+.product-price-and-rating-old {
+  @apply flex  gap-x-2 text-base mt-4 font-quicksand items-center font-semibold;
+}
+
+.product-price-and-rating-old .product-price {
+  @apply text-slate-50 px-4 p-2 font-semibold text-base bg-orange-500 rounded-lg;
+}
+
+/* NOTE: New */
 .product-price-and-rating {
-  @apply flex  gap-x-2 text-base font-quicksand;
+  @apply flex  gap-x-2 text-base mt-4 font-quicksand items-center  absolute bottom-0 w-full bg-slate-900 bg-opacity-50 text-slate-100 justify-evenly p-2 rounded-b-lg;
 }
 
 .product-price-and-rating .product-price {
-  @apply text-orange-600 font-semibold text-base;
+  @apply text-slate-50 bg-orange-600 rounded-lg p-2 px-4  font-bold  text-base;
 }
 
-.add-to-cart button {
-  @apply px-4 py-2 flex gap-x-3 bg-orange-600 text-white rounded-lg mt-4;
+/* NOTE: Footer btn group */
+.footer-btn-group {
+  @apply flex flex-col gap-y-2 mt-4 w-full;
 }
 
-.product-variants {
+.buy-now {
+  @apply h-12 flex gap-x-3 bg-orange-500 text-slate-50 rounded-lg items-center flex-grow justify-center font-semibold disabled:bg-slate-500 disabled:cursor-not-allowed;
+}
+
+.favorite {
+  @apply border-2 border-slate-500 text-slate-500 text-xl md:text-2xl h-12 w-12 rounded-lg;
+}
+
+.favorite.active {
+  @apply border-red-600 text-red-500;
+}
+
+.add-to-cart {
+  @apply h-12 flex gap-x-3 bg-slate-200 text-slate-800 rounded-lg text-base items-center flex-grow justify-center disabled:bg-slate-300 disabled:cursor-not-allowed;
+}
+
+.footer-btn-group span {
+  @apply font-bold;
+}
+
+.ad .product-variants {
   @apply flex flex-col gap-y-2 w-full;
 }
 
@@ -324,15 +533,15 @@ export default {
 }
 
 .product-variant-option {
-  @apply px-2 py-1 text-base font-quicksand bg-slate-300 cursor-pointer hover:bg-slate-200 rounded-lg;
+  @apply px-2 py-1 text-base font-quicksand bg-slate-300 cursor-pointer hover:bg-slate-200;
 }
 
 .product-variant-title {
-  @apply text-base font-quicksand font-bold;
+  @apply text-base font-quicksand font-semibold;
 }
 
 .product-variant-option.active {
-  @apply bg-orange-600 text-white;
+  @apply bg-slate-700 text-slate-50;
 }
 
 .product-variant-option input {
@@ -340,7 +549,7 @@ export default {
 }
 
 .product-code {
-  @apply text-slate-800 font-bold text-base font-quicksand w-full;
+  @apply text-slate-800 font-semibold text-base font-quicksand w-full;
 }
 
 .product-code span {
@@ -348,7 +557,7 @@ export default {
 }
 
 .categories-container {
-  @apply flex flex-col gap-y-2 w-full font-quicksand font-bold;
+  @apply flex flex-col gap-y-2 w-full font-quicksand font-semibold;
 }
 
 .categories {
@@ -364,7 +573,7 @@ export default {
 }
 
 .product-quantity-label {
-  @apply text-base font-quicksand font-bold;
+  @apply text-base font-quicksand font-semibold;
 }
 
 .product-quantity-value {
