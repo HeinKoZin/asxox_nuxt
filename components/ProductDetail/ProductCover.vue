@@ -199,7 +199,7 @@
       <div class="footer-btn-group">
         <div class="flex gap-x-2">
           <!-- NOTE: Add to cart -->
-          <button class="add-to-cart">
+          <button class="add-to-cart" disabled>
             <span
               ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
             /></span>
@@ -212,7 +212,7 @@
         </div>
 
         <!-- NOTE: Buy now -->
-        <button class="buy-now">
+        <button class="buy-now" disabled>
           <span
             ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
           /></span>
@@ -501,7 +501,7 @@ export default {
 }
 
 .buy-now {
-  @apply h-12 flex gap-x-3 bg-orange-500 text-slate-50 rounded-lg items-center flex-grow justify-center font-semibold;
+  @apply h-12 flex gap-x-3 bg-orange-500 text-slate-50 rounded-lg items-center flex-grow justify-center font-semibold disabled:bg-slate-500 disabled:cursor-not-allowed;
 }
 
 .favorite {
@@ -513,7 +513,7 @@ export default {
 }
 
 .add-to-cart {
-  @apply h-12 flex gap-x-3 bg-slate-200 text-slate-800 rounded-lg text-base items-center flex-grow justify-center;
+  @apply h-12 flex gap-x-3 bg-slate-200 text-slate-800 rounded-lg text-base items-center flex-grow justify-center disabled:bg-slate-300 disabled:cursor-not-allowed;
 }
 
 .footer-btn-group span {

@@ -1,21 +1,25 @@
 <template>
   <div
-    class="product-detail-container"
+    class="w-full min-h-screen bg-slate-100"
     v-if="!$fetchState.pending && !$fetchState.error"
   >
-    <div class="product-cover">
-      <ProductCover
-        :product="product"
-        :size="sizes"
-        :color="colors"
-        :pattern="patterns"
-        :accessories="accessories"
-      />
-    </div>
-    <div class="product-detail">
-      <ProductImages :description_photos="product.description_photos" />
-      <ProductDescription />
-      <RecommendedProducts />
+    <div class="product-detail-container">
+      <div class="product-cover">
+        <ProductCover
+          ref="productCoverRef"
+          :product="product"
+          :size="sizes"
+          :color="colors"
+          :pattern="patterns"
+          :accessories="accessories"
+        />
+      </div>
+      <div class="product-detail">
+        <ProductImages :description_photos="product.description_photos" />
+        <ProductInfo />
+        <ProductDescription />
+        <RecommendedProducts />
+      </div>
     </div>
   </div>
 </template>
@@ -88,7 +92,7 @@ export default {
 
 <style lang="postcss" scoped>
 .product-detail-container {
-  @apply flex w-full md:flex-row flex-col bg-slate-100 gap-2 md:gap-y-0 px-2;
+  @apply flex w-full  md:flex-row flex-col bg-slate-100 gap-2 md:gap-y-0 px-2 pb-2;
 }
 
 .product-cover {
