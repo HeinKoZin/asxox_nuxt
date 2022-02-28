@@ -30,7 +30,7 @@
             <span> Cash On Delivery</span>
           </button>
         </div>
-        <div class="payment-method">
+        <div class="payment-method active">
           <button>
             <span>
               <font-awesome-icon
@@ -72,6 +72,10 @@ export default {};
 }
 
 .payment-method button {
-  @apply px-3 p-2 bg-orange-500 text-sm md:text-base text-white w-full rounded-lg flex gap-x-2;
+  @apply px-3 p-2 bg-transparent text-sm md:text-base text-slate-800 w-full rounded-lg flex gap-x-2 border border-slate-500 font-semibold;
+}
+
+.payment-method.active button {
+  @apply bg-orange-500 text-white border-0;
 }
 </style>
