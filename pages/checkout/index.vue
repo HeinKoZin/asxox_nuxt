@@ -27,7 +27,7 @@ export default {
 }
 
 .header {
-  @apply text-slate-800 text-3xl font-bold font-quicksand p-2;
+  @apply text-slate-800 text-xl md:text-3xl font-bold font-quicksand p-2;
 }
 
 .body {

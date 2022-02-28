@@ -44,7 +44,7 @@ export default {
 }
 
 .promotion-title {
-  @apply text-slate-800 text-xl font-bold font-quicksand border-b border-slate-300 py-2;
+  @apply text-slate-800 text-base md:text-lg font-bold font-quicksand border-b border-slate-300 py-2;
 }
 
 .input-wrapper {
@@ -56,10 +56,10 @@ export default {
 }
 
 .input-wrapper input {
-  @apply border border-slate-300 px-4 p-2 flex-grow rounded-lg focus:outline-slate-400 placeholder:text-slate-700;
+  @apply border border-slate-300 px-4 p-2 flex-grow rounded-lg text-sm md:text-base focus:outline-slate-400 placeholder:text-slate-700;
 }
 
 .input-wrapper button {
-  @apply p-2 px-4 rounded-lg bg-orange-500 text-slate-50 font-bold hover:bg-orange-600 active:bg-orange-700;
+  @apply p-2 px-4 rounded-lg bg-orange-500 text-slate-50 text-sm md:text-base font-semibold hover:bg-orange-600 active:bg-orange-700;
 }
 </style>

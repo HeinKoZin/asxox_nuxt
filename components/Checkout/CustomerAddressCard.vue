@@ -44,7 +44,7 @@ export default {};
 }
 
 .customer-address-container .address-title {
-  @apply text-slate-800 text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
+  @apply text-slate-800 text-base md:text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
 }
 
 .address-contents-container {
@@ -52,6 +52,6 @@ export default {};
 }
 
 button {
-  @apply text-base font-bold font-quicksand border bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-slate-50 rounded-lg border-slate-300 p-2 px-4 flex items-center gap-x-2;
+  @apply text-sm md:text-base font-semibold font-quicksand border bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-slate-50 rounded-lg border-slate-300 p-2 px-4 flex items-center gap-x-2;
 }
 </style>

@@ -43,6 +43,6 @@ export default {};
 }
 
 .customer-data-title {
-  @apply text-slate-800 text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
+  @apply text-slate-800 text-base md:text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
 }
 </style>

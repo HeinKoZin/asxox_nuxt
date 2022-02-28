@@ -86,7 +86,7 @@ export default {
 }
 
 .header {
-  @apply text-slate-800 text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
+  @apply text-slate-800 text-base md:text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
 }
 
 .body {
@@ -98,19 +98,19 @@ export default {
 }
 
 .total-price-container {
-  @apply flex w-full flex-col gap-y-4 font-quicksand;
+  @apply flex w-full flex-col gap-y-4 font-quicksand pt-2;
 }
 
 .total-price-container .total-price-wrapper {
-  @apply flex w-full gap-y-2 justify-between text-base;
+  @apply flex w-full gap-y-2 justify-between text-sm md:text-base font-semibold;
 }
 
 .total-price-container .subtotal-price-wrapper {
-  @apply flex w-full gap-y-2 justify-between p-4 py-6 rounded-lg bg-slate-200 text-lg font-bold;
+  @apply flex w-full gap-y-2 justify-between p-4 py-6 rounded-lg bg-slate-200 text-base md:text-lg font-bold;
 }
 
 .order-icon {
-  @apply text-slate-900 text-2xl;
+  @apply text-slate-900 text-lg md:text-2xl;
 }
 
 .order-badge {
@@ -118,6 +118,6 @@ export default {
 }
 
 .order-badge span {
-  @apply text-slate-50 text-sm absolute bg-orange-500 rounded-full h-6 w-6 justify-center items-center flex text-center -top-3 -right-3;
+  @apply text-slate-50 text-[10px] md:text-sm absolute bg-orange-500 rounded-full h-5 md:h-6 w-5 md:w-6 justify-center items-center flex text-center -top-3 -right-3;
 }
 </style>

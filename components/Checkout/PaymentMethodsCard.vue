@@ -5,7 +5,7 @@
         <div class="flex gap-x-2">
           <span>
             <font-awesome-icon
-              class="shopping-icon"
+              class="credit-card-icon"
               :icon="['fas', 'credit-card']"
             />
           </span>
@@ -23,7 +23,7 @@
           <button>
             <span>
               <font-awesome-icon
-                class="shopping-icon"
+                class="payment-method-icon"
                 :icon="['fas', 'check-circle']"
               />
             </span>
@@ -34,7 +34,7 @@
           <button>
             <span>
               <font-awesome-icon
-                class="shopping-icon"
+                class="payment-method-icon"
                 :icon="['fas', 'check-circle']"
               />
             </span>
@@ -60,7 +60,7 @@ export default {};
 }
 
 .payment-methods-title {
-  @apply text-slate-800 text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
+  @apply text-slate-800 text-base md:text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
 }
 
 .body {
@@ -72,6 +72,6 @@ export default {};
 }
 
 .payment-method button {
-  @apply px-3 p-2 bg-orange-500 text-white w-full rounded-lg flex gap-x-2;
+  @apply px-3 p-2 bg-orange-500 text-sm md:text-base text-white w-full rounded-lg flex gap-x-2;
 }
 </style>
