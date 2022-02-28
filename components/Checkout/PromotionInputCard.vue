@@ -36,7 +36,7 @@ export default {
 
 <style lang="postcss" scoped>
 .promotion-container-wrapper {
-  @apply w-1/2 p-1 flex font-quicksand pl-2;
+  @apply w-full md:w-1/2 p-1 flex font-quicksand pl-2;
 }
 
 .promotion-container {

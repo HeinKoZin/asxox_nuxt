@@ -19,7 +19,7 @@ export default {
 
 <style lang="postcss" scoped>
 .checkout-container {
-  @apply flex flex-col w-full min-h-screen bg-white px-24 py-14;
+  @apply flex flex-col w-full min-h-screen bg-white px-1 md:px-24 py-14;
 }
 
 .checkout-container-wrapper {
@@ -31,6 +31,6 @@ export default {
 }
 
 .body {
-  @apply w-full flex gap-x-2 mt-5;
+  @apply w-full flex flex-col-reverse md:flex-row gap-x-2 mt-5;
 }
 </style>

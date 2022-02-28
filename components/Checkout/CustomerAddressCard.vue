@@ -48,7 +48,7 @@ export default {};
 }
 
 .address-contents-container {
-  @apply flex flex-wrap gap-y-2 w-full;
+  @apply flex-col md:flex-row flex flex-wrap gap-y-1 md:gap-y-2 w-full;
 }
 
 button {

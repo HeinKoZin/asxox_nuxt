@@ -1,6 +1,6 @@
 <template>
   <div class="customer-info-container">
-    <div class="w-1/2 flex flex-col gap-y-2">
+    <div class="w-full md:w-1/2 flex flex-col gap-y-2">
       <CustomerDataCard />
       <PaymentMethodsCard />
     </div>
@@ -25,7 +25,7 @@ export default {
 
 <style lang="postcss" scoped>
 .customer-info-container {
-  @apply w-[70%] flex  flex-wrap gap-y-2;
+  @apply w-full md:w-[70%] flex flex-col md:flex-row  flex-wrap gap-y-2;
 }
 
 .header {

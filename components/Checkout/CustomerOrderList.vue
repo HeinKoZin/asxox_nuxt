@@ -78,7 +78,7 @@ export default {
 
 <style lang="postcss" scoped>
 .customer-order-container-wrapper {
-  @apply w-[30%] p-1 flex;
+  @apply w-full md:w-[30%] p-1 flex;
 }
 
 .customer-order-container {
