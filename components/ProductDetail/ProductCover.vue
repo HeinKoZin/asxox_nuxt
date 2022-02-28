@@ -193,7 +193,6 @@
             <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
           </button>
         </div>
-        {{ selectedVariant }}
       </div>
 
       <div class="footer-btn-group">
@@ -201,7 +200,7 @@
           <!-- NOTE: Add to cart -->
           <button
             class="add-to-cart"
-            :disabled="!isVariantHas"
+            :disabled="product.is_varient && !isVariantHas"
             @click="addToCartFinal(product)"
           >
             <span
@@ -210,13 +209,16 @@
             <span>Add to Cart</span>
           </button>
 
-          <button class="favorite" :disabled="!isVariantHas">
+          <button
+            class="favorite"
+            :disabled="product.is_varient && !isVariantHas"
+          >
             <font-awesome-icon class="icon" :icon="['fas', 'heart']" />
           </button>
         </div>
 
         <!-- NOTE: Buy now -->
-        <button class="buy-now" :disabled="!isVariantHas">
+        <button class="buy-now" :disabled="product.is_varient && !isVariantHas">
           <span
             ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
           /></span>
@@ -248,27 +250,8 @@ export default {
       isDrag: false,
       isVariantSelect: false,
       isVariantHas: false,
-      // variantLength: this.calculateVariantLength(),
       isVariantObject: {},
       selectedVariant: [],
-      featuredImages: [
-        {
-          photo:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
-        },
-        {
-          photo:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/16/products/feature/16-02-2022_Asxox_4620c81928ca3d5.46644212.jpg",
-        },
-        {
-          photo:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
-        },
-        {
-          photo:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/10/products/feature/10-02-2022_Asxox_46204e7319bf317.66596257.jpg",
-        },
-      ],
     };
   },
   computed: {
@@ -288,27 +271,31 @@ export default {
     },
   },
   methods: {
+    // NOTE: Method from Vuex actions
     ...mapActions(["addProductToCart"]),
 
+    // NOTE: Select variant and if it already selected then remove it
     selectVariant(data, type, index) {
-      if (this[type][index].isActive) {
+      let mainData = this[type];
+      if (mainData[index].isActive) {
         const removedIndex = this.selectedVariant.findIndex(
           (variant) => variant.data === data.name
         );
         this.selectedVariant.splice(removedIndex, 1);
-        this[type][index].isActive = !this[type][index].isActive;
+        mainData[index].isActive = !mainData[index].isActive;
         return false;
       }
-      this[type][index].isActive = !this[type][index].isActive;
+      mainData[index].isActive = !mainData[index].isActive;
 
       const currentSelectedVariant = this.selectedVariant.filter(
         (variant) => variant.type === type
       );
+
       if (currentSelectedVariant.length > 0) {
-        const currendSelectIndex = this[type].findIndex(
+        const currentSelectIndex = mainData.findIndex(
           (variant) => variant.name === currentSelectedVariant[0].data
         );
-        this[type][currendSelectIndex].isActive = false;
+        mainData[currentSelectIndex].isActive = false;
       }
 
       const isVariantSelectedIndex = this.selectedVariant.findIndex(
@@ -325,89 +312,91 @@ export default {
       this.variantPhoto = null;
       this.currentImageIndex = index;
     },
+
     increaseQuantity() {
       this.product.quantity++;
     },
+
     decreaseQuantity() {
-      if (this.product.quantity > 1) {
-        this.product.quantity--;
-      }
-    },
-    addToCartFinal(product) {
-      if (!product.is_varient) {
-        this.addProductToCart(product);
-      } else {
-        this.addProductToCart({
-          ...product,
-          ...this.isVariantObject,
-        });
-      }
+      this.product.quantity > 1 ? this.product.quantity-- : null;
     },
 
+    addToCartFinal(product) {
+      !product.is_varient
+        ? this.addProductToCart(product)
+        : this.addProductToCart({
+            ...product,
+            ...this.isVariantObject,
+          });
+    },
+
+    // NOTE: Select variant photo it will work every changes made by user on variant
     selectVarianPhoto() {
-      // if (!this.isVariantSelect) return false;
       for (let i = 0; i < this.product.product_varients.length; i++) {
         this.isVariantHas = false;
         let variantLength = 0;
-        this.selectedVariant.map((selectVar, index) => {
-          if (
-            this.product.product_varients[i][selectVar.type]?.name ===
-            selectVar.data
-          ) {
-            variantLength++;
-          }
-          if (
-            this.calculateCurrentVariantLength(
-              this.product.product_varients[i]
-            ) === variantLength
-          ) {
-            this.variantPhoto = this.product.product_varients[i].varient_photo;
-            console.log(this.product.product_varients[i].varient_photo);
-            this.isVariantHas = true;
-            [
-              this.isVariantObject.selectedVariantId,
-              this.isVariantObject.selectedVariantName,
-              this.isVariantObject.variantPhoto,
-              this.isVariantObject.variantSellPrice,
-            ] = [
-              this.product.product_varients[i].id,
-              this.generateVariantName(),
-              this.product.product_varients[i].varient_photo,
-              this.product.product_varients[i].sell_price,
-            ];
-            this.isVariantSelect = true;
-            this.isVariantHas = true;
-          } else this.isVariantHas = false;
+        let variant = this.product.product_varients[i];
+        let currentVariantLength = this.calculateCurrentVariantLength(
+          this.product.product_varients[i]
+        );
+
+        this.selectedVariant.map((selectVar) => {
+          variant[selectVar.type]?.name === selectVar.data
+            ? variantLength++
+            : null;
+
+          currentVariantLength === variantLength &&
+          currentVariantLength === this.selectedVariant.length
+            ? this.setVariantPhotoAndDataToProduct(variant)
+            : (this.isVariantHas = false);
         });
         if (this.isVariantHas) break;
       }
     },
 
+    // NOTE: Set variant photo and set data to product variable
+    setVariantPhotoAndDataToProduct(variant) {
+      this.variantPhoto = variant.varient_photo;
+      this.isVariantHas = true;
+      [
+        this.isVariantObject.selectedVariantId,
+        this.isVariantObject.selectedVariantName,
+        this.isVariantObject.variantPhoto,
+        this.isVariantObject.variantSellPrice,
+      ] = [
+        variant.id,
+        this.generateVariantName(),
+        variant.varient_photo,
+        variant.sell_price,
+      ];
+      this.isVariantSelect = true;
+    },
+
+    // NOTE: it will generate variant name selected by user name
     generateVariantName() {
       let variant_name = "";
       this.selectedVariant.map((variant, index) => {
-        if (this.selectedVariant.length === index + 1)
-          variant_name += variant.data;
-        else variant_name += variant.data + " / ";
+        this.selectedVariant.length === index + 1
+          ? (variant_name += variant.data)
+          : (variant_name += variant.data + " / ");
       });
       return variant_name;
     },
+
     calculateCurrentVariantLength(variant) {
       let variantLength = 0;
-      if (variant.color) variantLength++;
-      if (variant.size) variantLength++;
-      if (variant.pattern) variantLength++;
-      if (variant.accessories) variantLength++;
+      variant.color ? variantLength++ : null;
+      variant.size ? variantLength++ : null;
+      variant.pattern ? variantLength++ : null;
+      variant.accessories ? variantLength++ : null;
       return variantLength;
     },
 
     // NOTE: scroll with mouse wheel
     scrollWithWheel(e) {
-      if (e.deltaY > 0) {
-        this.$refs.featuredImageWrapper.scrollLeft += 100;
-      } else {
-        this.$refs.featuredImageWrapper.scrollLeft -= 100;
-      }
+      e.deltaY > 0
+        ? (this.$refs.featuredImageWrapper.scrollLeft += 100)
+        : (this.$refs.featuredImageWrapper.scrollLeft -= 100);
     },
 
     dragStartListener() {

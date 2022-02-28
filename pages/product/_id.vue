@@ -16,7 +16,7 @@
       </div>
       <div class="product-detail">
         <ProductImages :description_photos="product.description_photos" />
-        <ProductInfo />
+        <ProductInfo :product="product" />
         <ProductDescription />
         <RecommendedProducts />
       </div>
@@ -44,19 +44,20 @@ export default {
         !this.$fetchState.pending &&
         !this.$fetchState.error &&
         this.product?.feature_photos?.length > 0
-      )
+      ) {
         return this.product.feature_photos[0].photo;
-      else return "test";
+      }
     },
     setToProductVariant(type, main) {
-      if (type && main.filter((data) => data.name === type).length === 0) {
+      const filterMain = main.filter((data) => data.name === type);
+      if (type && filterMain.length === 0) {
         main.push({ name: type, isActive: false });
       }
     },
   },
   head() {
     return {
-      title: `Asxox | ${this.product.name}`,
+      title: `Asxox | ${this.product?.name}`,
       meta: [
         {
           property: "og:title",

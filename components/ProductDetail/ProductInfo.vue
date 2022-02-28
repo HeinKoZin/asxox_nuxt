@@ -3,29 +3,36 @@
     <div class="header">Product Information</div>
     <div class="body">
       <div class="brand">
-        <span>Brand:</span
-        ><a href="#" class="font-bold text-blue-500 underline font-quicksand"
-          >Asxox</a
-        >
+        <span>Brand : </span
+        ><a href="#" class="font-bold text-blue-500 underline font-quicksand">{{
+          product.brand.name
+        }}</a>
       </div>
 
-      <div class="product-code">
-        <p>Product code: <span>#74324545</span></p>
+      <div class="product-code" v-if="product.product_code">
+        <p>
+          Product code: <span>{{ product.product_code }}</span>
+        </p>
       </div>
 
       <div class="availability-container">
         <div class="availability-label">Availability:</div>
-        <div class="availability-value">In Stock</div>
+        <div class="availability-value">
+          {{ generateStatus(product.status) }}
+        </div>
       </div>
 
       <div class="categories-container">
-        <p>Categories:</p>
+        <p>Categories :</p>
 
         <div class="categories">
-          <a href="#">Fancy</a>
-          <a href="#">Fancy</a>
-          <a href="#">Fancy</a>
-          <a href="#">Fancy</a>
+          <a
+            href="#"
+            @click.prevent=""
+            v-for="(category, index) in product.categories"
+            :key="index"
+            >{{ category.name }}</a
+          >
         </div>
       </div>
     </div>
@@ -33,7 +40,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    product: {
+      type: Object,
+    },
+  },
+  methods: {
+    generateStatus(data) {
+      switch (data) {
+        case "pre_order":
+          return "Pre Order";
+        case "instock":
+          return "Pre Order";
+        case "out_of_stock":
+          return "Out of Stock";
+      }
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
