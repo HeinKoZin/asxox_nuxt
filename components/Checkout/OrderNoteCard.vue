@@ -16,14 +16,14 @@ export default {};
   @apply w-full p-1 font-quicksand;
 }
 .order-note-container {
-  @apply w-full flex flex-col gap-y-2  border border-slate-300 p-10 rounded-lg;
+  @apply w-full flex flex-col gap-y-2 border border-slate-300 p-5 md:p-10 rounded-lg;
 }
 
 .order-note-container textarea {
-  @apply w-full h-64 border-none outline-none min-h-[16rem];
+  @apply w-full h-64  outline-none min-h-[16rem] placeholder:text-slate-700 border border-slate-300 p-2 rounded-lg;
 }
 
 .order-note-container .order-note-title {
-  @apply text-slate-800 text-xl font-bold font-quicksand border-b border-slate-300 py-2;
+  @apply text-slate-800 text-xl font-bold font-quicksand  py-2;
 }
 </style>
