@@ -45,4 +45,16 @@ export default {};
 .customer-data-title {
   @apply text-slate-800 text-base md:text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
 }
+
+.customer-data-content {
+  @apply flex flex-col gap-y-1;
+}
+
+.customer-data-item {
+  @apply font-semibold text-sm md:text-base;
+}
+
+.customer-data-item span {
+  @apply text-slate-600 last:text-slate-900;
+}
 </style>
