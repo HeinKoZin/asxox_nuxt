@@ -1,7 +1,12 @@
 <template>
   <div class="order-note-container-wrapper">
     <div class="order-note-container">
-      <div class="order-note-title">Order Note</div>
+      <div class="order-note-title">
+        <span>
+          <font-awesome-icon class="icon" :icon="['fas', 'sticky-note']" />
+        </span>
+        <span>Order Note</span>
+      </div>
       <textarea class="order-note" placeholder="Note here..."></textarea>
     </div>
   </div>
@@ -24,6 +29,6 @@ export default {};
 }
 
 .order-note-container .order-note-title {
-  @apply text-slate-800 text-xl font-bold font-quicksand  py-2;
+  @apply text-slate-800 text-base md:text-lg font-bold font-quicksand  py-2 flex gap-x-2;
 }
 </style>
