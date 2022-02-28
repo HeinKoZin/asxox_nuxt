@@ -82,7 +82,7 @@ export default {
 }
 
 .customer-order-container {
-  @apply w-full flex flex-col gap-y-2 border border-slate-300 p-10 rounded-lg;
+  @apply w-full flex flex-col gap-y-2 border border-slate-300 p-5 md:p-10 rounded-lg;
 }
 
 .header {

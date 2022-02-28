@@ -40,7 +40,7 @@ export default {
 }
 
 .promotion-container {
-  @apply w-full h-full flex flex-col gap-y-4 border border-slate-300 p-10 rounded-lg justify-center;
+  @apply w-full h-full flex flex-col gap-y-4 border border-slate-300 p-5 md:p-10 rounded-lg justify-center;
 }
 
 .promotion-title {

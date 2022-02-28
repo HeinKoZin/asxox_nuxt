@@ -40,7 +40,7 @@ export default {};
   @apply w-full p-1 font-quicksand;
 }
 .customer-address-container {
-  @apply w-full flex flex-col gap-y-2  border border-slate-300 p-10 rounded-lg;
+  @apply w-full flex flex-col gap-y-2  border border-slate-300 p-5 md:p-10 rounded-lg;
 }
 
 .customer-address-container .address-title {

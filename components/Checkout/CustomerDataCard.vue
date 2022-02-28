@@ -39,7 +39,7 @@ export default {};
 }
 
 .customer-data-container {
-  @apply w-full flex flex-col gap-y-2 border border-slate-300  p-10 rounded-lg justify-center;
+  @apply w-full flex flex-col gap-y-2 border border-slate-300 p-5 md:p-10 rounded-lg justify-center;
 }
 
 .customer-data-title {
