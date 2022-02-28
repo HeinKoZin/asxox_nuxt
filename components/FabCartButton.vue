@@ -12,24 +12,16 @@ import Button from "./Common/Button.vue";
 import { mapGetters, mapMutations } from "vuex";
 export default {
   components: { Button },
-  data() {
-    return {
-      //
-    };
-  },
   computed: {
-    //
+    // NOTE: Method from Vuex getters
     ...mapGetters(["isCartOpen"]),
   },
   methods: {
-    //
+    // NOTE: Method from Vuex mutations
     ...mapMutations(["SET_CART"]),
     toggleCart() {
       this.SET_CART(!this.isCartOpen);
     },
-  },
-  mounted() {
-    //
   },
 };
 </script>

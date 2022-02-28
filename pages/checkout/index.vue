@@ -14,6 +14,11 @@
 <script>
 export default {
   layout: "MainLayout",
+  mounted() {
+    if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
+      this.$router.push("/auth");
+    }
+  },
 };
 </script>
 

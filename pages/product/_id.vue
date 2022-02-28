@@ -38,6 +38,25 @@ export default {
       accessories: [],
     };
   },
+  head() {
+    return {
+      title: `Asxox | ${this.product?.name}`,
+      meta: [
+        {
+          property: "og:title",
+          content: this.product?.name,
+        },
+        {
+          property: "og:description",
+          content: this.product?.detail || "",
+        },
+        {
+          property: "og:image",
+          content: this.ogImage(),
+        },
+      ],
+    };
+  },
   methods: {
     ogImage() {
       if (
@@ -55,25 +74,7 @@ export default {
       }
     },
   },
-  head() {
-    return {
-      title: `Asxox | ${this.product?.name}`,
-      meta: [
-        {
-          property: "og:title",
-          content: this.product.name,
-        },
-        {
-          property: "og:description",
-          content: this.product.detail || "",
-        },
-        {
-          property: "og:image",
-          content: this.ogImage(),
-        },
-      ],
-    };
-  },
+
   async fetch() {
     const res = await this.generalGetApis(
       `/products/${this.$asxox.asxox_decode(this.$route.params.id)}`

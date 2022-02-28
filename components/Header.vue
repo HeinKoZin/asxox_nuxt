@@ -116,11 +116,11 @@ export default {
   mixins: [generalMixins],
   data() {
     return {
-      //
       isUserMenuOpen: false,
     };
   },
   computed: {
+    // NOTE: Method from Vuex getters
     ...mapGetters([
       "isMobileMenuOpen",
       "isCartOpen",
@@ -129,6 +129,7 @@ export default {
       "wishListProductList",
       "cartProducts",
     ]),
+
     calculateCartProductQuantity() {
       let qty = 0;
       for (let product of this.cartProducts) {
@@ -138,8 +139,8 @@ export default {
     },
   },
   methods: {
+    // NOTE: Methods from Vuex actions and mutations
     ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
-
     ...mapActions(["getWishListProducts"]),
 
     toggleUserMenu() {

@@ -59,12 +59,8 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  data() {
-    return {
-      //
-    };
-  },
   computed: {
+    // NOTE: Method from Vuex getters
     ...mapGetters({
       isMobileMenuOpen: "isMobileMenuOpen",
     }),

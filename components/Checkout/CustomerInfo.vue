@@ -6,12 +6,16 @@
       </div>
       <div class="customer-data-content">
         <div class="customer-data-item">
-          <span>Name:</span>
-          <span>Hein</span>
+          <span>Name :</span>
+          <span>{{ $auth.user.data.name }}</span>
         </div>
-        <div class="customer-data-item">
-          <span>Phone:</span>
-          <span>09950668891</span>
+        <div class="customer-data-item" v-if="$auth.user.data.phone">
+          <span>Phone :</span>
+          <span>{{ $auth.user.data.phone }}</span>
+        </div>
+        <div class="customer-data-item" v-if="$auth.user.data.email">
+          <span>Email :</span>
+          <span>{{ $auth.user.data.email }}</span>
         </div>
       </div>
     </div>
@@ -32,7 +36,7 @@
         </div>
       </div>
       <div class="address-contents-container">
-        <fieldset id="address" @change="test">
+        <fieldset id="address">
           <AddressContentItem />
           <AddressContentItem />
         </fieldset>
@@ -50,12 +54,6 @@
 export default {
   data() {
     return {};
-  },
-
-  methods: {
-    test() {
-      console.log("test");
-    },
   },
 };
 </script>

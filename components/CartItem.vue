@@ -8,6 +8,10 @@
         <div class="cart-item-title">
           <h4>
             {{ product.parent_product_name }}
+          </h4>
+        </div>
+        <div class="cart-item-title" v-if="product.variant_name">
+          <h4>
             <b>({{ product.variant_name }})</b>
           </h4>
         </div>
