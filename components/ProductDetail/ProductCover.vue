@@ -199,24 +199,28 @@
       <div class="footer-btn-group">
         <div class="flex gap-x-2">
           <!-- NOTE: Add to cart -->
-          <button class="add-to-cart" disabled>
+          <button
+            class="add-to-cart"
+            :disabled="!isVariantHas"
+            @click="addToCartFinal(product)"
+          >
             <span
               ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
             /></span>
-            <span @click="addToCartFinal(product)">Add to Cart</span>
+            <span>Add to Cart</span>
           </button>
 
-          <button class="favorite">
+          <button class="favorite" :disabled="!isVariantHas">
             <font-awesome-icon class="icon" :icon="['fas', 'heart']" />
           </button>
         </div>
 
         <!-- NOTE: Buy now -->
-        <button class="buy-now" disabled>
+        <button class="buy-now" :disabled="!isVariantHas">
           <span
             ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
           /></span>
-          <span>Buy now {{ isVariantHas }}</span>
+          <span>Buy now</span>
         </button>
       </div>
     </div>
@@ -343,10 +347,7 @@ export default {
     selectVarianPhoto() {
       // if (!this.isVariantSelect) return false;
       for (let i = 0; i < this.product.product_varients.length; i++) {
-        // if (this.isVariantHas) {
-        //   this.variantPhoto = null;
-        //   break;
-        // }
+        this.isVariantHas = false;
         let variantLength = 0;
         this.selectedVariant.map((selectVar, index) => {
           if (
@@ -361,7 +362,7 @@ export default {
             ) === variantLength
           ) {
             this.variantPhoto = this.product.product_varients[i].varient_photo;
-            // console.log(this.product.product_varients[i].varient_photo);
+            console.log(this.product.product_varients[i].varient_photo);
             this.isVariantHas = true;
             [
               this.isVariantObject.selectedVariantId,
@@ -375,11 +376,10 @@ export default {
               this.product.product_varients[i].sell_price,
             ];
             this.isVariantSelect = true;
-            console.log(this.variantPhoto);
-            return false;
+            this.isVariantHas = true;
           } else this.isVariantHas = false;
-          console.log(variantLength);
         });
+        if (this.isVariantHas) break;
       }
     },
 
