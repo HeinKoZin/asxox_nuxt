@@ -52,6 +52,6 @@ export default {};
 }
 
 button {
-  @apply text-base font-bold font-quicksand border bg-slate-600 active:bg-slate-700 text-slate-50 rounded-lg border-slate-300 p-2 px-4 flex items-center gap-x-2;
+  @apply text-base font-bold font-quicksand border bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-slate-50 rounded-lg border-slate-300 p-2 px-4 flex items-center gap-x-2;
 }
 </style>

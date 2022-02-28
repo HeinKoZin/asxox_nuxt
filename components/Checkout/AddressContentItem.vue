@@ -67,10 +67,10 @@ export default {
   @apply flex-shrink-0 flex items-center;
 }
 .address-content-checkbox input {
-  @apply h-5 w-5;
+  @apply h-5 w-5 checked:bg-orange-500 accent-orange-500 border relative border-orange-500 outline-none appearance-none rounded-full;
 }
 
 .active {
-  @apply border-blue-500;
+  @apply border-orange-500;
 }
 </style>

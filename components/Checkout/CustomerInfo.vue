@@ -1,6 +1,9 @@
 <template>
   <div class="customer-info-container">
-    <CustomerDataCard />
+    <div class="w-1/2 flex flex-col gap-y-2">
+      <CustomerDataCard />
+      <PaymentMethodsCard />
+    </div>
 
     <PromotionInputCard />
 
