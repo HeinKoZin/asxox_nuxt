@@ -12,7 +12,7 @@
           <span>Shipping Address</span>
         </div>
         <div>
-          <button>
+          <button @click="$emit('openModal')">
             <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
             Add address
           </button>

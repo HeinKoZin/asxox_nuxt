@@ -45,8 +45,8 @@
         </div>
 
         <div class="modal-actions">
-          <button class="save">Save</button>
-          <button class="cancel">Cancel</button>
+          <button class="save" @click="$emit('closeModal')">Save</button>
+          <button class="cancel" @click="$emit('closeModal')">Cancel</button>
         </div>
       </div>
     </div>

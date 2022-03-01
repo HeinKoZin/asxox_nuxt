@@ -7,21 +7,33 @@
 
     <PromotionInputCard />
 
-    <CustomerAddressCard />
+    <CustomerAddressCard @openModal="openModal" />
 
     <OrderNoteCard />
 
-    <CreateAddressModal />
+    <CreateAddressModal @closeModal="closeModal" v-if="isModalOpen" />
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      isModalOpen: false,
+    };
   },
 
-  methods: {},
+  methods: {
+    // open modal box
+    openModal() {
+      this.isModalOpen = true;
+    },
+
+    // close modal box
+    closeModal() {
+      this.isModalOpen = false;
+    },
+  },
 };
 </script>
 
