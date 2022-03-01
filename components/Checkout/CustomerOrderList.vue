@@ -5,7 +5,7 @@
         <div class="flex gap-x-4">
           <span class="order-badge">
             <font-awesome-icon class="order-icon" :icon="['fas', 'box-open']" />
-            <span>2</span>
+            <span>{{ calculateCartProductQuantity }}</span>
           </span>
           <span>Your Order</span>
         </div>
@@ -14,9 +14,10 @@
         <div class="order-list-container">
           <!-- TODO: implement active design  -->
           <OrderItem
-            v-for="(product, index) in orders"
+            v-for="(product, index) in cartProducts"
             :product="product"
             :key="index"
+            :productId="index"
           />
         </div>
 
@@ -45,7 +46,19 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
+  // NOTE: Method from Vuex getters
+  computed: {
+    ...mapGetters(["cartProducts"]),
+    calculateCartProductQuantity() {
+      let qty = 0;
+      for (let product of this.cartProducts) {
+        qty += product.qty;
+      }
+      return qty;
+    },
+  },
   data() {
     return {
       //

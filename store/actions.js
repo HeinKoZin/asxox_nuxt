@@ -49,12 +49,13 @@ const actions = {
   },
 
   addProductToCart({ commit }, data) {
-    console.log(data);
+    // console.log(data);
     const newData = {
       id: data.id,
       qty: data.quantity || 1,
       parent_product_name: data.name,
       variant_name: data.selectedVariantName,
+      selectedVariant: data.selectedVariant,
       cover_photo:
         data.variantPhoto || data.temp_photo || data.feature_photos[0].photo,
       currency: data.currency,

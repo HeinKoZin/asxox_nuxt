@@ -100,7 +100,7 @@
         </div>
         <div class="header-wishlist">
           <button class="header-button">
-            <span class="badge">{{ wishListProductList.length }}</span>
+            <span class="badge">{{ giveWishlistLength }}</span>
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
           </button>
         </div>
@@ -129,6 +129,9 @@ export default {
       "wishListProductList",
       "cartProducts",
     ]),
+    giveWishlistLength() {
+      return this.wishListProductList?.length;
+    },
 
     calculateCartProductQuantity() {
       let qty = 0;

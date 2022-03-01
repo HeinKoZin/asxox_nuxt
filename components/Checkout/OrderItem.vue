@@ -1,40 +1,44 @@
 <template>
   <div class="order-item-container">
     <div class="order-item-image-container">
-      <img :src="product.image" />
+      <img :src="product.cover_photo" />
     </div>
     <div class="order-item-info-container">
       <div class="order-item-info-title">
-        <span>{{ product.name }}</span>
+        <span>{{ product.parent_product_name }}</span>
       </div>
       <div class="order-item-variants-container">
-        <div class="order-item-variant">
-          <span>Color:</span>
-          <span>{{ product.color }}</span>
-        </div>
-
-        <div class="order-item-variant">
-          <span>Size:</span>
-          <span>{{ product.size }}</span>
+        <div
+          class="order-item-variant"
+          v-for="(variant, index) in product.selectedVariant"
+          :key="index"
+        >
+          <span>{{ variant.type }}:</span>
+          <span>{{ variant.data }}</span>
         </div>
       </div>
 
       <div class="order-item-info-price-quantity">
-        <span>$ {{ product.price }}</span>
+        <span>$ {{ product.sell_price }} {{ product.currency }}</span>
         <span>X</span>
-        <span>{{ product.quantity }}</span>
+        <span>{{ product.qty }}</span>
       </div>
 
       <div class="order-item-actions">
         <div class="order-item-quantity-actions">
-          <button>
-            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
-          </button>
-          <button>
+          <button
+            @click="product.qty > 1 ? changeQty('minus', product.qty) : null"
+          >
             <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
           </button>
+          <button @click="changeQty('plus', product.qty)">
+            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
+          </button>
         </div>
-        <button class="order-item-remove">
+        <button
+          class="order-item-remove"
+          @click="REMOVE_PRODUCT_FROM_CART(productId)"
+        >
           <font-awesome-icon class="icon" :icon="['fas', 'trash']" />
         </button>
       </div>
@@ -43,11 +47,23 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   props: {
     product: {
       type: Object,
       required: true,
+    },
+    productId: {
+      type: Number,
+    },
+  },
+  methods: {
+    ...mapMutations(["UPDATE_PRODUCT_IN_CART", "REMOVE_PRODUCT_FROM_CART"]),
+    changeQty(type, qty) {
+      let newQty = qty;
+      type === "minus" ? newQty-- : newQty++;
+      this.UPDATE_PRODUCT_IN_CART({ productId: this.productId, newQty });
     },
   },
 };

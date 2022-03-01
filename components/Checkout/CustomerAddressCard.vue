@@ -41,6 +41,13 @@ export default {
       addresses: [],
     };
   },
+  // computed: {
+  //   shippingAddresses() {
+  //     return JSON.parse(
+  //       JSON.stringify(this.$auth.user.data.customer.shipping_addresses)
+  //     );
+  //   },
+  // },
   methods: {
     //NOTE: change addresses by index
     changeAddress(index) {

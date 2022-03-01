@@ -230,7 +230,6 @@
 </template>
 
 <script>
-import Button from "../Common/Button.vue";
 import { mapActions } from "vuex";
 export default {
   props: {
@@ -240,7 +239,6 @@ export default {
     accessories: Array,
     pattern: Array,
   },
-  components: { Button },
 
   data() {
     return {
@@ -347,7 +345,10 @@ export default {
 
           currentVariantLength === variantLength &&
           currentVariantLength === this.selectedVariant.length
-            ? this.setVariantPhotoAndDataToProduct(variant)
+            ? this.setVariantPhotoAndDataToProduct(
+                variant,
+                this.selectedVariant
+              )
             : (this.isVariantHas = false);
         });
         if (this.isVariantHas) break;
@@ -355,17 +356,19 @@ export default {
     },
 
     // NOTE: Set variant photo and set data to product variable
-    setVariantPhotoAndDataToProduct(variant) {
+    setVariantPhotoAndDataToProduct(variant, selectedVariant) {
       this.variantPhoto = variant.varient_photo;
       this.isVariantHas = true;
       [
         this.isVariantObject.selectedVariantId,
         this.isVariantObject.selectedVariantName,
+        this.isVariantObject.selectedVariant,
         this.isVariantObject.variantPhoto,
         this.isVariantObject.variantSellPrice,
       ] = [
         variant.id,
         this.generateVariantName(),
+        selectedVariant,
         variant.varient_photo,
         variant.sell_price,
       ];
