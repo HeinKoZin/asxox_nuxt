@@ -1,11 +1,14 @@
 <template>
   <div class="customer-info-container">
-    <div class="flex flex-col w-full md:w-1/2 gap-y-2">
+    <div class="flex flex-col order-1 w-full md:order-none md:w-1/2 gap-y-2">
       <CustomerDataCard />
       <PaymentMethodsCard />
     </div>
 
+    <!-- <div class="flex flex-col w-full md:w-1/2 gap-y-2"> -->
     <PromotionInputCard />
+    <!-- </div> -->
+    <OnlinePaymentMethods />
 
     <CustomerAddressCard @openModal="openModal" />
 

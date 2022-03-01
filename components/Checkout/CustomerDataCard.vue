@@ -35,11 +35,11 @@ export default {};
 
 <style lang="postcss" scoped>
 .customer-data-container-wrapper {
-  @apply w-full p-1 font-quicksand;
+  @apply w-full p-1 font-quicksand flex flex-grow;
 }
 
 .customer-data-container {
-  @apply w-full flex flex-col gap-y-2 border border-slate-300 p-5 md:p-10 rounded-lg justify-center;
+  @apply w-full flex flex-col gap-y-2 border border-slate-300 p-5 md:p-10 rounded-lg justify-center flex-grow;
 }
 
 .customer-data-title {

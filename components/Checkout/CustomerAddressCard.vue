@@ -37,7 +37,7 @@ export default {};
 
 <style lang="postcss" scoped>
 .customer-address-container-wrapper {
-  @apply w-full p-1 font-quicksand;
+  @apply w-full p-1 font-quicksand order-3 md:order-none;
 }
 .customer-address-container {
   @apply w-full flex flex-col gap-y-2  border border-slate-300 p-5 md:p-10 rounded-lg;
