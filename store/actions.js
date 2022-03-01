@@ -49,7 +49,6 @@ const actions = {
   },
 
   addProductToCart({ commit }, data) {
-    // console.log(data);
     const newData = {
       id: data.id,
       qty: data.quantity || 1,

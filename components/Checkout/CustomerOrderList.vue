@@ -24,20 +24,24 @@
         <div class="total-price-container">
           <div class="total-price-wrapper">
             <div class="total-price-label">Total Price</div>
-            <div class="total-price">20000 MMK</div>
+            <div class="total-price">
+              {{ cartProductsTotal }} {{ cartProducts[0].currency }}
+            </div>
           </div>
           <div class="total-price-wrapper">
             <div class="total-price-label">Delivery:</div>
-            <div class="total-price">2000 MMK</div>
+            <div class="total-price">-</div>
           </div>
           <div class="total-price-wrapper">
             <div class="total-price-label">Discount:</div>
-            <div class="total-price">2000 MMK</div>
+            <div class="total-price">-</div>
           </div>
 
           <div class="subtotal-price-wrapper">
             <div class="total-price-label">Subtotal:</div>
-            <div class="total-price">2000 MMK</div>
+            <div class="total-price">
+              {{ cartProductsTotal }} {{ cartProducts[0].currency }}
+            </div>
           </div>
         </div>
       </div>
@@ -50,7 +54,7 @@ import { mapGetters } from "vuex";
 export default {
   // NOTE: Method from Vuex getters
   computed: {
-    ...mapGetters(["cartProducts"]),
+    ...mapGetters(["cartProducts", "cartProductsTotal"]),
     calculateCartProductQuantity() {
       let qty = 0;
       for (let product of this.cartProducts) {

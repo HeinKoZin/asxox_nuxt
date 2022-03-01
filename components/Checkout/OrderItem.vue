@@ -13,7 +13,7 @@
           v-for="(variant, index) in product.selectedVariant"
           :key="index"
         >
-          <span>{{ variant.type }}:</span>
+          <span class="capitalize">{{ variant.type }} :</span>
           <span>{{ variant.data }}</span>
         </div>
       </div>
