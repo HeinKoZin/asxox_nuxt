@@ -72,7 +72,7 @@ export default {};
 }
 
 .payment-method button {
-  @apply px-3 p-2 bg-transparent text-sm md:text-base text-slate-800 w-full rounded-lg flex gap-x-2 border border-slate-500 font-semibold;
+  @apply px-3 p-2 bg-transparent text-sm md:text-base text-slate-800 w-full rounded-lg flex items-center gap-x-2 border border-slate-500 font-semibold;
 }
 
 .payment-method.active button {
