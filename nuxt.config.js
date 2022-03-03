@@ -35,6 +35,7 @@ export default {
     { path: "~/components/AdsShop", extensions: ["vue"] },
     { path: "~/components/ProductDetail", extensions: ["vue"] },
     { path: "~/components/Checkout", extensions: ["vue"] },
+    { path: "~/components/User", extensions: ["vue"] },
 
   ],
 

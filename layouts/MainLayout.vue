@@ -6,7 +6,8 @@
     >
       <SideBar />
       <div class="main-layout">
-        <Nuxt />
+        <!-- <nuxt v-if="!$slots.profilelayout" /> -->
+        <slot />
         <Footer v-if="checkRoute()" />
       </div>
       <Cart />
