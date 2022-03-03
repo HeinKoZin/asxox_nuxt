@@ -8,9 +8,16 @@ const state = () => ({
   adsShops: [],
   cartProducts: [],
   order: {
-    final_total_amount: 0,
+    name: "",
+    phone: "",
+    total_amount: 0,
     coupon_amount: 0,
     coupon_percent: 0,
+    coupon_code: "",
+    source: "Web",
+    order_note: "",
+    point_amount: 0,
+    products: [],
   },
 });
 

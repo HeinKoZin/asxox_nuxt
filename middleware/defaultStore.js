@@ -12,7 +12,7 @@ export default async ({ app, store }) => {
       [
         store.state.order.original_total_amount,
         store.state.order.products,
-        store.state.order.final_total_amount,
+        store.state.order.total_amount,
       ] = [
         original_total_amount,
         store.state.cartProducts,

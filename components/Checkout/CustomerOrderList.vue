@@ -20,7 +20,7 @@
             :productId="index"
           />
         </div>
-        {{ order }}
+        <!-- {{ order }} -->
 
         <div class="total-price-container">
           <div class="total-price-wrapper">
@@ -39,16 +39,27 @@
           </div>
           <div class="total-price-wrapper" v-if="order.coupon_amount">
             <div class="total-price-label">Coupon Discount :</div>
-            <div class="total-price">
-              - {{ order.coupon_amount }} MMK
+            <div class="total-price line-through">
+              {{ order.coupon_amount }} MMK
               {{ order.coupon_percent ? `( ${order.coupon_percent}% )` : "" }}
+            </div>
+          </div>
+          <div class="total-price-wrapper" v-if="order.point_amount">
+            <div class="total-price-label">Point Discount :</div>
+            <div class="total-price line-through">
+              {{ order.point_amount }} MMK
             </div>
           </div>
 
           <div class="subtotal-price-wrapper">
             <div class="total-price-label">Subtotal:</div>
             <div class="total-price">
-              {{ order.final_total_amount }} {{ cartProducts[0].currency }}
+              {{
+                order.point_amount
+                  ? order.total_amount - order.point_amount
+                  : order.total_amount
+              }}
+              {{ cartProducts[0].currency }}
             </div>
           </div>
         </div>

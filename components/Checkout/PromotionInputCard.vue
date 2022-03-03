@@ -18,8 +18,8 @@
         <p v-if="errors.couponError">{{ errors.couponError }}</p>
         <p v-if="errors.couponSuccess">{{ errors.couponSuccess }}</p>
         <div class="input-wrapper">
-          <input type="text" placeholder="Point amount" />
-          <bUtton>Apply</bUtton>
+          <input type="number" placeholder="Point amount" v-model="point" />
+          <bUtton @click="applyPoint">Apply</bUtton>
         </div>
       </div>
     </div>
@@ -40,11 +40,17 @@ export default {
         couponError: null,
         couponSuccess: null,
       },
+      point: null,
     };
   },
   methods: {
     // NOTE: Method from Vuex actions
-    ...mapMutations(["UPDATE_CART_ORDER"]),
+    ...mapMutations(["UPDATE_CART_ORDER_COUPON", "UPDATE_CART_ORDER_POINT"]),
+    async applyPoint() {
+      const res = await this.generalGetApis("check-one-point-value");
+      const pointValue = this.point * res.data.data.open_point_value;
+      this.UPDATE_CART_ORDER_POINT(pointValue);
+    },
     async applyCoupon(code) {
       const res = await this.generalPostApis(`/check-coupon`, { code });
       if (res.status === "error") {
@@ -53,7 +59,7 @@ export default {
       } else {
         this.errors.couponError = null;
         this.errors.couponSuccess = res.message;
-        this.UPDATE_CART_ORDER(res);
+        this.UPDATE_CART_ORDER_COUPON(res);
       }
     },
   },

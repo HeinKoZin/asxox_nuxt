@@ -95,20 +95,26 @@ const mutations = {
     state.order[type] = data;
   },
 
-  UPDATE_CART_ORDER(state, data) {
+  UPDATE_CART_ORDER_COUPON(state, data) {
+    const amount = data.data.amount;
+    const code = data.data.code;
     if (data.data.discount_type === "percentage") {
       const coupon_amount =
         (data.data.percentage * state.order.original_total_amount) / 100;
-      state.order.final_total_amount =
+      const percentage = data.data.percentage;
+      state.order.total_amount =
         state.order.original_total_amount - coupon_amount;
-
       state.order.coupon_amount = coupon_amount;
-      state.order.coupon_percent = data.data.percentage;
+      state.order.coupon_percent = percentage;
     } else {
-      state.order.final_total_amount =
-        state.order.original_total_amount - data.data.amount;
-      state.order.coupon_amount = data.data.amount;
+      state.order.total_amount = state.order.original_total_amount - amount;
+      state.order.coupon_amount = amount;
     }
+    state.order.coupon_code = code;
+  },
+
+  UPDATE_CART_ORDER_POINT(state, point) {
+    state.order.point_amount = point;
   },
 };
 
