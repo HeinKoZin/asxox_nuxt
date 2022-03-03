@@ -1,15 +1,20 @@
 <template>
   <div class="customer-info-container">
-    <div class="w-full md:w-1/2 flex flex-col gap-y-2">
+    <div class="flex flex-col order-1 w-full md:order-none md:w-1/2 gap-y-2">
       <CustomerDataCard />
       <PaymentMethodsCard />
     </div>
 
+    <!-- <div class="flex flex-col w-full md:w-1/2 gap-y-2"> -->
     <PromotionInputCard />
+    <!-- </div> -->
+    <OnlinePaymentMethods />
 
-    <CustomerAddressCard />
+    <CustomerAddressCard @openModal="openModal" />
 
     <OrderNoteCard />
+
+    <CreateAddressModal @closeModal="closeModal" v-if="isModalOpen" />
   </div>
 </template>
 
@@ -18,11 +23,20 @@ export default {
   methods: {},
   data() {
     return {
-      order: {
-        original_total_amount: 0,
-        final_total_amount: 0,
-      },
+      isModalOpen: false,
     };
+  },
+
+  methods: {
+    // open modal box
+    openModal() {
+      this.isModalOpen = true;
+    },
+
+    // close modal box
+    closeModal() {
+      this.isModalOpen = false;
+    },
   },
 };
 </script>

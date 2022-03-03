@@ -18,11 +18,7 @@
         <p v-if="errors.couponError">{{ errors.couponError }}</p>
         <p v-if="errors.couponSuccess">{{ errors.couponSuccess }}</p>
         <div class="input-wrapper">
-          <input type="text" placeholder="Enter your purchased amount" />
-          <bUtton>Apply</bUtton>
-        </div>
-        <div class="input-wrapper">
-          <input type="text" placeholder="Referral code" />
+          <input type="text" placeholder="Point amount" />
           <bUtton>Apply</bUtton>
         </div>
       </div>
@@ -66,11 +62,11 @@ export default {
 
 <style lang="postcss" scoped>
 .promotion-container-wrapper {
-  @apply w-full md:w-1/2 p-1 flex font-quicksand pl-2;
+  @apply w-full md:w-1/2  p-1 flex font-quicksand pl-0 md:pl-2 flex-grow order-3 md:order-none;
 }
 
 .promotion-container {
-  @apply w-full h-full flex flex-col gap-y-4 border border-slate-300 p-5 md:p-10 rounded-lg justify-center;
+  @apply w-full h-full flex flex-col gap-y-4 border border-slate-300 p-5 md:p-10 rounded-lg justify-center flex-grow;
 }
 
 .promotion-title {

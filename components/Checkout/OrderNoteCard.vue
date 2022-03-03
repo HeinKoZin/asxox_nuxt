@@ -18,7 +18,7 @@ export default {};
 
 <style lang="postcss" scoped>
 .order-note-container-wrapper {
-  @apply w-full p-1 font-quicksand;
+  @apply w-full p-1 font-quicksand order-4 md:order-none;
 }
 .order-note-container {
   @apply w-full flex flex-col gap-y-2 border border-slate-300 p-5 md:p-10 rounded-lg;

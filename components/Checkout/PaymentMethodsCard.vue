@@ -52,11 +52,11 @@ export default {};
 
 <style lang="postcss" scoped>
 .payment-methods-container-wrapper {
-  @apply w-full p-1 font-quicksand;
+  @apply w-full p-1 font-quicksand flex flex-grow;
 }
 
 .payment-methods-container {
-  @apply w-full flex flex-col gap-y-4 border border-slate-300 p-5 md:p-10 rounded-lg justify-center;
+  @apply w-full flex flex-col gap-y-4 border border-slate-300 p-5 md:p-10 rounded-lg justify-center flex-grow;
 }
 
 .payment-methods-title {
@@ -72,7 +72,7 @@ export default {};
 }
 
 .payment-method button {
-  @apply px-3 p-2 bg-transparent text-sm md:text-base text-slate-800 w-full rounded-lg flex gap-x-2 border border-slate-500 font-semibold;
+  @apply px-3 p-2 bg-transparent text-sm md:text-base text-slate-800 w-full rounded-lg flex items-center gap-x-2 border border-slate-500 font-semibold;
 }
 
 .payment-method.active button {
