@@ -7,13 +7,25 @@
         </span>
         <span>Order Note</span>
       </div>
-      <textarea class="order-note" placeholder="Note here..."></textarea>
+      <textarea
+        class="order-note"
+        placeholder="Note here..."
+        @input="orderNoteChange($event)"
+      ></textarea>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapMutations } from "vuex";
+export default {
+  methods: {
+    ...mapMutations(["SET_ORDER_NOTE_TO_ORDER"]),
+    orderNoteChange(e) {
+      this.SET_ORDER_NOTE_TO_ORDER(e.target.value);
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>

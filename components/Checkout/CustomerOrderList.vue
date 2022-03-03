@@ -20,7 +20,7 @@
             :productId="index"
           />
         </div>
-        <!-- {{ order }} -->
+        {{ order }}
 
         <div class="total-price-container">
           <div class="total-price-wrapper">

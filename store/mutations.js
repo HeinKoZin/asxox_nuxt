@@ -124,6 +124,11 @@ const mutations = {
     state.order.phone = data.phone;
     state.order.name = data.name;
   },
+
+  SET_ORDER_NOTE_TO_ORDER(state, data) {
+    console.log(data);
+    state.order.order_note = data;
+  },
 };
 
 export default mutations;
