@@ -47,6 +47,10 @@ const getters = {
     });
     return total;
   },
+
+  order(state) {
+    return state.order;
+  },
 };
 
 export default getters;

@@ -16,6 +16,14 @@
 <script>
 export default {
   methods: {},
+  data() {
+    return {
+      order: {
+        original_total_amount: 0,
+        final_total_amount: 0,
+      },
+    };
+  },
 };
 </script>
 

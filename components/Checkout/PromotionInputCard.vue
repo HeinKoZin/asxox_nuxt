@@ -9,11 +9,14 @@
           <span>Discount</span>
         </div>
       </div>
+      {{ errors }}
       <div class="promotion-content">
         <div class="input-wrapper">
-          <input type="text" placeholder="Coupon Code" />
-          <bUtton>Apply</bUtton>
+          <input type="text" placeholder="Coupon Code" v-model="couponCode" />
+          <bUtton @click="applyCoupon(couponCode)">Apply</bUtton>
         </div>
+        <p v-if="errors.couponError">{{ errors.couponError }}</p>
+        <p v-if="errors.couponSuccess">{{ errors.couponSuccess }}</p>
         <div class="input-wrapper">
           <input type="text" placeholder="Enter your purchased amount" />
           <bUtton>Apply</bUtton>
@@ -29,8 +32,35 @@
 
 <script>
 import Input from "../Common/Input.vue";
+import { generalMixins } from "@/mixins/general";
+import { mapMutations } from "vuex";
 export default {
   components: { Input },
+  mixins: [generalMixins],
+  data() {
+    return {
+      couponCode: "",
+      errors: {
+        couponError: null,
+        couponSuccess: null,
+      },
+    };
+  },
+  methods: {
+    // NOTE: Method from Vuex actions
+    ...mapMutations(["UPDATE_CART_ORDER"]),
+    async applyCoupon(code) {
+      const res = await this.generalPostApis(`/check-coupon`, { code });
+      if (res.status === "error") {
+        this.errors.couponError = res.message;
+        this.errors.couponSuccess = null;
+      } else {
+        this.errors.couponError = null;
+        this.errors.couponSuccess = res.message;
+        this.UPDATE_CART_ORDER(res);
+      }
+    },
+  },
 };
 </script>
 

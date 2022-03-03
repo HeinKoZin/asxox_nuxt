@@ -37,16 +37,13 @@ const mutations = {
   },
 
   SET_PRODUCT_TO_CART(state, data) {
-    console.log(data);
     const filteredIndex = state.cartProducts.findIndex((product) => {
-      // product.id === data.id;
       if (data.variant_name && product.id === data.id) {
         return product.is_variant === data.is_variant;
       } else {
         return product.id === data.id;
       }
     });
-    console.log(state.cartProducts);
     if (filteredIndex !== -1 && !data.qty)
       state.cartProducts[filteredIndex].qty++;
     else if (filteredIndex !== -1 && data.qty)
@@ -57,6 +54,18 @@ const mutations = {
     this.app.$cookies.set("cartProducts", state.cartProducts, {
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
+    });
+    let original_total_amount = 0;
+    state.cartProducts.forEach((product) => {
+      original_total_amount += product.sell_price * product.qty;
+    });
+    this.commit("SET_ORDER", {
+      type: "original_total_amount",
+      data: original_total_amount,
+    });
+    this.commit("SET_ORDER", {
+      type: "products",
+      data: state.cartProducts,
     });
   },
 
@@ -80,6 +89,26 @@ const mutations = {
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
+  },
+
+  SET_ORDER(state, { type, data }) {
+    state.order[type] = data;
+  },
+
+  UPDATE_CART_ORDER(state, data) {
+    if (data.data.discount_type === "percentage") {
+      const coupon_amount =
+        (data.data.percentage * state.order.original_total_amount) / 100;
+      state.order.final_total_amount =
+        state.order.original_total_amount - coupon_amount;
+
+      state.order.coupon_amount = coupon_amount;
+      state.order.coupon_percent = data.data.percentage;
+    } else {
+      state.order.final_total_amount =
+        state.order.original_total_amount - data.data.amount;
+      state.order.coupon_amount = data.data.amount;
+    }
   },
 };
 

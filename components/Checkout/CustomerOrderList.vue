@@ -20,6 +20,7 @@
             :productId="index"
           />
         </div>
+        {{ order }}
 
         <div class="total-price-container">
           <div class="total-price-wrapper">
@@ -36,11 +37,18 @@
             <div class="total-price-label">Discount:</div>
             <div class="total-price">-</div>
           </div>
+          <div class="total-price-wrapper" v-if="order.coupon_amount">
+            <div class="total-price-label">Coupon Discount :</div>
+            <div class="total-price">
+              - {{ order.coupon_amount }} MMK
+              {{ order.coupon_percent ? `( ${order.coupon_percent}% )` : "" }}
+            </div>
+          </div>
 
           <div class="subtotal-price-wrapper">
             <div class="total-price-label">Subtotal:</div>
             <div class="total-price">
-              {{ cartProductsTotal }} {{ cartProducts[0].currency }}
+              {{ order.final_total_amount }} {{ cartProducts[0].currency }}
             </div>
           </div>
         </div>
@@ -54,7 +62,7 @@ import { mapGetters } from "vuex";
 export default {
   // NOTE: Method from Vuex getters
   computed: {
-    ...mapGetters(["cartProducts", "cartProductsTotal"]),
+    ...mapGetters(["cartProducts", "cartProductsTotal", "order"]),
     calculateCartProductQuantity() {
       let qty = 0;
       for (let product of this.cartProducts) {
