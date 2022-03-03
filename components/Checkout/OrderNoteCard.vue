@@ -20,9 +20,9 @@
 import { mapMutations } from "vuex";
 export default {
   methods: {
-    ...mapMutations(["SET_ORDER_NOTE_TO_ORDER"]),
+    ...mapMutations(["SET_ORDER"]),
     orderNoteChange(e) {
-      this.SET_ORDER_NOTE_TO_ORDER(e.target.value);
+      this.SET_ORDER({ type: "order_note", data: e.target.value });
     },
   },
 };

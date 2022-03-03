@@ -22,21 +22,15 @@ const mutations = {
     state.order.coupon_code = code;
   },
 
-  UPDATE_CART_ORDER_POINT(state, point) {
-    state.order.point_amount = point;
-  },
-
   SET_ADDRESS_TO_ORDER(state, data) {
-    state.order.address = data.address;
-    state.order.state_id = data.state.id;
-    state.order.city_id = data.city.id;
-    state.order.phone = data.phone;
-    state.order.name = data.name;
-  },
-
-  SET_ORDER_NOTE_TO_ORDER(state, data) {
-    console.log(data);
-    state.order.order_note = data;
+    const newData = [
+      { type: "address", data: data.address },
+      { type: "state_id", data: data.state.id },
+      { type: "city_id", data: data.city.id },
+      { type: "phone", data: data.phone },
+      { type: "name", data: data.name },
+    ];
+    newData.forEach((item) => this.commit("SET_ORDER", item));
   },
 };
 

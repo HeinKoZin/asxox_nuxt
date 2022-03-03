@@ -9,7 +9,6 @@
           <span>Discount</span>
         </div>
       </div>
-      {{ errors }}
       <div class="promotion-content">
         <div class="input-wrapper">
           <input type="text" placeholder="Coupon Code" v-model="couponCode" />
@@ -45,11 +44,11 @@ export default {
   },
   methods: {
     // NOTE: Method from Vuex actions
-    ...mapMutations(["UPDATE_CART_ORDER_COUPON", "UPDATE_CART_ORDER_POINT"]),
+    ...mapMutations(["UPDATE_CART_ORDER_COUPON", "SET_ORDER"]),
     async applyPoint() {
       const res = await this.generalGetApis("check-one-point-value");
       const pointValue = this.point * res.data.data.open_point_value;
-      this.UPDATE_CART_ORDER_POINT(pointValue);
+      this.SET_ORDER({ type: "point_amount", data: pointValue });
     },
     async applyCoupon(code) {
       const res = await this.generalPostApis(`/check-coupon`, { code });

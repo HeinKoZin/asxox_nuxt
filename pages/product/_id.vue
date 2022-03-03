@@ -82,10 +82,27 @@ export default {
     this.product = res.data.data;
     if (this.product.product_varients?.length > 0) {
       this.product.product_varients.map((product) => {
-        this.setToProductVariant(product.size?.name, this.sizes);
-        this.setToProductVariant(product.color?.name, this.colors);
-        this.setToProductVariant(product.pattern?.name, this.patterns);
-        this.setToProductVariant(product.accessories?.name, this.accessories);
+        const newData = [
+          {
+            name: product.size?.name,
+            type: this.sizes,
+          },
+          {
+            name: product.color?.name,
+            type: this.colors,
+          },
+          {
+            name: product.pattern?.name,
+            type: this.patterns,
+          },
+          {
+            name: product.accessories?.name,
+            type: this.accessories,
+          },
+        ];
+        newData.map((data) => {
+          this.setToProductVariant(data.name, data.type);
+        });
       });
     }
   },

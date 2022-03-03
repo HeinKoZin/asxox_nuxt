@@ -26,14 +26,12 @@ const mutations = {
     state.cartProducts.forEach((product) => {
       original_total_amount += product.sell_price * product.qty;
     });
-    this.commit("SET_ORDER", {
-      type: "original_total_amount",
-      data: original_total_amount,
-    });
-    this.commit("SET_ORDER", {
-      type: "products",
-      data: state.cartProducts,
-    });
+
+    const newData = [
+      { type: "original_total_amount", data: original_total_amount },
+      { type: "products", data: state.cartProducts },
+    ];
+    newData.forEach((item) => this.commit("SET_ORDER", item));
   },
 
   SET_WHOLE_PRODUCTS_TO_CART(state, data) {
