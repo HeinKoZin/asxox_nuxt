@@ -91,7 +91,7 @@ export default {
     baseURL: apiLink,
   },
   router: {
-    middleware: ["setDefaultToken", "defaultStore"],
+    middleware: ["auth/setDefaultToken", "store/defaultStore"],
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

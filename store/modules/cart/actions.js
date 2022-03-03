@@ -16,7 +16,6 @@ const actions = {
       sell_price: data.variantSellPrice || data.sell_price,
       is_variant: data.selectedVariantId,
     };
-    console.log(data);
     commit("SET_PRODUCT_TO_CART", newData);
   },
 

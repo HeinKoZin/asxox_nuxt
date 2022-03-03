@@ -200,7 +200,7 @@
 import { generalMixins } from "@/mixins/general";
 export default {
   mixins: [generalMixins],
-  middleware: "authenticated",
+  middleware: "auth/authenticated",
   data: () => ({
     login: {
       email: "",
