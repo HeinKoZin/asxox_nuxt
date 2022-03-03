@@ -7,6 +7,9 @@
         <CustomerInfo />
         <CustomerOrderList />
       </div>
+      <div class="order-confirm-btn">
+        <button>Confirm</button>
+      </div>
     </div>
   </div>
 </template>
@@ -37,5 +40,13 @@ export default {
 
 .body {
   @apply w-full flex flex-col-reverse md:flex-row gap-x-2 mt-5;
+}
+
+.order-confirm-btn {
+  @apply flex justify-end my-4 p-1 md:hidden;
+}
+
+.order-confirm-btn button {
+  @apply w-full bg-orange-500 text-white text-base md:text-lg font-bold py-3 px-4 rounded-lg font-quicksand disabled:bg-slate-400;
 }
 </style>

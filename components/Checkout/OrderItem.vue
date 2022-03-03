@@ -75,7 +75,7 @@ export default {
 }
 
 .order-item-image-container {
-  @apply w-[45%];
+  @apply w-[25%] md:w-[30%];
 }
 
 .order-item-image-container img {

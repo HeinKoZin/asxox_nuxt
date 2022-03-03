@@ -234,7 +234,7 @@ export default {
 }
 
 .header-user .user-menu {
-  @apply absolute top-16  right-0  bg-white rounded-md  z-50 p-4;
+  @apply absolute top-16  right-0  bg-white rounded-md  z-50 p-4 border border-slate-300;
 }
 
 .header-user .user-menu .user-menu-header {
