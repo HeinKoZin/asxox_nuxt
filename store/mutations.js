@@ -116,6 +116,14 @@ const mutations = {
   UPDATE_CART_ORDER_POINT(state, point) {
     state.order.point_amount = point;
   },
+
+  SET_ADDRESS_TO_ORDER(state, data) {
+    state.order.address = data.address;
+    state.order.state_id = data.state.id;
+    state.order.city_id = data.city.id;
+    state.order.phone = data.phone;
+    state.order.name = data.name;
+  },
 };
 
 export default mutations;

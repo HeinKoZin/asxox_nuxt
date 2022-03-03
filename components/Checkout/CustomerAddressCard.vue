@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -49,6 +50,8 @@ export default {
   //   },
   // },
   methods: {
+    // NOTE: Method from Vuex actions
+    ...mapMutations(["SET_ADDRESS_TO_ORDER"]),
     //NOTE: change addresses by index
     changeAddress(index) {
       this.addresses.forEach((address, i) => {
@@ -58,11 +61,18 @@ export default {
           this.addresses[i].status = false;
         }
       });
+      this.SET_ADDRESS_TO_ORDER(
+        this.addresses.filter((address) => address.status)[0]
+      );
     },
   },
   mounted() {
     this.addresses = JSON.parse(
       JSON.stringify(this.$auth.user.data.customer.shipping_addresses)
+    );
+    console.log(this.addresses.filter((address) => address.status)[0]);
+    this.SET_ADDRESS_TO_ORDER(
+      this.addresses.filter((address) => address.status)[0]
     );
   },
 };
