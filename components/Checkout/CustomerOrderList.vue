@@ -125,10 +125,10 @@ export default {
 }
 
 .order-confirm-btn {
-  @apply w-full mt-2;
+  @apply w-full mt-2 hidden md:block;
 }
 
 .order-confirm-btn button {
-  @apply w-full bg-orange-500 text-white text-lg font-bold py-3 px-4 rounded-lg font-quicksand disabled:bg-slate-400;
+  @apply w-full bg-orange-500 text-white text-base md:text-lg font-bold py-3 px-4 rounded-lg font-quicksand disabled:bg-slate-400;
 }
 </style>
