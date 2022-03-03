@@ -64,9 +64,6 @@
           </div>
         </div>
       </div>
-      <div class="order-confirm-btn">
-        <button disabled>Confirm</button>
-      </div>
     </div>
   </div>
 </template>
@@ -158,13 +155,5 @@ export default {
 
 .order-badge span {
   @apply text-slate-50 text-[10px] md:text-sm absolute bg-orange-500 rounded-full h-5 md:h-6 w-5 md:w-6 justify-center items-center flex text-center -top-3 -right-3;
-}
-
-.order-confirm-btn {
-  @apply w-full mt-2 hidden md:block;
-}
-
-.order-confirm-btn button {
-  @apply w-full bg-orange-500 text-white text-base md:text-lg font-bold py-3 px-4 rounded-lg font-quicksand disabled:bg-slate-400;
 }
 </style>

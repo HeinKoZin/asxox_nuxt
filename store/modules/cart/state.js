@@ -1,6 +1,7 @@
 // ==== state ====
 const state = () => ({
-  isMobileMenuOpen: false,
+  cartProducts: [],
+  isCartOpen: false,
 });
 
 export default state;

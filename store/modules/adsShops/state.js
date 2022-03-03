@@ -1,6 +1,6 @@
 // ==== state ====
 const state = () => ({
-  isMobileMenuOpen: false,
+  adsShops: [],
 });
 
 export default state;

@@ -15,42 +15,6 @@ const getters = {
   isMobileMenuOpen(state) {
     return state.isMobileMenuOpen;
   },
-
-  isCartOpen(state) {
-    return state.isCartOpen;
-  },
-
-  wishListProductList(state) {
-    return state.wishListProductList;
-  },
-
-  categories(state) {
-    return state.categories;
-  },
-
-  categoryProducts(state) {
-    return state.categoryProducts;
-  },
-
-  adsShops(state) {
-    return state.adsShops;
-  },
-
-  cartProducts(state) {
-    return state.cartProducts;
-  },
-
-  cartProductsTotal(state) {
-    let total = 0;
-    state.cartProducts.forEach((product) => {
-      total += product.qty * product.original_unit_price;
-    });
-    return total;
-  },
-
-  order(state) {
-    return state.order;
-  },
 };
 
 export default getters;
