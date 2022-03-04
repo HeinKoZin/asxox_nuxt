@@ -32,6 +32,10 @@ const mutations = {
     ];
     newData.forEach((item) => this.commit("SET_ORDER", item));
   },
+
+  SET_PAYMENT_METHOD(state, data) {
+    state.order.payment_method = data;
+  },
 };
 
 export default mutations;

@@ -12,7 +12,7 @@ const state = () => ({
     source: "Web",
     order_note: "",
     point_amount: 0,
-    payment_method: "",
+    payment_method: "Cash On Delivery",
     products: [],
   },
 });

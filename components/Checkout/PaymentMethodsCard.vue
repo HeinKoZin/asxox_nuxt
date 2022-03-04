@@ -19,8 +19,11 @@
         </div> -->
       </div>
       <div class="body">
-        <div class="payment-method">
-          <button>
+        <div
+          class="payment-method"
+          :class="{ active: payment_method === 'Cash On Delivery' }"
+        >
+          <button @click="payment_method = 'Cash On Delivery'">
             <span>
               <font-awesome-icon
                 class="payment-method-icon"
@@ -30,8 +33,11 @@
             <span> Cash On Delivery</span>
           </button>
         </div>
-        <div class="payment-method active">
-          <button>
+        <div
+          class="payment-method"
+          :class="{ active: payment_method === 'online_payment' }"
+        >
+          <button @click="payment_method = 'online_payment'">
             <span>
               <font-awesome-icon
                 class="payment-method-icon"
@@ -47,7 +53,25 @@
 </template>
 
 <script>
-export default {};
+import { mapMutations } from "vuex";
+export default {
+  data() {
+    return {
+      payment_method: "Cash On Delivery",
+    };
+  },
+  watch: {
+    payment_method() {
+      this.SET_PAYMENT_METHOD(this.payment_method);
+      const checkPaymentMethod = this.payment_method === "online_payment";
+      this.$emit("openPaymentSection", checkPaymentMethod);
+    },
+  },
+  methods: {
+    // NOTE: Method from Vuex actions
+    ...mapMutations(["SET_PAYMENT_METHOD"]),
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
