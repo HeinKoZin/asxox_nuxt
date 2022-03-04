@@ -14,7 +14,8 @@
     >
       <SideBar />
       <div class="main-layout">
-        <Nuxt keep-alive />
+        <!-- <nuxt v-if="!$slots.profilelayout" /> -->
+        <slot />
         <Footer v-if="checkRoute()" />
       </div>
       <Cart />
