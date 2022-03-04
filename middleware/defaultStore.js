@@ -9,17 +9,13 @@ export default async ({ app, store }) => {
         original_total_amount += product.sell_price * product.qty;
       });
 
-      store.commit("SET_ORDER", {
-        type: "original_total_amount",
-        data: original_total_amount,
-      });
-      store.commit("SET_ORDER", {
-        type: "products",
-        data: cartProducts,
-      });
-      store.commit("SET_ORDER", {
-        type: "total_amount",
-        data: original_total_amount,
+      const newData = [
+        { type: "original_total_amount", data: original_total_amount },
+        { type: "products", data: cartProducts },
+        { type: "total_amount", data: original_total_amount },
+      ];
+      newData.forEach((data) => {
+        store.commit("SET_ORDER", data);
       });
     }
   }
