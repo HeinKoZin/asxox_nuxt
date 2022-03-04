@@ -10,6 +10,14 @@ const mutations = {
   SET_MOBILE_MENU(state, data) {
     state.isMobileMenuOpen = data;
   },
+  ADD_NEW_ADDRESS(state, data) {
+    state.auth.user.data.customer.shipping_addresses.push(data);
+  },
+
+  UPDATE_ADDRESS_STATUS(state, data) {
+    state.auth.user.data.customer.shipping_addresses[data.index].status =
+      data.value;
+  },
 };
 
 export default mutations;

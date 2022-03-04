@@ -13,6 +13,7 @@ export default {
     cart: generateModule("cart"),
     category: generateModule("category"),
     wishlistProduct: generateModule("wishlistProduct"),
+    adsShop: generateModule("adsShop"),
   },
 };
 

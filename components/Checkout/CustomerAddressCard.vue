@@ -42,23 +42,16 @@ export default {
       addresses: [],
     };
   },
-  // computed: {
-  //   shippingAddresses() {
-  //     return JSON.parse(
-  //       JSON.stringify(this.$auth.user.data.customer.shipping_addresses)
-  //     );
-  //   },
-  // },
   methods: {
     // NOTE: Method from Vuex actions
-    ...mapMutations(["SET_ADDRESS_TO_ORDER"]),
+    ...mapMutations(["SET_ADDRESS_TO_ORDER", "UPDATE_ADDRESS_STATUS"]),
     //NOTE: change addresses by index
     changeAddress(index) {
       this.addresses.forEach((address, i) => {
         if (i === index) {
-          this.addresses[i].status = true;
+          this.UPDATE_ADDRESS_STATUS({ index: i, value: true });
         } else {
-          this.addresses[i].status = false;
+          this.UPDATE_ADDRESS_STATUS({ index: i, value: false });
         }
       });
       this.SET_ADDRESS_TO_ORDER(
@@ -67,10 +60,7 @@ export default {
     },
   },
   mounted() {
-    this.addresses = JSON.parse(
-      JSON.stringify(this.$auth.user.data.customer.shipping_addresses)
-    );
-    console.log(this.addresses.filter((address) => address.status)[0]);
+    this.addresses = this.$auth.user.data.customer.shipping_addresses;
     this.SET_ADDRESS_TO_ORDER(
       this.addresses.filter((address) => address.status)[0]
     );

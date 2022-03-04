@@ -14,6 +14,7 @@ export default async ({ app, store }) => {
         { type: "products", data: cartProducts },
         { type: "total_amount", data: original_total_amount },
       ];
+
       newData.forEach((data) => {
         store.commit("SET_ORDER", data);
       });

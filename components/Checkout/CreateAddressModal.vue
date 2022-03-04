@@ -15,37 +15,46 @@
       <div class="body">
         <div class="input-group">
           <label for="name">Name</label>
-          <input type="text" id="name" />
+          <input type="text" id="name" v-model="newAddress.name" />
         </div>
         <div class="input-group">
           <label for="phone">Phone</label>
-          <input type="text" id="phone" />
+          <input type="text" id="phone" v-model="newAddress.phone" />
         </div>
         <div class="input-group">
           <label for="address">Address</label>
-          <input type="text" id="address" />
+          <input type="text" id="address" v-model="newAddress.address" />
         </div>
+        {{ newAddress }}
         <div class="flex w-full gap-x-2">
           <div class="input-group">
-            <label for="city">City</label>
-            <select id="city">
-              <option value="">Select</option>
-              <option value="1">City 1</option>
-              <option value="2">City 2</option>
+            <label for="state">State</label>
+            <select id="state" v-model="newAddress.state_id">
+              <option
+                :value="state.id"
+                v-for="(state, index) in states"
+                :key="index"
+              >
+                {{ state.name }}
+              </option>
             </select>
           </div>
           <div class="input-group">
-            <label for="state">State</label>
-            <select id="state">
-              <option value="">Select</option>
-              <option value="1">State 1</option>
-              <option value="2">State 2</option>
+            <label for="city">City</label>
+            <select id="state" v-model="newAddress.city_id">
+              <option
+                :value="city.id"
+                v-for="(city, index) in cities"
+                :key="index"
+              >
+                {{ city.name }}
+              </option>
             </select>
           </div>
         </div>
 
         <div class="modal-actions">
-          <button class="save" @click="$emit('closeModal')">Save</button>
+          <button class="save" @click="addNewAddress">Save</button>
           <button class="cancel" @click="$emit('closeModal')">Cancel</button>
         </div>
       </div>
@@ -54,7 +63,64 @@
 </template>
 
 <script>
-export default {};
+import { generalMixins } from "@/mixins/general";
+import { mapMutations } from "vuex";
+export default {
+  mixins: [generalMixins],
+  data() {
+    return {
+      states: [],
+      cities: [],
+      newAddress: {
+        name: null,
+        phone: null,
+        address: null,
+        state_id: null,
+        city_id: null,
+      },
+    };
+  },
+  methods: {
+    // NOTE: Method from Vuex actions
+    ...mapMutations(["ADD_NEW_ADDRESS"]),
+    async addNewAddress() {
+      try {
+        const response = await this.generalPostApis(
+          "shipping_address",
+          this.newAddress
+        );
+
+        const selectedState = this.states.find(
+          (state) => state.id === this.newAddress.state_id
+        );
+        const selectedCity = this.cities.find(
+          (city) => city.id === this.newAddress.city_id
+        );
+        this.newAddress.state = selectedState;
+        this.newAddress.city = selectedCity;
+        this.ADD_NEW_ADDRESS(this.newAddress);
+        this.$emit("closeModal");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  watch: {
+    async "newAddress.state_id"() {
+      const citiesRes = await this.generalGetApis(
+        `cities?state_id=${this.newAddress.state_id}`
+      );
+      this.cities = citiesRes.data.data;
+      this.newAddress.city_id = citiesRes.data.data[0].id;
+    },
+  },
+  async fetch() {
+    const statesRes = await this.generalGetApis("states");
+    this.newAddress.state_id = statesRes.data.data[0].id;
+
+    this.states = statesRes.data.data;
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
