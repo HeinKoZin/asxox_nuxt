@@ -16,7 +16,7 @@
       </div>
       <div class="product-detail">
         <ProductImages :description_photos="product.description_photos" />
-        <ProductInfo />
+        <ProductInfo :product="product" />
         <ProductDescription />
         <RecommendedProducts />
       </div>
@@ -38,33 +38,17 @@ export default {
       accessories: [],
     };
   },
-  methods: {
-    ogImage() {
-      if (
-        !this.$fetchState.pending &&
-        !this.$fetchState.error &&
-        this.product?.feature_photos?.length > 0
-      )
-        return this.product.feature_photos[0].photo;
-      else return "test";
-    },
-    setToProductVariant(type, main) {
-      if (type && main.filter((data) => data.name === type).length === 0) {
-        main.push({ name: type, isActive: false });
-      }
-    },
-  },
   head() {
     return {
-      title: `Asxox | ${this.product.name}`,
+      title: `Asxox | ${this.product?.name}`,
       meta: [
         {
           property: "og:title",
-          content: this.product.name,
+          content: this.product?.name,
         },
         {
           property: "og:description",
-          content: this.product.detail || "",
+          content: this.product?.detail || "",
         },
         {
           property: "og:image",
@@ -73,6 +57,24 @@ export default {
       ],
     };
   },
+  methods: {
+    ogImage() {
+      if (
+        !this.$fetchState.pending &&
+        !this.$fetchState.error &&
+        this.product?.feature_photos?.length > 0
+      ) {
+        return this.product.feature_photos[0].photo;
+      }
+    },
+    setToProductVariant(type, main) {
+      const filterMain = main.filter((data) => data.name === type);
+      if (type && filterMain.length === 0) {
+        main.push({ name: type, isActive: false });
+      }
+    },
+  },
+
   async fetch() {
     const res = await this.generalGetApis(
       `/products/${this.$asxox.asxox_decode(this.$route.params.id)}`
@@ -80,10 +82,27 @@ export default {
     this.product = res.data.data;
     if (this.product.product_varients?.length > 0) {
       this.product.product_varients.map((product) => {
-        this.setToProductVariant(product.size?.name, this.sizes);
-        this.setToProductVariant(product.color?.name, this.colors);
-        this.setToProductVariant(product.pattern?.name, this.patterns);
-        this.setToProductVariant(product.accessories?.name, this.accessories);
+        const newData = [
+          {
+            name: product.size?.name,
+            type: this.sizes,
+          },
+          {
+            name: product.color?.name,
+            type: this.colors,
+          },
+          {
+            name: product.pattern?.name,
+            type: this.patterns,
+          },
+          {
+            name: product.accessories?.name,
+            type: this.accessories,
+          },
+        ];
+        newData.map((data) => {
+          this.setToProductVariant(data.name, data.type);
+        });
       });
     }
   },

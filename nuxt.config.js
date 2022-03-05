@@ -79,7 +79,7 @@ export default {
         },
         endpoints: {
           login: { url: "/login", method: "post" },
-          logout: { url: "/logout", method: "post" },
+          logout: { url: "/logout", method: "get" },
           user: { url: "/user", method: "get" },
         },
       },
@@ -91,7 +91,7 @@ export default {
     baseURL: apiLink,
   },
   router: {
-    middleware: ["setDefaultToken", "defaultStore"],
+    middleware: ["auth/setDefaultToken", "store/defaultStore"],
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

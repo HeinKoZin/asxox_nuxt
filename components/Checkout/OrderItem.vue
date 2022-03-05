@@ -1,40 +1,44 @@
 <template>
   <div class="order-item-container">
     <div class="order-item-image-container">
-      <img :src="product.image" />
+      <img :src="product.cover_photo" />
     </div>
     <div class="order-item-info-container">
       <div class="order-item-info-title">
-        <span>{{ product.name }}</span>
+        <span>{{ product.parent_product_name }}</span>
       </div>
       <div class="order-item-variants-container">
-        <div class="order-item-variant">
-          <span>Color:</span>
-          <span>{{ product.color }}</span>
-        </div>
-
-        <div class="order-item-variant">
-          <span>Size:</span>
-          <span>{{ product.size }}</span>
+        <div
+          class="order-item-variant"
+          v-for="(variant, index) in product.selectedVariant"
+          :key="index"
+        >
+          <span class="capitalize">{{ variant.type }} :</span>
+          <span>{{ variant.data }}</span>
         </div>
       </div>
 
       <div class="order-item-info-price-quantity">
-        <span>$ {{ product.price }}</span>
+        <span>$ {{ product.sell_price }} {{ product.currency }}</span>
         <span>X</span>
-        <span>{{ product.quantity }}</span>
+        <span>{{ product.qty }}</span>
       </div>
 
       <div class="order-item-actions">
         <div class="order-item-quantity-actions">
-          <button>
-            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
-          </button>
-          <button>
+          <button
+            @click="product.qty > 1 ? changeQty('minus', product.qty) : null"
+          >
             <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
           </button>
+          <button @click="changeQty('plus', product.qty)">
+            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
+          </button>
         </div>
-        <button class="order-item-remove">
+        <button
+          class="order-item-remove"
+          @click="REMOVE_PRODUCT_FROM_CART(productId)"
+        >
           <font-awesome-icon class="icon" :icon="['fas', 'trash']" />
         </button>
       </div>
@@ -43,11 +47,23 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   props: {
     product: {
       type: Object,
       required: true,
+    },
+    productId: {
+      type: Number,
+    },
+  },
+  methods: {
+    ...mapMutations(["UPDATE_PRODUCT_IN_CART", "REMOVE_PRODUCT_FROM_CART"]),
+    changeQty(type, qty) {
+      let newQty = qty;
+      type === "minus" ? newQty-- : newQty++;
+      this.UPDATE_PRODUCT_IN_CART({ productId: this.productId, newQty });
     },
   },
 };
@@ -59,7 +75,7 @@ export default {
 }
 
 .order-item-image-container {
-  @apply w-[40%];
+  @apply w-[25%] md:w-[30%];
 }
 
 .order-item-image-container img {
@@ -71,7 +87,7 @@ export default {
 }
 
 .order-item-info-title {
-  @apply text-slate-800 text-lg font-bold font-quicksand line-clamp-2 w-full break-all;
+  @apply text-slate-800 text-base font-bold font-quicksand line-clamp-2 w-full break-all;
 }
 
 .order-item-variants-container {
@@ -79,15 +95,15 @@ export default {
 }
 
 .order-item-variant span {
-  @apply text-slate-800 text-sm font-bold first:text-slate-600 first:font-medium;
+  @apply text-slate-800 text-xs font-bold first:text-slate-600 first:font-medium;
 }
 
 .order-item-info-price-quantity {
-  @apply flex gap-x-2 text-sm text-slate-600 items-center;
+  @apply flex gap-x-2 text-xs text-slate-600 items-center;
 }
 
 .order-item-info-price-quantity span {
-  @apply first:text-lg font-quicksand first:text-slate-800 first:font-bold last:text-base;
+  @apply first:text-base font-quicksand first:text-slate-800 first:font-bold last:text-base;
 }
 
 .icon {

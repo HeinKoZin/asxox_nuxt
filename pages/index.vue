@@ -44,6 +44,7 @@ export default {
     };
   },
   computed: {
+    // NOTE: Method from Vuex getters
     ...mapGetters([
       "isMobileMenuOpen",
       "categories",
@@ -52,6 +53,7 @@ export default {
     ]),
   },
   methods: {
+    // NOTE: Method from Vuex actions
     ...mapActions(["getAdsShops", "getCategories", "getProductsByCategory"]),
     async fetchSlideAds() {
       try {

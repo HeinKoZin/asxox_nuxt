@@ -1,4 +1,3 @@
-// import { state } from "@/store/state.js";
 import actions from "./actions";
 import state from "./state";
 import mutations from "./mutations";
@@ -9,4 +8,15 @@ export default {
   getters,
   actions,
   mutations,
+  modules: {
+    order: generateModule("order"),
+    cart: generateModule("cart"),
+    category: generateModule("category"),
+    wishlistProduct: generateModule("wishlistProduct"),
+    adsShop: generateModule("adsShop"),
+  },
 };
+
+function generateModule(moduleName) {
+  return require(`./modules/${moduleName}/index`).default;
+}

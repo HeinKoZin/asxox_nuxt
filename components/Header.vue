@@ -100,7 +100,7 @@
         </div>
         <div class="header-wishlist">
           <button class="header-button">
-            <span class="badge">{{ wishListProductList.length }}</span>
+            <span class="badge">{{ giveWishlistLength }}</span>
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
           </button>
         </div>
@@ -116,11 +116,11 @@ export default {
   mixins: [generalMixins],
   data() {
     return {
-      //
       isUserMenuOpen: false,
     };
   },
   computed: {
+    // NOTE: Method from Vuex getters
     ...mapGetters([
       "isMobileMenuOpen",
       "isCartOpen",
@@ -129,6 +129,10 @@ export default {
       "wishListProductList",
       "cartProducts",
     ]),
+    giveWishlistLength() {
+      return this.wishListProductList?.length;
+    },
+
     calculateCartProductQuantity() {
       let qty = 0;
       for (let product of this.cartProducts) {
@@ -138,8 +142,8 @@ export default {
     },
   },
   methods: {
+    // NOTE: Methods from Vuex actions and mutations
     ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
-
     ...mapActions(["getWishListProducts"]),
 
     toggleUserMenu() {
@@ -230,7 +234,7 @@ export default {
 }
 
 .header-user .user-menu {
-  @apply absolute top-16  right-0  bg-white rounded-md  z-50 p-4;
+  @apply absolute top-16  right-0  bg-white rounded-md  z-50 p-4 border border-slate-300;
 }
 
 .header-user .user-menu .user-menu-header {

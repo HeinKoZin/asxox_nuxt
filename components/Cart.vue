@@ -32,7 +32,10 @@
           <span>$10.00</span>
         </div>
         <div class="cart-bottom-action">
-          <button class="btn btn-sm btn-primary">
+          <button
+            class="btn btn-sm btn-primary"
+            @click="$router.push('/checkout'), SET_CART(!isCartOpen)"
+          >
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
             <span>Checkout</span>
           </button>

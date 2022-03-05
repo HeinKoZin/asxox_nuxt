@@ -1,6 +1,6 @@
 // ==== state ====
 const state = () => ({
-  isMobileMenuOpen: false,
+  wishListProductList: [],
 });
 
 export default state;
