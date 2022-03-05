@@ -10,8 +10,8 @@ const actions = {
       cover_photo:
         data.variantPhoto || data.temp_photo || data.feature_photos[0].photo,
       currency: data.currency,
-      is_article: data.is_article_promotion,
-      is_flashsale: data.is_flashsale_promotion,
+      is_article: data.is_article_promotion ? true : null,
+      is_flashsale: data.is_flashsale_promotion ? true : null,
       original_unit_price: data.sell_price,
       sell_price: data.variantSellPrice || data.sell_price,
       is_variant: data.selectedVariantId,

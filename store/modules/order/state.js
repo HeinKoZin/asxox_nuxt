@@ -11,7 +11,7 @@ const state = () => ({
     coupon_code: "",
     source: "Web",
     order_note: "",
-    point_amount: 0,
+    point_amount: null,
     payment_method: "Cash On Delivery",
     products: [],
   },

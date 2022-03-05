@@ -1,22 +1,24 @@
 <template>
-  <div class="checkout-container">
-    <div class="checkout-container-wrapper">
-      <div class="header">Shopping Cart</div>
-
-      <div class="body">
-        <CustomerInfo />
-        <CustomerOrderList />
-      </div>
-      <div class="order-confirm-btn">
-        <button>Confirm</button>
+  <MainLayout>
+    <div class="checkout-container">
+      <div class="checkout-container-wrapper">
+        <div class="header">Shopping Cart</div>
+        <div class="body">
+          <CustomerInfo />
+          <CustomerOrderList />
+        </div>
+        <div class="order-confirm-btn">
+          <button>Confirm</button>
+        </div>
       </div>
     </div>
-  </div>
+  </MainLayout>
 </template>
 
 <script>
+import MainLayout from "~/layouts/MainLayout.vue";
 export default {
-  layout: "MainLayout",
+  components: { MainLayout },
   mounted() {
     if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
       this.$router.push("/auth");

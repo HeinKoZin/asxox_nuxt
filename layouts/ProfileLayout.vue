@@ -3,7 +3,7 @@
     <MainLayout>
       <div class="profile-layout-container">
         <UserSidebar />
-        <Nuxt />
+        <Nuxt keep-alive />
       </div>
     </MainLayout>
   </div>

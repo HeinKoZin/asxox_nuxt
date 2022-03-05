@@ -29,11 +29,11 @@
             </div>
           </div>
           <div class="total-price-wrapper">
-            <div class="total-price-label">Delivery:</div>
+            <div class="total-price-label">Delivery :</div>
             <div class="total-price">-</div>
           </div>
           <div class="total-price-wrapper">
-            <div class="total-price-label">Discount:</div>
+            <div class="total-price-label">Discount :</div>
             <div class="total-price">-</div>
           </div>
           <div class="total-price-wrapper" v-if="order.coupon_amount">
@@ -63,13 +63,18 @@
           </div>
         </div>
       </div>
+      <div class="order-confirm-btn" @click="finalOrder">
+        <button>Confirm</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
   // NOTE: Method from Vuex getters
   computed: {
     ...mapGetters(["cartProducts", "cartProductsTotal", "order"]),
@@ -81,32 +86,14 @@ export default {
       return qty;
     },
   },
-  data() {
-    return {
-      //
-      orders: [
-        {
-          id: 1,
-          name: "Product 1",
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/17/products/feature/17-02-2022_Asxox_4620e0be52ed334.63359488.jpg",
-          price: "100",
-          color: "Red",
-          size: "XL",
-          quantity: 1,
-        },
-        {
-          id: 2,
-          name: "Product 2",
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/17/products/feature/17-02-2022_Asxox_4620e0be52ed334.63359488.jpg",
-          price: "200",
-          color: "Blue",
-          size: "L",
-          quantity: 2,
-        },
-      ],
-    };
+  methods: {
+    async finalOrder() {
+      try {
+        await this.generalPostApis("orders", this.order);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 </script>
