@@ -16,6 +16,7 @@
       <div class="main-layout">
         <!-- <nuxt v-if="!$slots.profilelayout" /> -->
         <slot />
+
         <Footer v-if="checkRoute()" />
       </div>
       <Cart />

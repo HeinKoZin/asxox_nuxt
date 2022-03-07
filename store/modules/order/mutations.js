@@ -20,6 +20,7 @@ const mutations = {
       state.order.coupon_amount = amount;
     }
     state.order.coupon_code = code;
+    this.commit("REFRESH_ORDER");
   },
 
   SET_ADDRESS_TO_ORDER(state, data) {
@@ -35,6 +36,22 @@ const mutations = {
 
   SET_PAYMENT_METHOD(state, data) {
     state.order.payment_method = data;
+  },
+
+  REFRESH_ORDER(state, data) {
+    console.log(state);
+    // state.cart.cartProducts.forEach((product) => {
+    //   original_total_amount += product.sell_price * product.qty;
+    // });
+
+    // const newData = [
+    //   { type: "original_total_amount", data: original_total_amount },
+    //   { type: "total_amount", data: original_total_amount },
+    // ];
+
+    // newData.forEach((data) => {
+    //   this.commit("SET_ORDER", data);
+    // });
   },
 };
 

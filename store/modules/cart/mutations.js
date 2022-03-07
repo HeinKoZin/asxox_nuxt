@@ -32,10 +32,12 @@ const mutations = {
       { type: "products", data: state.cartProducts },
     ];
     newData.forEach((item) => this.commit("SET_ORDER", item));
+    this.commit("REFRESH_ORDER");
   },
 
   SET_WHOLE_PRODUCTS_TO_CART(state, data) {
     state.cartProducts = data;
+    this.commit("REFRESH_ORDER");
   },
 
   REMOVE_PRODUCT_FROM_CART(state, id) {
@@ -45,6 +47,7 @@ const mutations = {
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
+    this.commit("REFRESH_ORDER");
   },
 
   UPDATE_PRODUCT_IN_CART(state, data) {
@@ -54,6 +57,7 @@ const mutations = {
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
+    this.commit("REFRESH_ORDER");
   },
 };
 

@@ -17,10 +17,12 @@ const actions = {
       is_variant: data.selectedVariantId,
     };
     commit("SET_PRODUCT_TO_CART", newData);
+    this.commit("REFRESH_ORDER");
   },
 
   updateProductInCart({ commit }, { cartId, productQty }) {
     commit("UPDATE_PRODUCT_IN_CART", { cartId, productQty });
+    this.commit("REFRESH_ORDER");
   },
 };
 

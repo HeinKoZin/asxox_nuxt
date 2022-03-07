@@ -1,34 +1,36 @@
 <template>
-  <div
-    class="w-full min-h-screen bg-slate-100"
-    v-if="!$fetchState.pending && !$fetchState.error"
-  >
-    <div class="product-detail-container">
-      <div class="product-cover">
-        <ProductCover
-          ref="productCoverRef"
-          :product="product"
-          :size="sizes"
-          :color="colors"
-          :pattern="patterns"
-          :accessories="accessories"
-        />
-      </div>
-      <div class="product-detail">
-        <ProductImages :description_photos="product.description_photos" />
-        <ProductInfo :product="product" />
-        <ProductDescription />
-        <RecommendedProducts />
-      </div>
-    </div>
-  </div>
+  <MainLayout>
+    <div
+      class="w-full min-h-screen bg-slate-100"
+      v-if="!$fetchState.pending && !$fetchState.error"
+    >
+      <div class="product-detail-container">
+        <div class="product-cover">
+          <ProductCover
+            ref="productCoverRef"
+            :product="product"
+            :size="sizes"
+            :color="colors"
+            :pattern="patterns"
+            :accessories="accessories"
+          />
+        </div>
+        <div class="product-detail">
+          <ProductImages :description_photos="product.description_photos" />
+          <ProductInfo :product="product" />
+          <ProductDescription />
+          <RecommendedProducts />
+        </div>
+      </div></div
+  ></MainLayout>
 </template>
 
 <script>
 import { generalMixins } from "@/mixins/general";
+import MainLayout from "~/layouts/MainLayout.vue";
 export default {
   mixins: [generalMixins],
-  layout: "MainLayout",
+  components: { MainLayout },
   data() {
     return {
       product: {},
@@ -80,6 +82,7 @@ export default {
       `/products/${this.$asxox.asxox_decode(this.$route.params.id)}`
     );
     this.product = res.data.data;
+    console.log(this.product);
     if (this.product.product_varients?.length > 0) {
       this.product.product_varients.map((product) => {
         const newData = [
