@@ -21,6 +21,6 @@ export default {
 
 <style lang="postcss" scoped>
 .profile-layout-container {
-  @apply flex gap-x-4 p-4 h-full pb-20;
+  @apply p-4 w-full pb-20;
 }
 </style>

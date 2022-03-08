@@ -49,11 +49,11 @@ export default {};
 
 <style lang="postcss" scoped>
 .user-sidebar-container {
-  @apply bg-slate-100 p-5 rounded-lg;
+  @apply px-2 w-[18%]  float-left;
 }
 
-.user-sidebar-container-wrapper {
-  @apply flex flex-col items-center;
+.user-sidebar-wrapper {
+  @apply flex flex-col items-center bg-slate-100 p-5 rounded-lg;
 }
 
 .user-sidebar-header {
@@ -61,7 +61,7 @@ export default {};
 }
 
 .user-sidebar-header h2 {
-  @apply text-2xl font-bold p-4 font-quicksand border-b border-slate-300 w-full;
+  @apply text-2xl font-bold text-center p-4 font-quicksand border-b border-slate-300 w-full;
 }
 
 .user-sidebar-avatar img {
@@ -73,18 +73,18 @@ export default {};
 }
 
 .user-sidebar-menu ul {
-  @apply flex gap-y-1 flex-col text-lg w-full font-semibold text-slate-600;
+  @apply flex gap-y-1 flex-col text-base w-full font-semibold text-slate-600;
 }
 
 .user-sidebar-menu ul li {
-  @apply flex flex-row items-center gap-x-2 py-2 px-3 rounded-lg cursor-pointer hover:bg-slate-100;
+  @apply flex flex-row items-center gap-x-2 py-3 px-3 rounded-lg cursor-pointer hover:bg-slate-200;
 }
 
 .user-sidebar-menu ul li.active {
-  @apply bg-slate-200;
+  @apply bg-slate-300;
 }
 
 .user-logout {
-  @apply w-full bg-orange-500 text-white text-base md:text-lg font-bold py-3  rounded-lg font-quicksand mt-6 hover:bg-orange-600;
+  @apply w-full bg-orange-500 text-white text-sm md:text-base font-bold py-3  rounded-lg font-quicksand mt-6 hover:bg-orange-600;
 }
 </style>
