@@ -53,12 +53,7 @@
           <div class="subtotal-price-wrapper">
             <div class="total-price-label">Subtotal :</div>
             <div class="total-price">
-              {{
-                order.point_amount
-                  ? order.total_amount - order.point_amount
-                  : order.total_amount
-              }}
-              {{ cartProducts[0].currency }}
+              {{ calculateSubtotal }}
             </div>
           </div>
         </div>
@@ -84,6 +79,11 @@ export default {
         qty += product.qty;
       }
       return qty;
+    },
+    calculateSubtotal() {
+      return this.order.point_amount
+        ? this.order.total_amount - this.order.point_amount
+        : this.order.total_amount + " " + this.cartProducts[0]?.currency;
     },
   },
   methods: {

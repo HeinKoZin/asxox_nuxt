@@ -17,10 +17,18 @@
             v-model="couponCode"
             :disabled="checkData.isCoupon"
           />
-          <button @click="applyCoupon(couponCode)" v-if="!checkData.isCoupon">
+          <button
+            @click="applyCoupon(couponCode)"
+            v-if="!checkData.isCoupon"
+            class="default-button"
+          >
             Apply
           </button>
-          <button @click="removePromotion('coupon')" v-else>
+          <button
+            @click="removePromotion('coupon')"
+            class="remove-button"
+            v-else
+          >
             Remove Coupon
           </button>
         </div>
@@ -32,10 +40,25 @@
             placeholder="Point amount"
             v-model="point"
             :disabled="checkData.isPoint"
+            required
           />
-          <button @click="applyPoint" v-if="!checkData.isPoint">Apply</button>
-          <button @click="removePromotion('point')" v-else>Remove Point</button>
+          <button
+            @click="applyPoint"
+            v-if="!checkData.isPoint"
+            class="default-button"
+          >
+            Apply
+          </button>
+          <button
+            @click="removePromotion('point')"
+            class="remove-button"
+            v-else
+          >
+            Remove Point
+          </button>
         </div>
+        <p v-if="errors.pointError">{{ errors.pointError }}</p>
+        <p v-if="errors.pointSuccess">{{ errors.pointSuccess }}</p>
       </div>
     </div>
   </div>
@@ -44,7 +67,7 @@
 <script>
 import Input from "../Common/Input.vue";
 import { generalMixins } from "@/mixins/general";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   components: { Input },
@@ -58,10 +81,15 @@ export default {
       errors: {
         couponError: null,
         couponSuccess: null,
+        pointError: null,
+        pointSuccess: null,
       },
       point: null,
       couponCode: "",
     };
+  },
+  computed: {
+    ...mapGetters(["order"]),
   },
   methods: {
     // NOTE: Method from Vuex actions
@@ -71,24 +99,47 @@ export default {
       "REMOVE_COUPON_FROM_ORDER",
     ]),
 
+    calculateSubtotal() {
+      return this.order.point_amount
+        ? this.order.total_amount - this.order.point_amount
+        : this.order.total_amount;
+    },
+
     removePromotion(type) {
       if (type === "point") {
         this.point = null;
         this.checkData.isPoint = false;
         this.SET_ORDER({ type: "point_amount", data: null });
+        this.errors.pointError = null;
+        this.errors.pointSuccess = null;
       } else {
         this.couponCode = null;
         this.checkData.isCoupon = false;
         this.REMOVE_COUPON_FROM_ORDER();
+        this.errors.couponError = null;
+        this.errors.couponSuccess = null;
       }
-      this.errors.couponError = null;
-      this.errors.couponSuccess = null;
     },
 
     async applyPoint() {
+      if (this.point === null) {
+        this.errors.pointError = "Please enter point amount";
+        return;
+      }
+      if (this.point > this.$auth.user.data.point.amount) {
+        this.errors.pointError = "You don't have sufficient point";
+        return;
+      }
+      if (this.point > this.calculateSubtotal) {
+        this.errors.pointError =
+          "Your point amount must be smaller than your oder subtotal amount";
+        return;
+      }
       const res = await this.generalGetApis("check-one-point-value");
       const pointValue = this.point * res.data.data.open_point_value;
       this.checkData.isPoint = true;
+      this.errors.pointSuccess = "Point amount added";
+      this.errors.pointError = null;
       this.SET_ORDER({ type: "point_amount", data: pointValue });
     },
 
@@ -133,7 +184,11 @@ export default {
   @apply border border-slate-300 px-4 p-2 flex-grow rounded-lg text-sm md:text-base focus:outline-slate-400 placeholder:text-slate-700;
 }
 
-.input-wrapper button {
+.default-button {
   @apply p-2 px-4 rounded-lg bg-orange-500 text-slate-50 text-sm md:text-base font-semibold hover:bg-orange-600 active:bg-orange-700;
+}
+
+.remove-button {
+  @apply p-2 px-4 rounded-lg bg-red-500 text-slate-50 text-sm md:text-base font-semibold hover:bg-red-600 active:bg-red-700;
 }
 </style>
