@@ -11,14 +11,30 @@
       </div>
       <div class="promotion-content">
         <div class="input-wrapper">
-          <input type="text" placeholder="Coupon Code" v-model="couponCode" />
-          <bUtton @click="applyCoupon(couponCode)">Apply</bUtton>
+          <input
+            type="text"
+            placeholder="Coupon Code"
+            v-model="couponCode"
+            :disabled="checkData.isCoupon"
+          />
+          <button @click="applyCoupon(couponCode)" v-if="!checkData.isCoupon">
+            Apply
+          </button>
+          <button @click="removePromotion('coupon')" v-else>
+            Remove Coupon
+          </button>
         </div>
         <p v-if="errors.couponError">{{ errors.couponError }}</p>
         <p v-if="errors.couponSuccess">{{ errors.couponSuccess }}</p>
         <div class="input-wrapper">
-          <input type="number" placeholder="Point amount" v-model="point" />
-          <bUtton @click="applyPoint">Apply</bUtton>
+          <input
+            type="number"
+            placeholder="Point amount"
+            v-model="point"
+            :disabled="checkData.isPoint"
+          />
+          <button @click="applyPoint" v-if="!checkData.isPoint">Apply</button>
+          <button @click="removePromotion('point')" v-else>Remove Point</button>
         </div>
       </div>
     </div>
@@ -29,27 +45,53 @@
 import Input from "../Common/Input.vue";
 import { generalMixins } from "@/mixins/general";
 import { mapMutations } from "vuex";
+
 export default {
   components: { Input },
   mixins: [generalMixins],
   data() {
     return {
-      couponCode: "",
+      checkData: {
+        isPoint: false,
+        isCoupon: false,
+      },
       errors: {
         couponError: null,
         couponSuccess: null,
       },
       point: null,
+      couponCode: "",
     };
   },
   methods: {
     // NOTE: Method from Vuex actions
-    ...mapMutations(["UPDATE_CART_ORDER_COUPON", "SET_ORDER"]),
+    ...mapMutations([
+      "UPDATE_CART_ORDER_COUPON",
+      "SET_ORDER",
+      "REMOVE_COUPON_FROM_ORDER",
+    ]),
+
+    removePromotion(type) {
+      if (type === "point") {
+        this.point = null;
+        this.checkData.isPoint = false;
+        this.SET_ORDER({ type: "point_amount", data: null });
+      } else {
+        this.couponCode = null;
+        this.checkData.isCoupon = false;
+        this.REMOVE_COUPON_FROM_ORDER();
+      }
+      this.errors.couponError = null;
+      this.errors.couponSuccess = null;
+    },
+
     async applyPoint() {
       const res = await this.generalGetApis("check-one-point-value");
       const pointValue = this.point * res.data.data.open_point_value;
+      this.checkData.isPoint = true;
       this.SET_ORDER({ type: "point_amount", data: pointValue });
     },
+
     async applyCoupon(code) {
       const res = await this.generalPostApis(`/check-coupon`, { code });
       if (res.status === "error") {
@@ -58,6 +100,7 @@ export default {
       } else {
         this.errors.couponError = null;
         this.errors.couponSuccess = res.message;
+        this.checkData.isCoupon = true;
         this.UPDATE_CART_ORDER_COUPON(res);
       }
     },
