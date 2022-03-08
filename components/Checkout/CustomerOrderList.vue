@@ -51,7 +51,7 @@
           </div>
 
           <div class="subtotal-price-wrapper">
-            <div class="total-price-label">Subtotal:</div>
+            <div class="total-price-label">Subtotal :</div>
             <div class="total-price">
               {{
                 order.point_amount
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { generalMixins } from "@/mixins/general";
 export default {
   mixins: [generalMixins],
@@ -87,6 +87,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["REFRESH_ORDER"]),
     async finalOrder() {
       try {
         await this.generalPostApis("orders", this.order);
@@ -94,6 +95,9 @@ export default {
         console.log(error);
       }
     },
+  },
+  mounted() {
+    this.REFRESH_ORDER();
   },
 };
 </script>

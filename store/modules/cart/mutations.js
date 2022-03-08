@@ -59,6 +59,22 @@ const mutations = {
     });
     this.commit("REFRESH_ORDER");
   },
+
+  REFRESH_ORDER(state, data) {
+    let original_total_amount = 0;
+    state.cartProducts.forEach((product) => {
+      original_total_amount += product.sell_price * product.qty;
+    });
+
+    const newData = [
+      { type: "original_total_amount", data: original_total_amount },
+      { type: "total_amount", data: original_total_amount },
+    ];
+
+    newData.forEach((data) => {
+      this.commit("SET_ORDER", data);
+    });
+  },
 };
 
 export default mutations;
