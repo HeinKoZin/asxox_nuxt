@@ -130,12 +130,10 @@ export default {
   computed: {
     //
     checkImageOrVideo() {
-      this.isVideo = this.photos[this.currentPhotoIndex].photo.includes(
-        "youtube"
-      )
+      this.isVideo = this.photos[this.currentPhotoIndex].includes("youtube")
         ? true
         : false;
-      return this.photos[this.currentPhotoIndex].photo;
+      return this.photos[this.currentPhotoIndex];
     },
   },
 };

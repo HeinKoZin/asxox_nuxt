@@ -112,12 +112,18 @@ export default {
         this.SET_ORDER({ type: "point_amount", data: null });
         this.errors.pointError = null;
         this.errors.pointSuccess = null;
+
+        //draft
+        this.toast("Point removed", "info");
       } else {
         this.couponCode = null;
         this.checkData.isCoupon = false;
         this.REMOVE_COUPON_FROM_ORDER();
         this.errors.couponError = null;
         this.errors.couponSuccess = null;
+
+        //draft
+        this.toast("Coupon removed", "info");
       }
     },
 
@@ -136,11 +142,14 @@ export default {
         return;
       }
       const res = await this.generalGetApis("check-one-point-value");
-      const pointValue = this.point * res.data.data.open_point_value;
+      const pointValue = +this.point * +res.data.data.one_point_value;
       this.checkData.isPoint = true;
       this.errors.pointSuccess = "Point amount added";
       this.errors.pointError = null;
       this.SET_ORDER({ type: "point_amount", data: pointValue });
+
+      //draft
+      this.toast("Point amount added", "success");
     },
 
     async applyCoupon(code) {
@@ -148,11 +157,17 @@ export default {
       if (res.status === "error") {
         this.errors.couponError = res.message;
         this.errors.couponSuccess = null;
+
+        //draft
+        this.toast(res.message, "error");
       } else {
         this.errors.couponError = null;
         this.errors.couponSuccess = res.message;
         this.checkData.isCoupon = true;
         this.UPDATE_CART_ORDER_COUPON(res);
+
+        //draft
+        this.toast("Coupon added", "success");
       }
     },
   },

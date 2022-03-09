@@ -287,8 +287,10 @@ export default {
     async addProductToWishList() {
       let product_id = this.product.id;
       let is_wishlist = this.product.is_wishlist;
-      if (!this.checkAuthenticated("redirect")) return true;
       let res;
+
+      if (!this.checkAuthenticated("redirect")) return true;
+
       if (!is_wishlist) {
         res = await this.generalPostApis("/wishlists", { product_id });
       } else {
@@ -309,9 +311,7 @@ export default {
         // });
         // this.SET_PRODUCT_FAVOURITE(product_id);
         this.getWishListProducts();
-        console.log(this.product.is_wishlist);
         this.product.is_wishlist = !this.product.is_wishlist;
-        console.log(this.product.is_wishlist);
       } else {
         this.toast(res?.data?.message || res?.message, "error");
       }
@@ -371,6 +371,9 @@ export default {
             ...product,
             ...this.isVariantObject,
           });
+
+      //draft
+      this.toast("Added product to cart", "success");
     },
 
     // NOTE: Select variant photo it will work every changes made by user on variant

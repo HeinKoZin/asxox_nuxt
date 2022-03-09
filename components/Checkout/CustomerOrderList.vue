@@ -91,6 +91,9 @@ export default {
     async finalOrder() {
       try {
         await this.generalPostApis("orders", this.order);
+
+        //draft
+        this.toast("Ordered successfully", "success");
       } catch (error) {
         console.log(error);
       }

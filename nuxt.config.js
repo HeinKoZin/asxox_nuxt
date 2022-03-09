@@ -74,6 +74,7 @@ export default {
           required: true,
           type: "Bearer",
         },
+
         user: {
           property: false,
           autoFetch: true,
