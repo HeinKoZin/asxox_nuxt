@@ -46,7 +46,7 @@
           <div class="total-price-wrapper" v-if="order.point_amount">
             <div class="total-price-label">Point Discount :</div>
             <div class="total-price line-through">
-              {{ order.point_amount }} MMK
+              {{ order.point_value }} MMK
             </div>
           </div>
 
@@ -82,7 +82,7 @@ export default {
     },
     calculateSubtotal() {
       return this.order.point_amount
-        ? this.order.total_amount - this.order.point_amount
+        ? this.order.total_amount - this.order.point_value
         : this.order.total_amount + " " + this.cartProducts[0]?.currency;
     },
   },

@@ -101,7 +101,7 @@ export default {
 
     calculateSubtotal() {
       return this.order.point_amount
-        ? this.order.total_amount - this.order.point_amount
+        ? this.order.total_amount - this.order.point_value
         : this.order.total_amount;
     },
 
@@ -142,11 +142,13 @@ export default {
         return;
       }
       const res = await this.generalGetApis("check-one-point-value");
+      const pointAmount = +this.point;
       const pointValue = +this.point * +res.data.data.one_point_value;
       this.checkData.isPoint = true;
       this.errors.pointSuccess = "Point amount added";
       this.errors.pointError = null;
-      this.SET_ORDER({ type: "point_amount", data: pointValue });
+      this.SET_ORDER({ type: "point_amount", data: pointAmount });
+      this.SET_ORDER({ type: "point_value", data: pointValue });
 
       //draft
       this.toast("Point amount added", "success");
