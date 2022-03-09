@@ -73,7 +73,7 @@
 
 <script>
 import { generalMixins } from "@/mixins/general";
-import { mapMutations, mapActions } from "vuex";
+import { mapMutations, mapActions, mapGetters } from "vuex";
 export default {
   mixins: [generalMixins],
   props: {
@@ -83,24 +83,29 @@ export default {
     categoryIndex: Number,
     productIndex: Number,
   },
-  data() {
-    return {
-      //
-    };
+  computed: {
+    ...mapGetters(["wishListProductList"]),
   },
   methods: {
-    encodedLink(data) {
-      return data;
-    },
     ...mapMutations(["SET_CATEGORY_PRODUCT_FAVOURITE"]),
     ...mapActions(["getWishListProducts", "addProductToCart"]),
+
+    //NOTE: add and remove product from wishlist
     async addToWishList(product_id, is_wishlist) {
       if (!this.checkAuthenticated("redirect")) return true;
       let res;
       if (!is_wishlist) {
         res = await this.generalPostApis("/wishlists", { product_id });
       } else {
-        res = await this.generalDeleteApis(`/wishlists/${product_id}`);
+        // NOTE: get wishlist id by filtering product id
+        let wishlistProductId = null;
+        this.wishListProductList.map((wishlist) => {
+          wishlist.product.id === product_id
+            ? (wishlistProductId = wishlist.wishlist_id)
+            : null;
+        });
+
+        res = await this.generalDeleteApis(`/wishlists/${wishlistProductId}`);
       }
       if (res?.data?.status || res?.status === "success") {
         this.toast(res?.data?.message || res?.message, "success");
@@ -112,6 +117,10 @@ export default {
       } else {
         this.toast(res?.data?.message || res?.message, "error");
       }
+    },
+
+    encodedLink(data) {
+      return data;
     },
   },
 };
@@ -146,7 +155,7 @@ export default {
   @apply text-sm font-semibold mt-2;
 }
 
-..product-card-container .card-body {
+.product-card-container .card-body {
   @apply h-40 flex flex-col justify-between;
 }
 .product-card-container .card-body .card-header-title {

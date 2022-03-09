@@ -211,7 +211,8 @@
 
           <button
             class="favorite"
-            :disabled="product.is_varient && !isVariantHas"
+            :class="{ active: product.is_wishlist }"
+            @click="addProductToWishList"
           >
             <font-awesome-icon class="icon" :icon="['fas', 'heart']" />
           </button>
@@ -230,14 +231,18 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
   props: {
     product: Object,
     color: Array,
     size: Array,
     accessories: Array,
     pattern: Array,
+    categoryIndex: Number,
+    productIndex: Number,
   },
 
   data() {
@@ -253,6 +258,8 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["wishListProductList"]),
+
     featurePhoto() {
       return this.product.feature_photos[0]?.photo;
     },
@@ -270,7 +277,45 @@ export default {
   },
   methods: {
     // NOTE: Method from Vuex actions
-    ...mapActions(["addProductToCart"]),
+    ...mapActions(["addProductToCart", "getWishListProducts"]),
+    ...mapMutations([
+      "SET_CATEGORY_PRODUCT_FAVOURITE",
+      "SET_PRODUCT_FAVOURITE",
+    ]),
+
+    //NOTE: add and remove product from wishlist
+    async addProductToWishList() {
+      let product_id = this.product.id;
+      let is_wishlist = this.product.is_wishlist;
+      if (!this.checkAuthenticated("redirect")) return true;
+      let res;
+      if (!is_wishlist) {
+        res = await this.generalPostApis("/wishlists", { product_id });
+      } else {
+        // NOTE: get wishlist id by filtering product id
+        let wishlistProductId = null;
+        this.wishListProductList.map((wishlist) => {
+          wishlist.product.id === product_id
+            ? (wishlistProductId = wishlist.wishlist_id)
+            : null;
+        });
+        res = await this.generalDeleteApis(`/wishlists/${wishlistProductId}`);
+      }
+      if (res?.data?.status || res?.status === "success") {
+        this.toast(res?.data?.message || res?.message, "success");
+        // this.SET_CATEGORY_PRODUCT_FAVOURITE({
+        //   categoryIndex: this.categoryIndex,
+        //   productIndex: this.productIndex,
+        // });
+        this.SET_PRODUCT_FAVOURITE(product_id);
+        this.getWishListProducts();
+        console.log(this.product.is_wishlist);
+        this.product.is_wishlist = !this.product.is_wishlist;
+        console.log(this.product.is_wishlist);
+      } else {
+        this.toast(res?.data?.message || res?.message, "error");
+      }
+    },
 
     // NOTE: Select variant and if it already selected then remove it
     selectVariant(data, type, index) {

@@ -65,7 +65,9 @@ export default {
       try {
         const res = await this.$axios.get("ads/widget/6");
         this.sliderItems = res.data.data;
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   async fetch() {
