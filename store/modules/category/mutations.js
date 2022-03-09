@@ -14,7 +14,6 @@ const mutations = {
   },
 
   SET_PRODUCT_FAVOURITE(state, productId) {
-    console.log(state.categories);
     for (let i = 0; i < state.categoryProducts.length; i++) {
       for (let j = 0; j < state.categoryProducts[i].products.length; j++) {
         if (state.categoryProducts[i].products[j].id === productId) {

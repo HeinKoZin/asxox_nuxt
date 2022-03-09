@@ -280,7 +280,7 @@ export default {
     ...mapActions(["addProductToCart", "getWishListProducts"]),
     ...mapMutations([
       "SET_CATEGORY_PRODUCT_FAVOURITE",
-      "SET_PRODUCT_FAVOURITE",
+      // "SET_PRODUCT_FAVOURITE",
     ]),
 
     //NOTE: add and remove product from wishlist
@@ -307,7 +307,7 @@ export default {
         //   categoryIndex: this.categoryIndex,
         //   productIndex: this.productIndex,
         // });
-        this.SET_PRODUCT_FAVOURITE(product_id);
+        // this.SET_PRODUCT_FAVOURITE(product_id);
         this.getWishListProducts();
         console.log(this.product.is_wishlist);
         this.product.is_wishlist = !this.product.is_wishlist;
