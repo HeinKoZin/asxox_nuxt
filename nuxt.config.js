@@ -73,6 +73,7 @@ export default {
           global: true,
           required: true,
           type: "Bearer",
+          maxAge: 2147483647,
         },
 
         user: {
