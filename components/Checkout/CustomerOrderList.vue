@@ -24,9 +24,10 @@
         <div class="total-price-container">
           <div class="total-price-wrapper">
             <div class="total-price-label">Total Price</div>
-            <div class="total-price">
+            <div class="total-price" v-if="cartProducts.length > 0">
               {{ cartProductsTotal }} {{ cartProducts[0].currency }}
             </div>
+            <div class="total-price" v-else>0.00</div>
           </div>
           <div class="total-price-wrapper">
             <div class="total-price-label">Delivery :</div>
@@ -52,9 +53,10 @@
 
           <div class="subtotal-price-wrapper">
             <div class="total-price-label">Subtotal :</div>
-            <div class="total-price">
+            <div class="total-price" v-if="cartProducts.length > 0">
               {{ calculateSubtotal }}
             </div>
+            <div class="total-price" v-else>0.00</div>
           </div>
         </div>
       </div>
@@ -90,8 +92,11 @@ export default {
     ...mapMutations(["REFRESH_ORDER"]),
     async finalOrder() {
       try {
+        if (this.cartProducts.length === 0) {
+          this.toast("Please add products to cart!", "info");
+          return;
+        }
         await this.generalPostApis("orders", this.order);
-
         //draft
         this.toast("Ordered successfully", "success");
       } catch (error) {
