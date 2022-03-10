@@ -42,6 +42,7 @@
           <button
             class="w-10 h-10 bg-white rounded-full"
             @click="data.is_varient ? null : addProductToCart(data)"
+            v-if="!data.is_varient"
           >
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
