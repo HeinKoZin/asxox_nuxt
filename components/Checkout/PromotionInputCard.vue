@@ -21,6 +21,7 @@
             @click="applyCoupon(couponCode)"
             v-if="!checkData.isCoupon"
             class="default-button"
+            :disabled="couponCode === ''"
           >
             Apply
           </button>
