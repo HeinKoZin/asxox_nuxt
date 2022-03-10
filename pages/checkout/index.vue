@@ -19,6 +19,11 @@
 import MainLayout from "~/layouts/MainLayout.vue";
 export default {
   components: { MainLayout },
+  head() {
+    return {
+      title: `Asxox | Checkout`,
+    };
+  },
   mounted() {
     if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
       this.$router.push("/auth");

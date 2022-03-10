@@ -91,6 +91,24 @@
               Logout
             </button>
           </div>
+          <div
+            v-if="isUserMenuOpen && !$auth.$storage.getLocalStorage('loggedIn')"
+            class="user-menu"
+          >
+            <div class="user-menu-header">
+              <span class="username">Welcome</span>
+            </div>
+            <hr />
+            <button class="user-auth" @click="userLogout">
+              <font-awesome-icon :icon="['fas', 'sign-in-alt']" class="icon" />
+              <!-- <font-awesome-icon icon="fa-solid fa-arrow-right-to-bracket" /> -->
+              Log In
+            </button>
+            <button class="user-auth" @click="userLogout">
+              <font-awesome-icon :icon="['fas', 'sign-in-alt']" class="icon" />
+              Register
+            </button>
+          </div>
         </div>
         <div class="header-cart" v-if="!isCartOpen">
           <button class="header-button" @click="toggleCart">
@@ -242,7 +260,7 @@ export default {
 }
 
 .header-user .user-menu .user-menu-header .username {
-  @apply text-slate-700 text-base font-bold;
+  @apply text-slate-700 text-base font-bold grow-0;
 }
 
 .header-user .user-menu .user-menu-header .user-email {
@@ -263,6 +281,10 @@ export default {
 
 .header-user .user-logout {
   @apply p-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer w-full flex items-center border justify-center border-slate-300 mt-2 rounded-md;
+}
+
+.header-user .user-auth {
+  @apply p-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer w-full flex items-center border justify-start border-slate-300 mt-2 rounded-md;
 }
 
 .header-user-button {
