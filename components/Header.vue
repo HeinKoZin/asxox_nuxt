@@ -180,6 +180,7 @@ export default {
         this.$auth.$storage.removeUniversal("user");
         this.$auth.$storage.removeUniversal("loggedIn");
         this.toast("You have been logged out!", "success");
+        this.isUserMenuOpen = !this.isUserMenuOpen;
       } else this.toast("Fail to log out!", "error");
     },
   },
