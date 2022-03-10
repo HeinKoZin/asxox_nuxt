@@ -49,7 +49,7 @@ export default {};
 
 <style lang="postcss" scoped>
 .user-sidebar-container {
-  @apply px-2 w-[18%]  float-left;
+  @apply px-0 md:px-2 w-full;
 }
 
 .user-sidebar-wrapper {

@@ -55,7 +55,7 @@ export default {
 
 <style lang="postcss" scoped>
 .user-index-container {
-  @apply flex flex-col gap-y-4 w-[82%];
+  @apply flex flex-col gap-y-4 w-full;
 }
 
 .profile-layout-container {
