@@ -31,7 +31,7 @@
           </button>
         </div> -->
 
-        <div class="payment-method-wrapper">
+        <!-- <div class="payment-method-wrapper">
           <div class="payment-method active">
             <span>
               <font-awesome-icon
@@ -41,7 +41,7 @@
             </span>
             <img src="~/assets/img/kbz.png" alt="" srcset="" />
           </div>
-        </div>
+        </div> -->
         <div class="payment-method-wrapper">
           <div class="payment-method">
             <span>
@@ -64,7 +64,7 @@
             <img src="~/assets/img/kbzpay.png" alt="" srcset="" />
           </div>
         </div>
-        <div class="payment-method-wrapper">
+        <!-- <div class="payment-method-wrapper">
           <div class="payment-method">
             <span>
               <font-awesome-icon
@@ -74,7 +74,7 @@
             </span>
             <img src="~/assets/img/mpitesan.png" alt="" srcset="" />
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

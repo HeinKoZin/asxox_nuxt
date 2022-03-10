@@ -29,7 +29,7 @@
       <div class="cart-bottom">
         <div class="cart-bottom-total">
           <span>Total</span>
-          <span>$10.00</span>
+          <span>$ {{ cartProductsTotal }}</span>
         </div>
         <div class="cart-bottom-action">
           <button
@@ -49,7 +49,7 @@
 import { mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["isCartOpen", "cartProducts"]),
+    ...mapGetters(["isCartOpen", "cartProducts", "cartProductsTotal"]),
   },
   methods: {
     ...mapMutations(["SET_CART"]),
