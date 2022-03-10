@@ -1,5 +1,5 @@
 <template>
-  <div class="address-container-wrapper">
+  <div class="address-container-wrapper" @click.self="$emit('closeModal')">
     <div class="address-container">
       <div class="address-title">
         <div class="flex gap-x-2">
