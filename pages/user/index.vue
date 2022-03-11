@@ -83,7 +83,7 @@ export default {
 }
 
 .user-profile-name {
-  @apply text-2xl font-bold p-5 font-quicksand border-b border-slate-400 w-full;
+  @apply text-lg md:text-2xl font-bold p-5 font-quicksand text-center md:text-left border-b border-slate-400 w-full;
 }
 
 .user-profile-card-container {
@@ -91,11 +91,11 @@ export default {
 }
 
 .user-profile-card {
-  @apply bg-slate-200 border border-slate-300 p-10 rounded-lg flex flex-grow flex-col gap-y-4;
+  @apply bg-slate-200 border border-slate-300 p-5 md:p-10 rounded-lg flex flex-grow flex-col gap-y-4;
 }
 
 .user-profile-card h2 {
-  @apply text-lg font-bold  text-slate-800  font-quicksand  w-full;
+  @apply text-sm md:text-lg font-bold  text-slate-800  font-quicksand  w-full;
 }
 
 .user-profile-card h5 {
@@ -103,11 +103,11 @@ export default {
 }
 
 .user-profile-card .card-details {
-  @apply font-quicksand flex-col;
+  @apply font-quicksand flex-col text-sm;
 }
 
 .user-profile-card .card-details span {
-  @apply first:text-slate-700 first:text-lg font-semibold p-1 font-quicksand text-slate-800 last:text-slate-500;
+  @apply first:text-slate-700 first:text-base first:md:text-lg font-semibold p-1 font-quicksand text-slate-800 last:text-slate-500;
 }
 
 .recommended-products-container {

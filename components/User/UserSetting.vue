@@ -130,7 +130,7 @@ export default {};
 }
 
 .user-setting-actions {
-  @apply flex gap-x-2 px-3 mt-10 text-sm w-full;
+  @apply flex gap-x-2 px-3 mt-10 text-sm md:text-base w-full font-quicksand;
 }
 
 .save-btn {
