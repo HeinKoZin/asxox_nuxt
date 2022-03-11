@@ -10,13 +10,29 @@
     <div class="body">
       <OrderList />
     </div>
-    <OrderDetailsModel />
+    <OrderDetailsModel v-if="isModelOpen" />
   </div>
 </template>
 
 <script>
 export default {
   layout: "ProfileLayout",
+
+  data() {
+    return {
+      isModelOpen: false,
+    };
+  },
+
+  methods: {
+    openModel() {
+      this.isModelOpen = true;
+    },
+
+    closeModel() {
+      this.isModelOpen = false;
+    },
+  },
 };
 </script>
 
