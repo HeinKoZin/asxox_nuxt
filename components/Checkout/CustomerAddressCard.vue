@@ -1,6 +1,7 @@
 <template>
   <div
-    :class="'customer-address-container-wrapper ' + (isInProfile ? 'profile' : '')
+    :class="
+      'customer-address-container-wrapper ' + (isInProfile ? 'profile' : '')
     "
   >
     <div class="customer-address-container">
@@ -80,6 +81,6 @@ button {
 
 .customer-address-container-wrapper.profile
   .address-contents-container-wrapper {
-  @apply bg-slate-200 p-4 rounded-lg;
+  @apply bg-slate-200 p-2 md:p-4 rounded-lg;
 }
 </style>
