@@ -2,17 +2,18 @@
   <div class="user-sidebar-container">
     <div class="user-sidebar-wrapper">
       <div class="user-sidebar-header">
-        <div class="user-sidebar-avatar">
+        <!-- <div class="user-sidebar-avatar">
           <img src="https://via.placeholder.com/150" alt="" />
         </div>
         <div class="user-sidebar-name">
           <h3>Hein Ko Zin</h3>
           <p>heinkozin4@gmail.com</p>
-        </div>
+        </div> -->
+        <h2>My Account</h2>
       </div>
       <div class="user-sidebar-menu">
         <ul>
-          <li>
+          <li class="active">
             <font-awesome-icon :icon="['fas', 'user']" class="icon" />
             Profile
           </li>
@@ -48,18 +49,42 @@ export default {};
 
 <style lang="postcss" scoped>
 .user-sidebar-container {
-  @apply bg-slate-50 p-5 rounded-lg;
+  @apply px-0 md:px-2 w-full;
 }
 
-.user-sidebar-container-wrapper {
-  @apply flex flex-col items-center;
+.user-sidebar-wrapper {
+  @apply flex flex-col items-center bg-slate-100 p-5 rounded-lg;
 }
 
 .user-sidebar-header {
   @apply flex flex-col items-center;
 }
 
+.user-sidebar-header h2 {
+  @apply text-2xl font-bold text-center p-4 font-quicksand border-b border-slate-300 w-full;
+}
+
 .user-sidebar-avatar img {
-  @apply w-full h-auto rounded-full;
+  @apply w-full h-auto rounded-full border-2 border-slate-400;
+}
+
+.user-sidebar-menu {
+  @apply mt-4 w-full font-quicksand;
+}
+
+.user-sidebar-menu ul {
+  @apply flex gap-y-1 flex-col text-base w-full font-semibold text-slate-600;
+}
+
+.user-sidebar-menu ul li {
+  @apply flex flex-row items-center gap-x-2 py-3 px-3 rounded-lg cursor-pointer hover:bg-slate-200;
+}
+
+.user-sidebar-menu ul li.active {
+  @apply bg-slate-300;
+}
+
+.user-logout {
+  @apply w-full bg-orange-500 text-white text-sm md:text-base font-bold py-3  rounded-lg font-quicksand mt-6 hover:bg-orange-600;
 }
 </style>
