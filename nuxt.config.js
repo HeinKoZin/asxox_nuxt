@@ -1,4 +1,4 @@
-let apiLink = "http://localhost:8000/api";
+let apiLink = "https://dev.asxox.com.mm/api";
 
 export default {
   mode: "universal",

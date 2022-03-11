@@ -1,12 +1,12 @@
 <template>
   <tr>
     <td>23</td>
-    <td class="text-base font-bold text-slate-800">A23332</td>
+    <td class="text-base font-bold text-slate-800">{{ order.order_code }}</td>
     <td>Test</td>
     <td>3000</td>
     <td>2</td>
     <td>6000</td>
-    <td>2 weeks ago</td>
+    <td>2 weeks ago{{ order }}</td>
     <td>
       <span class="status-badge">
         <font-awesome-icon class="status-icon" :icon="['fas', 'check']" />
@@ -22,7 +22,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    order: {
+      type: Object,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>

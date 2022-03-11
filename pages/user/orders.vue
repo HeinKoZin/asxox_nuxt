@@ -8,19 +8,21 @@
       <h2>Your Orders</h2>
     </div>
     <div class="body">
-      <OrderList />
+      <OrderList :orders="orders" />
     </div>
     <OrderDetailsModel v-if="isModelOpen" />
   </div>
 </template>
 
 <script>
+import { generalMixins } from "@/mixins/general";
 export default {
   layout: "ProfileLayout",
-
+  mixins: [generalMixins],
   data() {
     return {
       isModelOpen: false,
+      orders: [],
     };
   },
 
@@ -32,6 +34,13 @@ export default {
     closeModel() {
       this.isModelOpen = false;
     },
+    async fetchOrders() {
+      const res = await this.generalGetApis("orders");
+      this.orders = res.data.data.orders;
+    },
+  },
+  mounted() {
+    this.fetchOrders();
   },
 };
 </script>

@@ -15,17 +15,25 @@
         </tr>
       </thead>
       <tbody>
-        <OrderListItem />
-        <OrderListItem />
-        <OrderListItem />
-        <OrderListItem />
+        <OrderListItem
+          v-for="(order, index) in orders"
+          :key="index"
+          :order="order"
+        />
       </tbody>
     </table>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    orders: {
+      type: Array,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
