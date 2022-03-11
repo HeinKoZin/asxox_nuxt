@@ -5,11 +5,12 @@
         <tr>
           <th class="w-1">No</th>
           <th class="w-32"># Order ID</th>
-          <th>Name</th>
+          <!-- <th>Name</th>
           <th>Price</th>
-          <th class="w-1">Quantity</th>
+          <th class="w-1">Quantity</th> -->
           <th>Total</th>
           <th>Ordered Date</th>
+          <th>Order Note</th>
           <th class="w-1">Status</th>
           <th class="w-1">Details</th>
         </tr>

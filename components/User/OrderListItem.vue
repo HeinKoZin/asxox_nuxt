@@ -2,11 +2,9 @@
   <tr>
     <td>23</td>
     <td class="text-base font-bold text-slate-800">A23332</td>
-    <td>Test</td>
-    <td>3000</td>
-    <td>2</td>
     <td>6000</td>
     <td>2 weeks ago</td>
+    <td>This is order note.</td>
     <td>
       <span class="status-badge">
         <font-awesome-icon class="status-icon" :icon="['fas', 'check']" />
