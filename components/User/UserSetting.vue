@@ -35,12 +35,24 @@
             </fieldset>
           </div>
           <div class="user-setting-input">
-            <label>Password</label>
-            <input type="text" placeholder="Password" />
+            <label>State</label>
+            <select>
+              <option>Yangon</option>
+              <option>Mandalay</option>
+              <option>Nay Pyi Taw</option>
+            </select>
           </div>
           <div class="user-setting-input">
-            <label>Password</label>
-            <input type="text" placeholder="Password" />
+            <label>City</label>
+            <select>
+              <option>Yangon</option>
+              <option>Mandalay</option>
+              <option>Nay Pyi Taw</option>
+            </select>
+          </div>
+          <div class="user-setting-input">
+            <label>Address</label>
+            <textarea name="address" id="" cols="30" rows="5"></textarea>
           </div>
         </div>
       </div>
@@ -86,11 +98,11 @@ export default {};
 }
 
 .user-setting-input {
-  @apply flex items-center w-full p-2 px-3;
+  @apply flex  w-full p-2 px-3;
 }
 
 .user-setting-input label {
-  @apply text-slate-900 text-base font-bold w-1/4;
+  @apply text-slate-900 text-base font-bold w-1/4 py-2;
 }
 
 .user-setting-input input[type="text"] {
@@ -99,6 +111,14 @@ export default {};
 
 .user-setting-input fieldset label {
   @apply p-2 rounded-lg bg-slate-100 font-semibold text-sm text-slate-700;
+}
+
+.user-setting-input select {
+  @apply p-2 rounded-lg bg-slate-100 border border-slate-300 w-3/4;
+}
+
+.user-setting-input textarea {
+  @apply p-2 rounded-lg bg-slate-100 border border-slate-300 w-3/4;
 }
 
 .user-setting-input-group {
