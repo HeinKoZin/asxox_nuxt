@@ -74,7 +74,8 @@ export default {
         {
           image:
             "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/01/29/products/feature/29-01-2022_Asxox_461f5034b333e30.38241242.jpg",
-          title: "Hair Scope Alabaster",
+          title:
+            "Hair Scope Alabaster Some Testing for name size widdth fir useing",
           description: "This is a description of the product",
           price: "15000 MMK",
         },

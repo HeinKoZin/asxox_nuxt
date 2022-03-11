@@ -1,6 +1,7 @@
 <template>
   <div
-    :class="'group ' +
+    :class="
+      'group ' +
       (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
     "
   >
@@ -40,7 +41,7 @@
         <a href="#" class="card-header-title">
           {{ data.title }}
         </a>
-        <p class="product-description">{{ data.description }}</p>
+        <!-- <p class="product-description">{{ data.description }}</p> -->
         <div class="product-price">
           <span class="text-orange-600">$</span>
           <span class="text-orange-600">{{ data.price }}</span>
