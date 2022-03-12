@@ -37,13 +37,10 @@ export default {
     closeModel() {
       this.isModelOpen = false;
     },
-    async fetchOrders() {
-      const res = await this.generalGetApis("orders");
-      this.orders = res.data.data.orders;
-    },
   },
-  mounted() {
-    this.fetchOrders();
+  async fetch() {
+    const res = await this.generalGetApis("orders");
+    this.orders = res.data.data.orders;
   },
 };
 </script>

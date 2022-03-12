@@ -4,20 +4,22 @@
       <div class="profile-layout-container-wrapper">
         <div class="user-cover-container">
           <div class="user-profile-avatar">
-            <img src="https://picsum.photos/150" alt="Avatar" />
+            <img
+              :src="userData.photo || '~/assets/img/default-avatar.png'"
+              alt="Avatar"
+            />
           </div>
         </div>
-
         <div class="user-profile-info-container">
           <div class="user-profile-name">
-            <h2>Hein Ko Zin</h2>
+            <h2>{{ userData.name }}</h2>
           </div>
 
           <div class="user-profile-card-container">
             <div class="user-profile-card">
               <h2>Point Amount</h2>
-              <div class="card-details">
-                <span>0</span>
+              <div class="card-details" v-if="userData.point">
+                <span>{{ userData.point.amount }}</span>
                 <span>-</span>
                 <span>Points</span>
               </div>
@@ -25,7 +27,7 @@
             <div class="user-profile-card">
               <h2>Total Orders</h2>
               <div class="card-details">
-                <span>0</span>
+                <span>{{ orders.length }}</span>
                 <span>-</span>
                 <span>Orders</span>
               </div>
@@ -33,7 +35,7 @@
             <div class="user-profile-card">
               <h2>Total Purchases</h2>
               <div class="card-details">
-                <span>0</span>
+                <span>{{ calculatePurchasedOrder.length }}</span>
                 <span>-</span>
                 <span>Purchases</span>
               </div>
@@ -48,8 +50,30 @@
 </template>
 
 <script>
+import { generalMixins } from "@/mixins/general";
 export default {
   layout: "ProfileLayout",
+  mixins: [generalMixins],
+  data() {
+    return {
+      userData: {},
+      orders: [],
+    };
+  },
+  computed: {
+    calculatePurchasedOrder() {
+      const copletedOrders = this.orders.filter(
+        (order) => order.status === "Complete"
+      );
+      return copletedOrders;
+    },
+  },
+  async fetch() {
+    const res = await this.generalGetApis("orders");
+    this.orders = res.data.data.orders;
+    console.log(this.orders);
+    this.userData = this.$auth.user.data;
+  },
 };
 </script>
 
