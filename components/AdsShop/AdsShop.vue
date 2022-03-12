@@ -12,11 +12,7 @@
           <button>See All</button>
         </div>
       </div>
-      <div
-        class="products-list"
-        @wheel.prevent="scrollWithWheel($event)"
-        ref="adsShopContainer"
-      >
+      <div class="products-list" ref="adsShopContainer" v-dragscroll>
         <ProductCard
           :data="data"
           v-for="(data, index) in datas"

@@ -4,15 +4,15 @@
       <thead>
         <tr>
           <th class="w-1">No</th>
-          <th class=""># Order ID</th>
+          <th># Order ID</th>
           <!-- <th>Name</th>
           <th>Price</th>
           <th class="w-1">Quantity</th> -->
           <th>Total</th>
           <th>Ordered Date</th>
           <th class="hidden md:block">Address</th>
-          <th class="">Status</th>
-          <th class="">Details</th>
+          <th>Status</th>
+          <th>Details</th>
         </tr>
       </thead>
       <tbody>

@@ -1,24 +1,22 @@
 <template>
-  <MainLayout>
-    <div class="checkout-container">
-      <div class="checkout-container-wrapper">
-        <div class="header">Shopping Cart</div>
-        <div class="body">
-          <CustomerInfo />
-          <CustomerOrderList />
-        </div>
-        <div class="order-confirm-btn">
-          <button>Confirm</button>
-        </div>
+  <div class="checkout-container">
+    <div class="checkout-container-wrapper">
+      <div class="header">Shopping Cart</div>
+
+      <div class="body">
+        <CustomerInfo />
+        <CustomerOrderList />
+      </div>
+      <div class="order-confirm-btn">
+        <button>Confirm</button>
       </div>
     </div>
-  </MainLayout>
+  </div>
 </template>
 
 <script>
-import MainLayout from "~/layouts/MainLayout.vue";
 export default {
-  components: { MainLayout },
+  layout: "MainLayout",
   head() {
     return {
       title: `Asxox | Checkout`,

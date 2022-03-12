@@ -1,47 +1,45 @@
 <template>
-  <MainLayout>
-    <div class="home-container">
-      <div class="home-header">
-        <Slider :products="sliderItems" />
-      </div>
-      <!-- <CategoryBar /> -->
-      <!-- Product list container -->
-      <div class="products-list-container">
-        <div class="products-container">
-          <div
-            class="products-container"
-            v-for="(category, catIndex) in categoryProducts"
-            :key="catIndex"
-          >
-            <div class="flex items-center justify-between w-full p-1">
-              <h4 class="p-1 text-lg font-bold font-quicksand">
-                {{ category.categoryName }}
-              </h4>
-              <button class="see-all-btn">See All</button>
-            </div>
-            <ProductCard
-              :data="product"
-              :categoryIndex="catIndex"
-              :productIndex="index"
-              v-for="(product, index) in category.products"
-              :key="index"
-              :isInWishlist="product.is_wishlist"
-            />
-            <AdsShop v-if="category.shop" />
+  <div class="home-container">
+    <div class="home-header">
+      <Slider :products="sliderItems" />
+    </div>
+    <!-- <CategoryBar /> -->
+    <!-- Product list container -->
+    <div class="products-list-container">
+      <div class="products-container">
+        <div
+          class="products-container"
+          v-for="(category, catIndex) in categoryProducts"
+          :key="catIndex"
+        >
+          <div class="flex items-center justify-between w-full p-1">
+            <h4 class="p-1 text-lg font-bold font-quicksand">
+              {{ category.categoryName }}
+            </h4>
+            <button class="see-all-btn">See All</button>
           </div>
+          <ProductCard
+            :data="product"
+            :categoryIndex="catIndex"
+            :productIndex="index"
+            v-for="(product, index) in category.products"
+            :key="index"
+            :isInWishlist="product.is_wishlist"
+          />
+          <AdsShop v-if="category.shop" />
         </div>
       </div>
     </div>
-  </MainLayout>
+    <AdsShop />
+  </div>
 </template>
 
 <script>
 import Category from "../components/Common/Category.vue";
 import { mapGetters, mapActions } from "vuex";
-import MainLayout from "~/layouts/MainLayout.vue";
 export default {
-  components: { Category, MainLayout },
-  // layout: "MainLayout",
+  components: { Category },
+  layout: "MainLayout",
   name: "HomePage",
 
   data() {

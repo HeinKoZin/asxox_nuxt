@@ -6,7 +6,7 @@
     <td>{{ formatDatetime(order.created_at) }}</td>
     <td class="hidden md:block">{{ order.address }}</td>
     <td>
-      <span class="status-badge">
+      <span class="status-badge cancelled">
         <font-awesome-icon class="status-icon" :icon="['fas', 'check']" />
         <span>{{ order.status }}</span>
       </span>
@@ -61,7 +61,7 @@ tr td {
 }
 
 .status-badge {
-  @apply flex  p-2 px-4 rounded-full bg-green-200 text-green-500 items-center gap-x-2 w-auto;
+  @apply flex  p-2 px-4 rounded-full  items-center gap-x-2 w-auto;
 }
 
 .status-icon {
@@ -70,5 +70,38 @@ tr td {
 
 .details-btn {
   @apply bg-orange-500 text-white p-2 px-4 rounded-lg font-semibold flex justify-center items-center mx-auto gap-x-2;
+}
+
+.status-badge.pending {
+  @apply bg-yellow-200 text-yellow-500;
+}
+
+.status-badge.payment-pending {
+  /* background-color: #f59e0b; */
+  @apply bg-orange-200 text-orange-500;
+}
+
+.status-badge.delivered {
+  @apply bg-green-200 text-green-500;
+}
+
+.status-badge.cancelled {
+  /* background-color: #dc3545; */
+  @apply bg-red-200 text-red-500;
+}
+
+.status-badge.completed {
+  /* background-color: #007bff; */
+  @apply bg-blue-200 text-blue-500;
+}
+
+.status-badge.pre-order {
+  /* background-color: #ec4899; */
+  @apply bg-pink-200 text-pink-500;
+}
+
+.status-badge.order-delay {
+  /* background-color: #05f2c7; */
+  @apply bg-teal-200 text-teal-500;
 }
 </style>

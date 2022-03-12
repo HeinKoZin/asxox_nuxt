@@ -41,7 +41,7 @@
         <table class="order-details-table" id="order-list-excel">
           <thead>
             <tr>
-              <th>Photo</th>
+              <th class="w-24">Photo</th>
               <th>Product</th>
               <th>Price</th>
               <th>Quantity</th>
@@ -50,7 +50,7 @@
           </thead>
           <tbody>
             <tr v-for="(product, index) in orderDetail.products" :key="index">
-              <td style="width: 45">
+              <td class="w-24">
                 <img :src="subProductImage(product)" />
               </td>
               <td style="wordwrap: break-word">
@@ -62,6 +62,7 @@
               <td>{{ subProductQuantity(product) }}</td>
               <td style="width: 160">{{ subProductTotal(product) }} MMK</td>
             </tr>
+
             <div class="mt-8"></div>
             <tr>
               <th>Sub total</th>
@@ -203,7 +204,7 @@ export default {
 
 <style lang="postcss" scoped>
 .order-details-container-wrapper {
-  @apply flex flex-col fixed w-full h-full top-0 left-0 z-50 bg-slate-800 bg-opacity-30 justify-center items-center;
+  @apply flex flex-col fixed w-screen h-screen top-0 left-0 z-50 bg-slate-800 bg-opacity-30 justify-center items-center;
 }
 
 .order-details-model-container {
@@ -211,7 +212,7 @@ export default {
 }
 
 .modal-container {
-  position: absolute;
+  position: fixed;
   z-index: 100;
   top: 0;
   left: 0;
@@ -325,7 +326,7 @@ export default {
 }
 
 .order-details-table td {
-  padding: 10px;
+  padding: 5px;
   border: 1px solid #ccc;
   /* font-size: 1.1rem; */
 
@@ -356,6 +357,12 @@ tbody tr {
   display: block;
   max-height: 400px;
   overflow: auto;
+
+  @apply font-bold;
+}
+
+.order-details-table tbody td {
+  @apply font-quicksand font-semibold;
 }
 
 .customer-details-container {
@@ -387,15 +394,17 @@ tbody tr {
 
   /* font-weight: bold; */
 
-  @apply text-sm text-slate-600;
+  @apply text-sm text-slate-600 font-semibold;
 }
 
 .customer-details-container .customer-details strong {
   margin: 5px 0px;
   padding: 0 0px;
   /* font-size: 1rem; */
-  letter-spacing: 1px;
-  color: #333;
+  /* letter-spacing: 1px; */
+  /* color: #333; */
+
+  @apply font-bold text-slate-800;
 }
 
 .customer-details-container .customer-details h2 {

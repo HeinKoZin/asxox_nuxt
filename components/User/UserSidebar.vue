@@ -61,7 +61,7 @@ export default {};
 }
 
 .user-sidebar-header h2 {
-  @apply text-2xl font-bold text-center p-4 font-quicksand border-b border-slate-300 w-full;
+  @apply text-lg md:text-2xl font-bold text-center p-4 font-quicksand border-b border-slate-300 w-full;
 }
 
 .user-sidebar-avatar img {
@@ -85,6 +85,6 @@ export default {};
 }
 
 .user-logout {
-  @apply w-full bg-orange-500 text-white text-sm md:text-base font-bold py-3  rounded-lg font-quicksand mt-6 hover:bg-orange-600;
+  @apply w-full bg-orange-500 text-white text-sm md:text-base font-bold py-3  rounded-lg font-quicksand mt-6 hover:bg-orange-600 hidden md:block;
 }
 </style>
