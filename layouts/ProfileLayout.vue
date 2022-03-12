@@ -6,7 +6,7 @@
           <UserSidebar />
         </div>
         <div class="main">
-          <Nuxt />
+          <Nuxt keep-alive />
         </div>
       </div>
     </MainLayoutComponent>

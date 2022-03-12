@@ -71,7 +71,6 @@ export default {
   async fetch() {
     const res = await this.generalGetApis("orders");
     this.orders = res.data.data.orders;
-    console.log(this.orders);
     this.userData = this.$auth.user.data;
   },
 };

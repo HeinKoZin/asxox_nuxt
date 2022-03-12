@@ -13,15 +13,24 @@
       </div>
       <div class="user-sidebar-menu">
         <ul>
-          <li class="active">
+          <li
+            :class="linkIsActive('/user') ? 'active' : ''"
+            @click="$router.push('/user').catch(() => {})"
+          >
             <font-awesome-icon :icon="['fas', 'user']" class="icon" />
             Profile
           </li>
-          <li>
+          <li
+            :class="linkIsActive('/user/orders') ? 'active' : ''"
+            @click="$router.push('/user/orders').catch(() => {})"
+          >
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
             Orders
           </li>
-          <li>
+          <li
+            :class="linkIsActive('/user/wishlist') ? 'active' : ''"
+            @click="$router.push('/user/wishlist').catch(() => {})"
+          >
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
             Wishlist
           </li>
@@ -29,7 +38,10 @@
             <font-awesome-icon :icon="['fas', 'cog']" class="icon" />
             Purchased History
           </li> -->
-          <li>
+          <li
+            :class="linkIsActive('/user/setting') ? 'active' : ''"
+            @click="$router.push('/user/setting').catch(() => {})"
+          >
             <font-awesome-icon :icon="['fas', 'cog']" class="icon" />
             Settings
           </li>
@@ -44,7 +56,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    linkIsActive(link) {
+      const paths = Array.isArray(link) ? link : [link];
+      const res = paths.some((path) => this.$route.path === path);
+      if (res) {
+        return true;
+      }
+      return false;
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
