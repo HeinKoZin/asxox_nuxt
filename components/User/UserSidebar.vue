@@ -25,10 +25,10 @@
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
             Wishlist
           </li>
-          <li>
+          <!-- <li>
             <font-awesome-icon :icon="['fas', 'cog']" class="icon" />
             Purchased History
-          </li>
+          </li> -->
           <li>
             <font-awesome-icon :icon="['fas', 'cog']" class="icon" />
             Settings
@@ -49,7 +49,7 @@ export default {};
 
 <style lang="postcss" scoped>
 .user-sidebar-container {
-  @apply px-0 md:px-2 w-full;
+  @apply px-0 md:px-2 w-full h-full;
 }
 
 .user-sidebar-wrapper {

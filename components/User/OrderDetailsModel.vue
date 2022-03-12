@@ -1,7 +1,11 @@
 <template>
   <div class="modal-container">
     <div class="modal-content-container">
-      <button class="modal-close-btn" style="color: #fff">
+      <button
+        class="modal-close-btn"
+        style="color: #fff"
+        @click="SET_IS_ORDER_DETAIL()"
+      >
         <font-awesome-icon :icon="['fas', 'times']" />
       </button>
       <div class="modal-header">
@@ -11,9 +15,9 @@
       <div class="customer-details-container">
         <div class="customer-details">
           <h2>Shipping Address</h2>
-          <p><strong>Name: </strong>Hein</p>
-          <p><strong>Address: </strong>No.253, 33Dfe</p>
-          <p><strong>Phone: </strong>097777777</p>
+          <p><strong>Name: </strong>{{ orderDetail.name }}</p>
+          <p><strong>Address: </strong>{{ orderDetail.address }}</p>
+          <p><strong>Phone: </strong>{{ orderDetail.phone }}</p>
         </div>
         <!-- <div class="customer-details">
           <h2>Delivery Information</h2>
@@ -22,11 +26,15 @@
         </div> -->
         <div class="customer-details">
           <h2>Order Information</h2>
-          <p><strong>Code: </strong>4542</p>
+          <p><strong>Code : </strong>{{ orderDetail.order_code }}</p>
           <p>
-            <strong>Status:</strong> <span class="status pending">fgf</span>
+            <strong>Status :</strong>
+            <span class="status pending">{{ orderDetail.status }}</span>
           </p>
-          <p><strong>Date:</strong> 31/10/2022</p>
+          <p>
+            <strong>Ordered Date :</strong>
+            {{ formatDatetime(orderDetail.created_at) }}
+          </p>
         </div>
       </div>
       <div class="order-details-container">
@@ -41,37 +49,58 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="(product, index) in orderDetail.products" :key="index">
               <td style="width: 45">
-                <img
-                  src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/03/05/products/feature/05-03-2022_Asxox_46223152e7cf716.51686359.jpg"
-                />
+                <img :src="subProductImage(product)" />
               </td>
-              <td style="wordwrap: break-word">Hair</td>
-              <td>3500 MMK</td>
-              <td>4</td>
-              <td style="width: 160">2500 MMK</td>
+              <td style="wordwrap: break-word">
+                <span>{{ subProductName(product) }}</span
+                ><br />
+                <span>{{ subProductVarientName(product) }}</span>
+              </td>
+              <td>{{ subProductSellPrice(product) }} MMK</td>
+              <td>{{ subProductQuantity(product) }}</td>
+              <td style="width: 160">{{ subProductTotal(product) }} MMK</td>
             </tr>
             <div class="mt-8"></div>
             <tr>
               <th>Sub total</th>
-              <td>44774 MMK</td>
+              <td>{{ calculateSubtotal }} MMK</td>
             </tr>
-            <tr>
+            <tr
+              v-if="
+                orderDetail.promotions.discount_amount &&
+                orderDetail.promotions.discount_amount > 0
+              "
+            >
               <th>Discount</th>
-              <td>5355 MMK</td>
+              <td class="line-through">
+                {{ orderDetail.promotions.discount_amount }}
+              </td>
             </tr>
-            <tr>
+            <tr
+              v-if="
+                orderDetail.promotions.point_amount &&
+                orderDetail.promotions.point_amount > 0
+              "
+            >
               <th>Point Amount</th>
-              <td>4544</td>
+              <td class="line-through">
+                {{ orderDetail.promotions.point_amount }} MMK
+              </td>
             </tr>
-            <tr>
-              <th>Advance Payment Price</th>
-              <td>555 MMK</td>
+            <tr v-if="calculateCouponAmount && calculateCouponAmount > 0">
+              <th>Coupon Amount</th>
+              <td class="line-through">{{ calculateCouponAmount }} MMK</td>
             </tr>
             <tr>
               <th>Total amount</th>
-              <td>55 MMK</td>
+              <td>
+                {{
+                  orderDetail.total - (orderDetail.promotions.point_amount || 0)
+                }}
+                MMK
+              </td>
             </tr>
           </tbody>
         </table>
@@ -81,7 +110,95 @@
 </template>
 
 <script>
-export default {};
+import { mapMutations, mapGetters } from "vuex";
+export default {
+  data() {
+    return {
+      subTotalAmount: 0,
+    };
+  },
+  methods: {
+    ...mapMutations(["SET_ORDER_DETAIL", "SET_IS_ORDER_DETAIL"]),
+    formatDatetime(datetime) {
+      const newDateTime = new Date(datetime);
+      const formattedDate =
+        newDateTime.getDate() +
+        "/" +
+        (newDateTime.getMonth() + 1) +
+        "/" +
+        newDateTime.getFullYear();
+      return formattedDate;
+    },
+    subProductImage(product) {
+      if (product.order_product.is_variant)
+        return product.order_product.is_variant.varient_photo;
+      return product.product.feature_photos[0].photo;
+    },
+    subProductName(product) {
+      return product.product.name;
+    },
+    subProductSellPrice(product) {
+      if (product.order_product.is_variant) {
+        return product.order_product.is_variant.sell_price;
+      }
+      return product.order_product.original_unit_price;
+    },
+    subProductQuantity(product) {
+      return product.order_product.qty;
+    },
+    subProductTotal(product) {
+      return product.order_product.total_price;
+    },
+    subProductVarientName(product) {
+      let variant_name = "";
+      let options = [
+        {
+          type: "size",
+          value: product.order_product.is_variant?.size,
+        },
+        {
+          type: "color",
+          value: product.order_product.is_variant?.color,
+        },
+        {
+          type: "pattern",
+          value: product.order_product.is_variant?.pattern,
+        },
+        {
+          type: "accessories",
+          value: product.order_product.is_variant?.accessories,
+        },
+      ];
+      if (product.order_product.is_variant) {
+        options.map((option) => {
+          if (option.value) {
+            variant_name +=
+              (variant_name !== "" ? "/ " : "") +
+              product.order_product.is_variant[option.type].name;
+          }
+        });
+      }
+      return variant_name;
+    },
+  },
+  computed: {
+    ...mapGetters(["orderDetail"]),
+    calculateSubtotal() {
+      const order = this.orderDetail;
+      let subTotalAmount = 0;
+      // for (let i = 0; i < order.products.length; i++) {
+      //   subTotalAmount += order.products[i].order_product.total_price;
+      // }
+      order.products.map((product) => {
+        subTotalAmount += product.order_product.total_price;
+      });
+      return subTotalAmount;
+    },
+    calculateCouponAmount() {
+      return this.calculateSubtotal - this.orderDetail.total;
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>

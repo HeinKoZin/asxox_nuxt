@@ -1,20 +1,21 @@
 <template>
   <tr>
-    <td>23</td>
+    <td>{{ productIndex }}</td>
     <td class="text-base font-bold text-slate-800">{{ order.order_code }}</td>
-    <td>Test</td>
-    <td>3000</td>
-    <td>2</td>
-    <td>6000</td>
-    <td>2 weeks ago{{ order }}</td>
+    <td>{{ order.total - (order.promotions.point_amount || 0) }}</td>
+    <td>{{ formatDatetime(order.created_at) }}</td>
+    <td class="hidden md:block">{{ order.address }}</td>
     <td>
       <span class="status-badge">
         <font-awesome-icon class="status-icon" :icon="['fas', 'check']" />
-        <span>Delivered</span>
+        <span>{{ order.status }}</span>
       </span>
     </td>
     <td class="text-center">
-      <button class="details-btn">
+      <button
+        class="details-btn"
+        @click="SET_ORDER_DETAIL(order), SET_IS_ORDER_DETAIL()"
+      >
         <font-awesome-icon class="status-icon" :icon="['fas', 'eye']" />Details
       </button>
     </td>
@@ -22,11 +23,29 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   props: {
     order: {
       type: Object,
       required: true,
+    },
+    productIndex: {
+      type: Number,
+      required: true,
+    },
+  },
+  methods: {
+    ...mapMutations(["SET_ORDER_DETAIL", "SET_IS_ORDER_DETAIL"]),
+    formatDatetime(datetime) {
+      const newDateTime = new Date(datetime);
+      const formattedDate =
+        newDateTime.getDate() +
+        "/" +
+        (newDateTime.getMonth() + 1) +
+        "/" +
+        newDateTime.getFullYear();
+      return formattedDate;
     },
   },
 };

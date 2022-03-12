@@ -15,6 +15,8 @@ const state = () => ({
     payment_method: "Cash On Delivery",
     products: [],
   },
+  orderDetail: {},
+  isOrderDetail: false,
 });
 
 export default state;

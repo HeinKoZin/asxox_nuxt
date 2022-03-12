@@ -10,12 +10,13 @@
     <div class="body">
       <OrderList :orders="orders" />
     </div>
-    <OrderDetailsModel v-if="isModelOpen" />
+    <OrderDetailsModel v-if="isOrderDetail" />
   </div>
 </template>
 
 <script>
 import { generalMixins } from "@/mixins/general";
+import { mapGetters } from "vuex";
 export default {
   layout: "ProfileLayout",
   mixins: [generalMixins],
@@ -25,7 +26,9 @@ export default {
       orders: [],
     };
   },
-
+  computed: {
+    ...mapGetters(["isOrderDetail"]),
+  },
   methods: {
     openModel() {
       this.isModelOpen = true;

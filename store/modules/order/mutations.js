@@ -43,6 +43,14 @@ const mutations = {
   SET_PAYMENT_METHOD(state, data) {
     state.order.payment_method = data;
   },
+
+  SET_ORDER_DETAIL(state, data) {
+    state.orderDetail = data;
+  },
+
+  SET_IS_ORDER_DETAIL(state, data) {
+    state.isOrderDetail = !state.isOrderDetail;
+  },
 };
 
 export default mutations;
