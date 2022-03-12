@@ -6,7 +6,7 @@
       <div class="footer-item">
         <div class="w-32">
           <img
-            class="w-full h-auto"
+            class="footer-img"
             src="https://asxox.com.mm/assets/photo/logo/prize.svg"
           />
         </div>
@@ -18,7 +18,7 @@
       <div class="footer-item">
         <div class="w-32">
           <img
-            class="w-full h-auto"
+            class="footer-img"
             src="https://asxox.com.mm/assets/photo/logo/home.svg"
           />
         </div>
@@ -30,7 +30,7 @@
       <div class="footer-item">
         <div class="w-32">
           <img
-            class="w-full h-auto"
+            class="footer-img"
             src="https://asxox.com.mm/assets/photo/logo/car.svg"
           />
         </div>
@@ -42,7 +42,7 @@
       <div class="footer-item">
         <div class="w-32">
           <img
-            class="w-full h-auto"
+            class="footer-img"
             src="https://asxox.com.mm/assets/photo/logo/$%20ed.svg"
           />
         </div>
@@ -54,7 +54,7 @@
       <div class="footer-item">
         <div class="w-32">
           <img
-            class="w-full h-auto"
+            class="footer-img"
             src="https://asxox.com.mm/assets/photo/logo/microphone.svg"
           />
         </div>
@@ -86,17 +86,21 @@ export default {};
 }
 
 .footer-item {
-  @apply w-full  sm:w-[33.33%] lg:w-[20%]  flex flex-col items-center justify-center  h-auto text-center;
+  @apply w-full  sm:w-[33.33%] lg:w-[20%]  flex flex-col items-center   h-auto text-center;
 }
 .footer-item .description {
   @apply max-w-[60%] h-auto text-center;
 }
 
 .footer-item .description h3 {
-  @apply text-lg font-bold font-zen-kurenaido;
+  @apply text-base md:text-lg font-bold font-zen-kurenaido;
 }
 
 .footer-item .description p {
   @apply text-sm md:text-base text-slate-500;
+}
+
+.footer-item .footer-img {
+  @apply w-12 h-auto mx-auto;
 }
 </style>
