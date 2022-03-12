@@ -72,9 +72,6 @@ export default {
       this.UPDATE_PRODUCT_IN_CART({ productId: this.productId, newQty });
     },
   },
-  mounted() {
-    console.log(this.product);
-  },
 };
 </script>
 

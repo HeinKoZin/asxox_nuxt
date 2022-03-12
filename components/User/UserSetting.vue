@@ -94,7 +94,7 @@
         <CustomerAddressCard isInProfile />
       </div>
       <div class="user-setting-actions">
-        <button class="save-btn">Save</button>
+        <button class="save-btn" @click="userUpdate()">Save</button>
         <button class="cancel-btn">Cancel</button>
       </div>
     </div>
@@ -107,18 +107,29 @@ export default {
   mixins: [generalMixins],
   data() {
     return {
-      userData: {},
+      userData: {
+        dob: "2021-05-03",
+        job: "engineer",
+      },
       states: [],
       cities: [],
     };
   },
+  methods: {
+    async userUpdate() {
+      const res = await this.generalPostApis("customers/update", this.userData);
+      res.error === "error"
+        ? this.toast(res.message, "error")
+        : this.toast("User Profile Updated Successfully", "success");
+    },
+  },
+
   async fetch() {
-    this.userData = JSON.parse(JSON.stringify(this.$auth.user.data));
+    const user = JSON.parse(JSON.stringify(this.$auth.user.data));
+    this.userData = user.customer;
 
     //NOTE: default state and city and address
-    this.userData.state_id = this.userData.customer.state_id;
-    this.userData.city_id = this.userData.customer.city_id;
-    this.userData.address = this.userData.cutomer.address;
+    this.userData.email = user.email;
 
     const statesRes = await this.generalGetApis("states");
     this.states = statesRes.data.data;
