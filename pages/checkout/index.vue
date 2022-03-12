@@ -1,28 +1,26 @@
 <template>
-  <MainLayout>
-    <div class="checkout-container">
-      <div class="checkout-container-wrapper">
-        <div class="header">Shopping Cart</div>
+  <!-- <MainLayout> -->
+  <div class="checkout-container">
+    <div class="checkout-container-wrapper">
+      <div class="header">Shopping Cart</div>
 
-        <div class="body">
-          <CustomerInfo />
-          <CustomerOrderList />
-        </div>
-        <div class="order-confirm-btn">
-          <button>Confirm</button>
-        </div>
+      <div class="body">
+        <CustomerInfo />
+        <CustomerOrderList />
+      </div>
+      <div class="order-confirm-btn">
+        <button>Confirm</button>
       </div>
     </div>
-  </MainLayout>
+  </div>
+  <!-- </MainLayout> -->
 </template>
 
 <script>
-import MainLayout from "~/layouts/MainLayout.vue";
+// import MainLayout from "~/layouts/MainLayout.vue";
 
 export default {
-  components: {
-    MainLayout,
-  },
+  layout: "MainLayout",
 };
 </script>
 

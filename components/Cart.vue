@@ -17,7 +17,7 @@
           </button>
         </div> -->
       </div>
-      <div class="cart-body">
+      <div class="cart-body" v-dragscroll>
         <CartItem />
         <CartItem />
         <CartItem />
@@ -60,7 +60,7 @@ export default {
 
 <style lang="postcss" scoped>
 .cart-container-wrapper {
-  @apply fixed right-0 top-16 w-[calc(100%_-_4.4rem)] md:w-2/6 -mr-[calc(100%_-_4.4rem)] md:-mr-[33.33%] bg-slate-300 h-[calc(100%_-_4rem)]  border-slate-200 rounded-l-xl z-50 transition-[margin];
+  @apply fixed right-0 top-16 w-[calc(100%_-_4.4rem)] md:w-2/6 -mr-[calc(100%_-_4.4rem)] md:-mr-[33.33%] border border-slate-300 bg-slate-300 h-[calc(100%_-_4rem)]  rounded-l-xl z-50 transition-[margin];
 }
 
 .cart-container-wrapper.active {
@@ -102,10 +102,14 @@ export default {
 }
 
 .cart-bottom {
-  @apply flex flex-row justify-between items-center py-6 px-4 bg-white rounded-bl-xl font-comfortaa;
+  @apply flex flex-row justify-between items-center p-4 bg-white rounded-bl-xl font-quicksand;
+}
+
+.cart-bottom .cart-bottom-total {
+  @apply font-bold;
 }
 
 .cart-bottom .cart-bottom-action button {
-  @apply bg-orange-600 p-2 rounded-lg text-white text-sm md:text-base;
+  @apply bg-orange-600 p-3 rounded-lg text-white text-sm font-semibold;
 }
 </style>

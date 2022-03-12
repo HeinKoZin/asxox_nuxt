@@ -27,14 +27,14 @@
 
       <div class="order-item-actions">
         <div class="order-item-quantity-actions">
-          <button>
-            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
+          <button class="cart-item-plus-btn">
+            <font-awesome-icon class="" :icon="['fas', 'plus']" />
           </button>
-          <button>
+          <button class="cart-item-minus-btn">
             <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
           </button>
         </div>
-        <button class="order-item-remove">
+        <button class="order-item-remove-btn">
           <font-awesome-icon class="icon" :icon="['fas', 'trash']" />
         </button>
       </div>
@@ -91,7 +91,7 @@ export default {
 }
 
 .icon {
-  @apply text-slate-600 font-thin;
+  @apply font-thin;
 }
 
 .order-item-actions {
@@ -103,10 +103,22 @@ export default {
 }
 
 .order-item-actions button {
-  @apply w-8 h-8 rounded-full border border-slate-300 flex justify-center items-center active:bg-slate-100;
+  @apply w-6 h-6 rounded-full border border-slate-300 flex justify-center items-center text-xs;
 }
 
-.order-item-remove .icon {
+.order-item-remove-btn .icon {
   @apply text-red-600;
+}
+
+.order-item-remove-btn {
+  @apply w-6 h-6 active:bg-slate-100;
+}
+
+.cart-item-plus-btn {
+  @apply text-slate-50 bg-slate-900 active:bg-slate-700;
+}
+
+.cart-item-minus-btn {
+  @apply active:bg-slate-100;
 }
 </style>
