@@ -4,7 +4,7 @@
       <div class="profile-layout-container-wrapper">
         <div class="user-cover-container">
           <div class="user-profile-avatar">
-            <img src="https://picsum.photos/150" alt="Avatar" />
+            <img src="https://via.placeholder.com/128" alt="Avatar" />
           </div>
         </div>
 
@@ -71,11 +71,11 @@ export default {
 }
 
 .user-profile-avatar {
-  @apply relative top-12 md:left-5 mx-auto md:mx-0;
+  @apply relative top-12 md:left-5 mx-auto md:mx-0 w-32 h-32;
 }
 
 .user-profile-avatar img {
-  @apply rounded-full;
+  @apply rounded-full w-32 h-32 object-cover absolute;
 }
 
 .user-profile-info-container {
