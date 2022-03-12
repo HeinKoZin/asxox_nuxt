@@ -40,14 +40,14 @@ export default {
 }
 
 .fab-container-btn {
-  @apply w-14 h-14 relative;
+  @apply w-12 h-12 relative;
 }
 
 .fab-container .fab-container-btn .icon {
-  @apply rounded-full text-white hover:text-slate-200 text-lg md:text-xl;
+  @apply rounded-full text-slate-200 hover:text-slate-200 text-lg md:text-xl;
 }
 
 .badge {
-  @apply absolute w-4 h-4 font-semibold text-sm md:font-bold  p-[2px] top-3 right-3 rounded-full text-orange-600 bg-white flex justify-center items-center;
+  @apply absolute w-4 h-4 font-semibold text-xs   p-[2px] top-2 right-2 rounded-full text-orange-600 bg-white flex justify-center items-center;
 }
 </style>
