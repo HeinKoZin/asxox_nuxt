@@ -6,15 +6,7 @@
     "
   >
     <div
-      class="
-        transition-[translate]
-        product-card-container
-        group-hover:shadow-slate-300
-        group-hover:-translate-y-[0.05rem]
-        group-hover:shadow-md
-        relative
-        overflow-hidden
-      "
+      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
     >
       <!-- NOTE: Later feature -->
       <!-- <div
@@ -28,29 +20,22 @@
             class="w-10 h-10 bg-white rounded-full"
             @click="addToWishList(data.id, data.is_wishlist)"
           >
-            <font-awesome-icon
-              v-if="!isInWishlist"
-              :icon="['far', 'heart']"
-              class="icon"
-            />
-            <font-awesome-icon
-              v-if="isInWishlist"
-              :icon="['fas', 'heart']"
-              class="icon active"
-            />
+            <i class="fa-solid fa-heart icon" v-if="!isInWishlist"></i>
+
+            <i class="fa-solid fa-heart icon active" v-if="isInWishlist"></i>
           </button>
           <button
             class="w-10 h-10 bg-white rounded-full"
             @click="data.is_varient ? null : addProductToCart(data)"
             v-if="!data.is_varient"
           >
-            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+            <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
           <button
             class="w-10 h-10 bg-white rounded-full"
             @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
           >
-            <font-awesome-icon :icon="['fas', 'eye']" class="icon" />
+            <i class="fa-solid fa-eye icon"></i>
           </button>
         </div>
         <img class="card-header-image" :src="data.temp_photo" />

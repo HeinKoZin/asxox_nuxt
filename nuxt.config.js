@@ -1,4 +1,4 @@
-let apiLink = "http://localhost:8000/api";
+let apiLink = "https://dev.asxox.com.mm/api";
 
 export default {
   mode: "universal",
@@ -43,9 +43,10 @@ export default {
     "~/plugins/v-touch.js",
     "~/plugins/inject.js",
     { src: "~/plugins/v-dragscroll.js", ssr: false },
+    '~/plugins/fontawesome.js',
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],
+  buildModules: ["@nuxt/postcss8"],
 
   ssr: true,
   target: "server",
@@ -57,13 +58,13 @@ export default {
     "cookie-universal-nuxt",
   ],
 
-  fontawesome: {
-    icons: {
-      solid: true,
-      brands: true,
-      regular: true,
-    },
-  },
+  // fontawesome: {
+  //   icons: {
+  //     solid: true,
+  //     brands: true,
+  //     regular: true,
+  //   },
+  // },
   auth: {
     redirect: false,
     strategies: {

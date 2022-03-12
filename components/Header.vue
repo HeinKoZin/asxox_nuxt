@@ -7,18 +7,18 @@
             v-if="!isMobileMenuOpen"
             @click="SET_MOBILE_MENU(!isMobileMenuOpen)"
           >
-            <font-awesome-icon :icon="['fas', 'bars']" class="icon" />
+            <i class="fa-solid fa-bars icon"></i>
           </button>
           <button
             v-if="isMobileMenuOpen"
             @click="SET_MOBILE_MENU(!isMobileMenuOpen)"
           >
-            <font-awesome-icon :icon="['fas', 'times']" class="icon" />
+            <i class="fa-solid fa-xmark icon"></i>
           </button>
         </div>
         <div class="header-back-button">
           <button @click="$router.back()">
-            <font-awesome-icon :icon="['fas', 'arrow-left']" />
+            <i class="fa-solid fa-arrow-left-long icon"></i>
           </button>
         </div>
         <div class="header-logo">
@@ -40,17 +40,16 @@
         <div class="header-search">
           <input type="text" placeholder="Search" />
           <Button class="header-search-button" size="sm">
-            <font-awesome-icon
-              :icon="['fas', 'search']"
-              class="text-slate-500 hover:text-slate-700"
-            />
+            <i
+              class="fa-solid fa-magnifying-glass text-slate-500 hover:text-slate-700"
+            ></i>
           </Button>
         </div>
       </div>
       <div class="header-right">
         <div class="header-user">
           <button class="header-user-button" size="sm" @click="toggleUserMenu">
-            <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
+            <i class="fa-solid fa-circle-user icon"></i>
           </button>
           <div
             v-if="isUserMenuOpen && $auth.$storage.getLocalStorage('loggedIn')"
@@ -67,27 +66,18 @@
             </div>
             <hr />
             <ul>
+              <li><i class="fa-solid fa-circle-user icon"></i>Profile</li>
               <li>
-                <font-awesome-icon
-                  :icon="['fas', 'user-circle']"
-                  class="icon"
-                />Profile
+                <i class="fa-solid fa-clock-rotate-left icon"></i>
+                Purchased History
               </li>
               <li>
-                <font-awesome-icon
-                  :icon="['fas', 'history']"
-                  class="icon"
-                />Purchased History
-              </li>
-              <li>
-                <font-awesome-icon
-                  :icon="['fas', 'cog']"
-                  class="icon"
-                />Settings
+                <i class="fa-solid fa-gear icon"></i>
+                Settings
               </li>
             </ul>
             <button class="user-logout" @click="userLogout">
-              <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
+              <i class="fa-solid fa-right-from-bracket icon"></i>
               Logout
             </button>
           </div>
@@ -100,12 +90,12 @@
             </div>
             <hr />
             <button class="user-auth" @click="userLogout">
-              <font-awesome-icon :icon="['fas', 'sign-in-alt']" class="icon" />
+              <i class="fa-solid fa-user-plus icon"></i>
               <!-- <font-awesome-icon icon="fa-solid fa-arrow-right-to-bracket" /> -->
               Log In
             </button>
             <button class="user-auth" @click="userLogout">
-              <font-awesome-icon :icon="['fas', 'sign-in-alt']" class="icon" />
+              <i class="fa-solid fa-right-to-bracket icon"></i>
               Register
             </button>
           </div>
@@ -113,13 +103,13 @@
         <div class="header-cart" v-if="!isCartOpen">
           <button class="header-button" @click="toggleCart">
             <span class="badge">{{ calculateCartProductQuantity }}</span>
-            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+            <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
         </div>
         <div class="header-wishlist">
           <button class="header-button">
             <span class="badge">{{ giveWishlistLength }}</span>
-            <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
+            <i class="fa-solid fa-heart icon"></i>
           </button>
         </div>
       </div>
