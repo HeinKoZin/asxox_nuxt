@@ -28,8 +28,8 @@
             Orders
           </li>
           <li
-            :class="linkIsActive('/user/wishlist') ? 'active' : ''"
-            @click="$router.push('/user/wishlist').catch(() => {})"
+            :class="linkIsActive('/user/wishlists') ? 'active' : ''"
+            @click="$router.push('/user/wishlists').catch(() => {})"
           >
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
             Wishlist

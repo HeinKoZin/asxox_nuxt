@@ -10,49 +10,82 @@
             </button>
           </div>
         </div>
+        {{ userData }}
         <div class="user-setting-input-group">
           <div class="user-setting-input">
             <label>Name</label>
-            <input type="text" placeholder="Name" />
+            <input type="text" placeholder="Name" v-model="userData.name" />
           </div>
           <div class="user-setting-input">
             <label>Email</label>
-            <input type="text" placeholder="Name" />
+            <input type="text" placeholder="Name" v-model="userData.email" />
           </div>
           <div class="user-setting-input">
             <label>Phone</label>
-            <input type="text" placeholder="Name" />
+            <input type="text" placeholder="Name" v-model="userData.phone" />
           </div>
           <div class="user-setting-input">
             <label for="">Gender</label>
             <fieldset name="gender">
-              <input type="radio" id="male" name="gender" value="male" />
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="male"
+                v-model="userData.gender"
+              />
               <label for="male">Male</label><br />
-              <input type="radio" id="female" name="gender" value="female" />
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="female"
+                v-model="userData.gender"
+              />
               <label for="female">Female</label><br />
-              <input type="radio" id="other" name="gender" value="other" />
+              <input
+                type="radio"
+                id="other"
+                name="gender"
+                value="other"
+                v-model="userData.gender"
+              />
               <label for="other">Other</label>
             </fieldset>
           </div>
           <div class="user-setting-input">
             <label>State</label>
-            <select>
-              <option>Yangon</option>
-              <option>Mandalay</option>
-              <option>Nay Pyi Taw</option>
+            <select v-model="userData.state_id">
+              <option
+                :value="state.id"
+                v-for="(state, index) in states"
+                :key="index"
+              >
+                {{ state.name }}
+              </option>
             </select>
           </div>
           <div class="user-setting-input">
             <label>City</label>
-            <select>
-              <option>Yangon</option>
-              <option>Mandalay</option>
-              <option>Nay Pyi Taw</option>
+            <select v-model="userData.city_id">
+              <option
+                :value="city.id"
+                v-for="(city, index) in cities"
+                :key="index"
+              >
+                {{ city.name }}
+              </option>
             </select>
           </div>
           <div class="user-setting-input">
             <label>Address</label>
-            <textarea name="address" id="" cols="30" rows="5"></textarea>
+            <textarea
+              name="address"
+              id=""
+              cols="30"
+              rows="5"
+              v-model="userData.address"
+            ></textarea>
           </div>
         </div>
       </div>
@@ -69,7 +102,39 @@
 </template>
 
 <script>
-export default {};
+import { generalMixins } from "@/mixins/general";
+export default {
+  mixins: [generalMixins],
+  data() {
+    return {
+      userData: {},
+      states: [],
+      cities: [],
+    };
+  },
+  async fetch() {
+    this.userData = JSON.parse(JSON.stringify(this.$auth.user.data));
+
+    //NOTE: default state and city and address
+    this.userData.state_id = this.userData.customer.state_id;
+    this.userData.city_id = this.userData.customer.city_id;
+    this.userData.address = this.userData.cutomer.address;
+
+    const statesRes = await this.generalGetApis("states");
+    this.states = statesRes.data.data;
+  },
+
+  watch: {
+    async "userData.state_id"() {
+      if (!this.userData.state_id) return;
+      const citiesRes = await this.generalGetApis(
+        `cities?state_id=${this.userData.state_id}`
+      );
+      this.cities = citiesRes.data.data;
+      this.userData.city_id = citiesRes.data.data[0].id;
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
