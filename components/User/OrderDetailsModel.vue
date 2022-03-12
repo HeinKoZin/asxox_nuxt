@@ -29,7 +29,9 @@
           <p><strong>Code : </strong>{{ orderDetail.order_code }}</p>
           <p>
             <strong>Status :</strong>
-            <span class="status pending">{{ orderDetail.status }}</span>
+            <span class="status" :class="statusOutput">{{
+              orderDetail.status
+            }}</span>
           </p>
           <p>
             <strong>Ordered Date :</strong>
@@ -187,9 +189,6 @@ export default {
     calculateSubtotal() {
       const order = this.orderDetail;
       let subTotalAmount = 0;
-      // for (let i = 0; i < order.products.length; i++) {
-      //   subTotalAmount += order.products[i].order_product.total_price;
-      // }
       order.products.map((product) => {
         subTotalAmount += product.order_product.total_price;
       });
@@ -197,6 +196,28 @@ export default {
     },
     calculateCouponAmount() {
       return this.calculateSubtotal - this.orderDetail.total;
+    },
+    statusOutput() {
+      switch (this.orderDetail.status) {
+        case "Pending":
+          return "pending";
+        case "Payment Pending":
+          return "payment-pending";
+        case "Confirm":
+          return "confirm";
+        case "On The Way":
+          return "pending";
+        case "Pre Order":
+          return "pre-order";
+        case "Order Delay":
+          return "order-delay";
+        case "Complete":
+          return "completed";
+        case "Cancel":
+          return "cancelled";
+        default:
+          break;
+      }
     },
   },
 };
@@ -441,7 +462,7 @@ tbody tr {
   background-color: #f59e0b;
 }
 
-.status.delivered {
+.status.confirm {
   background-color: #28a745;
 }
 

@@ -43,7 +43,7 @@ export default {
         case "Payment Pending":
           return "payment-pending";
         case "Confirm":
-          return "pending";
+          return "confirm";
         case "On The Way":
           return "pending";
         case "Pre Order":
@@ -105,7 +105,7 @@ tr td {
   @apply bg-orange-200 text-orange-500;
 }
 
-.status-badge.delivered {
+.status-badge.confirm {
   @apply bg-green-200 text-green-500;
 }
 
