@@ -46,6 +46,12 @@ export default {
       addresses: [],
     };
   },
+  props: {
+    isInProfile: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
     // NOTE: Method from Vuex actions
     ...mapMutations(["SET_ADDRESS_TO_ORDER", "UPDATE_ADDRESS_STATUS"]),

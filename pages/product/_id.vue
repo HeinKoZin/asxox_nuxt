@@ -1,28 +1,27 @@
 <template>
-  <MainLayout>
-    <div
-      class="w-full min-h-screen bg-slate-100"
-      v-if="!$fetchState.pending && !$fetchState.error"
-    >
-      <div class="product-detail-container">
-        <div class="product-cover">
-          <ProductCover
-            ref="productCoverRef"
-            :product="product"
-            :size="sizes"
-            :color="colors"
-            :pattern="patterns"
-            :accessories="accessories"
-          />
-        </div>
-        <div class="product-detail">
-          <ProductImages :description_photos="product.description_photos" />
-          <ProductInfo :product="product" />
-          <ProductDescription />
-          <RecommendedProducts />
-        </div>
-      </div></div
-  ></MainLayout>
+  <div
+    class="w-full min-h-screen bg-slate-100"
+    v-if="!$fetchState.pending && !$fetchState.error"
+  >
+    <div class="product-detail-container">
+      <div class="product-cover">
+        <ProductCover
+          ref="productCoverRef"
+          :product="product"
+          :size="sizes"
+          :color="colors"
+          :pattern="patterns"
+          :accessories="accessories"
+        />
+      </div>
+      <div class="product-detail">
+        <ProductImages :description_photos="product.description_photos" />
+        <ProductInfo :product="product" />
+        <ProductDescription />
+        <RecommendedProducts />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -30,7 +29,7 @@ import { generalMixins } from "@/mixins/general";
 import MainLayout from "~/layouts/MainLayout.vue";
 export default {
   mixins: [generalMixins],
-  components: { MainLayout },
+  layout: "MainLayout",
   data() {
     return {
       product: {},

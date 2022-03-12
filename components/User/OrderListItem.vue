@@ -6,7 +6,7 @@
     <td>{{ formatDatetime(order.created_at) }}</td>
     <td class="hidden md:block">{{ order.address }}</td>
     <td>
-      <span class="status-badge cancelled">
+      <span class="status-badge" :class="statusOutput">
         <font-awesome-icon class="status-icon" :icon="['fas', 'check']" />
         <span>{{ order.status }}</span>
       </span>
@@ -33,6 +33,30 @@ export default {
     productIndex: {
       type: Number,
       required: true,
+    },
+  },
+  computed: {
+    statusOutput() {
+      switch (this.order.status) {
+        case "Pending":
+          return "pending";
+        case "Payment Pending":
+          return "payment-pending";
+        case "Confirm":
+          return "pending";
+        case "On The Way":
+          return "pending";
+        case "Pre Order":
+          return "pre-order";
+        case "Order Delay":
+          return "order-delay";
+        case "Complete":
+          return "completed";
+        case "Cancel":
+          return "cancelled";
+        default:
+          break;
+      }
     },
   },
   methods: {
