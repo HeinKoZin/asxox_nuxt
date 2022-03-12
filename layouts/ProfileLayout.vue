@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MainLayout>
+    <MainLayoutComponent>
       <div class="profile-layout-container">
         <div class="use-sidebar">
           <UserSidebar />
@@ -9,16 +9,16 @@
           <Nuxt />
         </div>
       </div>
-    </MainLayout>
+    </MainLayoutComponent>
   </div>
 </template>
 
 <script>
-import MainLayout from "~/layouts/MainLayout.vue";
+import MainLayoutComponent from "~/components/Layouts/MainLayoutComponent.vue";
 
 export default {
   components: {
-    MainLayout,
+    MainLayoutComponent,
   },
 };
 </script>

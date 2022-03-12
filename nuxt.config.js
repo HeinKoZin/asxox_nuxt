@@ -36,6 +36,7 @@ export default {
     { path: "~/components/ProductDetail", extensions: ["vue"] },
     { path: "~/components/Checkout", extensions: ["vue"] },
     { path: "~/components/User", extensions: ["vue"] },
+    { path: "~/components/Layouts", extensions: ["vue"] },
 
   ],
 

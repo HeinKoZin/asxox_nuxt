@@ -1,70 +1,58 @@
 <template>
-  <MainLayout>
-    <div class="home-container">
-      <div class="home-header">
-        <Slider />
-      </div>
-      <!-- <CategoryBar /> -->
-      <!-- Product list container -->
-      <div class="products-list-container">
-        <div class="products-container">
-          <div class="flex items-center justify-between w-full p-1">
-            <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-            <button class="see-all-btn">See All</button>
-          </div>
-          <ProductCard
-            :data="data"
-            v-for="(data, index) in datas"
-            :key="index"
-            isInWishlist
-          />
-        </div>
-        <div class="products-container">
-          <div class="flex items-center justify-between w-full p-1">
-            <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-            <button class="see-all-btn">See All</button>
-          </div>
-          <ProductCard
-            :data="data"
-            v-for="(data, index) in datas"
-            :key="index"
-          />
-        </div>
-        <AdsShop />
-        <div class="products-container">
-          <div class="flex items-center justify-between w-full p-1">
-            <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-            <button class="see-all-btn">See All</button>
-          </div>
-          <ProductCard
-            :data="data"
-            v-for="(data, index) in datas"
-            :key="index"
-          />
-        </div>
-        <div class="products-container">
-          <div class="flex items-center justify-between w-full p-1">
-            <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
-            <a class="see-all-btn">See All</a>
-          </div>
-          <ProductCard
-            :data="data"
-            v-for="(data, index) in datas"
-            :key="index"
-          />
-        </div>
-        <AdsShop />
-      </div>
+  <!-- <MainLayout> -->
+  <div class="home-container">
+    <div class="home-header">
+      <Slider />
     </div>
-  </MainLayout>
+    <!-- <CategoryBar /> -->
+    <!-- Product list container -->
+    <div class="products-list-container">
+      <div class="products-container">
+        <div class="flex items-center justify-between w-full p-1">
+          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
+          <button class="see-all-btn">See All</button>
+        </div>
+        <ProductCard
+          :data="data"
+          v-for="(data, index) in datas"
+          :key="index"
+          isInWishlist
+        />
+      </div>
+      <div class="products-container">
+        <div class="flex items-center justify-between w-full p-1">
+          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
+          <button class="see-all-btn">See All</button>
+        </div>
+        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
+      </div>
+      <AdsShop />
+      <div class="products-container">
+        <div class="flex items-center justify-between w-full p-1">
+          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
+          <button class="see-all-btn">See All</button>
+        </div>
+        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
+      </div>
+      <div class="products-container">
+        <div class="flex items-center justify-between w-full p-1">
+          <h4 class="p-1 text-lg font-bold font-quicksand">Pre-Orders</h4>
+          <a class="see-all-btn">See All</a>
+        </div>
+        <ProductCard :data="data" v-for="(data, index) in datas" :key="index" />
+      </div>
+      <AdsShop />
+    </div>
+  </div>
+  <!-- </MainLayout> -->
 </template>
 
 <script>
 import Category from "../components/Common/Category.vue";
-import MainLayout from "~/layouts/MainLayout.vue";
+// import MainLayout from "~/components/Layouts/MainLayout.vue";
 export default {
-  components: { Category, MainLayout },
-  // layout: "MainLayout",
+  components: { Category },
+  layout: "MainLayout",
   name: "HomePage",
 
   data() {
