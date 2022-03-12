@@ -52,6 +52,8 @@
           <button class="header-user-button" size="sm" @click="toggleUserMenu">
             <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
           </button>
+
+          <!-- User Menu for Logged in user -->
           <div v-if="isUserMenuOpen" class="user-menu">
             <div class="user-menu-header">
               <span class="username">Hi, Hein Ko Zin</span>
@@ -81,6 +83,23 @@
             <button class="user-logout">
               <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
               Logout
+            </button>
+          </div>
+
+          <!-- User menu for Gust user -->
+          <div v-if="isUserMenuOpen" class="user-menu">
+            <div class="user-menu-header">
+              <span class="username">Welcome, Guest</span>
+              <span class="user-email">Login or Register </span>
+            </div>
+            <hr />
+            <button class="user-logout">
+              <font-awesome-icon :icon="['fas', 'user-plus']" class="icon" />
+              Register
+            </button>
+            <button class="user-logout">
+              <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
+              Login
             </button>
           </div>
         </div>
@@ -196,11 +215,11 @@ export default {
 }
 
 .header-user .user-menu .user-menu-header .username {
-  @apply text-slate-700 text-base font-bold;
+  @apply text-slate-700 text-base font-bold whitespace-nowrap;
 }
 
 .header-user .user-menu .user-menu-header .user-email {
-  @apply text-slate-600 text-sm;
+  @apply text-slate-600 text-sm whitespace-nowrap;
 }
 
 .header-user .user-menu ul {
