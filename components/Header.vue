@@ -119,7 +119,10 @@
           </button>
         </div>
         <div class="header-wishlist">
-          <button class="header-button">
+          <button
+            class="header-button"
+            @click="$router.push('/user/wishlists')"
+          >
             <span class="badge">{{ giveWishlistLength }}</span>
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
           </button>
