@@ -46,7 +46,7 @@
             Settings
           </li>
         </ul>
-        <button class="user-logout" @click="logout">
+        <button class="user-logout">
           <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
           Logout
         </button>

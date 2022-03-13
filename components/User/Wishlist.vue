@@ -1,7 +1,7 @@
 <template>
   <div class="wishlist-container">
     <ProductCard
-      v-for="(data, index) in datas"
+      v-for="(data, index) in wishListProductList"
       :key="index"
       :data="data"
       isInWishlist
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -99,6 +100,15 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    ...mapGetters(["wishListProductList"]),
+  },
+  methods: {
+    ...mapActions(["getWishListProducts"]),
+  },
+  fetch() {
+    this.getWishListProducts();
   },
 };
 </script>
