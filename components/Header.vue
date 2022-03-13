@@ -17,7 +17,7 @@
           </button>
         </div>
         <div class="header-back-button">
-          <button @click="$router.back()">
+          <button @click="$router.back()" v-if="$route.path !== '/'">
             <font-awesome-icon :icon="['fas', 'arrow-left']" />
           </button>
         </div>
