@@ -6,7 +6,6 @@
     "
     v-if="!isWishListProduct"
   >
-    {{ data.name }}
     <div
       class="
         transition-[translate]
