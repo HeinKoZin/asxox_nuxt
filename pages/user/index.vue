@@ -94,11 +94,11 @@ export default {
 }
 
 .user-profile-avatar {
-  @apply relative top-12 md:left-5 mx-auto md:mx-0;
+  @apply relative top-12 md:left-5 mx-auto md:mx-0 w-32 h-32;
 }
 
 .user-profile-avatar img {
-  @apply rounded-full;
+  @apply rounded-full w-32 h-32 object-cover absolute;
 }
 
 .user-profile-info-container {

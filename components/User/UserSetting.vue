@@ -10,7 +10,6 @@
             </button>
           </div>
         </div>
-        {{ userData }}
         <div class="user-setting-input-group">
           <div class="user-setting-input">
             <label>Name</label>
@@ -22,7 +21,7 @@
           </div>
           <div class="user-setting-input">
             <label>Phone</label>
-            <input type="text" placeholder="Name" v-model="userData.phone" />
+            <input type="text" placeholder="Phone" v-model="userData.phone" />
           </div>
           <div class="user-setting-input">
             <label for="">Gender</label>
@@ -107,10 +106,7 @@ export default {
   mixins: [generalMixins],
   data() {
     return {
-      userData: {
-        dob: "2021-05-03",
-        job: "engineer",
-      },
+      userData: {},
       states: [],
       cities: [],
     };
@@ -118,7 +114,8 @@ export default {
   methods: {
     async userUpdate() {
       const res = await this.generalPostApis("customers/update", this.userData);
-      res.error === "error"
+      console.log(res);
+      res.status === "error" || res.errors?.length > 1
         ? this.toast(res.message, "error")
         : this.toast("User Profile Updated Successfully", "success");
     },
@@ -126,7 +123,52 @@ export default {
 
   async fetch() {
     const user = JSON.parse(JSON.stringify(this.$auth.user.data));
-    this.userData = user.customer;
+    console.log(user);
+    const customerdata = [
+      {
+        type: "name",
+        value: user.customer.name,
+      },
+      {
+        type: "gender",
+        value: user.customer.gender,
+      },
+      {
+        type: "phone",
+        value: user.customer.phone,
+      },
+      {
+        type: "dob",
+        value: user.customer.dob,
+      },
+      {
+        type: "job",
+        value: user.customer.job,
+      },
+      {
+        type: "name",
+        value: user.customer.name,
+      },
+      {
+        type: "state_id",
+        value: user.customer.state_id,
+      },
+      {
+        type: "city_id",
+        value: user.customer.city_id,
+      },
+      {
+        type: "status",
+        value: user.customer.status,
+      },
+      {
+        type: "address",
+        value: user.customer.address,
+      },
+    ];
+    customerdata.forEach((data) => {
+      this.userData[data.type] = data.value;
+    });
 
     //NOTE: default state and city and address
     this.userData.email = user.email;

@@ -15,7 +15,7 @@
           :checked="address.status"
         />
       </div>
-      <div class="flex flex-grow">
+      <div class="flex flex-grow gap-x-1">
         <div class="flex flex-col justify-center flex-grow gap-y-2">
           <div class="address-content-address">
             <span>{{ address.name }}</span>
@@ -69,7 +69,7 @@ export default {
 
 <style lang="postcss" scoped>
 .address-content-container {
-  @apply flex w-full bg-slate-100 p-4 px-6 items-center border-2 border-transparent gap-x-4 rounded-lg my-0 font-quicksand font-bold text-sm cursor-pointer;
+  @apply flex w-full bg-slate-100 p-4 px-4 items-center border-2 border-transparent gap-x-4 rounded-lg my-0 font-quicksand font-bold text-sm;
 }
 
 .address-content-checkbox {
@@ -81,5 +81,9 @@ export default {
 
 .active {
   @apply border-orange-500;
+}
+
+span {
+  @apply line-clamp-1;
 }
 </style>

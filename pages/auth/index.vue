@@ -5,7 +5,12 @@
         class="info-container-wrapper"
         :class="isLogin ? 'login' : 'register'"
       >
-        Info
+        <div class="relative w-full h-full">
+          <img
+            :src="require(`~/assets/img/auth/${getCoverImg}.png`)"
+            class="auth-cover-img"
+          />
+        </div>
       </div>
     </AnimationView>
 
@@ -273,6 +278,18 @@ export default {
       this.errors = {};
     },
   },
+  computed: {
+    //
+    getCoverImg() {
+      return this.isLogin ? "login" : "signup";
+    },
+  },
+  mounted() {
+    //-
+    // this.cover_source = this.isLogin
+    //   ? "~/assets/img/auth/login.png"
+    //   : "~/assets/img/auth/signup.png";
+  },
   watch: {
     // Check the length of email and password
     login: {
@@ -345,7 +362,7 @@ export default {
 
 /* NOTE: Info container */
 .info-container-wrapper {
-  @apply w-full md:w-7/12 h-full  bg-slate-600   hidden md:flex flex-col p-6 box-border absolute z-40;
+  @apply w-full md:w-7/12 h-full  bg-slate-600   hidden md:flex flex-col  box-border absolute z-40;
 }
 
 .info-container-wrapper.login {
@@ -357,5 +374,9 @@ export default {
 }
 .input-error-message {
   @apply text-red-600 w-full text-left text-sm font-sans font-semibold;
+}
+
+.auth-cover-img {
+  @apply w-full h-full object-cover absolute;
 }
 </style>

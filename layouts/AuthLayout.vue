@@ -1,6 +1,11 @@
 <template>
   <div class="auth-layout-container">
-    <div class="info-container-wrapper">Info</div>
+    <div class="info-container-wrapper">
+      <div class="relative w-full h-full">
+        <!-- Info Image -->
+        <img src="~/assets/img/auth/verified.png" class="auth-cover-img" />
+      </div>
+    </div>
     <div class="auth-form-container-wrapper">
       <AnimationView class="p-1">
         <div class="auth-form-container">
@@ -48,7 +53,7 @@ export default {};
 }
 
 .info-container-wrapper {
-  @apply w-full md:w-7/12 bg-slate-600   hidden md:flex flex-col p-6 box-border;
+  @apply w-full md:w-7/12 bg-slate-600   hidden md:flex flex-col box-border;
 }
 
 .auth-form-container-wrapper {
