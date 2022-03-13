@@ -112,6 +112,7 @@ export default {
         if (Object.keys(this.errors).length > 0) return true;
 
         this.ADD_NEW_ADDRESS(this.newAddress);
+        this.toast("Address added successfully");
         this.$emit("closeModal");
       } catch (error) {
         console.log(error);

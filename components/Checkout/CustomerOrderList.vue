@@ -89,7 +89,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["REFRESH_ORDER"]),
+    ...mapMutations(["REFRESH_ORDER", "SET_WHOLE_PRODUCTS_TO_CART"]),
     async finalOrder() {
       try {
         if (this.cartProducts.length === 0) {
@@ -99,6 +99,7 @@ export default {
         await this.generalPostApis("orders", this.order);
         //draft
         this.toast("Ordered successfully", "success");
+        this.SET_WHOLE_PRODUCTS_TO_CART([]);
       } catch (error) {
         console.log(error);
       }
