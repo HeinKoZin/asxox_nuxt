@@ -25,31 +25,23 @@
             class="btn btn-sm btn-outline-primary"
             @click="product.qty > 1 ? changeQty('minus', product.qty) : null"
           >
-            <font-awesome-icon :icon="['fas', 'minus']" class="icon" />
+            <i class="fa-solid fa-minus icon"></i>
           </button>
           <input type="text" :value="product.qty" />
           <button
             class="btn btn-sm btn-outline-primary"
             @click="changeQty('plus', product.qty)"
           >
-            <font-awesome-icon :icon="['fas', 'plus']" class="icon" />
+            <i class="fa-solid fa-plus icon"></i>
           </button>
         </div>
       </div>
       <div class="cart-item-action">
         <button
-          class="
-            btn btn-sm btn-outline-primary
-            bg-orange-600
-            text-white
-            w-9
-            h-9
-            rounded-md
-            hover:bg-orange-700
-          "
+          class="text-white bg-orange-600 rounded-md btn btn-sm btn-outline-primary w-9 h-9 hover:bg-orange-700"
           @click="REMOVE_PRODUCT_FROM_CART(productId)"
         >
-          <font-awesome-icon :icon="['fas', 'trash']" class="icon" />
+          <i class="fa-solid fa-trash icon"></i>
         </button>
       </div>
     </div>

@@ -1,9 +1,8 @@
 <template>
   <span class="w-12 h-12">
-    <font-awesome-icon
-      :icon="['fas', 'spinner']"
-      class="animate-spin h-full w-full text-lg cursor-pointer"
-    />
+    <i
+      class="w-full h-full text-lg cursor-pointer fa-solid fa-spinner animate-spin"
+    ></i>
   </span>
 </template>
 

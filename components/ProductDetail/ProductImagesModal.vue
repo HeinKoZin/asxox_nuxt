@@ -1,14 +1,14 @@
 <template>
   <div class="product-images-modal-container" @click.self="closeModal()">
     <button class="modal-close-btn" @click="closeModal()">
-      <span><font-awesome-icon class="icon" :icon="['fas', 'times']" /></span>
+      <span><i class="fa-solid fa-xmark icon"></i></span>
     </button>
     <div class="photos-slide-btn-group">
       <button class="photos-slide-btn" @click="prevPhoto()">
-        <font-awesome-icon class="icon" :icon="['fas', 'angle-left']" />
+        <i class="fa-solid fa-angle-left icon"></i>
       </button>
       <button class="photos-slide-btn" @click="nextPhoto()">
-        <font-awesome-icon class="icon" :icon="['fas', 'angle-right']" />
+        <i class="fa-solid fa-angle-right icon"></i>
       </button>
     </div>
     <div

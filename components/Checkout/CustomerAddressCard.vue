@@ -1,23 +1,19 @@
 <template>
   <div
-    :class="
-      'customer-address-container-wrapper ' + (isInProfile ? 'profile' : '')
+    :class="'customer-address-container-wrapper ' + (isInProfile ? 'profile' : '')
     "
   >
     <div class="customer-address-container">
       <div class="address-title">
         <div class="flex gap-x-2">
           <span>
-            <font-awesome-icon
-              class="shopping-icon"
-              :icon="['fas', 'map-marker-alt']"
-            />
+            <i class="fa-solid fa-location-dot shopping-icon"></i>
           </span>
           <span>Shipping Address</span>
         </div>
         <div>
           <button @click="$emit('openModal')">
-            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
+            <i class="fa-solid fa-plus icon"></i>
             Add address
           </button>
         </div>

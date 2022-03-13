@@ -4,7 +4,7 @@
       <div class="header">
         <div class="flex gap-x-4">
           <span class="order-badge">
-            <font-awesome-icon class="order-icon" :icon="['fas', 'box-open']" />
+            <i class="fa-solid fa-box-open order-icon"></i>
             <span>{{ calculateCartProductQuantity }}</span>
           </span>
           <span>Your Order</span>
@@ -39,14 +39,14 @@
           </div>
           <div class="total-price-wrapper" v-if="order.coupon_amount">
             <div class="total-price-label">Coupon Discount :</div>
-            <div class="total-price line-through">
+            <div class="line-through total-price">
               {{ order.coupon_amount }} MMK
               {{ order.coupon_percent ? `( ${order.coupon_percent}% )` : "" }}
             </div>
           </div>
           <div class="total-price-wrapper" v-if="order.point_amount">
             <div class="total-price-label">Point Discount :</div>
-            <div class="total-price line-through">
+            <div class="line-through total-price">
               {{ order.point_value }} MMK
             </div>
           </div>

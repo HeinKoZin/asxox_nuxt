@@ -4,7 +4,7 @@
       <div class="customer-data-title">
         <div class="flex gap-x-2">
           <span>
-            <font-awesome-icon class="shopping-icon" :icon="['fas', 'user']" />
+            <i class="fa-solid fa-user shopping-icon"></i>
           </span>
           <span>Customer Info</span>
         </div>

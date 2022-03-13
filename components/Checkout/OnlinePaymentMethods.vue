@@ -4,10 +4,7 @@
       <div class="payment-methods-title">
         <div class="flex gap-x-2">
           <span>
-            <font-awesome-icon
-              class="credit-card-icon"
-              :icon="['fas', 'credit-card']"
-            />
+            <i class="fa-solid fa-credit-card credit-card-icon"></i>
           </span>
           <span>Online Payment Methods</span>
         </div>
@@ -45,10 +42,7 @@
         <div class="payment-method-wrapper">
           <div class="payment-method">
             <span>
-              <font-awesome-icon
-                class="payment-method-icon"
-                :icon="['fas', 'check-circle']"
-              />
+              <i class="fa-solid fa-circle-check payment-method-icon"></i>
             </span>
             <img src="~/assets/img/wave.png" alt="" srcset="" />
           </div>
@@ -56,10 +50,7 @@
         <div class="payment-method-wrapper">
           <div class="payment-method">
             <span>
-              <font-awesome-icon
-                class="payment-method-icon"
-                :icon="['fas', 'check-circle']"
-              />
+              <i class="fa-solid fa-circle-check payment-method-icon"></i>
             </span>
             <img src="~/assets/img/kbzpay.png" alt="" srcset="" />
           </div>
