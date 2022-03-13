@@ -73,6 +73,11 @@ export default {
     this.orders = res.data.data.orders;
     this.userData = this.$auth.user.data;
   },
+  mounted() {
+    if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
+      this.$router.push("/auth");
+    }
+  },
 };
 </script>
 

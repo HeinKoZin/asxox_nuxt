@@ -49,7 +49,11 @@
       </div>
       <div class="header-right">
         <div class="header-user">
-          <button class="header-user-button" size="sm" @click="toggleUserMenu">
+          <button
+            class="header-user-button"
+            size="sm"
+            @click="toggleUserMenu()"
+          >
             <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
           </button>
           <div
@@ -67,19 +71,19 @@
             </div>
             <hr />
             <ul>
-              <li>
+              <li @click="$router.push('/user'), toggleUserMenu()">
                 <font-awesome-icon
                   :icon="['fas', 'user-circle']"
                   class="icon"
                 />Profile
               </li>
-              <li>
+              <li @click="$router.push('/user/orders'), toggleUserMenu()">
                 <font-awesome-icon
                   :icon="['fas', 'history']"
                   class="icon"
                 />Purchased History
               </li>
-              <li>
+              <li @click="$router.push('/user/setting'), toggleUserMenu()">
                 <font-awesome-icon
                   :icon="['fas', 'cog']"
                   class="icon"
@@ -102,11 +106,17 @@
               <span class="user-email">Login or Register </span>
             </div>
             <hr />
-            <button class="user-logout">
+            <button
+              class="user-logout"
+              @click="$router.push('/auth'), toggleUserMenu()"
+            >
               <font-awesome-icon :icon="['fas', 'user-plus']" class="icon" />
               Register
             </button>
-            <button class="user-logout">
+            <button
+              class="user-logout"
+              @click="$router.push('/auth'), toggleUserMenu()"
+            >
               <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
               Login
             </button>

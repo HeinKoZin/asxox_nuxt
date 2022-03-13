@@ -42,6 +42,11 @@ export default {
     const res = await this.generalGetApis("orders");
     this.orders = res.data.data.orders;
   },
+  mounted() {
+    if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
+      this.$router.push("/auth");
+    }
+  },
 };
 </script>
 

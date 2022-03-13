@@ -94,6 +94,11 @@ export default {
       },
     },
   },
+  mounted() {
+    if (this.$auth.$storage.getLocalStorage("loggedIn")) {
+      this.$router.push("/");
+    }
+  },
 };
 </script>
 

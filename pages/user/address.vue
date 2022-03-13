@@ -26,6 +26,11 @@ export default {
       this.isModalOpen = false;
     },
   },
+  mounted() {
+    if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
+      this.$router.push("/auth");
+    }
+  },
 };
 </script>
 
