@@ -10,12 +10,9 @@
             {{ product.parent_product_name }}
           </h4>
         </div>
-        <div class="cart-item-title" v-if="product.variant_name">
-          <h4>
-            <b>({{ product.variant_name }})</b>
-          </h4>
+        <div class="cart-item-variants" v-if="product.variant_name">
+          <span>({{ product.variant_name }})</span>
         </div>
-        <div class="cart-item-variants"><span>(Red/ Pattern A)</span></div>
         <div class="cart-item-price">
           <span>{{ product.sell_price }} {{ product.currency }}</span>
         </div>

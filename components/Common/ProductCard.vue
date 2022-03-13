@@ -4,7 +4,7 @@
       'group ' +
       (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
     "
-    v-if="isWishListProduct"
+    v-if="!isWishListProduct"
   >
     {{ data.name }}
     <div

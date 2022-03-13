@@ -5,6 +5,7 @@
       :key="index"
       :data="data"
       isInWishlist
+      isWishListProduct
     />
   </div>
 </template>
