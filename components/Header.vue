@@ -18,7 +18,7 @@
         </div>
         <div class="header-back-button">
           <button @click="$router.back()">
-            <i class="fa-solid fa-arrow-left-long icon"></i>
+            <i class="fa-solid fa-arrow-left icon"></i>
           </button>
         </div>
         <div class="header-logo">
