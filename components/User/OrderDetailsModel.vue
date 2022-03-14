@@ -6,7 +6,7 @@
         style="color: #fff"
         @click="SET_IS_ORDER_DETAIL()"
       >
-        <font-awesome-icon :icon="['fas', 'times']" />
+        <i class="fa-solid fa-xmark"></i>
       </button>
       <div class="modal-header">
         <h2>Order Details</h2>
