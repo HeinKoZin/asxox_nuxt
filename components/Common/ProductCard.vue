@@ -110,12 +110,6 @@
               addToWishList(product.product.id, product.product.is_wishlist)
             "
           >
-            <font-awesome-icon :icon="['far', 'heart']" class="icon active" />
-            <!-- <font-awesome-icon
-              v-if="isInWishlist"
-              :icon="['fas', 'heart']"
-              class="icon active"
-            /> -->
             <div>
               <i class="fa-solid fa-heart icon active"></i>
             </div>
