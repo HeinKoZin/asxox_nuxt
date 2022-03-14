@@ -37,6 +37,11 @@ const mutations = {
 
   SET_WHOLE_PRODUCTS_TO_CART(state, data) {
     state.cartProducts = data;
+    this.app.$cookies.remove("cartProducts");
+    this.app.$cookies.set("cartProducts", state.cartProducts, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
     this.commit("REFRESH_ORDER");
   },
 

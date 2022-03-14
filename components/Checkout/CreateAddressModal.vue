@@ -22,7 +22,12 @@
         </div>
         <div class="input-group">
           <label for="phone">Phone</label>
-          <input type="text" id="phone" v-model="newAddress.phone" />
+          <input
+            type="text"
+            id="phone"
+            v-model="newAddress.phone"
+            @keydown.space.prevent
+          />
           <span class="text-red-500 text-sm" v-if="errors ? errors.phone : ''"
             ><b>{{ errors.phone[0] }}</b></span
           >
