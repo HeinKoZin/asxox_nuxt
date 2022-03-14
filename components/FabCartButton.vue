@@ -2,7 +2,7 @@
   <div class="fab-container" v-if="!isCartOpen">
     <button class="fab-container-btn" @click="toggleCart">
       <span class="badge">2</span>
-      <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+      <i class="fa-solid fa-cart-shopping icon"></i>
     </button>
   </div>
 </template>

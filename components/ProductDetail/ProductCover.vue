@@ -15,11 +15,7 @@
               </div>
               <span>|</span>
               <div class="product-rating">
-                <span
-                  ><font-awesome-icon
-                    class="text-orange-500"
-                    :icon="['fas', 'star']"
-                /></span>
+                <span><i class="text-orange-500 fa-solid fa-star"></i></span>
                 <span>4.5</span>
                 <span>/5</span>
               </div>
@@ -186,11 +182,11 @@
         <div class="product-quantity-label">Quantity :</div>
         <div class="product-quantity-value">
           <button @click="decreaseQuantity()">
-            <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
+            <i class="fa-solid fa-minus icon"></i>
           </button>
           <input type="number" :value="product.quantity" />
           <button @click="increaseQuantity()">
-            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
+            <i class="fa-solid fa-plus icon"></i>
           </button>
         </div>
       </div>
@@ -202,9 +198,7 @@
             :disabled="product.is_varient && !isVariantHas"
             @click="addToCartFinal(product)"
           >
-            <span
-              ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
-            /></span>
+            <span><i class="fa-solid fa-cart-plus icon"></i></span>
             <span>Add to Cart</span>
           </button>
 
@@ -213,7 +207,7 @@
             :class="{ active: product.is_wishlist }"
             @click="addProductToWishList"
           >
-            <font-awesome-icon class="icon" :icon="['fas', 'heart']" />
+            <i class="fa-solid fa-heart icon"></i>
           </button>
         </div>
         <!-- NOTE: Buy now -->
@@ -223,8 +217,8 @@
           @click="addToCartFinal(product), $router.push('/checkout')"
         >
           <span
-            ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
-          /></span>
+            ><span><i class="fa-solid fa-cart-plus icon"></i></span
+          ></span>
           <span>Buy now</span>
         </button>
       </div>

@@ -3,10 +3,9 @@
     <div class="cart-container">
       <div class="cart-header">
         <button @click="SET_CART(!isCartOpen)">
-          <font-awesome-icon
-            :icon="['fas', 'times']"
-            class="text-slate-500 hover:text-slate-700 close-icon"
-          />
+          <i
+            class="fa-solid fa-xmark icon text-slate-500 hover:text-slate-700 close-icon"
+          ></i>
         </button>
         <div class="cart-header-title">
           <h3>Your Cart</h3>
@@ -36,7 +35,7 @@
             class="btn btn-sm btn-primary"
             @click="$router.push('/checkout'), SET_CART(!isCartOpen)"
           >
-            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+            <i class="fa-solid fa-cart-shopping icon"></i>
             <span>Checkout</span>
           </button>
         </div>

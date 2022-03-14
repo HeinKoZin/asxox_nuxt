@@ -15,14 +15,14 @@
       <!-- NOTE: Item -->
       <div class="sidebar-menu-item active">
         <button class="btn" @click="$router.push('/')">
-          <font-awesome-icon class="icon" :icon="['fas', 'home']" />
+          <i class="fa-solid fa-house icon"></i>
         </button>
         <span class="menu-label">Home</span>
       </div>
       <!-- NOTE: Item -->
       <div class="sidebar-menu-item">
         <button class="btn">
-          <font-awesome-icon class="icon" :icon="['fas', 'store-alt']" />
+          <i class="fa-solid fa-shop icon"></i>
         </button>
         <span class="menu-label">Shop</span>
       </div>
@@ -41,17 +41,17 @@
     <div class="sidebar-menu">
       <div class="sidebar-menu-item active">
         <button class="btn">
-          <font-awesome-icon class="icon" :icon="['fas', 'bars']" />
+          <i class="fa-solid fa-bars icon"></i>
         </button>
         <span class="menu-label">Category</span>
       </div>
 
-      <div class="sidebar-menu-item">
+      <!-- <div class="sidebar-menu-item">
         <button class="btn">
-          <font-awesome-icon class="icon" :icon="['fas', 'sign-out-alt']" />
+          <i class="fa-solid fa-right-from-bracket icon"></i>
         </button>
         <span class="menu-label">Logout</span>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

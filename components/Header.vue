@@ -7,18 +7,18 @@
             v-if="!isMobileMenuOpen"
             @click="SET_MOBILE_MENU(!isMobileMenuOpen)"
           >
-            <font-awesome-icon :icon="['fas', 'bars']" class="icon" />
+            <i class="fa-solid fa-bars icon"></i>
           </button>
           <button
             v-if="isMobileMenuOpen"
             @click="SET_MOBILE_MENU(!isMobileMenuOpen)"
           >
-            <font-awesome-icon :icon="['fas', 'times']" class="icon" />
+            <i class="fa-solid fa-xmark icon"></i>
           </button>
         </div>
         <div class="header-back-button">
           <button @click="$router.back()" v-if="$route.path !== '/'">
-            <font-awesome-icon :icon="['fas', 'arrow-left']" />
+            <i class="fa-solid fa-arrow-left icon"></i>
           </button>
         </div>
         <div class="header-logo">
@@ -40,10 +40,13 @@
         <div class="header-search">
           <input type="text" placeholder="Search" />
           <Button class="header-search-button" size="sm">
-            <font-awesome-icon
-              :icon="['fas', 'search']"
-              class="text-slate-500 hover:text-slate-700"
-            />
+            <i
+              class="
+                fa-solid fa-magnifying-glass
+                text-slate-500
+                hover:text-slate-700
+              "
+            ></i>
           </Button>
         </div>
       </div>
@@ -54,7 +57,7 @@
             size="sm"
             @click="toggleUserMenu()"
           >
-            <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
+            <i class="fa-solid fa-circle-user icon"></i>
           </button>
           <div
             v-if="isUserMenuOpen && $auth.$storage.getLocalStorage('loggedIn')"
@@ -72,26 +75,18 @@
             <hr />
             <ul>
               <li @click="$router.push('/user'), toggleUserMenu()">
-                <font-awesome-icon
-                  :icon="['fas', 'user-circle']"
-                  class="icon"
-                />Profile
+                <i class="fa-solid fa-circle-user icon"></i>Profile
               </li>
               <li @click="$router.push('/user/orders'), toggleUserMenu()">
-                <font-awesome-icon
-                  :icon="['fas', 'history']"
-                  class="icon"
-                />Purchased History
+                <i class="fa-solid fa-clock-rotate-left icon"></i>Purchased
+                History
               </li>
               <li @click="$router.push('/user/setting'), toggleUserMenu()">
-                <font-awesome-icon
-                  :icon="['fas', 'cog']"
-                  class="icon"
-                />Settings
+                <i class="fa-solid fa-gear icon"></i>Settings
               </li>
             </ul>
             <button class="user-logout" @click="userLogout">
-              <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
+              <i class="fa-solid fa-right-from-bracket icon"></i>
               Logout
             </button>
           </div>
@@ -110,14 +105,14 @@
               class="user-logout"
               @click="$router.push('/auth'), toggleUserMenu()"
             >
-              <font-awesome-icon :icon="['fas', 'user-plus']" class="icon" />
+              <i class="fa-solid fa-user-plus icon"></i>
               Register
             </button>
             <button
               class="user-logout"
               @click="$router.push('/auth'), toggleUserMenu()"
             >
-              <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
+              <i class="fa-solid fa-right-to-bracket icon"></i>
               Login
             </button>
           </div>
@@ -127,7 +122,7 @@
             <span class="badge" v-if="calculateCartProductQuantity">{{
               calculateCartProductQuantity
             }}</span>
-            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+            <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
         </div>
         <div class="header-wishlist">
@@ -138,7 +133,7 @@
             <span class="badge" v-if="giveWishlistLength">{{
               giveWishlistLength
             }}</span>
-            <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
+            <i class="fa-solid fa-heart icon"></i>
           </button>
         </div>
       </div>

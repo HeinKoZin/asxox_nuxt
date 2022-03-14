@@ -3,7 +3,7 @@
     <div class="order-note-container">
       <div class="order-note-title">
         <span>
-          <font-awesome-icon class="icon" :icon="['fas', 'sticky-note']" />
+          <i class="fa-solid fa-note-sticky icon"></i>
         </span>
         <span>Order Note</span>
       </div>

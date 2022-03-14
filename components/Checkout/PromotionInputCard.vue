@@ -4,7 +4,7 @@
       <div class="promotion-title">
         <div class="flex gap-x-2">
           <span>
-            <font-awesome-icon class="shopping-icon" :icon="['fas', 'gift']" />
+            <i class="fa-solid fa-gift shopping-icon"></i>
           </span>
           <span>Discount</span>
         </div>

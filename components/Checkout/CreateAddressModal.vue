@@ -4,10 +4,7 @@
       <div class="address-title">
         <div class="flex gap-x-2">
           <span>
-            <font-awesome-icon
-              class="shopping-icon"
-              :icon="['fas', 'map-marker-alt']"
-            />
+            <i class="fa-solid fa-location-dot shopping-icon"></i>
           </span>
           <span>Address</span>
         </div>

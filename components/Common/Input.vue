@@ -13,12 +13,12 @@
     <!-- <button v-if="showButton" class="show-password-btn" @click="handlePassword">
       {{ showPassword ? "Hide" : "Show" }}
     </button> -->
-    <font-awesome-icon
-      @click="handlePassword"
-      v-if="showButton"
-      class="show-password-btn"
-      :icon="['fas', showPassword ? 'eye-slash' : 'eye']"
-    />
+
+    <span v-if="showButton" @click="handlePassword" class="show-password-btn">
+      <i
+        :class="`fa-solid fa-eye ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`"
+      ></i>
+    </span>
     <span class="input-error-message">{{ error }}</span>
   </div>
 </template>
@@ -53,6 +53,10 @@ export default {
   computed: {
     showButton() {
       return this.type === "password" ? true : false;
+    },
+
+    buttonStatus() {
+      return `fa-solid ${this.showPassword ? " fa-eye" : " fa-eye-slash"}`;
     },
   },
 

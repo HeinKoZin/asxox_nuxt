@@ -47,13 +47,13 @@
             @click="data.is_varient ? null : addProductToCart(data)"
             v-if="!data.is_varient"
           >
-            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+            <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
           <button
             class="w-10 h-10 bg-white rounded-full"
             @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
           >
-            <font-awesome-icon :icon="['fas', 'eye']" class="icon" />
+            <i class="fa-solid fa-eye icon"></i>
           </button>
         </div>
         <img class="card-header-image" :src="data.temp_photo" />

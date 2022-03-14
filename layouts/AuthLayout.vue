@@ -11,22 +11,11 @@
         <div class="auth-form-container">
           <div class="w-full">
             <Button
-              class="
-                font-bold
-                px-4
-                top-40
-                left-20
-                float-left
-                rounded-xl
-                border-2 border-slate-400
-              "
+              class="font-bold px-4 top-40 left-20 float-left rounded-xl border-2 border-slate-400"
               size="md"
               @click.native="$router.back()"
             >
-              <font-awesome-icon
-                slot="start-icon"
-                :icon="['fas', 'long-arrow-alt-left']"
-              />
+              <i class="fa-solid fa-arrow-left-long" slot="star-icon"></i>
             </Button>
           </div>
           <img class="logo" src="~/assets/img/logo.png" alt="Logo" />

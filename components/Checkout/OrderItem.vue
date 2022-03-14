@@ -30,20 +30,20 @@
             @click="product.qty > 1 ? changeQty('minus', product.qty) : null"
             class="cart-item-minus-btn"
           >
-            <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
+            <i class="fa-solid fa-minus icon"></i>
           </button>
           <button
             class="cart-item-plus-btn"
             @click="changeQty('plus', product.qty)"
           >
-            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
+            <i class="fa-solid fa-plus icon"></i>
           </button>
         </div>
         <button
           class="order-item-remove-btn"
           @click="REMOVE_PRODUCT_FROM_CART(productId)"
         >
-          <font-awesome-icon class="icon" :icon="['fas', 'trash']" />
+          <i class="fa-solid fa-trash icon"></i>
         </button>
       </div>
     </div>
