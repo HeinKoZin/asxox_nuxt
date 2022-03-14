@@ -3,7 +3,7 @@
     <div class="header">
       <span class="order-badge">
         <font-awesome-icon class="order-icon" :icon="['fas', 'box-open']" />
-        <span>2</span>
+        <span>{{ orders.length }}</span>
       </span>
       <h2>Your Orders</h2>
     </div>
