@@ -194,10 +194,10 @@ export default {
       if (res?.data?.status || res?.status === "success") {
         this.toast(res?.data?.message || res?.message, "success");
         if (!this.isWishListProduct) {
-          this.SET_CATEGORY_PRODUCT_FAVOURITE({
-            categoryIndex: this.categoryIndex,
-            productIndex: this.productIndex,
-          });
+          // this.SET_CATEGORY_PRODUCT_FAVOURITE({
+          //   categoryIndex: this.categoryIndex,
+          //   productIndex: this.productIndex,
+          // });
         } else {
           this.$emit("removeWishlist", this.wishListIndex);
           // this.REMOVE_WISHLISH_PRODUCTS({

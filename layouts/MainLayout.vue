@@ -1,6 +1,6 @@
 <template>
   <MainLayoutComponent>
-    <Nuxt />
+    <Nuxt keep-alive />
   </MainLayoutComponent>
 </template>
 

@@ -19,7 +19,7 @@
         <ProductImages :description_photos="product.description_photos" />
         <ProductInfo :product="product" />
         <ProductDescription />
-        <RecommendedProducts />
+        <RecommendedProducts :products="recommendedProducts" />
       </div>
     </div>
   </div>
@@ -37,6 +37,7 @@ export default {
       colors: [],
       patterns: [],
       accessories: [],
+      recommendedProducts: [],
     };
   },
   head() {
@@ -93,10 +94,17 @@ export default {
   },
 
   async fetch() {
+    //fetch product detail
     const res = await this.generalGetApis(
       `/products/${this.$asxox.asxox_decode(this.$route.params.id)}`
     );
     this.product = res.data.data;
+
+    //fetch recommended products
+    const categoryRes = await this.generalGetApis(
+      `products/category/${res.data.data.categories[0].id}?limit=15`
+    );
+    this.recommendedProducts = categoryRes.data.data;
     if (this.product.product_varients?.length > 0) {
       this.product.product_varients.map((product) => {
         const newData = [

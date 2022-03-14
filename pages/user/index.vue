@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <RecommendedProducts />
+    <RecommendedProducts :products="recommendedProducts" />
   </div>
 </template>
 
@@ -58,6 +58,7 @@ export default {
     return {
       userData: {},
       orders: [],
+      recommendedProducts: [],
     };
   },
   computed: {
@@ -70,6 +71,11 @@ export default {
   },
   async fetch() {
     const res = await this.generalGetApis("orders");
+    //fetch recommended products
+    const categoryRes = await this.generalGetApis(
+      `products/category/1?limit=15`
+    );
+    this.recommendedProducts = categoryRes.data.data;
     this.orders = res.data.data.orders;
     this.userData = this.$auth.user.data;
   },
