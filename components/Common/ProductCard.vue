@@ -31,14 +31,16 @@
           >
             <font-awesome-icon
               v-if="!isInWishlist"
-              :icon="['far', 'heart']"
+              :icon="['fas', 'heart']"
               class="icon"
+              :class="data.is_wishlist ? 'active' : ''"
             />
-            <font-awesome-icon
+            {{ data.is_wishlist }}
+            <!-- <font-awesome-icon
               v-if="isInWishlist"
               :icon="['fas', 'heart']"
-              class="icon active"
-            />
+              class="icon"
+            /> -->
           </button>
           <button
             class="w-10 h-10 bg-white rounded-full"
@@ -100,16 +102,12 @@
             class="w-10 h-10 bg-white rounded-full"
             @click="addToWishList(data.product.id, data.product.is_wishlist)"
           >
-            <font-awesome-icon
-              v-if="!isInWishlist"
-              :icon="['far', 'heart']"
-              class="icon"
-            />
-            <font-awesome-icon
+            <font-awesome-icon :icon="['far', 'heart']" class="icon active" />
+            <!-- <font-awesome-icon
               v-if="isInWishlist"
               :icon="['fas', 'heart']"
               class="icon active"
-            />
+            /> -->
           </button>
           <button
             class="w-10 h-10 bg-white rounded-full"
@@ -198,6 +196,7 @@ export default {
           //   categoryIndex: this.categoryIndex,
           //   productIndex: this.productIndex,
           // });
+          this.data.is_wishlist = !is_wishlist;
         } else {
           this.$emit("removeWishlist", this.wishListIndex);
           // this.REMOVE_WISHLISH_PRODUCTS({
