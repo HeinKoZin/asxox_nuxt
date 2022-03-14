@@ -12,6 +12,7 @@
           :color="colors"
           :pattern="patterns"
           :accessories="accessories"
+          @changeIsActive="changeIsActive"
         />
       </div>
       <div class="product-detail">
@@ -26,7 +27,6 @@
 
 <script>
 import { generalMixins } from "@/mixins/general";
-import MainLayout from "~/layouts/MainLayout.vue";
 export default {
   mixins: [generalMixins],
   layout: "MainLayout",
@@ -59,6 +59,22 @@ export default {
     };
   },
   methods: {
+    changeIsActive(value) {
+      switch (value.type) {
+        case "size":
+          this.sizes[value.index].isActive = value.data;
+          break;
+        case "color":
+          this.colors[value.index].isActive = value.data;
+          break;
+        case "pattern":
+          this.patterns[value.index].isActive = value.data;
+          break;
+        case "accessories":
+          this.accessories[value.index].isActive = value.data;
+          break;
+      }
+    },
     ogImage() {
       if (
         !this.$fetchState.pending &&
@@ -81,7 +97,6 @@ export default {
       `/products/${this.$asxox.asxox_decode(this.$route.params.id)}`
     );
     this.product = res.data.data;
-    console.log(this.product);
     if (this.product.product_varients?.length > 0) {
       this.product.product_varients.map((product) => {
         const newData = [

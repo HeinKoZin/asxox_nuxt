@@ -194,7 +194,6 @@
           </button>
         </div>
       </div>
-
       <div class="footer-btn-group">
         <div class="flex gap-x-2">
           <!-- NOTE: Add to cart -->
@@ -217,7 +216,6 @@
             <font-awesome-icon class="icon" :icon="['fas', 'heart']" />
           </button>
         </div>
-
         <!-- NOTE: Buy now -->
         <button class="buy-now" :disabled="product.is_varient && !isVariantHas">
           <span
@@ -270,6 +268,7 @@ export default {
   },
   watch: {
     selectedVariant: {
+      deep: true,
       handler() {
         this.selectVarianPhoto();
       },
@@ -319,34 +318,42 @@ export default {
 
     // NOTE: Select variant and if it already selected then remove it
     selectVariant(data, type, index) {
-      let mainData = this[type];
+      const mainData = this[type];
       if (mainData[index].isActive) {
         const removedIndex = this.selectedVariant.findIndex(
           (variant) => variant.data === data.name
         );
         this.selectedVariant.splice(removedIndex, 1);
-        mainData[index].isActive = !mainData[index].isActive;
+        this.$emit("changeIsActive", {
+          type,
+          index,
+          data: !mainData[index].isActive,
+        });
         return false;
       }
-      mainData[index].isActive = !mainData[index].isActive;
-
+      this.$emit("changeIsActive", {
+        type,
+        index,
+        data: !mainData[index].isActive,
+      });
       const currentSelectedVariant = this.selectedVariant.filter(
         (variant) => variant.type === type
       );
-
       if (currentSelectedVariant.length > 0) {
         const currentSelectIndex = mainData.findIndex(
           (variant) => variant.name === currentSelectedVariant[0].data
         );
-        mainData[currentSelectIndex].isActive = false;
+        this.$emit("changeIsActive", {
+          type,
+          index: currentSelectIndex,
+          data: false,
+        });
       }
-
       const isVariantSelectedIndex = this.selectedVariant.findIndex(
         (variant) => variant.type === type
       );
-      isVariantSelectedIndex !== -1
-        ? this.selectedVariant.splice(isVariantSelectedIndex, 1)
-        : null;
+      if (isVariantSelectedIndex !== -1)
+        this.selectedVariant.splice(isVariantSelectedIndex, 1);
       this.selectedVariant.push({ data: data.name, type });
     },
 
@@ -381,7 +388,7 @@ export default {
       for (let i = 0; i < this.product.product_varients.length; i++) {
         this.isVariantHas = false;
         let variantLength = 0;
-        let variant = this.product.product_varients[i];
+        const variant = this.product.product_varients[i];
         let currentVariantLength = this.calculateCurrentVariantLength(
           this.product.product_varients[i]
         );
@@ -395,7 +402,7 @@ export default {
           currentVariantLength === this.selectedVariant.length
             ? this.setVariantPhotoAndDataToProduct(
                 variant,
-                this.selectedVariant
+                JSON.parse(JSON.stringify(this.selectedVariant))
               )
             : (this.isVariantHas = false);
         });
