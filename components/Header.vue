@@ -124,7 +124,9 @@
         </div>
         <div class="header-cart" v-if="!isCartOpen">
           <button class="header-button" @click="toggleCart">
-            <span class="badge">{{ calculateCartProductQuantity }}</span>
+            <span class="badge" v-if="calculateCartProductQuantity">{{
+              calculateCartProductQuantity
+            }}</span>
             <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
           </button>
         </div>
@@ -133,7 +135,9 @@
             class="header-button"
             @click="$router.push('/user/wishlists')"
           >
-            <span class="badge">{{ giveWishlistLength }}</span>
+            <span class="badge" v-if="giveWishlistLength">{{
+              giveWishlistLength
+            }}</span>
             <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
           </button>
         </div>
@@ -171,7 +175,7 @@ export default {
       for (let product of this.cartProducts) {
         qty += product.qty;
       }
-      return qty;
+      return qty || null;
     },
   },
   methods: {
@@ -200,7 +204,7 @@ export default {
     },
   },
   mounted() {
-    if (!this.wishListProductList.length > 0 && this.checkAuthenticated())
+    if (!this.wishListProductList?.length > 0 && this.checkAuthenticated())
       this.getWishListProducts();
   },
 };
