@@ -91,18 +91,17 @@ export default {
   methods: {
     ...mapMutations(["REFRESH_ORDER", "SET_WHOLE_PRODUCTS_TO_CART"]),
     async finalOrder() {
-      try {
-        if (this.cartProducts.length === 0) {
-          this.toast("Please add products to cart!", "info");
-          return;
-        }
-        await this.generalPostApis("orders", this.order);
-        //draft
+      if (this.cartProducts.length === 0) {
+        this.toast("Please add products to cart!", "info");
+        return;
+      }
+      const res = await this.generalPostApis("orders", this.order);
+      if (res.status !== "error" && !res.errors) {
         this.toast("Ordered successfully", "success");
         this.SET_WHOLE_PRODUCTS_TO_CART([]);
-      } catch (error) {
-        console.log(error);
+        return;
       }
+      this.toast(Object.values(res.errors)[0][0], "error");
     },
   },
   mounted() {
