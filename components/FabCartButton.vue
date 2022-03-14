@@ -1,7 +1,7 @@
 <template>
   <div class="fab-container" v-if="!isCartOpen">
     <button class="fab-container-btn" @click="toggleCart">
-      <span class="badge">2</span>
+      <span class="badge">{{ calculateCartProductQuantity }}</span>
       <i class="fa-solid fa-cart-shopping icon"></i>
     </button>
   </div>
@@ -14,7 +14,14 @@ export default {
   components: { Button },
   computed: {
     // NOTE: Method from Vuex getters
-    ...mapGetters(["isCartOpen"]),
+    ...mapGetters(["isCartOpen", "cartProducts"]),
+    calculateCartProductQuantity() {
+      let qty = 0;
+      for (let product of this.cartProducts) {
+        qty += product.qty;
+      }
+      return qty;
+    },
   },
   methods: {
     // NOTE: Method from Vuex mutations
