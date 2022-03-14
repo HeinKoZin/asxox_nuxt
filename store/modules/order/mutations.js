@@ -22,6 +22,13 @@ const mutations = {
     state.order.coupon_code = code;
   },
 
+  REMOVE_COUPON_FROM_ORDER(state, type) {
+    state.order.total_amount = state.order.original_total_amount;
+    state.order.coupon_code = "";
+    state.order.coupon_amount = 0;
+    state.order.coupon_percent = 0;
+  },
+
   SET_ADDRESS_TO_ORDER(state, data) {
     const newData = [
       { type: "address", data: data.address },
@@ -31,6 +38,18 @@ const mutations = {
       { type: "name", data: data.name },
     ];
     newData.forEach((item) => this.commit("SET_ORDER", item));
+  },
+
+  SET_PAYMENT_METHOD(state, data) {
+    state.order.payment_method = data;
+  },
+
+  SET_ORDER_DETAIL(state, data) {
+    state.orderDetail = data;
+  },
+
+  SET_IS_ORDER_DETAIL(state, data) {
+    state.isOrderDetail = !state.isOrderDetail;
   },
 };
 

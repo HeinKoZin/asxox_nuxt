@@ -1,10 +1,8 @@
 <template>
   <div class="auth-error-message">
-    <span class="h-6 w-6 mr-1"
-      ><font-awesome-icon
-        :icon="['fas', 'exclamation-triangle']"
-        class="w-full h-full"
-    /></span>
+    <span class="w-6 h-6 mr-1">
+      <i class="w-full h-full fa-solid fa-triangle-exclamation"></i>
+    </span>
     <slot></slot>
   </div>
 </template>

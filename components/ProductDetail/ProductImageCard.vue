@@ -1,11 +1,7 @@
 <template>
   <div class="product-image-card">
     <div class="video-play-style" ref="videoIcon">
-      <font-awesome-icon
-        :icon="['fas', 'play-circle']"
-        class="icon"
-        v-if="this.isVideo"
-      />
+      <i class="fa-solid fa-circle-play icon" v-if="this.isVideo"></i>
     </div>
     <img :src="this.checkImageOrVideo" ref="productImageRef" />
   </div>

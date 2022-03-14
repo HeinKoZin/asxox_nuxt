@@ -1,14 +1,14 @@
 <template>
-  <div class="product-images-modal-container">
+  <div class="product-images-modal-container" @click.self="closeModal()">
     <button class="modal-close-btn" @click="closeModal()">
-      <span><font-awesome-icon class="icon" :icon="['fas', 'times']" /></span>
+      <span><i class="fa-solid fa-xmark icon"></i></span>
     </button>
     <div class="photos-slide-btn-group">
       <button class="photos-slide-btn" @click="prevPhoto()">
-        <font-awesome-icon class="icon" :icon="['fas', 'angle-left']" />
+        <i class="fa-solid fa-angle-left icon"></i>
       </button>
       <button class="photos-slide-btn" @click="nextPhoto()">
-        <font-awesome-icon class="icon" :icon="['fas', 'angle-right']" />
+        <i class="fa-solid fa-angle-right icon"></i>
       </button>
     </div>
     <div
@@ -17,6 +17,7 @@
       v-touch:swipe.right="rightSwipeHandler"
       @keyup.esc="test('left')"
       @keydown.right="test('right')"
+      @click.self="closeModal()"
     >
       <!-- <div class="product-image-container">
         <img :src="photos[currentPhotoIndex].photo" alt="" srcset="" />
@@ -35,7 +36,7 @@
         />
       </div>
       <!-- Photo count of counts -->
-      <div class="label-container">
+      <div class="label-container" @click.self="closeModal()">
         <h5 v-if="!isVideo">
           Photo <span>{{ currentPhotoIndex + 1 }}</span>
         </h5>
@@ -130,15 +131,12 @@ export default {
   computed: {
     //
     checkImageOrVideo() {
-      if (this.photos[this.currentPhotoIndex].includes("youtube")) {
-        // const videoId = this.photo.split("/")[4];
-        // console.log(videoId);
-
-        this.isVideo = true;
-        return this.photos[this.currentPhotoIndex];
-      }
-      this.isVideo = false;
-      return this.photos[this.currentPhotoIndex];
+      this.isVideo = this.photos[this.currentPhotoIndex].photo.includes(
+        "youtube"
+      )
+        ? true
+        : false;
+      return this.photos[this.currentPhotoIndex].photo;
     },
   },
 };

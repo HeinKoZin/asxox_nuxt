@@ -27,6 +27,11 @@
 export default {
   // layout: "MainLayout",
   name: "LoginPage",
+  mounted() {
+    if (this.$auth.$storage.getLocalStorage("loggedIn")) {
+      this.$router.push("/");
+    }
+  },
 };
 </script>
 

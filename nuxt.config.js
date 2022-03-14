@@ -1,4 +1,4 @@
-let apiLink = "https://www.api.asxox.com.mm/api";
+let apiLink = "https://api.asxox.com.mm/api";
 
 export default {
   mode: "universal",
@@ -33,6 +33,8 @@ export default {
     { path: "~/components/AdsShop", extensions: ["vue"] },
     { path: "~/components/ProductDetail", extensions: ["vue"] },
     { path: "~/components/Checkout", extensions: ["vue"] },
+    { path: "~/components/User", extensions: ["vue"] },
+    { path: "~/components/Layouts", extensions: ["vue"] },
   ],
 
   purgeCSS: {},
@@ -42,9 +44,10 @@ export default {
     "~/plugins/v-touch.js",
     "~/plugins/inject.js",
     { src: "~/plugins/v-dragscroll.js", ssr: false },
+    "~/plugins/fontawesome.js",
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxt/postcss8", "@nuxtjs/fontawesome"],
+  buildModules: ["@nuxt/postcss8"],
 
   ssr: true,
   target: "server",
@@ -56,13 +59,13 @@ export default {
     "cookie-universal-nuxt",
   ],
 
-  fontawesome: {
-    icons: {
-      solid: true,
-      brands: true,
-      regular: true,
-    },
-  },
+  // fontawesome: {
+  //   icons: {
+  //     solid: true,
+  //     brands: true,
+  //     regular: true,
+  //   },
+  // },
   auth: {
     redirect: false,
     strategies: {
@@ -72,7 +75,9 @@ export default {
           global: true,
           required: true,
           type: "Bearer",
+          maxAge: 2147483647,
         },
+
         user: {
           property: false,
           autoFetch: true,

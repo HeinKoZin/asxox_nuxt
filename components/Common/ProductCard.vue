@@ -4,6 +4,7 @@
       'group ' +
       (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
     "
+    v-if="!isWishListProduct"
   >
     <div
       class="
@@ -28,28 +29,37 @@
             class="w-10 h-10 bg-white rounded-full"
             @click="addToWishList(data.id, data.is_wishlist)"
           >
-            <font-awesome-icon
+            <!-- <font-awesome-icon
               v-if="!isInWishlist"
-              :icon="['far', 'heart']"
+              :icon="['fas', 'heart']"
               class="icon"
-            />
-            <font-awesome-icon
+              :class="data.is_wishlist ? 'active' : ''"
+            /> -->
+            <div v-show="data.is_wishlist">
+              <i class="fa-solid fa-heart icon active"></i>
+            </div>
+
+            <div v-show="!data.is_wishlist">
+              <i class="fa-solid fa-heart icon"></i>
+            </div>
+            <!-- <font-awesome-icon
               v-if="isInWishlist"
               :icon="['fas', 'heart']"
-              class="icon active"
-            />
+              class="icon"
+            /> -->
           </button>
           <button
             class="w-10 h-10 bg-white rounded-full"
             @click="data.is_varient ? null : addProductToCart(data)"
+            v-if="!data.is_varient"
           >
-            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+            <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
           <button
             class="w-10 h-10 bg-white rounded-full"
             @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
           >
-            <font-awesome-icon :icon="['fas', 'eye']" class="icon" />
+            <i class="fa-solid fa-eye icon"></i>
           </button>
         </div>
         <img class="card-header-image" :src="data.temp_photo" />
@@ -61,10 +71,83 @@
         >
           {{ data.name }}</NuxtLink
         >
-        <p class="product-description">{{ data.description }}</p>
         <div class="product-price">
           <span class="text-orange-600">$</span>
           <span class="text-orange-600">{{ data.sell_price }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    :class="
+      'group ' +
+      (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
+    "
+    v-else
+  >
+    <div
+      class="
+        transition-[translate]
+        product-card-container
+        group-hover:shadow-slate-300
+        group-hover:-translate-y-[0.05rem]
+        group-hover:shadow-md
+        relative
+        overflow-hidden
+      "
+    >
+      <!-- NOTE: Later feature -->
+      <!-- <div
+        class="absolute z-40 w-full text-center text-white rotate-45 bg-orange-600 top-6 p-1 -right-[35%] md:-right-[30%] text-sm md:text-base"
+      >
+        Discount
+      </div> -->
+      <div class="card-header">
+        <div class="card-header-buttons">
+          <button
+            class="w-10 h-10 bg-white rounded-full"
+            @click="addToWishList(data.product.id, data.product.is_wishlist)"
+          >
+            <font-awesome-icon :icon="['far', 'heart']" class="icon active" />
+            <!-- <font-awesome-icon
+              v-if="isInWishlist"
+              :icon="['fas', 'heart']"
+              class="icon active"
+            /> -->
+            <div>
+              <i class="fa-solid fa-heart icon active"></i>
+            </div>
+          </button>
+          <button
+            class="w-10 h-10 bg-white rounded-full"
+            @click="
+              data.product.is_varient ? null : addProductToCart(data.product)
+            "
+            v-if="!data.product.is_varient"
+          >
+            <i class="fa-solid fa-cart-shopping icon"></i>
+          </button>
+          <button
+            class="w-10 h-10 bg-white rounded-full"
+            @click="
+              $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
+            "
+          >
+            <i class="fa-solid fa-eye icon"></i>
+          </button>
+        </div>
+        <img class="card-header-image" :src="data.wishlist_product_photo" />
+      </div>
+      <div class="card-body">
+        <NuxtLink
+          class="card-header-title"
+          :to="encodedLink(`/product/${$asxox.asxox_encode(data.product.id)}`)"
+        >
+          {{ data.product.name }}</NuxtLink
+        >
+        <div class="product-price">
+          <span class="text-orange-600">$</span>
+          <span class="text-orange-600">{{ data.product.sell_price }}</span>
         </div>
       </div>
     </div>
@@ -73,7 +156,7 @@
 
 <script>
 import { generalMixins } from "@/mixins/general";
-import { mapMutations, mapActions } from "vuex";
+import { mapMutations, mapActions, mapGetters } from "vuex";
 export default {
   mixins: [generalMixins],
   props: {
@@ -82,37 +165,65 @@ export default {
     isInWishlist: Boolean,
     categoryIndex: Number,
     productIndex: Number,
+    wishListIndex: Number,
+    isWishListProduct: {
+      type: Boolean,
+      default: false,
+    },
   },
-  data() {
-    return {
-      //
-    };
+  computed: {
+    ...mapGetters(["wishListProductList"]),
   },
   methods: {
-    encodedLink(data) {
-      return data;
-    },
-    ...mapMutations(["SET_CATEGORY_PRODUCT_FAVOURITE"]),
+    ...mapMutations([
+      "SET_CATEGORY_PRODUCT_FAVOURITE",
+      "REMOVE_WISHLISH_PRODUCTS",
+    ]),
     ...mapActions(["getWishListProducts", "addProductToCart"]),
+
+    //NOTE: add and remove product from wishlist
     async addToWishList(product_id, is_wishlist) {
       if (!this.checkAuthenticated("redirect")) return true;
       let res;
       if (!is_wishlist) {
         res = await this.generalPostApis("/wishlists", { product_id });
       } else {
-        res = await this.generalDeleteApis(`/wishlists/${product_id}`);
+        // NOTE: get wishlist id by filtering product id
+        let wishlistProductId = null;
+        this.wishListProductList.map((wishlist) => {
+          wishlist.product.id === product_id
+            ? (wishlistProductId = wishlist.wishlist_id)
+            : null;
+        });
+
+        res = await this.generalDeleteApis(`/wishlists/${wishlistProductId}`);
       }
       if (res?.data?.status || res?.status === "success") {
         this.toast(res?.data?.message || res?.message, "success");
-        this.SET_CATEGORY_PRODUCT_FAVOURITE({
-          categoryIndex: this.categoryIndex,
-          productIndex: this.productIndex,
-        });
+        if (!this.isWishListProduct) {
+          // this.SET_CATEGORY_PRODUCT_FAVOURITE({
+          //   categoryIndex: this.categoryIndex,
+          //   productIndex: this.productIndex,
+          // });
+          this.data.is_wishlist = !is_wishlist;
+        } else {
+          this.$emit("removeWishlist", this.wishListIndex);
+          // this.REMOVE_WISHLISH_PRODUCTS({
+          //   wishListIndex: this.wishListIndex,
+          // });
+        }
         this.getWishListProducts();
       } else {
         this.toast(res?.data?.message || res?.message, "error");
       }
     },
+
+    encodedLink(data) {
+      return data;
+    },
+  },
+  mounted() {
+    this.data = JSON.parse(JSON.stringify(this.data));
   },
 };
 </script>
@@ -146,7 +257,7 @@ export default {
   @apply text-sm font-semibold mt-2;
 }
 
-..product-card-container .card-body {
+.product-card-container .card-body {
   @apply h-40 flex flex-col justify-between;
 }
 .product-card-container .card-body .card-header-title {

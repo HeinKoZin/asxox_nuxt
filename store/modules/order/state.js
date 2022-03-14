@@ -11,10 +11,12 @@ const state = () => ({
     coupon_code: "",
     source: "Web",
     order_note: "",
-    point_amount: 0,
-    payment_method: "",
+    point_amount: null,
+    payment_method: "Cash On Delivery",
     products: [],
   },
+  orderDetail: {},
+  isOrderDetail: false,
 });
 
 export default state;

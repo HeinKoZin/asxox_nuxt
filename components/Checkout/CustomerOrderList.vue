@@ -4,7 +4,7 @@
       <div class="header">
         <div class="flex gap-x-4">
           <span class="order-badge">
-            <font-awesome-icon class="order-icon" :icon="['fas', 'box-open']" />
+            <i class="fa-solid fa-box-open order-icon"></i>
             <span>{{ calculateCartProductQuantity }}</span>
           </span>
           <span>Your Order</span>
@@ -20,57 +20,61 @@
             :productId="index"
           />
         </div>
-        {{ order }}
 
         <div class="total-price-container">
           <div class="total-price-wrapper">
             <div class="total-price-label">Total Price</div>
-            <div class="total-price">
+            <div class="total-price" v-if="cartProducts.length > 0">
               {{ cartProductsTotal }} {{ cartProducts[0].currency }}
             </div>
+            <div class="total-price" v-else>0.00</div>
           </div>
           <div class="total-price-wrapper">
-            <div class="total-price-label">Delivery:</div>
+            <div class="total-price-label">Delivery :</div>
             <div class="total-price">-</div>
           </div>
           <div class="total-price-wrapper">
-            <div class="total-price-label">Discount:</div>
+            <div class="total-price-label">Discount :</div>
             <div class="total-price">-</div>
           </div>
           <div class="total-price-wrapper" v-if="order.coupon_amount">
             <div class="total-price-label">Coupon Discount :</div>
-            <div class="total-price line-through">
+            <div class="line-through total-price">
               {{ order.coupon_amount }} MMK
               {{ order.coupon_percent ? `( ${order.coupon_percent}% )` : "" }}
             </div>
           </div>
           <div class="total-price-wrapper" v-if="order.point_amount">
             <div class="total-price-label">Point Discount :</div>
-            <div class="total-price line-through">
-              {{ order.point_amount }} MMK
+            <div class="line-through total-price">
+              {{ order.point_value }} MMK
             </div>
           </div>
 
           <div class="subtotal-price-wrapper">
-            <div class="total-price-label">Subtotal:</div>
-            <div class="total-price">
-              {{
-                order.point_amount
-                  ? order.total_amount - order.point_amount
-                  : order.total_amount
-              }}
-              {{ cartProducts[0].currency }}
+            <div class="total-price-label">Subtotal :</div>
+            <div class="total-price" v-if="cartProducts.length > 0">
+              {{ calculateSubtotal }}
             </div>
+            <div class="total-price" v-else>0.00</div>
           </div>
         </div>
+      </div>
+      <div class="order-confirm-btn" @click="finalOrder">
+        <button>Confirm</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
+  props: {
+    onMyEvent: Function,
+  },
   // NOTE: Method from Vuex getters
   computed: {
     ...mapGetters(["cartProducts", "cartProductsTotal", "order"]),
@@ -81,33 +85,31 @@ export default {
       }
       return qty;
     },
+    calculateSubtotal() {
+      return this.order.point_amount
+        ? this.order.total_amount - this.order.point_value
+        : this.order.total_amount + " " + this.cartProducts[0]?.currency;
+    },
   },
-  data() {
-    return {
-      //
-      orders: [
-        {
-          id: 1,
-          name: "Product 1",
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/17/products/feature/17-02-2022_Asxox_4620e0be52ed334.63359488.jpg",
-          price: "100",
-          color: "Red",
-          size: "XL",
-          quantity: 1,
-        },
-        {
-          id: 2,
-          name: "Product 2",
-          image:
-            "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/02/17/products/feature/17-02-2022_Asxox_4620e0be52ed334.63359488.jpg",
-          price: "200",
-          color: "Blue",
-          size: "L",
-          quantity: 2,
-        },
-      ],
-    };
+  methods: {
+    ...mapMutations(["REFRESH_ORDER", "SET_WHOLE_PRODUCTS_TO_CART"]),
+    async finalOrder() {
+      if (this.cartProducts.length === 0) {
+        this.toast("Please add products to cart!", "info");
+        return;
+      }
+      const res = await this.generalPostApis("orders", this.order);
+      if (res.status !== "error" && !res.errors) {
+        this.toast("Ordered successfully", "success");
+        this.SET_WHOLE_PRODUCTS_TO_CART([]);
+        return;
+      }
+      this.toast(Object.values(res.errors)[0][0], "error");
+    },
+  },
+  mounted() {
+    this.REFRESH_ORDER();
+    this.onMyEvent(this.finalOrder);
   },
 };
 </script>
@@ -155,5 +157,13 @@ export default {
 
 .order-badge span {
   @apply text-slate-50 text-[10px] md:text-sm absolute bg-orange-500 rounded-full h-5 md:h-6 w-5 md:w-6 justify-center items-center flex text-center -top-3 -right-3;
+}
+
+.order-confirm-btn {
+  @apply w-full mt-2 hidden md:block;
+}
+
+.order-confirm-btn button {
+  @apply w-full bg-orange-500 text-white text-base md:text-lg font-bold py-3 px-4 rounded-lg font-quicksand disabled:bg-slate-400 disabled:cursor-not-allowed;
 }
 </style>

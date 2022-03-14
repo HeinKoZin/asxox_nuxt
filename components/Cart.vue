@@ -3,10 +3,9 @@
     <div class="cart-container">
       <div class="cart-header">
         <button @click="SET_CART(!isCartOpen)">
-          <font-awesome-icon
-            :icon="['fas', 'times']"
-            class="text-slate-500 hover:text-slate-700 close-icon"
-          />
+          <i
+            class="fa-solid fa-xmark icon text-slate-500 hover:text-slate-700 close-icon"
+          ></i>
         </button>
         <div class="cart-header-title">
           <h3>Your Cart</h3>
@@ -17,7 +16,7 @@
           </button>
         </div> -->
       </div>
-      <div class="cart-body">
+      <div class="cart-body" v-dragscroll>
         <CartItem
           v-for="(product, index) in cartProducts"
           :key="index"
@@ -29,14 +28,14 @@
       <div class="cart-bottom">
         <div class="cart-bottom-total">
           <span>Total</span>
-          <span>$10.00</span>
+          <span>$ {{ cartProductsTotal }}</span>
         </div>
         <div class="cart-bottom-action">
           <button
             class="btn btn-sm btn-primary"
             @click="$router.push('/checkout'), SET_CART(!isCartOpen)"
           >
-            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+            <i class="fa-solid fa-cart-shopping icon"></i>
             <span>Checkout</span>
           </button>
         </div>
@@ -49,7 +48,7 @@
 import { mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["isCartOpen", "cartProducts"]),
+    ...mapGetters(["isCartOpen", "cartProducts", "cartProductsTotal"]),
   },
   methods: {
     ...mapMutations(["SET_CART"]),
@@ -59,7 +58,7 @@ export default {
 
 <style lang="postcss" scoped>
 .cart-container-wrapper {
-  @apply fixed right-0 top-16 w-[calc(100%_-_4.4rem)] md:w-2/6 -mr-[calc(100%_-_4.4rem)] md:-mr-[33.33%] bg-slate-300 h-[calc(100%_-_4rem)]  border-slate-200 rounded-l-xl z-50 transition-[margin];
+  @apply fixed right-0 top-16 w-[calc(100%_-_4.4rem)] md:w-2/6 -mr-[calc(100%_-_4.4rem)] md:-mr-[33.33%] border border-slate-300 bg-slate-300 h-[calc(100%_-_4rem)]  rounded-l-xl z-50 transition-[margin];
 }
 
 .cart-container-wrapper.active {
@@ -101,10 +100,14 @@ export default {
 }
 
 .cart-bottom {
-  @apply flex flex-row justify-between items-center py-6 px-4 bg-white rounded-bl-xl font-comfortaa;
+  @apply flex flex-row justify-between items-center p-4 bg-white rounded-bl-xl font-quicksand;
+}
+
+.cart-bottom .cart-bottom-total {
+  @apply font-bold;
 }
 
 .cart-bottom .cart-bottom-action button {
-  @apply bg-orange-600 p-2 rounded-lg text-white text-sm md:text-base;
+  @apply bg-orange-600 p-3 rounded-lg text-white text-sm font-semibold;
 }
 </style>

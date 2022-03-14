@@ -7,18 +7,18 @@
             v-if="!isMobileMenuOpen"
             @click="SET_MOBILE_MENU(!isMobileMenuOpen)"
           >
-            <font-awesome-icon :icon="['fas', 'bars']" class="icon" />
+            <i class="fa-solid fa-bars icon"></i>
           </button>
           <button
             v-if="isMobileMenuOpen"
             @click="SET_MOBILE_MENU(!isMobileMenuOpen)"
           >
-            <font-awesome-icon :icon="['fas', 'times']" class="icon" />
+            <i class="fa-solid fa-xmark icon"></i>
           </button>
         </div>
         <div class="header-back-button">
-          <button @click="$router.back()">
-            <font-awesome-icon :icon="['fas', 'arrow-left']" />
+          <button @click="$router.back()" v-if="$route.path !== '/'">
+            <i class="fa-solid fa-arrow-left icon"></i>
           </button>
         </div>
         <div class="header-logo">
@@ -40,17 +40,24 @@
         <div class="header-search">
           <input type="text" placeholder="Search" />
           <Button class="header-search-button" size="sm">
-            <font-awesome-icon
-              :icon="['fas', 'search']"
-              class="text-slate-500 hover:text-slate-700"
-            />
+            <i
+              class="
+                fa-solid fa-magnifying-glass
+                text-slate-500
+                hover:text-slate-700
+              "
+            ></i>
           </Button>
         </div>
       </div>
       <div class="header-right">
         <div class="header-user">
-          <button class="header-user-button" size="sm" @click="toggleUserMenu">
-            <font-awesome-icon :icon="['fas', 'user-circle']" class="icon" />
+          <button
+            class="header-user-button"
+            size="sm"
+            @click="toggleUserMenu()"
+          >
+            <i class="fa-solid fa-circle-user icon"></i>
           </button>
           <div
             v-if="isUserMenuOpen && $auth.$storage.getLocalStorage('loggedIn')"
@@ -67,41 +74,66 @@
             </div>
             <hr />
             <ul>
-              <li>
-                <font-awesome-icon
-                  :icon="['fas', 'user-circle']"
-                  class="icon"
-                />Profile
+              <li @click="$router.push('/user'), toggleUserMenu()">
+                <i class="fa-solid fa-circle-user icon"></i>Profile
               </li>
-              <li>
-                <font-awesome-icon
-                  :icon="['fas', 'history']"
-                  class="icon"
-                />Purchased History
+              <li @click="$router.push('/user/orders'), toggleUserMenu()">
+                <i class="fa-solid fa-clock-rotate-left icon"></i>Purchased
+                History
               </li>
-              <li>
-                <font-awesome-icon
-                  :icon="['fas', 'cog']"
-                  class="icon"
-                />Settings
+              <li @click="$router.push('/user/setting'), toggleUserMenu()">
+                <i class="fa-solid fa-gear icon"></i>Settings
               </li>
             </ul>
             <button class="user-logout" @click="userLogout">
-              <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
+              <i class="fa-solid fa-right-from-bracket icon"></i>
               Logout
+            </button>
+          </div>
+
+          <!-- User menu for Gust user -->
+          <div
+            v-if="isUserMenuOpen && !$auth.$storage.getLocalStorage('loggedIn')"
+            class="user-menu"
+          >
+            <div class="user-menu-header">
+              <span class="username">Welcome, Guest</span>
+              <span class="user-email">Login or Register </span>
+            </div>
+            <hr />
+            <button
+              class="user-logout"
+              @click="$router.push('/auth'), toggleUserMenu()"
+            >
+              <i class="fa-solid fa-user-plus icon"></i>
+              Register
+            </button>
+            <button
+              class="user-logout"
+              @click="$router.push('/auth'), toggleUserMenu()"
+            >
+              <i class="fa-solid fa-right-to-bracket icon"></i>
+              Login
             </button>
           </div>
         </div>
         <div class="header-cart" v-if="!isCartOpen">
           <button class="header-button" @click="toggleCart">
-            <span class="badge">{{ calculateCartProductQuantity }}</span>
-            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+            <span class="badge" v-if="calculateCartProductQuantity">{{
+              calculateCartProductQuantity
+            }}</span>
+            <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
         </div>
         <div class="header-wishlist">
-          <button class="header-button">
-            <span class="badge">{{ giveWishlistLength }}</span>
-            <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
+          <button
+            class="header-button"
+            @click="$router.push('/user/wishlists')"
+          >
+            <span class="badge" v-if="giveWishlistLength">{{
+              giveWishlistLength
+            }}</span>
+            <i class="fa-solid fa-heart icon"></i>
           </button>
         </div>
       </div>
@@ -138,7 +170,7 @@ export default {
       for (let product of this.cartProducts) {
         qty += product.qty;
       }
-      return qty;
+      return qty || null;
     },
   },
   methods: {
@@ -162,11 +194,12 @@ export default {
         this.$auth.$storage.removeUniversal("user");
         this.$auth.$storage.removeUniversal("loggedIn");
         this.toast("You have been logged out!", "success");
+        this.isUserMenuOpen = !this.isUserMenuOpen;
       } else this.toast("Fail to log out!", "error");
     },
   },
   mounted() {
-    if (!this.wishListProductList.length > 0 && this.checkAuthenticated())
+    if (!this.wishListProductList?.length > 0 && this.checkAuthenticated())
       this.getWishListProducts();
   },
 };
@@ -242,11 +275,11 @@ export default {
 }
 
 .header-user .user-menu .user-menu-header .username {
-  @apply text-slate-700 text-base font-bold;
+  @apply text-slate-700 text-base font-bold whitespace-nowrap;
 }
 
 .header-user .user-menu .user-menu-header .user-email {
-  @apply text-slate-600 text-sm;
+  @apply text-slate-600 text-sm whitespace-nowrap;
 }
 
 .header-user .user-menu ul {
@@ -263,6 +296,10 @@ export default {
 
 .header-user .user-logout {
   @apply p-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer w-full flex items-center border justify-center border-slate-300 mt-2 rounded-md;
+}
+
+.header-user .user-auth {
+  @apply p-2 text-sm text-slate-700 hover:text-slate-500 hover:bg-slate-100 hover:cursor-pointer w-full flex items-center border justify-start border-slate-300 mt-2 rounded-md;
 }
 
 .header-user-button {

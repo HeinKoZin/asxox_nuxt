@@ -1,13 +1,10 @@
 <template>
-  <div class="address-container-wrapper">
+  <div class="address-container-wrapper" @click.self="$emit('closeModal')">
     <div class="address-container">
       <div class="address-title">
         <div class="flex gap-x-2">
           <span>
-            <font-awesome-icon
-              class="shopping-icon"
-              :icon="['fas', 'map-marker-alt']"
-            />
+            <i class="fa-solid fa-location-dot shopping-icon"></i>
           </span>
           <span>Address</span>
         </div>
@@ -16,16 +13,29 @@
         <div class="input-group">
           <label for="name">Name</label>
           <input type="text" id="name" v-model="newAddress.name" />
+          <span class="text-red-500 text-sm" v-if="errors ? errors['name'] : ''"
+            ><b>{{ errors["name"][0] }}</b></span
+          >
         </div>
         <div class="input-group">
           <label for="phone">Phone</label>
-          <input type="text" id="phone" v-model="newAddress.phone" />
+          <input
+            type="text"
+            id="phone"
+            v-model="newAddress.phone"
+            @keydown.space.prevent
+          />
+          <span class="text-red-500 text-sm" v-if="errors ? errors.phone : ''"
+            ><b>{{ errors.phone[0] }}</b></span
+          >
         </div>
         <div class="input-group">
           <label for="address">Address</label>
           <input type="text" id="address" v-model="newAddress.address" />
+          <span class="text-red-500 text-sm" v-if="errors ? errors.address : ''"
+            ><b>{{ errors.address[0] }}</b></span
+          >
         </div>
-        {{ newAddress }}
         <div class="flex w-full gap-x-2">
           <div class="input-group">
             <label for="state">State</label>
@@ -78,6 +88,7 @@ export default {
         state_id: null,
         city_id: null,
       },
+      errors: {},
     };
   },
   methods: {
@@ -89,6 +100,7 @@ export default {
           "shipping_address",
           this.newAddress
         );
+        this.errors = response.errors || {};
 
         const selectedState = this.states.find(
           (state) => state.id === this.newAddress.state_id
@@ -98,7 +110,11 @@ export default {
         );
         this.newAddress.state = selectedState;
         this.newAddress.city = selectedCity;
+
+        if (Object.keys(this.errors).length > 0) return true;
+
         this.ADD_NEW_ADDRESS(this.newAddress);
+        this.toast("Address added successfully");
         this.$emit("closeModal");
       } catch (error) {
         console.log(error);

@@ -28,18 +28,22 @@
         <div class="order-item-quantity-actions">
           <button
             @click="product.qty > 1 ? changeQty('minus', product.qty) : null"
+            class="cart-item-minus-btn"
           >
-            <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
+            <i class="fa-solid fa-minus icon"></i>
           </button>
-          <button @click="changeQty('plus', product.qty)">
-            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
+          <button
+            class="cart-item-plus-btn"
+            @click="changeQty('plus', product.qty)"
+          >
+            <i class="fa-solid fa-plus icon"></i>
           </button>
         </div>
         <button
-          class="order-item-remove"
+          class="order-item-remove-btn"
           @click="REMOVE_PRODUCT_FROM_CART(productId)"
         >
-          <font-awesome-icon class="icon" :icon="['fas', 'trash']" />
+          <i class="fa-solid fa-trash icon"></i>
         </button>
       </div>
     </div>
@@ -107,7 +111,7 @@ export default {
 }
 
 .icon {
-  @apply text-slate-600 font-thin;
+  @apply font-thin;
 }
 
 .order-item-actions {
@@ -119,10 +123,22 @@ export default {
 }
 
 .order-item-actions button {
-  @apply w-8 h-8 rounded-full border border-slate-300 flex justify-center items-center active:bg-slate-100;
+  @apply w-6 h-6 rounded-full border border-slate-300 flex justify-center items-center text-xs;
 }
 
-.order-item-remove .icon {
+.order-item-remove-btn .icon {
   @apply text-red-600;
+}
+
+.order-item-remove-btn {
+  @apply w-6 h-6 active:bg-slate-100;
+}
+
+.cart-item-plus-btn {
+  @apply text-slate-50 bg-slate-900 active:bg-slate-700;
+}
+
+.cart-item-minus-btn {
+  @apply active:bg-slate-100;
 }
 </style>

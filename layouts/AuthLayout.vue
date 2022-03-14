@@ -1,27 +1,21 @@
 <template>
   <div class="auth-layout-container">
-    <div class="info-container-wrapper">Info</div>
+    <div class="info-container-wrapper">
+      <div class="relative w-full h-full">
+        <!-- Info Image -->
+        <img src="~/assets/img/auth/verified.png" class="auth-cover-img" />
+      </div>
+    </div>
     <div class="auth-form-container-wrapper">
       <AnimationView class="p-1">
         <div class="auth-form-container">
           <div class="w-full">
             <Button
-              class="
-                font-bold
-                px-4
-                top-40
-                left-20
-                float-left
-                rounded-xl
-                border-2 border-slate-400
-              "
+              class="font-bold px-4 top-40 left-20 float-left rounded-xl border-2 border-slate-400"
               size="md"
               @click.native="$router.back()"
             >
-              <font-awesome-icon
-                slot="start-icon"
-                :icon="['fas', 'long-arrow-alt-left']"
-              />
+              <i class="fa-solid fa-arrow-left-long" slot="star-icon"></i>
             </Button>
           </div>
           <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
@@ -48,7 +42,7 @@ export default {};
 }
 
 .info-container-wrapper {
-  @apply w-full md:w-7/12 bg-slate-600   hidden md:flex flex-col p-6 box-border;
+  @apply w-full md:w-7/12 bg-slate-600   hidden md:flex flex-col box-border;
 }
 
 .auth-form-container-wrapper {

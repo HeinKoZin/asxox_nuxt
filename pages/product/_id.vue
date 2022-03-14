@@ -12,13 +12,14 @@
           :color="colors"
           :pattern="patterns"
           :accessories="accessories"
+          @changeIsActive="changeIsActive"
         />
       </div>
       <div class="product-detail">
         <ProductImages :description_photos="product.description_photos" />
         <ProductInfo :product="product" />
         <ProductDescription />
-        <RecommendedProducts />
+        <RecommendedProducts :products="recommendedProducts" />
       </div>
     </div>
   </div>
@@ -36,6 +37,7 @@ export default {
       colors: [],
       patterns: [],
       accessories: [],
+      recommendedProducts: [],
     };
   },
   head() {
@@ -58,6 +60,22 @@ export default {
     };
   },
   methods: {
+    changeIsActive(value) {
+      switch (value.type) {
+        case "size":
+          this.sizes[value.index].isActive = value.data;
+          break;
+        case "color":
+          this.colors[value.index].isActive = value.data;
+          break;
+        case "pattern":
+          this.patterns[value.index].isActive = value.data;
+          break;
+        case "accessories":
+          this.accessories[value.index].isActive = value.data;
+          break;
+      }
+    },
     ogImage() {
       if (
         !this.$fetchState.pending &&
@@ -76,10 +94,17 @@ export default {
   },
 
   async fetch() {
+    //fetch product detail
     const res = await this.generalGetApis(
       `/products/${this.$asxox.asxox_decode(this.$route.params.id)}`
     );
     this.product = res.data.data;
+
+    //fetch recommended products
+    const categoryRes = await this.generalGetApis(
+      `products/category/${res.data.data.categories[0].id}?limit=15`
+    );
+    this.recommendedProducts = categoryRes.data.data;
     if (this.product.product_varients?.length > 0) {
       this.product.product_varients.map((product) => {
         const newData = [

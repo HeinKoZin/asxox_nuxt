@@ -15,11 +15,7 @@
               </div>
               <span>|</span>
               <div class="product-rating">
-                <span
-                  ><font-awesome-icon
-                    class="text-orange-500"
-                    :icon="['fas', 'star']"
-                /></span>
+                <span><i class="text-orange-500 fa-solid fa-star"></i></span>
                 <span>4.5</span>
                 <span>/5</span>
               </div>
@@ -186,15 +182,14 @@
         <div class="product-quantity-label">Quantity :</div>
         <div class="product-quantity-value">
           <button @click="decreaseQuantity()">
-            <font-awesome-icon class="icon" :icon="['fas', 'minus']" />
+            <i class="fa-solid fa-minus icon"></i>
           </button>
           <input type="number" :value="product.quantity" />
           <button @click="increaseQuantity()">
-            <font-awesome-icon class="icon" :icon="['fas', 'plus']" />
+            <i class="fa-solid fa-plus icon"></i>
           </button>
         </div>
       </div>
-
       <div class="footer-btn-group">
         <div class="flex gap-x-2">
           <!-- NOTE: Add to cart -->
@@ -203,25 +198,27 @@
             :disabled="product.is_varient && !isVariantHas"
             @click="addToCartFinal(product)"
           >
-            <span
-              ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
-            /></span>
+            <span><i class="fa-solid fa-cart-plus icon"></i></span>
             <span>Add to Cart</span>
           </button>
 
           <button
             class="favorite"
-            :disabled="product.is_varient && !isVariantHas"
+            :class="{ active: product.is_wishlist }"
+            @click="addProductToWishList"
           >
-            <font-awesome-icon class="icon" :icon="['fas', 'heart']" />
+            <i class="fa-solid fa-heart icon"></i>
           </button>
         </div>
-
         <!-- NOTE: Buy now -->
-        <button class="buy-now" :disabled="product.is_varient && !isVariantHas">
+        <button
+          class="buy-now"
+          :disabled="product.is_varient && !isVariantHas"
+          @click="addToCartFinal(product), $router.push('/checkout')"
+        >
           <span
-            ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
-          /></span>
+            ><span><i class="fa-solid fa-cart-plus icon"></i></span
+          ></span>
           <span>Buy now</span>
         </button>
       </div>
@@ -230,14 +227,18 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
   props: {
     product: Object,
     color: Array,
     size: Array,
     accessories: Array,
     pattern: Array,
+    categoryIndex: Number,
+    productIndex: Number,
   },
 
   data() {
@@ -253,6 +254,8 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["wishListProductList"]),
+
     featurePhoto() {
       return this.product.feature_photos[0]?.photo;
     },
@@ -263,6 +266,7 @@ export default {
   },
   watch: {
     selectedVariant: {
+      deep: true,
       handler() {
         this.selectVarianPhoto();
       },
@@ -270,38 +274,84 @@ export default {
   },
   methods: {
     // NOTE: Method from Vuex actions
-    ...mapActions(["addProductToCart"]),
+    ...mapActions(["addProductToCart", "getWishListProducts"]),
+    ...mapMutations([
+      "SET_CATEGORY_PRODUCT_FAVOURITE",
+      // "SET_PRODUCT_FAVOURITE",
+    ]),
+
+    //NOTE: add and remove product from wishlist
+    async addProductToWishList() {
+      let product_id = this.product.id;
+      let is_wishlist = this.product.is_wishlist;
+      let res;
+
+      if (!this.checkAuthenticated("redirect")) return true;
+
+      if (!is_wishlist) {
+        res = await this.generalPostApis("/wishlists", { product_id });
+      } else {
+        // NOTE: get wishlist id by filtering product id
+        let wishlistProductId = null;
+        this.wishListProductList.map((wishlist) => {
+          wishlist.product.id === product_id
+            ? (wishlistProductId = wishlist.wishlist_id)
+            : null;
+        });
+        res = await this.generalDeleteApis(`/wishlists/${wishlistProductId}`);
+      }
+      if (res?.data?.status || res?.status === "success") {
+        this.toast(res?.data?.message || res?.message, "success");
+        // this.SET_CATEGORY_PRODUCT_FAVOURITE({
+        //   categoryIndex: this.categoryIndex,
+        //   productIndex: this.productIndex,
+        // });
+        // this.SET_PRODUCT_FAVOURITE(product_id);
+        this.getWishListProducts();
+        this.product.is_wishlist = !this.product.is_wishlist;
+      } else {
+        this.toast(res?.data?.message || res?.message, "error");
+      }
+    },
 
     // NOTE: Select variant and if it already selected then remove it
     selectVariant(data, type, index) {
-      let mainData = this[type];
+      const mainData = this[type];
       if (mainData[index].isActive) {
         const removedIndex = this.selectedVariant.findIndex(
           (variant) => variant.data === data.name
         );
         this.selectedVariant.splice(removedIndex, 1);
-        mainData[index].isActive = !mainData[index].isActive;
+        this.$emit("changeIsActive", {
+          type,
+          index,
+          data: !mainData[index].isActive,
+        });
         return false;
       }
-      mainData[index].isActive = !mainData[index].isActive;
-
+      this.$emit("changeIsActive", {
+        type,
+        index,
+        data: !mainData[index].isActive,
+      });
       const currentSelectedVariant = this.selectedVariant.filter(
         (variant) => variant.type === type
       );
-
       if (currentSelectedVariant.length > 0) {
         const currentSelectIndex = mainData.findIndex(
           (variant) => variant.name === currentSelectedVariant[0].data
         );
-        mainData[currentSelectIndex].isActive = false;
+        this.$emit("changeIsActive", {
+          type,
+          index: currentSelectIndex,
+          data: false,
+        });
       }
-
       const isVariantSelectedIndex = this.selectedVariant.findIndex(
         (variant) => variant.type === type
       );
-      isVariantSelectedIndex !== -1
-        ? this.selectedVariant.splice(isVariantSelectedIndex, 1)
-        : null;
+      if (isVariantSelectedIndex !== -1)
+        this.selectedVariant.splice(isVariantSelectedIndex, 1);
       this.selectedVariant.push({ data: data.name, type });
     },
 
@@ -326,6 +376,9 @@ export default {
             ...product,
             ...this.isVariantObject,
           });
+
+      //draft
+      this.toast("Added product to cart", "success");
     },
 
     // NOTE: Select variant photo it will work every changes made by user on variant
@@ -333,7 +386,7 @@ export default {
       for (let i = 0; i < this.product.product_varients.length; i++) {
         this.isVariantHas = false;
         let variantLength = 0;
-        let variant = this.product.product_varients[i];
+        const variant = this.product.product_varients[i];
         let currentVariantLength = this.calculateCurrentVariantLength(
           this.product.product_varients[i]
         );
@@ -347,7 +400,7 @@ export default {
           currentVariantLength === this.selectedVariant.length
             ? this.setVariantPhotoAndDataToProduct(
                 variant,
-                this.selectedVariant
+                JSON.parse(JSON.stringify(this.selectedVariant))
               )
             : (this.isVariantHas = false);
         });
