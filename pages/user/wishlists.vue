@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header">
       <span class="wishlist-badge">
-        <font-awesome-icon class="wishlist-icon" :icon="['fas', 'heart']" />
+        <!-- <font-awesome-icon class="wishlist-icon" :icon="['fas', 'heart']" /> -->
         <span>2</span>
       </span>
       <h2>Wishlists</h2>
