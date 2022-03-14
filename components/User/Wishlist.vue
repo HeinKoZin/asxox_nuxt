@@ -6,12 +6,14 @@
       :data="data"
       isInWishlist
       isWishListProduct
+      :wishListIndex="index"
+      @removeWishlist="removeWishlist"
     />
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -107,6 +109,12 @@ export default {
   },
   methods: {
     ...mapActions(["getWishListProducts"]),
+    ...mapMutations(["REMOVE_WISHLISH_PRODUCTS"]),
+    removeWishlist(wishListIndex) {
+      this.REMOVE_WISHLISH_PRODUCTS({
+        wishListIndex,
+      });
+    },
   },
   fetch() {
     this.getWishListProducts();

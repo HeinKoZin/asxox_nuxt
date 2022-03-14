@@ -158,6 +158,7 @@ export default {
     isInWishlist: Boolean,
     categoryIndex: Number,
     productIndex: Number,
+    wishListIndex: Number,
     isWishListProduct: {
       type: Boolean,
       default: false,
@@ -167,7 +168,10 @@ export default {
     ...mapGetters(["wishListProductList"]),
   },
   methods: {
-    ...mapMutations(["SET_CATEGORY_PRODUCT_FAVOURITE"]),
+    ...mapMutations([
+      "SET_CATEGORY_PRODUCT_FAVOURITE",
+      "REMOVE_WISHLISH_PRODUCTS",
+    ]),
     ...mapActions(["getWishListProducts", "addProductToCart"]),
 
     //NOTE: add and remove product from wishlist
@@ -189,10 +193,17 @@ export default {
       }
       if (res?.data?.status || res?.status === "success") {
         this.toast(res?.data?.message || res?.message, "success");
-        this.SET_CATEGORY_PRODUCT_FAVOURITE({
-          categoryIndex: this.categoryIndex,
-          productIndex: this.productIndex,
-        });
+        if (!this.isWishListProduct) {
+          this.SET_CATEGORY_PRODUCT_FAVOURITE({
+            categoryIndex: this.categoryIndex,
+            productIndex: this.productIndex,
+          });
+        } else {
+          this.$emit("removeWishlist", this.wishListIndex);
+          // this.REMOVE_WISHLISH_PRODUCTS({
+          //   wishListIndex: this.wishListIndex,
+          // });
+        }
         this.getWishListProducts();
       } else {
         this.toast(res?.data?.message || res?.message, "error");
