@@ -106,7 +106,18 @@ export default {
   mixins: [generalMixins],
   data() {
     return {
-      userData: {},
+      userData: {
+        name: "",
+        email: "",
+        phone: "",
+        gender: "",
+        dob: "",
+        job: "",
+        state_id: null,
+        city_id: null,
+        status: "",
+        address: "",
+      },
       states: [],
       cities: [],
     };
@@ -122,13 +133,8 @@ export default {
   },
 
   async fetch() {
-    const user = JSON.parse(JSON.stringify(this.$auth.user.data));
-    console.log(user);
+    const user = this.$auth.user.data;
     const customerdata = [
-      {
-        type: "name",
-        value: user.customer.name,
-      },
       {
         type: "gender",
         value: user.customer.gender,
@@ -178,13 +184,17 @@ export default {
   },
 
   watch: {
-    async "userData.state_id"() {
-      if (!this.userData.state_id) return;
-      const citiesRes = await this.generalGetApis(
-        `cities?state_id=${this.userData.state_id}`
-      );
-      this.cities = citiesRes.data.data;
-      this.userData.city_id = citiesRes.data.data[0].id;
+    "userData.state_id": {
+      async handler(newVal, oldVal) {
+        if (!this.userData.state_id) return;
+        const citiesRes = await this.generalGetApis(
+          `cities?state_id=${this.userData.state_id}`
+        );
+        this.cities = citiesRes.data.data;
+        if (oldVal === null) return;
+        this.userData.city_id = citiesRes.data.data[0].id;
+      },
+      immediate: true,
     },
   },
 };
