@@ -2,8 +2,9 @@
   <div class="container">
     <div class="header">
       <span class="wishlist-badge">
-        <font-awesome-icon class="wishlist-icon" :icon="['fas', 'heart']" />
-        <span>2</span>
+        <!-- <font-awesome-icon class="wishlist-icon" :icon="['fas', 'heart']" /> -->
+        <i class="fa-solid fa-heart icon"></i>
+        <span>{{ wishListProductList.length }}</span>
       </span>
       <h2>Wishlists</h2>
     </div>
@@ -14,12 +15,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   layout: "ProfileLayout",
   mounted() {
     if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
       this.$router.push("/auth");
     }
+  },
+  computed: {
+    ...mapGetters(["wishListProductList"]),
   },
 };
 </script>
