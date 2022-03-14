@@ -46,7 +46,7 @@
             Settings
           </li>
         </ul>
-        <button class="user-logout">
+        <button class="user-logout" @click="userLogout">
           <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
           Logout
         </button>
@@ -56,7 +56,9 @@
 </template>
 
 <script>
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
   methods: {
     linkIsActive(link) {
       const paths = Array.isArray(link) ? link : [link];
@@ -65,6 +67,18 @@ export default {
         return true;
       }
       return false;
+    },
+    // === logout ===
+    async userLogout() {
+      await this.$auth.logout("local");
+
+      // === no response from auth logout so reuse isAuthenticated ===
+      if (!this.isAuthenticated) {
+        this.$auth.$storage.removeUniversal("user");
+        this.$auth.$storage.removeUniversal("loggedIn");
+        this.toast("You have been logged out!", "success");
+        this.isUserMenuOpen = !this.isUserMenuOpen;
+      } else this.toast("Fail to log out!", "error");
     },
   },
 };
