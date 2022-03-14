@@ -29,13 +29,19 @@
             class="w-10 h-10 bg-white rounded-full"
             @click="addToWishList(data.id, data.is_wishlist)"
           >
-            <font-awesome-icon
+            <!-- <font-awesome-icon
               v-if="!isInWishlist"
               :icon="['fas', 'heart']"
               class="icon"
               :class="data.is_wishlist ? 'active' : ''"
-            />
-            {{ data.is_wishlist }}
+            /> -->
+            <div v-show="data.is_wishlist">
+              <i class="fa-solid fa-heart icon active"></i>
+            </div>
+
+            <div v-show="!data.is_wishlist">
+              <i class="fa-solid fa-heart icon"></i>
+            </div>
             <!-- <font-awesome-icon
               v-if="isInWishlist"
               :icon="['fas', 'heart']"
@@ -108,6 +114,9 @@
               :icon="['fas', 'heart']"
               class="icon active"
             /> -->
+            <div>
+              <i class="fa-solid fa-heart icon active"></i>
+            </div>
           </button>
           <button
             class="w-10 h-10 bg-white rounded-full"
@@ -116,7 +125,7 @@
             "
             v-if="!data.product.is_varient"
           >
-            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+            <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
           <button
             class="w-10 h-10 bg-white rounded-full"
@@ -124,7 +133,7 @@
               $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
             "
           >
-            <font-awesome-icon :icon="['fas', 'eye']" class="icon" />
+            <i class="fa-solid fa-eye icon"></i>
           </button>
         </div>
         <img class="card-header-image" :src="data.wishlist_product_photo" />
@@ -212,6 +221,9 @@ export default {
     encodedLink(data) {
       return data;
     },
+  },
+  mounted() {
+    this.data = JSON.parse(JSON.stringify(this.data));
   },
 };
 </script>
