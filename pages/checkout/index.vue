@@ -5,18 +5,34 @@
 
       <div class="body">
         <CustomerInfo />
-        <CustomerOrderList />
+        <CustomerOrderList :on-my-event="myEventSource" />
       </div>
       <div class="order-confirm-btn">
-        <button>Confirm</button>
+        <button @click="sendEvent">Confirm</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { newEventSource } from "vue-parent-emit";
+
 export default {
   layout: "MainLayout",
+
+  data() {
+    return {
+      myEventSource: newEventSource(),
+    };
+  },
+  methods: {
+    sendEvent() {
+      // use this anywhere in the parent component
+      this.myEventSource.emit();
+      // or this.myEventSource.emit(someEventPayload)
+    },
+  },
+
   head() {
     return {
       title: `Asxox | Checkout`,

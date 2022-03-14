@@ -72,6 +72,9 @@ import { mapGetters, mapMutations } from "vuex";
 import { generalMixins } from "@/mixins/general";
 export default {
   mixins: [generalMixins],
+  props: {
+    onMyEvent: Function,
+  },
   // NOTE: Method from Vuex getters
   computed: {
     ...mapGetters(["cartProducts", "cartProductsTotal", "order"]),
@@ -106,6 +109,7 @@ export default {
   },
   mounted() {
     this.REFRESH_ORDER();
+    this.onMyEvent(this.finalOrder);
   },
 };
 </script>
