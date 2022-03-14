@@ -217,7 +217,11 @@
           </button>
         </div>
         <!-- NOTE: Buy now -->
-        <button class="buy-now" :disabled="product.is_varient && !isVariantHas">
+        <button
+          class="buy-now"
+          :disabled="product.is_varient && !isVariantHas"
+          @click="addToCartFinal(product), $router.push('/checkout')"
+        >
           <span
             ><font-awesome-icon class="icon" :icon="['fas', 'cart-plus']"
           /></span>
