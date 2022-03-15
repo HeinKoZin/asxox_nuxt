@@ -172,8 +172,8 @@
           <div class="forget-password-button">
             Forget Password?
             <a
-              @click="$router.push('/auth/forget')"
-              class="text-blue-600 underline"
+              @click="$router.push('/auth/forgot')"
+              class="text-blue-600 underline cursor-pointer underline-offset-2"
               >Reset Password</a
             >
           </div>
