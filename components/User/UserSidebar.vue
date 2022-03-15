@@ -17,21 +17,21 @@
             :class="linkIsActive('/user') ? 'active' : ''"
             @click="$router.push('/user').catch(() => {})"
           >
-            <font-awesome-icon :icon="['fas', 'user']" class="icon" />
+            <i class="fa-solid fa-user icon"></i>
             Profile
           </li>
           <li
             :class="linkIsActive('/user/orders') ? 'active' : ''"
             @click="$router.push('/user/orders').catch(() => {})"
           >
-            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
+            <i class="fa-solid fa-cart-shopping icon"></i>
             Orders
           </li>
           <li
             :class="linkIsActive('/user/wishlists') ? 'active' : ''"
             @click="$router.push('/user/wishlists').catch(() => {})"
           >
-            <font-awesome-icon :icon="['fas', 'heart']" class="icon" />
+            <i class="fa-solid fa-heart icon"></i>
             Wishlist
           </li>
           <!-- <li>
@@ -42,12 +42,12 @@
             :class="linkIsActive('/user/setting') ? 'active' : ''"
             @click="$router.push('/user/setting').catch(() => {})"
           >
-            <font-awesome-icon :icon="['fas', 'cog']" class="icon" />
+            <i class="fa-solid fa-gear icon"></i>
             Settings
           </li>
         </ul>
         <button class="user-logout" @click="userLogout">
-          <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
+          <i class="fa-solid fa-arrow-right-from-bracket icon"></i>
           Logout
         </button>
       </div>
@@ -123,5 +123,9 @@ export default {
 
 .user-logout {
   @apply w-full bg-orange-500 text-white text-sm md:text-base font-bold py-3  rounded-lg font-quicksand mt-6 hover:bg-orange-600 hidden md:block;
+}
+
+.icon {
+  @apply text-lg;
 }
 </style>

@@ -6,7 +6,7 @@
           <div class="user-profile-img">
             <img src="https://picsum.photos/150" alt="Profile Photo" />
             <button class="image-upload-btn">
-              <font-awesome-icon :icon="['fas', 'camera']" />
+              <i class="fa-solid fa-camera"></i>
             </button>
           </div>
         </div>
@@ -218,7 +218,7 @@ export default {
 }
 
 .image-upload-btn {
-  @apply absolute bottom-0 right-0 w-full p-2 bg-slate-800 text-white bg-opacity-40 cursor-pointer;
+  @apply absolute bottom-0 right-0 w-full p-2 bg-slate-800 text-base md:text-lg text-white bg-opacity-50 cursor-pointer;
 }
 
 .user-setting {
