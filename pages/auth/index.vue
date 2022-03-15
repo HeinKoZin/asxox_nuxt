@@ -29,12 +29,7 @@
             <span class="text-xl md:text-2xl float-right"
               >Have you already signed up?
               <a
-                class="
-                  underline
-                  text-blue-600
-                  cursor-pointer
-                  underline-offset-2
-                "
+                class="underline text-blue-600 cursor-pointer underline-offset-2"
                 @click.prevent="handleFormStatus"
                 >Login In</a
               ></span
@@ -86,14 +81,7 @@
           />
 
           <p
-            class="
-              w-full
-              text-center text-2xl
-              font-dongle
-              leading-4
-              relative
-              -mt-3
-            "
+            class="w-full text-center text-2xl font-dongle leading-4 relative -mt-3"
           >
             <a href="#" class="text-blue-600 underline">Terms</a>
             <span> & </span>
@@ -138,12 +126,7 @@
             <span class="text-xl md:text-2xl float-right"
               >Are you new member?
               <a
-                class="
-                  text-blue-600
-                  underline
-                  cursor-pointer
-                  underline-offset-2
-                "
+                class="text-blue-600 underline cursor-pointer underline-offset-2"
                 @click.prevent="handleFormStatus"
                 >Register here</a
               ></span
@@ -185,6 +168,15 @@
             <Spinner slot="loader" v-if="isSpin" />
             Login
           </Button>
+
+          <div class="forget-password-button">
+            Forget Password?
+            <a
+              @click="$router.push('/auth/forget')"
+              class="text-blue-600 underline"
+              >Reset Password</a
+            >
+          </div>
 
           <div class="social-login-container">
             <button class="social-login-btn">
@@ -377,5 +369,9 @@ export default {
 
 .auth-cover-img {
   @apply w-full h-full object-cover absolute;
+}
+
+.forget-password-button {
+  @apply text-sm font-sans font-semibold py-2 mt-2;
 }
 </style>
