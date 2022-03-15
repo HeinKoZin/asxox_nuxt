@@ -1,7 +1,7 @@
 <template>
-  <span class="w-12 h-12">
+  <span class="w-10 h-10 p-2">
     <i
-      class="w-full h-full text-lg cursor-pointer fa-solid fa-spinner animate-spin"
+      class="h-full w-full text-lg cursor-pointer fa-solid fa-spinner animate-spin"
     ></i>
   </span>
 </template>
