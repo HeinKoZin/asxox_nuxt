@@ -15,7 +15,7 @@
               size="md"
               @click.native="$router.back()"
             >
-              <i class="fa-solid fa-arrow-left-long" slot="star-icon"></i>
+              <i class="fa-solid fa-arrow-left-long"></i>
             </Button>
           </div>
           <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
@@ -47,6 +47,10 @@ export default {};
 
 .auth-form-container-wrapper {
   @apply w-full md:w-5/12 min-h-screen flex justify-center items-center float-right p-6 relative;
+}
+
+.auth-cover-img {
+  @apply w-full h-full object-cover absolute;
 }
 
 .auth-form-container {
