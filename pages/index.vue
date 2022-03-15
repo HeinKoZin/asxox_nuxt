@@ -69,6 +69,7 @@ export default {
     },
   },
   async fetch() {
+    if (this.categoryProducts.length > 0) return;
     await this.fetchSlideAds();
     await this.getAdsShops();
     await this.getCategories();
