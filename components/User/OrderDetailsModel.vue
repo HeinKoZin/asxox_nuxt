@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-container">
+  <div class="modal-container" @click.self="SET_IS_ORDER_DETAIL()">
     <div class="modal-content-container">
       <button
         class="modal-close-btn"
