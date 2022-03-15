@@ -87,6 +87,7 @@ export default {
         address: null,
         state_id: null,
         city_id: null,
+        status: 1,
       },
       errors: {},
     };
