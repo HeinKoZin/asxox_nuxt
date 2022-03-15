@@ -7,15 +7,7 @@
     v-if="!isWishListProduct"
   >
     <div
-      class="
-        transition-[translate]
-        product-card-container
-        group-hover:shadow-slate-300
-        group-hover:-translate-y-[0.05rem]
-        group-hover:shadow-md
-        relative
-        overflow-hidden
-      "
+      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
     >
       <!-- NOTE: Later feature -->
       <!-- <div
@@ -25,10 +17,7 @@
       </div> -->
       <div class="card-header">
         <div class="card-header-buttons">
-          <button
-            class="w-10 h-10 bg-white rounded-full"
-            @click="addToWishList(product.id, product.is_wishlist)"
-          >
+          <button @click="addToWishList(product.id, product.is_wishlist)">
             <!-- <font-awesome-icon
               v-if="!isInWishlist"
               :icon="['fas', 'heart']"
@@ -48,15 +37,10 @@
               class="icon"
             /> -->
           </button>
-          <button
-            class="w-10 h-10 bg-white rounded-full"
-            @click="addProductToCart(product)"
-            v-if="!product.is_varient"
-          >
+          <button @click="addProductToCart(product)" v-if="!product.is_varient">
             <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
           <button
-            class="w-10 h-10 bg-white rounded-full"
             @click="$router.push(`/product/${$asxox.asxox_encode(product.id)}`)"
           >
             <i class="fa-solid fa-eye icon"></i>
@@ -86,15 +70,7 @@
     v-else
   >
     <div
-      class="
-        transition-[translate]
-        product-card-container
-        group-hover:shadow-slate-300
-        group-hover:-translate-y-[0.05rem]
-        group-hover:shadow-md
-        relative
-        overflow-hidden
-      "
+      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
     >
       <!-- NOTE: Later feature -->
       <!-- <div
@@ -105,7 +81,6 @@
       <div class="card-header">
         <div class="card-header-buttons">
           <button
-            class="w-10 h-10 bg-white rounded-full"
             @click="
               addToWishList(product.product.id, product.product.is_wishlist)
             "
@@ -115,14 +90,12 @@
             </div>
           </button>
           <button
-            class="w-10 h-10 bg-white rounded-full"
             @click="addProductToCart(product.product)"
             v-if="!product.product.is_varient"
           >
             <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
           <button
-            class="w-10 h-10 bg-white rounded-full"
             @click="
               $router.push(
                 `/product/${$asxox.asxox_encode(product.product.id)}`
@@ -249,7 +222,7 @@ export default {
 }
 
 .card-header .card-header-buttons {
-  @apply absolute top-0 right-0 w-full h-full rounded-lg bg-opacity-0 bg-slate-900 hidden justify-evenly items-center group-hover:flex group-hover:bg-opacity-50 group-hover:animate-fadeIn;
+  @apply absolute top-0 right-0 w-full h-full rounded-lg bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center group-hover:flex group-hover:bg-opacity-50 group-hover:animate-fadeIn;
 }
 
 .card-header .card-header-image {
@@ -261,7 +234,7 @@ export default {
 }
 
 .product-card-container .card-body {
-  @apply h-40 flex flex-col justify-between;
+  @apply flex-grow flex flex-col justify-between;
 }
 .product-card-container .card-body .card-header-title {
   @apply text-sm  line-clamp-2 mt-2 hover:underline hover:underline-offset-2 h-10 font-comfortaa font-bold;
@@ -272,7 +245,11 @@ export default {
 }
 
 .icon {
-  @apply text-slate-500 hover:text-slate-700;
+  @apply text-slate-500 hover:text-slate-700 text-base;
+}
+
+.card-header-buttons button {
+  @apply w-9 h-9 lg:w-10 lg:h-10 bg-white rounded-full;
 }
 
 .icon.active {
