@@ -1,6 +1,7 @@
 <template>
   <div
-    :class="'customer-address-container-wrapper ' + (isInProfile ? 'profile' : '')
+    :class="
+      'customer-address-container-wrapper ' + (isInProfile ? 'profile' : '')
     "
   >
     <div class="customer-address-container">
@@ -67,6 +68,7 @@ export default {
   },
   mounted() {
     this.addresses = this.$auth.user.data.customer.shipping_addresses;
+    if (this.addresses.length === 0) return;
     this.SET_ADDRESS_TO_ORDER(
       this.addresses.filter((address) => address.status)[0]
     );
