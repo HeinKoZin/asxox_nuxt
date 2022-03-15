@@ -1,7 +1,7 @@
 // ==== actions ====
 const actions = {
   async getProductsByCategory(
-    { commit, state },
+    { commit, rootState },
     { categoryId, categoryName, limit, shopIndex }
   ) {
     try {
@@ -14,7 +14,10 @@ const actions = {
         categoryId,
         categoryName,
         products: res?.data?.data,
-        shop: shopIndex || shopIndex == 0 ? state.adsShops[shopIndex] : null,
+        shop:
+          shopIndex || shopIndex == 0
+            ? rootState.adsShop.adsShops[shopIndex]
+            : null,
       };
       commit("SET_PRODUCTS_BY_CATEGORY", products);
     } catch (error) {}
