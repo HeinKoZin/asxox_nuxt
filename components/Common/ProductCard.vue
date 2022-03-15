@@ -7,7 +7,15 @@
     v-if="!isWishListProduct"
   >
     <div
-      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
+      class="
+        transition-[translate]
+        product-card-container
+        group-hover:shadow-slate-300
+        group-hover:-translate-y-[0.05rem]
+        group-hover:shadow-md
+        relative
+        overflow-hidden
+      "
     >
       <!-- NOTE: Later feature -->
       <!-- <div
@@ -37,7 +45,12 @@
               class="icon"
             /> -->
           </button>
-          <button @click="addProductToCart(product)" v-if="!product.is_varient">
+          <button
+            @click="
+              addProductToCart(product), toast('Added to cart', 'success')
+            "
+            v-if="!product.is_varient"
+          >
             <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
           <button
@@ -70,7 +83,15 @@
     v-else
   >
     <div
-      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
+      class="
+        transition-[translate]
+        product-card-container
+        group-hover:shadow-slate-300
+        group-hover:-translate-y-[0.05rem]
+        group-hover:shadow-md
+        relative
+        overflow-hidden
+      "
     >
       <!-- NOTE: Later feature -->
       <!-- <div
@@ -90,7 +111,10 @@
             </div>
           </button>
           <button
-            @click="addProductToCart(product.product)"
+            @click="
+              addProductToCart(product.product),
+                toast('Added to cart', 'success')
+            "
             v-if="!product.product.is_varient"
           >
             <i class="fa-solid fa-cart-shopping icon"></i>

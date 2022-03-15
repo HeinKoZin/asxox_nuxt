@@ -22,14 +22,24 @@
     >
       <AnimationView>
         <div class="form-container">
-          <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
+          <img
+            class="logo"
+            src="~/assets/img/logo.png"
+            alt="Logo"
+            @click="$router.push('/')"
+          />
           <h3 class="company-title">Asxox Ecommerce</h3>
           <h2 class="form-title mt-6">
             Register
             <span class="text-xl md:text-2xl float-right"
               >Have you already signed up?
               <a
-                class="underline text-blue-600 cursor-pointer underline-offset-2"
+                class="
+                  underline
+                  text-blue-600
+                  cursor-pointer
+                  underline-offset-2
+                "
                 @click.prevent="handleFormStatus"
                 >Login In</a
               ></span
@@ -81,7 +91,14 @@
           />
 
           <p
-            class="w-full text-center text-2xl font-dongle leading-4 relative -mt-3"
+            class="
+              w-full
+              text-center text-2xl
+              font-dongle
+              leading-4
+              relative
+              -mt-3
+            "
           >
             <a href="#" class="text-blue-600 underline">Terms</a>
             <span> & </span>
@@ -119,14 +136,24 @@
     >
       <AnimationView>
         <div class="form-container">
-          <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
+          <img
+            class="logo"
+            src="~/assets/img/logo.png"
+            alt="Logo"
+            @click="$router.push('/')"
+          />
           <h3 class="company-title">Asxox Ecommerce</h3>
           <h2 class="form-title mt-6">
             Login
             <span class="text-xl md:text-2xl float-right"
               >Are you new member?
               <a
-                class="text-blue-600 underline cursor-pointer underline-offset-2"
+                class="
+                  text-blue-600
+                  underline
+                  cursor-pointer
+                  underline-offset-2
+                "
                 @click.prevent="handleFormStatus"
                 >Register here</a
               ></span

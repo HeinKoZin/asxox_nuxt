@@ -4,7 +4,7 @@
       <span class="wishlist-badge">
         <!-- <font-awesome-icon class="wishlist-icon" :icon="['fas', 'heart']" /> -->
         <i class="fa-solid fa-heart icon"></i>
-        <span>{{ wishListProductList.length }}</span>
+        <span>{{ calculateWishlisProducts }}</span>
       </span>
       <h2>Wishlists</h2>
     </div>
@@ -25,6 +25,9 @@ export default {
   },
   computed: {
     ...mapGetters(["wishListProductList"]),
+    calculateWishlisProducts() {
+      return this.wishListProductList?.length;
+    },
   },
 };
 </script>

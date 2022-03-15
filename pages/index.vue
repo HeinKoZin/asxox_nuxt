@@ -26,7 +26,7 @@
             :key="index"
             :isInWishlist="product.is_wishlist"
           />
-          <AdsShop v-if="category.shop" />
+          <AdsShop v-if="category.shop" :shop="category.shop" />
         </div>
       </div>
     </div>
@@ -69,6 +69,7 @@ export default {
     },
   },
   async fetch() {
+    if (this.categoryProducts.length > 0) return;
     await this.fetchSlideAds();
     await this.getAdsShops();
     await this.getCategories();

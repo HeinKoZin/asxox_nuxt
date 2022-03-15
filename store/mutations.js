@@ -11,6 +11,10 @@ const mutations = {
     state.isMobileMenuOpen = data;
   },
   ADD_NEW_ADDRESS(state, data) {
+    const addresses = state.auth.user.data.customer.shipping_addresses;
+    addresses.map((address, index) => {
+      state.auth.user.data.customer.shipping_addresses[index].status = false;
+    });
     state.auth.user.data.customer.shipping_addresses.push(data);
   },
 
