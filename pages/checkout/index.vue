@@ -20,6 +20,11 @@ import { newEventSource } from "vue-parent-emit";
 export default {
   layout: "MainLayout",
   middleware: ["auth/ifNotAuthRedirectAuth"],
+  head() {
+    return {
+      title: `Asxox | Checkout`,
+    };
+  },
   data() {
     return {
       myEventSource: newEventSource(),
@@ -31,17 +36,6 @@ export default {
       this.myEventSource.emit();
       // or this.myEventSource.emit(someEventPayload)
     },
-  },
-
-  head() {
-    return {
-      title: `Asxox | Checkout`,
-    };
-  },
-  created() {
-    if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/auth");
-    }
   },
 };
 </script>

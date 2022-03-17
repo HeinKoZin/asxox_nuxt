@@ -4,7 +4,7 @@ export default {
   mode: "universal",
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "Asxox Ecommerce",
+    title: "Asxox",
     htmlAttrs: {
       lang: "en",
     },

@@ -45,6 +45,13 @@ export default {
       sliderItems: {},
     };
   },
+
+  head() {
+    return {
+      title: `Asxox | Home`,
+    };
+  },
+
   computed: {
     // NOTE: Method from Vuex getters
     ...mapGetters([

@@ -19,6 +19,11 @@ import { mapGetters } from "vuex";
 export default {
   layout: "ProfileLayout",
   middleware: ["auth/ifNotAuthRedirectAuth"],
+  head() {
+    return {
+      title: `Asxox | Wishlists`,
+    };
+  },
   computed: {
     ...mapGetters(["wishListProductList"]),
     calculateWishlisProducts() {

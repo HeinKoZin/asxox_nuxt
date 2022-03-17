@@ -21,6 +21,11 @@ export default {
   layout: "ProfileLayout",
   mixins: [generalMixins],
   middleware: ["auth/ifNotAuthRedirectAuth"],
+  head() {
+    return {
+      title: `Asxox | Orders`,
+    };
+  },
   data() {
     return {
       isModelOpen: false,

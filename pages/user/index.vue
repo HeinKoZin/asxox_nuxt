@@ -58,6 +58,11 @@ export default {
   layout: "ProfileLayout",
   mixins: [generalMixins],
   middleware: ["auth/ifNotAuthRedirectAuth"],
+  head() {
+    return {
+      title: `Asxox | Profile`,
+    };
+  },
   data() {
     return {
       userData: {},

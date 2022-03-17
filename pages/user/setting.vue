@@ -16,6 +16,11 @@
 export default {
   layout: "ProfileLayout",
   middleware: ["auth/ifNotAuthRedirectAuth"],
+  head() {
+    return {
+      title: `Asxox | Setting`,
+    };
+  },
 };
 </script>
 
