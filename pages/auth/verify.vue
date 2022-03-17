@@ -12,6 +12,8 @@
         label="Verification Code"
         :error="errors['two_factor_code'] ? errors['two_factor_code'][0] : null"
         class="w-full"
+        isSubmit
+        @submit="verifyMailOrPhone(verify.two_factor_code)"
       />
       <Button
         variant="primary"

@@ -28,6 +28,8 @@
         label="Confirm Password"
         class="w-full"
         :error="errors['password'] ? errors['password'][0] : null"
+        isSubmit
+        @submit="resetPassword(password_reset)"
       />
       <Button
         variant="primary"

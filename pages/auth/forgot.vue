@@ -12,6 +12,8 @@
         label="Enter email or phone number"
         :error="errors['email_or_phone'] ? errors['email_or_phone'][0] : null"
         class="w-full"
+        isSubmit
+        @submit="forgetPasswordVerifyAndSendCode(forgot.email_or_phone)"
       />
       <Button
         variant="primary"

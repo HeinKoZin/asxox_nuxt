@@ -81,6 +81,8 @@
               errors['retype_password'] ? errors['retype_password'][0] : null
             "
             class="w-full"
+            isSubmit
+            @submit="userRegister(register)"
           />
           <Input
             type="checkbox"
@@ -177,6 +179,8 @@
               (errors['error'] ? errors['error'] : null)
             "
             class="w-full"
+            isSubmit
+            @submit="userLogin(login, '/')"
           />
           <Input
             type="checkbox"

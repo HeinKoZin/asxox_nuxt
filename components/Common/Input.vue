@@ -9,7 +9,9 @@
       :placeholder="'Enter ' + label + ' here'"
       v-model="data[field]"
       :disabled="disabled"
+      @keyup.enter="isSubmit ? $emit('submit') : null"
     />
+
     <!-- <button v-if="showButton" class="show-password-btn" @click="handlePassword">
       {{ showPassword ? "Hide" : "Show" }}
     </button> -->
@@ -27,20 +29,60 @@
 import Button from "./Button.vue";
 export default {
   components: { Button },
-  props: [
-    "data",
-    "field",
-    "type",
-    "placeholder",
-    "value",
-    "label",
-    "disabled",
-    "required",
-    "error",
-    "onInput",
-    "onFocus",
-    "onBlur",
-  ],
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+    field: {
+      type: String,
+      required: false,
+    },
+    type: {
+      type: String,
+      required: false,
+    },
+    placeholder: {
+      type: String,
+      required: false,
+    },
+    value: {
+      type: String,
+      required: false,
+    },
+    label: {
+      type: String,
+      required: true,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+    },
+    required: {
+      type: Boolean,
+      required: false,
+    },
+    error: {
+      type: String,
+      required: false,
+    },
+    onInput: {
+      type: Function,
+      required: false,
+    },
+    onFocus: {
+      type: Function,
+      required: false,
+    },
+    onBlur: {
+      type: Function,
+      required: false,
+    },
+    isSubmit: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       //
