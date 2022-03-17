@@ -4,9 +4,15 @@
       <div class="user-setting">
         <div class="w-full">
           <div class="user-profile-img">
-            <img src="https://picsum.photos/150" alt="Profile Photo" />
-            <button class="image-upload-btn">
+            <img :src="profilePreview || profilePhoto" alt="Profile Photo" />
+            <button class="image-upload-btn" @click="$refs.profile.click()">
               <i class="fa-solid fa-camera"></i>
+              <input
+                type="file"
+                ref="profile"
+                @change="setProfile($event)"
+                v-show="false"
+              />
             </button>
           </div>
         </div>
@@ -118,16 +124,36 @@ export default {
         status: "",
         address: "",
       },
+      profilePhoto: null,
       states: [],
       cities: [],
+      profilePreview: null,
     };
   },
   methods: {
+    setProfile(e) {
+      this.profilePreview = URL.createObjectURL(e.target.files[0]);
+      this.profilePhoto = e.target.files[0];
+    },
     async userUpdate() {
       const res = await this.generalPostApis("customers/update", this.userData);
-      res.status === "error" || res.errors?.length > 1
-        ? this.toast(res.message, "error")
-        : this.toast("User Profile Updated Successfully", "success");
+      if (this.profilePhoto) {
+        var data = new FormData();
+        data.append("profile_photo", this.profilePhoto);
+
+        const profileRes = await this.generalPostApis(
+          "customers/update/profile-photo",
+          data
+        );
+        (profileRes.status === "error" && res.status === "error") ||
+        res.errors?.length > 1
+          ? this.toast(res.message, "error")
+          : this.toast("User Profile Updated Successfully", "success");
+      } else {
+        res.status === "error" || res.errors?.length > 1
+          ? this.toast(res.message, "error")
+          : this.toast("User Profile Updated Successfully", "success");
+      }
     },
   },
 
@@ -171,6 +197,7 @@ export default {
         value: user.customer.address,
       },
     ];
+    if (user.photo) this.profilePhoto = user.photo;
     customerdata.forEach((data) => {
       this.userData[data.type] = data.value;
     });
