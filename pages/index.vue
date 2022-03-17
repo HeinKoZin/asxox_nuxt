@@ -72,7 +72,6 @@ export default {
     await this.getAdsShops();
     await this.getCategories();
     let shopIndex = 0;
-    console.log(this.categories);
     for (let i = 0; i < this.categories.length; i++) {
       await this.getProductsByCategory({
         categoryId: this.categories[i].id,

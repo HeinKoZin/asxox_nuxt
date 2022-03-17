@@ -57,7 +57,6 @@ export default {
   methods: {
     handleCheckbox(e) {
       this.isChecked = e.target.value;
-      console.log(e.target.value);
     },
   },
 

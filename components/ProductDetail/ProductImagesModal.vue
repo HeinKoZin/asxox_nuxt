@@ -77,9 +77,6 @@ export default {
   },
 
   methods: {
-    test(data) {
-      console.log(data);
-    },
     // Close modal
     closeModal() {
       this.$emit("closeModal", false);

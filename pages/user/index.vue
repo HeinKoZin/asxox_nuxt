@@ -54,6 +54,7 @@ import { generalMixins } from "@/mixins/general";
 export default {
   layout: "ProfileLayout",
   mixins: [generalMixins],
+  middleware: ["auth/ifNotAuthRedirectAuth"],
   data() {
     return {
       userData: {},
@@ -78,11 +79,6 @@ export default {
     this.recommendedProducts = categoryRes.data.data;
     this.orders = res.data.data.orders;
     this.userData = this.$auth.user.data;
-  },
-  mounted() {
-    if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/auth");
-    }
   },
 };
 </script>

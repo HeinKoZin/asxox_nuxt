@@ -20,6 +20,7 @@ import { mapGetters } from "vuex";
 export default {
   layout: "ProfileLayout",
   mixins: [generalMixins],
+  middleware: ["auth/ifNotAuthRedirectAuth"],
   data() {
     return {
       isModelOpen: false,
@@ -41,11 +42,6 @@ export default {
   async fetch() {
     const res = await this.generalGetApis("orders");
     this.orders = res.data.data.orders;
-  },
-  mounted() {
-    if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/auth");
-    }
   },
 };
 </script>
