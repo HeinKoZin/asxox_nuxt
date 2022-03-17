@@ -121,7 +121,7 @@ export default {
 }
 
 .user-profile-card-container {
-  @apply flex gap-2  w-full pt-4;
+  @apply flex gap-2  w-full pt-4 flex-col md:flex-row;
 }
 
 .user-profile-card {
