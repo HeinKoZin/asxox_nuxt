@@ -1,7 +1,6 @@
 <template>
   <div
-    :class="
-      'group ' +
+    :class="'group ' +
       (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
     "
     v-if="!isWishListProduct"
@@ -63,8 +62,7 @@
     </div>
   </div>
   <div
-    :class="
-      'group ' +
+    :class="'group ' +
       (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
     "
     v-else
@@ -214,7 +212,7 @@ export default {
 }
 
 .product-card-container {
-  @apply p-4 rounded-lg  bg-white;
+  @apply p-0 rounded-lg  bg-white;
 }
 
 .card-header {
@@ -222,11 +220,11 @@ export default {
 }
 
 .card-header .card-header-buttons {
-  @apply absolute top-0 right-0 w-full h-full rounded-lg bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center group-hover:flex group-hover:bg-opacity-50 group-hover:animate-fadeIn;
+  @apply absolute top-0 right-0 w-full h-full rounded-lg rounded-b-none bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center group-hover:flex group-hover:bg-opacity-50 group-hover:animate-fadeIn;
 }
 
 .card-header .card-header-image {
-  @apply w-full h-auto object-cover rounded-lg;
+  @apply w-full h-auto object-cover rounded-lg rounded-b-none;
 }
 
 .product-card-container .product-price {
@@ -234,7 +232,7 @@ export default {
 }
 
 .product-card-container .card-body {
-  @apply flex-grow flex flex-col justify-between;
+  @apply flex-grow flex flex-col justify-between p-3;
 }
 .product-card-container .card-body .card-header-title {
   @apply text-sm  line-clamp-2 mt-2 hover:underline hover:underline-offset-2 h-10 font-comfortaa font-bold;
