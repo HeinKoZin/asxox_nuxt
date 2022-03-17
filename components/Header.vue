@@ -41,11 +41,7 @@
           <input type="text" placeholder="Search" />
           <Button class="header-search-button" size="sm">
             <i
-              class="
-                fa-solid fa-magnifying-glass
-                text-slate-500
-                hover:text-slate-700
-              "
+              class="fa-solid fa-magnifying-glass text-slate-500 hover:text-slate-700"
             ></i>
           </Button>
         </div>
@@ -267,7 +263,7 @@ export default {
 }
 
 .header-user .user-menu {
-  @apply absolute top-16  right-0  bg-white rounded-md  z-50 p-4 border border-slate-300;
+  @apply absolute top-16  right-0  bg-white rounded-md  z-50 p-4 border border-slate-300 animate-fadeIn;
 }
 
 .header-user .user-menu .user-menu-header {
