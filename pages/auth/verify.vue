@@ -35,6 +35,7 @@ import AuthLayout from "@/layouts/AuthLayout";
 export default {
   components: { AuthLayout },
   mixins: [generalMixins],
+  middleware: ["auth/authenticated"],
   data() {
     return {
       verify: {
@@ -92,11 +93,6 @@ export default {
       },
       deep: true,
     },
-  },
-  mounted() {
-    if (this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/");
-    }
   },
 };
 </script>

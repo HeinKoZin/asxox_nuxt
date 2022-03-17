@@ -18,11 +18,7 @@
 import { mapGetters } from "vuex";
 export default {
   layout: "ProfileLayout",
-  mounted() {
-    if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/auth");
-    }
-  },
+  middleware: ["auth/ifNotAuthRedirectAuth"],
   computed: {
     ...mapGetters(["wishListProductList"]),
     calculateWishlisProducts() {

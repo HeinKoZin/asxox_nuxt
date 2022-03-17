@@ -34,6 +34,7 @@ import { generalMixins } from "@/mixins/general";
 export default {
   components: { AuthLayout },
   mixins: [generalMixins],
+  middleware: ["auth/authenticated"],
   data() {
     return {
       forgot: {
@@ -80,11 +81,6 @@ export default {
       },
       deep: true,
     },
-  },
-  mounted() {
-    if (this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/");
-    }
   },
 };
 </script>

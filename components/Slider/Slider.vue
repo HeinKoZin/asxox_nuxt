@@ -61,11 +61,6 @@ export default {
     },
   },
   methods: {
-    // Test
-    scrollHandler() {
-      console.log("scroll");
-    },
-
     // Change slide item
     changeSliderItem(action) {
       if (action === "next") {
@@ -150,17 +145,7 @@ export default {
       }, 50);
     },
   },
-  computed: {
-    test() {
-      // console.log(this.products);
-      // if (this.products[1]) this.products[0].photo;
-    },
-  },
   mounted() {
-    // this.selectImage.image = this.products[0].photo;
-
-    // this.selectImage.currentPosition = 0;
-
     // NOTE: slide items every 3 s
     this.changeSliderItemWithTimer();
   },

@@ -125,7 +125,6 @@ export default {
   methods: {
     async userUpdate() {
       const res = await this.generalPostApis("customers/update", this.userData);
-      console.log(res);
       res.status === "error" || res.errors?.length > 1
         ? this.toast(res.message, "error")
         : this.toast("User Profile Updated Successfully", "success");

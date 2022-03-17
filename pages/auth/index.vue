@@ -228,7 +228,7 @@
 import { generalMixins } from "@/mixins/general";
 export default {
   mixins: [generalMixins],
-  // middleware: "auth/authenticated",
+  middleware: ["auth/authenticated"],
   data: () => ({
     login: {
       email: "",
@@ -306,11 +306,6 @@ export default {
     getCoverImg() {
       return this.isLogin ? "login" : "signup";
     },
-  },
-  mounted() {
-    if (this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/");
-    }
   },
   watch: {
     // Check the length of email and password
