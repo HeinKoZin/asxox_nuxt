@@ -23,6 +23,10 @@ const mutations = {
       }
     }
   },
+
+  SET_DRAFT_RECOMMENDED_PRODUCTS(state, data) {
+    state.draftRecommendedProducts = data;
+  },
 };
 
 export default mutations;

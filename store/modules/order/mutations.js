@@ -51,6 +51,10 @@ const mutations = {
   SET_IS_ORDER_DETAIL(state, data) {
     state.isOrderDetail = !state.isOrderDetail;
   },
+
+  SET_ORDERS(state, data) {
+    state.orders = data;
+  },
 };
 
 export default mutations;

@@ -53,6 +53,7 @@
 
 <script>
 import { generalMixins } from "@/mixins/general";
+import { mapGetters, mapActions } from "vuex";
 export default {
   layout: "ProfileLayout",
   mixins: [generalMixins],
@@ -60,11 +61,10 @@ export default {
   data() {
     return {
       userData: {},
-      orders: [],
-      recommendedProducts: [],
     };
   },
   computed: {
+    ...mapGetters(["orders", "recommendedProducts"]),
     calculatePurchasedOrder() {
       const copletedOrders = this.orders.filter(
         (order) => order.status === "Complete"
@@ -72,15 +72,13 @@ export default {
       return copletedOrders;
     },
   },
+  methods: {
+    ...mapActions(["getOrders", "getRecommendedProducts"]),
+  },
   async fetch() {
-    const res = await this.generalGetApis("orders");
-    //fetch recommended products
-    const categoryRes = await this.generalGetApis(
-      `products/category/1?limit=15`
-    );
-    this.recommendedProducts = categoryRes.data.data;
-    this.orders = res.data.data.orders;
     this.userData = this.$auth.user.data;
+    this.getOrders();
+    this.getRecommendedProducts();
   },
 };
 </script>

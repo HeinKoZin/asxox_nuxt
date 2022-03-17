@@ -16,7 +16,7 @@
 
 <script>
 import { generalMixins } from "@/mixins/general";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   layout: "ProfileLayout",
   mixins: [generalMixins],
@@ -24,13 +24,13 @@ export default {
   data() {
     return {
       isModelOpen: false,
-      orders: [],
     };
   },
   computed: {
-    ...mapGetters(["isOrderDetail"]),
+    ...mapGetters(["isOrderDetail", "orders"]),
   },
   methods: {
+    ...mapActions(["getOrders"]),
     openModel() {
       this.isModelOpen = true;
     },
@@ -40,8 +40,7 @@ export default {
     },
   },
   async fetch() {
-    const res = await this.generalGetApis("orders");
-    this.orders = res.data.data.orders;
+    await this.getOrders();
   },
 };
 </script>
