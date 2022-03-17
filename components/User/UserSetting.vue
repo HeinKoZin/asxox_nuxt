@@ -4,7 +4,7 @@
       <div class="user-setting">
         <div class="w-full">
           <div class="user-profile-img">
-            <img :src="profilePreview || profilePhoto" alt="Profile Photo" />
+            <img :src="profileImage" alt="Profile Photo" />
             <button class="image-upload-btn" @click="$refs.profile.click()">
               <i class="fa-solid fa-camera"></i>
               <input
@@ -130,6 +130,14 @@ export default {
       profilePreview: null,
     };
   },
+
+  computed: {
+    profileImage() {
+      if (!this.profilePreview && !this.profilePhoto)
+        return require("~/assets/img/default-avatar.png");
+      return this.profilePreview || this.profilePhoto;
+    },
+  },
   methods: {
     setProfile(e) {
       this.profilePreview = URL.createObjectURL(e.target.files[0]);
@@ -154,6 +162,8 @@ export default {
           ? this.toast(res.message, "error")
           : this.toast("User Profile Updated Successfully", "success");
       }
+
+      this.$auth.fetchUser();
     },
   },
 

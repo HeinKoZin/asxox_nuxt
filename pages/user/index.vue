@@ -5,7 +5,9 @@
         <div class="user-cover-container">
           <div class="user-profile-avatar">
             <img
-              :src="userData.photo || '~/assets/img/default-avatar.png'"
+              :src="
+                userData.photo || require('~/assets/img/default-avatar.png')
+              "
               alt="Avatar"
             />
           </div>
