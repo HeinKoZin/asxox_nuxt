@@ -24,12 +24,12 @@
         <div class="form-container">
           <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
           <h3 class="company-title">Asxox Ecommerce</h3>
-          <h2 class="form-title mt-6">
+          <h2 class="mt-6 form-title">
             Register
-            <span class="text-xl md:text-2xl float-right"
+            <span class="float-right text-xl md:text-2xl"
               >Have you already signed up?
               <a
-                class="underline text-blue-600 cursor-pointer underline-offset-2"
+                class="text-blue-600 underline cursor-pointer underline-offset-2"
                 @click.prevent="handleFormStatus"
                 >Login In</a
               ></span
@@ -81,7 +81,7 @@
           />
 
           <p
-            class="w-full text-center text-2xl font-dongle leading-4 relative -mt-3"
+            class="relative w-full -mt-3 text-2xl leading-4 text-center font-dongle"
           >
             <a href="#" class="text-blue-600 underline">Terms</a>
             <span> & </span>
@@ -102,7 +102,7 @@
             <button class="social-login-btn">
               <img src="~/assets/img/facebook.png" alt="Facebook" />
             </button>
-            <p class="text-lg font-zen-kurenaido font-semibold">OR</p>
+            <p class="text-lg font-semibold font-zen-kurenaido">OR</p>
             <button class="social-login-btn">
               <img src="~/assets/img/google.png" alt="Google" />
             </button>
@@ -120,10 +120,10 @@
       <AnimationView>
         <div class="form-container">
           <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
-          <h3 class="company-title">Asxox Ecommerce</h3>
-          <h2 class="form-title mt-6">
+          <h3 class="company-title">Asxox</h3>
+          <h2 class="mt-6 form-title">
             Login
-            <span class="text-xl md:text-2xl float-right"
+            <span class="float-right text-xl md:text-2xl"
               >Are you new member?
               <a
                 class="text-blue-600 underline cursor-pointer underline-offset-2"
@@ -182,7 +182,7 @@
             <button class="social-login-btn">
               <img src="~/assets/img/facebook.png" alt="Facebook" />
             </button>
-            <p class="text-lg font-zen-kurenaido font-semibold">OR</p>
+            <p class="text-lg font-semibold font-zen-kurenaido">OR</p>
             <button class="social-login-btn">
               <img src="~/assets/img/google.png" alt="Google" />
             </button>

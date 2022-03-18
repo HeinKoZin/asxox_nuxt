@@ -11,7 +11,7 @@
         <div class="auth-form-container">
           <div class="w-full">
             <Button
-              class="font-bold px-4 top-40 left-20 float-left rounded-xl border-2 border-slate-400"
+              class="float-left px-4 font-bold border-2 top-40 left-20 rounded-xl border-slate-400"
               size="md"
               @click.native="$router.back()"
             >
@@ -19,8 +19,8 @@
             </Button>
           </div>
           <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
-          <h3 class="company-title">Asxox Ecommerce</h3>
-          <h2 class="form-title mt-6"><slot name="form-title"></slot></h2>
+          <h3 class="company-title">Asxox</h3>
+          <h2 class="mt-6 form-title"><slot name="form-title"></slot></h2>
           <!-- === error message === -->
           <div class="w-full">
             <!-- Child will be render here... -->

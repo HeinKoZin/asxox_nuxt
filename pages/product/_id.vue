@@ -16,13 +16,17 @@
         />
       </div>
       <div class="product-detail">
-        <ProductImages :description_photos="product.description_photos" />
-        <TestProductImages />
+        <!-- <ProductImages :description_photos="product.description_photos" /> -->
+        <VerticalProductImages
+          :description_photos="product.description_photos"
+        />
         <ProductInfo :product="product" />
         <ProductDescription />
         <RecommendedProducts :products="recommendedProducts" />
       </div>
-      <div class="w-[20%]">Test</div>
+      <div class="w-[20%]">
+        <!-- <RecommendedProducts :products="recommendedProducts" /> -->
+      </div>
     </div>
   </div>
 </template>
