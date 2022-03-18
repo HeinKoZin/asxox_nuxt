@@ -239,7 +239,7 @@ export default {
 }
 
 .header-search input {
-  @apply h-10 px-2 pl-4 bg-transparent  text-sm text-slate-700 w-24 focus:w-48 md:w-56 transition-[width] md:focus-within:w-[30rem] focus:outline-none active:outline-none;
+  @apply h-10 px-2 pl-4 bg-transparent  text-sm text-slate-700 w-24 focus:w-48 md:w-[30rem] transition-[width] md:focus-within:w-[40rem] focus:outline-none active:outline-none;
 }
 
 .header-cart {
