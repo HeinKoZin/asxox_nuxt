@@ -6,15 +6,7 @@
     v-if="!isWishListProduct"
   >
     <div
-      class="
-        transition-[translate]
-        product-card-container
-        group-hover:shadow-slate-300
-        group-hover:-translate-y-[0.05rem]
-        group-hover:shadow-md
-        relative
-        overflow-hidden
-      "
+      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
     >
       <!-- NOTE: Later feature -->
       <!-- <div
@@ -58,7 +50,11 @@
             <i class="fa-solid fa-eye icon"></i>
           </button>
         </div>
-        <img class="card-header-image" :src="product.temp_photo" />
+        <img
+          class="card-header-image"
+          :src="product.temp_photo"
+          @click="$router.push(`/product/${$asxox.asxox_encode(product.id)}`)"
+        />
       </div>
       <div class="card-body">
         <NuxtLink
@@ -81,15 +77,7 @@
     v-else
   >
     <div
-      class="
-        transition-[translate]
-        product-card-container
-        group-hover:shadow-slate-300
-        group-hover:-translate-y-[0.05rem]
-        group-hover:shadow-md
-        relative
-        overflow-hidden
-      "
+      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
     >
       <!-- NOTE: Later feature -->
       <!-- <div
@@ -127,7 +115,14 @@
             <i class="fa-solid fa-eye icon"></i>
           </button>
         </div>
-        <img class="card-header-image" :src="product.wishlist_product_photo" />
+
+        <img
+          class="card-header-image"
+          :src="product.wishlist_product_photo"
+          @click="
+            $router.push(`/product/${$asxox.asxox_encode(product.product.id)}`)
+          "
+        />
       </div>
       <div class="card-body">
         <NuxtLink
@@ -244,7 +239,7 @@ export default {
 }
 
 .card-header .card-header-buttons {
-  @apply absolute top-0 right-0 w-full h-full rounded-lg rounded-b-none bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center group-hover:flex group-hover:bg-opacity-50 group-hover:animate-fadeIn;
+  @apply absolute top-0 right-0 w-full h-full rounded-lg rounded-b-none bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center md:group-hover:flex md:group-hover:bg-opacity-50 md:group-hover:animate-fadeIn;
 }
 
 .card-header .card-header-image {
