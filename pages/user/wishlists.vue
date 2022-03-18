@@ -4,7 +4,7 @@
       <span class="wishlist-badge">
         <!-- <font-awesome-icon class="wishlist-icon" :icon="['fas', 'heart']" /> -->
         <i class="fa-solid fa-heart icon"></i>
-        <span>{{ wishListProductList.length }}</span>
+        <span>{{ calculateWishlisProducts }}</span>
       </span>
       <h2>Wishlists</h2>
     </div>
@@ -18,13 +18,12 @@
 import { mapGetters } from "vuex";
 export default {
   layout: "ProfileLayout",
-  mounted() {
-    if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/auth");
-    }
-  },
+  middleware: ["auth/ifNotAuthRedirectAuth"],
   computed: {
     ...mapGetters(["wishListProductList"]),
+    calculateWishlisProducts() {
+      return this.wishListProductList?.length;
+    },
   },
 };
 </script>

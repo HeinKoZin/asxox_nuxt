@@ -21,7 +21,7 @@
           :description_photos="product.description_photos"
         />
         <ProductInfo :product="product" />
-        <ProductDescription />
+        <ProductDescription v-if="product.detail" />
         <RecommendedProducts :products="recommendedProducts" />
       </div>
       <div class="w-[20%]">

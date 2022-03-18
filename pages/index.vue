@@ -6,37 +6,35 @@
     <!-- <CategoryBar /> -->
     <!-- Product list container -->
     <div class="products-list-container">
-      <div class="products-container">
-        <div
-          class="products-container"
-          v-for="(category, catIndex) in categoryProducts"
-          :key="catIndex"
-        >
-          <div class="flex items-center justify-between w-full p-1">
-            <h4 class="p-1 text-lg font-bold font-quicksand">
-              {{ category.categoryName }}
-            </h4>
-            <button class="see-all-btn">See All</button>
-          </div>
-          <ProductCard
-            :data="product"
-            :categoryIndex="catIndex"
-            :productIndex="index"
-            v-for="(product, index) in category.products"
-            :key="index"
-            :isInWishlist="product.is_wishlist"
-          />
-          <AdsShop v-if="category.shop" />
+      <div
+        class="products-container"
+        v-for="(category, catIndex) in categoryProducts"
+        :key="catIndex"
+      >
+        <div class="flex items-center justify-between w-full p-1">
+          <h4 class="p-1 text-lg font-bold font-quicksand">
+            {{ category.categoryName }}
+          </h4>
+          <button class="see-all-btn">See All</button>
         </div>
+        <ProductCard
+          :data="product"
+          :categoryIndex="catIndex"
+          :productIndex="index"
+          v-for="(product, index) in category.products"
+          :key="index"
+          :isInWishlist="product.is_wishlist"
+        />
+        <no-ssr><AdsShop v-if="category.shop" :shop="category.shop" /></no-ssr>
       </div>
     </div>
-    <AdsShop />
   </div>
 </template>
 
 <script>
 import Category from "../components/Common/Category.vue";
 import { mapGetters, mapActions } from "vuex";
+
 export default {
   components: { Category },
   layout: "MainLayout",
@@ -69,11 +67,11 @@ export default {
     },
   },
   async fetch() {
+    if (this.categoryProducts.length > 0) return;
     await this.fetchSlideAds();
     await this.getAdsShops();
     await this.getCategories();
     let shopIndex = 0;
-    console.log(this.categories);
     for (let i = 0; i < this.categories.length; i++) {
       await this.getProductsByCategory({
         categoryId: this.categories[i].id,

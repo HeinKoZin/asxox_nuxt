@@ -22,7 +22,12 @@
     >
       <AnimationView>
         <div class="form-container">
-          <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
+          <img
+            class="logo"
+            src="~/assets/img/logo.png"
+            alt="Logo"
+            @click="$router.push('/')"
+          />
           <h3 class="company-title">Asxox Ecommerce</h3>
           <h2 class="mt-6 form-title">
             Register
@@ -71,6 +76,8 @@
               errors['retype_password'] ? errors['retype_password'][0] : null
             "
             class="w-full"
+            isSubmit
+            @submit="userRegister(register)"
           />
           <Input
             type="checkbox"
@@ -119,7 +126,12 @@
     >
       <AnimationView>
         <div class="form-container">
-          <img class="logo" src="~/assets/img/logo.png" alt="Logo" />
+          <img
+            class="logo"
+            src="~/assets/img/logo.png"
+            alt="Logo"
+            @click="$router.push('/')"
+          />
           <h3 class="company-title">Asxox</h3>
           <h2 class="mt-6 form-title">
             Login
@@ -150,6 +162,8 @@
               (errors['error'] ? errors['error'] : null)
             "
             class="w-full"
+            isSubmit
+            @submit="userLogin(login, '/')"
           />
           <Input
             type="checkbox"
@@ -197,7 +211,7 @@
 import { generalMixins } from "@/mixins/general";
 export default {
   mixins: [generalMixins],
-  // middleware: "auth/authenticated",
+  middleware: ["auth/authenticated"],
   data: () => ({
     login: {
       email: "",
@@ -275,11 +289,6 @@ export default {
     getCoverImg() {
       return this.isLogin ? "login" : "signup";
     },
-  },
-  mounted() {
-    if (this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/");
-    }
   },
   watch: {
     // Check the length of email and password

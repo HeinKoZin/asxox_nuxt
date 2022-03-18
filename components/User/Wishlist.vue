@@ -22,9 +22,7 @@ export default {
     ...mapActions(["getWishListProducts"]),
     ...mapMutations(["REMOVE_WISHLISH_PRODUCTS"]),
     removeWishlist(wishListIndex) {
-      this.REMOVE_WISHLISH_PRODUCTS({
-        wishListIndex,
-      });
+      this.REMOVE_WISHLISH_PRODUCTS(wishListIndex);
     },
   },
   fetch() {

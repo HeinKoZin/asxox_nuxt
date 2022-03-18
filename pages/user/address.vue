@@ -8,7 +8,7 @@
 <script>
 export default {
   layout: "ProfileLayout",
-
+  middleware: ["auth/ifNotAuthRedirectAuth"],
   data() {
     return {
       isModalOpen: false,
@@ -25,11 +25,6 @@ export default {
     closeModal() {
       this.isModalOpen = false;
     },
-  },
-  mounted() {
-    if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/auth");
-    }
   },
 };
 </script>

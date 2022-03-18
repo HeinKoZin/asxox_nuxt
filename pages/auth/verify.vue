@@ -12,6 +12,8 @@
         label="Verification Code"
         :error="errors['two_factor_code'] ? errors['two_factor_code'][0] : null"
         class="w-full"
+        isSubmit
+        @submit="verifyMailOrPhone(verify.two_factor_code)"
       />
       <Button
         variant="primary"
@@ -33,6 +35,7 @@ import AuthLayout from "@/layouts/AuthLayout";
 export default {
   components: { AuthLayout },
   mixins: [generalMixins],
+  middleware: ["auth/authenticated"],
   data() {
     return {
       verify: {
@@ -90,11 +93,6 @@ export default {
       },
       deep: true,
     },
-  },
-  mounted() {
-    if (this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/");
-    }
   },
 };
 </script>

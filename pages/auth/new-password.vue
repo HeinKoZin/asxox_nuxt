@@ -28,6 +28,8 @@
         label="Confirm Password"
         class="w-full"
         :error="errors['password'] ? errors['password'][0] : null"
+        isSubmit
+        @submit="resetPassword(password_reset)"
       />
       <Button
         variant="primary"
@@ -48,6 +50,7 @@ import AuthLayout from "@/layouts/AuthLayout";
 export default {
   components: { AuthLayout },
   mixins: [generalMixins],
+  middleware: ["auth/authenticated"],
   data() {
     return {
       password_reset: {
@@ -93,11 +96,6 @@ export default {
           this.password_reset.password_confirmation.length > 0;
       },
     },
-  },
-  mounted() {
-    if (this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/");
-    }
   },
 };
 </script>
