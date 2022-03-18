@@ -33,6 +33,10 @@ export default {
   @apply bg-gray-200  rounded-lg text-gray-600;
 }
 
+.blue-primary {
+  @apply bg-blue-500 text-white p-2 px-4 rounded-lg;
+}
+
 .sm {
   @apply h-8 text-sm;
 }

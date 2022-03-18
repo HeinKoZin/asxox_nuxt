@@ -99,7 +99,15 @@
         <CustomerAddressCard isInProfile />
       </div>
       <div class="user-setting-actions">
-        <button class="save-btn" @click="userUpdate()">Save</button>
+        <Button
+          variant="blue-primary"
+          class="w-auto p-4"
+          :disabled="isSpin"
+          @click.native="userUpdate"
+        >
+          <Spinner slot="loader" v-if="isSpin" />
+          Save
+        </Button>
         <button class="cancel-btn">Cancel</button>
       </div>
     </div>
@@ -124,6 +132,7 @@ export default {
         status: "",
         address: "",
       },
+      isSpin: false,
       profilePhoto: null,
       states: [],
       cities: [],
@@ -144,6 +153,7 @@ export default {
       this.profilePhoto = e.target.files[0];
     },
     async userUpdate() {
+      this.isSpin = true;
       const res = await this.generalPostApis("customers/update", this.userData);
       if (this.profilePhoto) {
         var data = new FormData();
@@ -164,6 +174,7 @@ export default {
       }
 
       this.$auth.fetchUser();
+      this.isSpin = false;
     },
   },
 
