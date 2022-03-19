@@ -60,8 +60,16 @@
           </div>
         </div>
       </div>
-      <div class="order-confirm-btn" @click="finalOrder">
-        <button>Confirm</button>
+      <div class="order-confirm-btn">
+        <Button
+          variant="primary"
+          class="w-full"
+          :disabled="isSpin"
+          @click.native="finalOrder"
+        >
+          <Spinner slot="loader" v-if="isSpin" />
+          Confirm
+        </Button>
       </div>
     </div>
   </div>
@@ -70,10 +78,16 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import { generalMixins } from "@/mixins/general";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 export default {
   mixins: [generalMixins],
   props: {
     onMyEvent: Function,
+  },
+  data() {
+    return {
+      isSpin: false,
+    };
   },
   // NOTE: Method from Vuex getters
   computed: {
@@ -94,17 +108,26 @@ export default {
   methods: {
     ...mapMutations(["REFRESH_ORDER", "SET_WHOLE_PRODUCTS_TO_CART"]),
     async finalOrder() {
+      this.spinOnOffAndEmit(true);
       if (this.cartProducts.length === 0) {
         this.toast("Please add products to cart!", "info");
         return;
       }
       const res = await this.generalPostApis("orders", this.order);
+
       if (res.status !== "error" && !res.errors) {
         this.toast("Ordered successfully", "success");
         this.SET_WHOLE_PRODUCTS_TO_CART([]);
+        this.spinOnOffAndEmit(false);
         return;
       }
+
       this.toast(Object.values(res.errors)[0][0], "error");
+      this.spinOnOffAndEmit(false);
+    },
+    spinOnOffAndEmit(isSpin) {
+      this.$emit("spinResponse", isSpin);
+      this.isSpin = isSpin;
     },
   },
   mounted() {

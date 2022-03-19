@@ -17,6 +17,7 @@ const state = () => ({
   },
   orderDetail: {},
   isOrderDetail: false,
+  orders: [],
 });
 
 export default state;

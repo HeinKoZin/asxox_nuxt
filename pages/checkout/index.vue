@@ -5,10 +5,21 @@
 
       <div class="body">
         <CustomerInfo />
-        <CustomerOrderList :on-my-event="myEventSource" />
+        <CustomerOrderList
+          :on-my-event="myEventSource"
+          @spinResponse="spinResponse"
+        />
       </div>
       <div class="order-confirm-btn">
-        <button @click="sendEvent">Confirm</button>
+        <Button
+          variant="primary"
+          class="w-full"
+          :disabled="isSpin"
+          @click.native="sendEvent"
+        >
+          <Spinner slot="loader" v-if="isSpin" />
+          Confirm
+        </Button>
       </div>
     </div>
   </div>
@@ -20,28 +31,26 @@ import { newEventSource } from "vue-parent-emit";
 export default {
   layout: "MainLayout",
   middleware: ["auth/ifNotAuthRedirectAuth"],
-  data() {
-    return {
-      myEventSource: newEventSource(),
-    };
-  },
-  methods: {
-    sendEvent() {
-      // use this anywhere in the parent component
-      this.myEventSource.emit();
-      // or this.myEventSource.emit(someEventPayload)
-    },
-  },
-
   head() {
     return {
       title: `Asxox | Checkout`,
     };
   },
-  created() {
-    if (!this.$auth.$storage.getLocalStorage("loggedIn")) {
-      this.$router.push("/auth");
-    }
+  data() {
+    return {
+      myEventSource: newEventSource(),
+      isSpin: false,
+    };
+  },
+  methods: {
+    spinResponse(value) {
+      this.isSpin = value;
+    },
+    sendEvent() {
+      // use this anywhere in the parent component
+      this.myEventSource.emit();
+      // or this.myEventSource.emit(someEventPayload)
+    },
   },
 };
 </script>

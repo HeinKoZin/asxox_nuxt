@@ -46,10 +46,21 @@
             Settings
           </li>
         </ul>
-        <button class="user-logout" @click="userLogout">
-          <i class="fa-solid fa-arrow-right-from-bracket icon"></i>
-          Logout
-        </button>
+        <!-- <button class="user-logout" @click="userLogout"></button> -->
+        <Button
+          variant="primary"
+          class="w-full d-flex"
+          :class="[{ 'user-logout': !isSpin }, { 'mt-6': isSpin }]"
+          :disabled="isSpin"
+          @click.native="userLogout"
+        >
+          <div class="mr-3" v-show="!isSpin">
+            <i class="fa-solid fa-arrow-right-from-bracket icon mr-3"></i>
+            Logout
+          </div>
+          <Spinner slot="loader" v-if="isSpin" />
+          <div class="mr-3" v-show="isSpin">Logout</div>
+        </Button>
       </div>
     </div>
   </div>
@@ -59,6 +70,11 @@
 import { generalMixins } from "@/mixins/general";
 export default {
   mixins: [generalMixins],
+  data() {
+    return {
+      isSpin: false,
+    };
+  },
   methods: {
     linkIsActive(link) {
       const paths = Array.isArray(link) ? link : [link];
@@ -70,6 +86,7 @@ export default {
     },
     // === logout ===
     async userLogout() {
+      this.isSpin = true;
       await this.$auth.logout("local");
 
       // === no response from auth logout so reuse isAuthenticated ===
@@ -79,6 +96,7 @@ export default {
         this.toast("You have been logged out!", "success");
         this.isUserMenuOpen = !this.isUserMenuOpen;
       } else this.toast("Fail to log out!", "error");
+      this.isSpin = false;
     },
   },
 };

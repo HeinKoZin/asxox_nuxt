@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <MainLayoutComponent>
-      <div class="profile-layout-container">
-        <div class="use-sidebar">
-          <UserSidebar />
-        </div>
-        <div class="main">
-          <Nuxt keep-alive />
-        </div>
+  <MainLayoutComponent>
+    <div class="profile-layout-container">
+      <div class="use-sidebar">
+        <UserSidebar />
       </div>
-    </MainLayoutComponent>
-  </div>
+      <div class="main">
+        <Nuxt keep-alive />
+      </div>
+    </div>
+  </MainLayoutComponent>
 </template>
 
 <script>
