@@ -4,7 +4,7 @@
       <div class="user-setting">
         <div class="w-full">
           <div class="user-profile-img">
-            <img :src="profilePreview || profilePhoto" alt="Profile Photo" />
+            <img :src="profileImage" alt="Profile Photo" />
             <button class="image-upload-btn" @click="$refs.profile.click()">
               <i class="fa-solid fa-camera"></i>
               <input
@@ -99,7 +99,15 @@
         <CustomerAddressCard isInProfile />
       </div>
       <div class="user-setting-actions">
-        <button class="save-btn" @click="userUpdate()">Save</button>
+        <Button
+          variant="blue-primary"
+          class="w-auto p-4"
+          :disabled="isSpin"
+          @click.native="userUpdate"
+        >
+          <Spinner slot="loader" v-if="isSpin" />
+          Save
+        </Button>
         <button class="cancel-btn">Cancel</button>
       </div>
     </div>
@@ -124,11 +132,20 @@ export default {
         status: "",
         address: "",
       },
+      isSpin: false,
       profilePhoto: null,
       states: [],
       cities: [],
       profilePreview: null,
     };
+  },
+
+  computed: {
+    profileImage() {
+      if (!this.profilePreview && !this.profilePhoto)
+        return require("~/assets/img/default-avatar.png");
+      return this.profilePreview || this.profilePhoto;
+    },
   },
   methods: {
     setProfile(e) {
@@ -136,6 +153,7 @@ export default {
       this.profilePhoto = e.target.files[0];
     },
     async userUpdate() {
+      this.isSpin = true;
       const res = await this.generalPostApis("customers/update", this.userData);
       if (this.profilePhoto) {
         var data = new FormData();
@@ -154,6 +172,9 @@ export default {
           ? this.toast(res.message, "error")
           : this.toast("User Profile Updated Successfully", "success");
       }
+
+      this.$auth.fetchUser();
+      this.isSpin = false;
     },
   },
 

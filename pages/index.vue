@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <div class="home-header">
-      <Slider :products="sliderItems" />
+      <Slider :products="slideAds" />
     </div>
     <!-- <CategoryBar /> -->
     <!-- Product list container -->
@@ -39,12 +39,12 @@ export default {
   components: { Category },
   layout: "MainLayout",
   name: "HomePage",
-
-  data() {
+  head() {
     return {
-      sliderItems: {},
+      title: `Asxox | Home`,
     };
   },
+
   computed: {
     // NOTE: Method from Vuex getters
     ...mapGetters([
@@ -52,23 +52,21 @@ export default {
       "categories",
       "adsShops",
       "categoryProducts",
+      "slideAds",
     ]),
   },
   methods: {
     // NOTE: Method from Vuex actions
-    ...mapActions(["getAdsShops", "getCategories", "getProductsByCategory"]),
-    async fetchSlideAds() {
-      try {
-        const res = await this.$axios.get("ads/widget/6");
-        this.sliderItems = res.data.data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    ...mapActions([
+      "getAdsShops",
+      "getCategories",
+      "getProductsByCategory",
+      "getSlideAds",
+    ]),
   },
   async fetch() {
     if (this.categoryProducts.length > 0) return;
-    await this.fetchSlideAds();
+    await this.getSlideAds();
     await this.getAdsShops();
     await this.getCategories();
     let shopIndex = 0;

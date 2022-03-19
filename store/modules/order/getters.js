@@ -11,6 +11,10 @@ const getters = {
   orderDetail(state) {
     return state.orderDetail;
   },
+
+  orders(state) {
+    return state.orders;
+  },
 };
 
 export default getters;

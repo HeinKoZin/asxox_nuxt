@@ -176,7 +176,7 @@
           <Button
             variant="primary"
             class="w-full"
-            :disabled="!isFilledLogin || isSpin"
+            :disabled="isSpin"
             @click.native="userLogin(login, '/')"
           >
             <Spinner slot="loader" v-if="isSpin" />

@@ -7,6 +7,9 @@ const getters = {
   categoryProducts(state) {
     return state.categoryProducts;
   },
+  recommendedProducts(state) {
+    return state.draftRecommendedProducts;
+  },
 };
 
 export default getters;

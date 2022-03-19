@@ -14,6 +14,7 @@ export default {
     category: generateModule("category"),
     wishlistProduct: generateModule("wishlistProduct"),
     adsShop: generateModule("adsShop"),
+    slideAds: generateModule("slideAds"),
   },
 };
 
