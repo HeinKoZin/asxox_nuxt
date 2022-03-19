@@ -415,7 +415,7 @@ tbody tr {
 
   /* font-weight: bold; */
 
-  @apply text-sm text-slate-600 font-semibold;
+  @apply text-sm text-slate-500 font-semibold;
 }
 
 .customer-details-container .customer-details strong {

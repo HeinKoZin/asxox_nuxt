@@ -470,11 +470,11 @@ export default {
 
 <style lang="postcss" scoped>
 .product-cover-container {
-  @apply flex w-full h-auto bg-slate-50  py-8 flex-col border border-slate-300 rounded-lg justify-center items-center relative md:sticky md:bottom-0;
+  @apply flex w-full h-auto bg-slate-50 py-0 pb-5 md:pb-8  md:py-8 flex-col border border-slate-300 rounded-lg justify-center items-center relative md:sticky md:bottom-0;
 }
 
 .product-cover-container-wrapper {
-  @apply flex flex-col items-center w-[80%] gap-y-2;
+  @apply flex flex-col items-center w-full md:w-[80%] gap-y-2;
 }
 
 .availability-container {
@@ -523,7 +523,7 @@ export default {
 }
 
 .product-name {
-  @apply w-full text-center text-slate-800 font-bold text-xl font-quicksand;
+  @apply w-full text-center text-slate-800 font-bold text-xl font-quicksand mt-3;
 }
 
 .product-brand {
@@ -549,7 +549,7 @@ export default {
 
 /* NOTE: Footer btn group */
 .footer-btn-group {
-  @apply flex flex-col gap-y-2 mt-4 w-full;
+  @apply flex flex-col gap-y-2 mt-4 w-full px-5 md:px-0;
 }
 
 .buy-now {
@@ -577,7 +577,7 @@ export default {
 }
 
 .product-variants .product-variant {
-  @apply flex flex-col gap-x-2;
+  @apply flex flex-col gap-x-2 px-5 md:px-0;
 }
 
 .product-variant-options {
@@ -621,7 +621,7 @@ export default {
 }
 
 .product-quantity {
-  @apply flex flex-col gap-y-2 w-full;
+  @apply flex flex-col gap-y-2 w-full px-5 md:px-0;
 }
 
 .product-quantity-label {

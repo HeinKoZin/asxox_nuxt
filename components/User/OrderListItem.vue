@@ -16,7 +16,8 @@
         class="details-btn"
         @click="SET_ORDER_DETAIL(order), SET_IS_ORDER_DETAIL()"
       >
-        <font-awesome-icon class="status-icon" :icon="['fas', 'eye']" />Details
+        <i class="fa-solid fa-eye first-line:status-icon"></i>
+        Details
       </button>
     </td>
   </tr>
