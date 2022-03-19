@@ -29,11 +29,11 @@ export default {
 }
 
 .header {
-  @apply flex w-full bg-slate-50 border-b rounded-t-lg border-slate-300 h-12 items-center px-2 font-quicksand text-base md:text-lg font-bold;
+  @apply flex w-full bg-slate-50 border-b rounded-t-lg border-slate-300 py-3 items-center px-2 font-quicksand   font-bold;
 }
 
 .body {
-  @apply w-full cursor-auto p-2 flex flex-wrap overflow-y-scroll overflow-hidden;
+  @apply w-full cursor-auto p-2 flex flex-wrap overflow-y-scroll overflow-hidden bg-slate-100;
 }
 
 .body::-webkit-scrollbar {
