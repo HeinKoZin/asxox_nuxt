@@ -1,7 +1,6 @@
 <template>
   <div
-    :class="
-      'customer-address-container-wrapper ' + (isInProfile ? 'profile' : '')
+    :class="'customer-address-container-wrapper ' + (isInProfile ? 'profile' : '')
     "
   >
     <div class="customer-address-container">
@@ -86,7 +85,7 @@ export default {
 }
 
 .customer-address-container {
-  @apply w-full flex flex-col gap-y-2  border border-slate-300 p-5 md:p-10 rounded-lg;
+  @apply w-full flex flex-col gap-y-0 md:gap-y-2  border border-slate-300 p-0 md:p-10 rounded-lg;
 }
 
 .customer-address-container-wrapper.profile .customer-address-container {
@@ -94,11 +93,11 @@ export default {
 }
 
 .customer-address-container .address-title {
-  @apply text-slate-800 text-base md:text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
+  @apply text-slate-800 text-base md:text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center px-2 md:p-0;
 }
 
 .address-contents-container {
-  @apply flex-col md:flex-row flex flex-wrap gap-y-1 md:gap-y-2 w-full;
+  @apply flex-col md:flex-row flex flex-wrap gap-y-0 md:gap-y-2 w-full;
 }
 
 button {
@@ -107,6 +106,6 @@ button {
 
 .customer-address-container-wrapper.profile
   .address-contents-container-wrapper {
-  @apply bg-slate-200 p-2 md:p-3 rounded-lg;
+  @apply bg-slate-200 p-0 md:p-3 rounded-lg;
 }
 </style>
