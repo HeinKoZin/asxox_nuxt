@@ -54,7 +54,7 @@
         </div>
         <img
           class="card-header-image"
-          :src="product.temp_photo"
+          :src="data.temp_photo"
           @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
         />
       </div>
@@ -119,7 +119,7 @@
 
         <img
           class="card-header-image"
-          :src="product.wishlist_product_photo"
+          :src="data.wishlist_product_photo"
           @click="
             $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
           "
@@ -217,7 +217,7 @@ export default {
 }
 
 .promotion-product {
-  @apply min-w-[100%] max-w-[100%]  lg:min-w-[50%] lg:max-w-[50%] h-auto p-1 text-orange-600;
+  @apply min-w-[100%] max-w-[100%]  lg:min-w-[50%] lg:max-w-[50%] h-auto p-1 text-slate-800;
 }
 
 .product-card-container {

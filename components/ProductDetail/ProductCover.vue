@@ -1,5 +1,5 @@
 <template>
-  <div class="product-cover-container">
+  <div class="product-cover-container" v-dragscroll>
     <div class="product-cover-container-wrapper">
       <div class="product-header">
         <div class="product-cover">
