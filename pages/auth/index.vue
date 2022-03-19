@@ -196,7 +196,7 @@
             :disabled="isSpin"
             @click.native="userLogin(login, '/')"
           >
-            <Spinner slot="loader" />
+            <Spinner slot="loader" v-if="isSpin" />
             Login
           </Button>
 
