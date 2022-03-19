@@ -27,7 +27,7 @@ export default {
   computed: {
     ...mapGetters(["wishListProductList"]),
     calculateWishlisProducts() {
-      return this.wishListProductList?.length;
+      return this.wishListProductList?.length || 0;
     },
   },
 };

@@ -25,18 +25,18 @@
       </div> -->
       <div class="card-header">
         <div class="card-header-buttons">
-          <button @click="addToWishList(product.id, product.is_wishlist)">
+          <button @click="addToWishList(data.id, data.is_wishlist)">
             <!-- <font-awesome-icon
               v-if="!isInWishlist"
               :icon="['fas', 'heart']"
               class="icon"
               :class="product.is_wishlist ? 'active' : ''"
             /> -->
-            <div v-show="product.is_wishlist">
+            <div v-show="data.is_wishlist">
               <i class="fa-solid fa-heart icon active"></i>
             </div>
 
-            <div v-show="!product.is_wishlist">
+            <div v-show="!data.is_wishlist">
               <i class="fa-solid fa-heart icon"></i>
             </div>
             <!-- <font-awesome-icon
@@ -46,31 +46,29 @@
             /> -->
           </button>
           <button
-            @click="
-              addProductToCart(product), toast('Added to cart', 'success')
-            "
-            v-if="!product.is_varient"
+            @click="addProductToCart(data), toast('Added to cart', 'success')"
+            v-if="!data.is_varient"
           >
             <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
           <button
-            @click="$router.push(`/product/${$asxox.asxox_encode(product.id)}`)"
+            @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
           >
             <i class="fa-solid fa-eye icon"></i>
           </button>
         </div>
-        <img class="card-header-image" :src="product.temp_photo" />
+        <img class="card-header-image" :src="data.temp_photo" />
       </div>
       <div class="card-body">
         <NuxtLink
           class="card-header-title"
-          :to="encodedLink(`/product/${$asxox.asxox_encode(product.id)}`)"
+          :to="encodedLink(`/product/${$asxox.asxox_encode(data.id)}`)"
         >
-          {{ product.name }}</NuxtLink
+          {{ data.name }}</NuxtLink
         >
         <div class="product-price">
           <span class="text-orange-600">$</span>
-          <span class="text-orange-600">{{ product.sell_price }}</span>
+          <span class="text-orange-600">{{ data.sell_price }}</span>
         </div>
       </div>
     </div>
@@ -102,9 +100,7 @@
       <div class="card-header">
         <div class="card-header-buttons">
           <button
-            @click="
-              addToWishList(product.product.id, product.product.is_wishlist)
-            "
+            @click="addToWishList(data.product.id, data.product.is_wishlist)"
           >
             <div>
               <i class="fa-solid fa-heart icon active"></i>
@@ -112,37 +108,32 @@
           </button>
           <button
             @click="
-              addProductToCart(product.product),
-                toast('Added to cart', 'success')
+              addProductToCart(data.product), toast('Added to cart', 'success')
             "
-            v-if="!product.product.is_varient"
+            v-if="!data.product.is_varient"
           >
             <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
           <button
             @click="
-              $router.push(
-                `/product/${$asxox.asxox_encode(product.product.id)}`
-              )
+              $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
             "
           >
             <i class="fa-solid fa-eye icon"></i>
           </button>
         </div>
-        <img class="card-header-image" :src="product.wishlist_product_photo" />
+        <img class="card-header-image" :src="data.wishlist_product_photo" />
       </div>
       <div class="card-body">
         <NuxtLink
           class="card-header-title"
-          :to="
-            encodedLink(`/product/${$asxox.asxox_encode(product.product.id)}`)
-          "
+          :to="encodedLink(`/product/${$asxox.asxox_encode(data.product.id)}`)"
         >
-          {{ product.product.name }}</NuxtLink
+          {{ data.product.name }}</NuxtLink
         >
         <div class="product-price">
           <span class="text-orange-600">$</span>
-          <span class="text-orange-600">{{ product.product.sell_price }}</span>
+          <span class="text-orange-600">{{ data.product.sell_price }}</span>
         </div>
       </div>
     </div>
@@ -205,12 +196,9 @@ export default {
           //   categoryIndex: this.categoryIndex,
           //   productIndex: this.productIndex,
           // });
-          this.product.is_wishlist = !is_wishlist;
+          this.data.is_wishlist = !is_wishlist;
         } else {
           this.$emit("removeWishlist", this.wishListIndex);
-          // this.REMOVE_WISHLISH_PRODUCTS({
-          //   wishListIndex: this.wishListIndex,
-          // });
         }
         this.getWishListProducts();
       } else {
@@ -223,7 +211,11 @@ export default {
     },
   },
   fetch() {
-    this.product = JSON.parse(JSON.stringify(this.data));
+    if (!this.isWishListProduct)
+      this.data = JSON.parse(JSON.stringify(this.data));
+    // this.product = !this.isWishListProduct
+    //   ? JSON.parse(JSON.stringify(this.data))
+    //   : this.data;
   },
 };
 </script>
