@@ -8,11 +8,6 @@ const mutations = {
     state.categoryProducts.push(data);
   },
 
-  SET_CATEGORY_PRODUCT_FAVOURITE(state, { categoryIndex, productIndex }) {
-    state.categoryProducts[categoryIndex].products[productIndex].is_wishlist =
-      !state.categoryProducts[categoryIndex].products[productIndex].is_wishlist;
-  },
-
   SET_PRODUCT_FAVOURITE(state, productId) {
     for (let i = 0; i < state.categoryProducts.length; i++) {
       for (let j = 0; j < state.categoryProducts[i].products.length; j++) {
