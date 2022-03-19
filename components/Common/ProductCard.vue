@@ -166,10 +166,7 @@ export default {
     ...mapGetters(["wishListProductList"]),
   },
   methods: {
-    ...mapMutations([
-      "SET_CATEGORY_PRODUCT_FAVOURITE",
-      "REMOVE_WISHLISH_PRODUCTS",
-    ]),
+    ...mapMutations(["REMOVE_WISHLISH_PRODUCTS"]),
     ...mapActions(["getWishListProducts", "addProductToCart"]),
 
     //NOTE: add and remove product from wishlist
@@ -186,16 +183,11 @@ export default {
             ? (wishlistProductId = wishlist.wishlist_id)
             : null;
         });
-
         res = await this.generalDeleteApis(`/wishlists/${wishlistProductId}`);
       }
       if (res?.data?.status || res?.status === "success") {
         this.toast(res?.data?.message || res?.message, "success");
         if (!this.isWishListProduct) {
-          // this.SET_CATEGORY_PRODUCT_FAVOURITE({
-          //   categoryIndex: this.categoryIndex,
-          //   productIndex: this.productIndex,
-          // });
           this.data = JSON.parse(JSON.stringify(this.data));
           this.data.is_wishlist = !is_wishlist;
         } else {
@@ -206,7 +198,6 @@ export default {
         this.toast(res?.data?.message || res?.message, "error");
       }
     },
-
     encodedLink(data) {
       return data;
     },
