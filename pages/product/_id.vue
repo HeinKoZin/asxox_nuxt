@@ -24,8 +24,8 @@
         <ProductDescription v-if="product.detail" />
         <RecommendedProducts :products="recommendedProducts" />
       </div>
-      <div class="w-[20%]">
-        <!-- <RecommendedProducts :products="recommendedProducts" /> -->
+      <div class="w-[20%] hidden lg:block">
+        <PromotionProducts :products="recommendedProducts" />
       </div>
     </div>
   </div>
@@ -146,7 +146,7 @@ export default {
 }
 
 .product-cover {
-  @apply w-full h-full md:w-1/5  md:sticky md:top-0 md:bottom-0;
+  @apply w-full h-full md:w-1/5  md:sticky md:top-16;
 }
 
 .product-detail {

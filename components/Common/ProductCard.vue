@@ -1,8 +1,12 @@
 <template>
   <div
-    :class="'group ' +
-      (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
-    "
+    class="group"
+    :class="[
+      isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ',
+      isPromotionProduct
+        ? 'promotion-product'
+        : 'product-card-container-wrapper',
+    ]"
     v-if="!isWishListProduct"
   >
     <div
@@ -71,9 +75,13 @@
     </div>
   </div>
   <div
-    :class="'group ' +
-      (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
-    "
+    class="group"
+    :class="[
+      isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ',
+      isPromotionProduct
+        ? 'promotion-product'
+        : 'product-card-container-wrapper',
+    ]"
     v-else
   >
     <div
@@ -150,6 +158,7 @@ export default {
   props: {
     data: Object,
     isAdsProduct: Boolean,
+    isPromotionProduct: Boolean,
     isInWishlist: Boolean,
     categoryIndex: Number,
     productIndex: Number,
@@ -228,6 +237,10 @@ export default {
 
 .ads-product {
   @apply min-w-[60%] max-w-[60%] md:min-w-[25%] md:max-w-[25%] xl:min-w-[14.285%] xl:max-w-[14.285%] h-auto p-1 text-slate-800;
+}
+
+.promotion-product {
+  @apply min-w-[100%] max-w-[100%]  lg:min-w-[50%] lg:max-w-[50%] h-auto p-1 text-orange-600;
 }
 
 .product-card-container {

@@ -56,7 +56,7 @@
           </div>
         </div>
         <div class="product-name">
-          <h3>{{ product.name }}</h3>
+          <h2>{{ product.name }}</h2>
         </div>
 
         <!-- WARNING: Do not remove -->
@@ -470,7 +470,11 @@ export default {
 
 <style lang="postcss" scoped>
 .product-cover-container {
-  @apply flex w-full h-auto bg-slate-50 py-0 pb-5 md:pb-8  md:py-8 flex-col border border-slate-300 rounded-lg justify-center items-center relative md:sticky md:bottom-0;
+  @apply flex w-full h-auto bg-slate-50 py-0 pb-5 md:pb-8 md:pt-8  md:py-8 flex-col border border-slate-300 rounded-lg justify-center items-center relative md:sticky md:bottom-0 md:max-h-[calc(100vh_-_4rem)] md:overflow-hidden md:overflow-y-scroll;
+}
+
+.product-cover-container::-webkit-scrollbar {
+  @apply hidden;
 }
 
 .product-cover-container-wrapper {
@@ -523,7 +527,7 @@ export default {
 }
 
 .product-name {
-  @apply w-full text-center text-slate-800 font-bold text-xl font-quicksand mt-3;
+  @apply w-full text-center text-slate-800 font-bold text-lg font-quicksand mt-3;
 }
 
 .product-brand {
@@ -540,11 +544,11 @@ export default {
 
 /* NOTE: New */
 .product-price-and-rating {
-  @apply flex  gap-x-2 text-base mt-4 font-quicksand items-center  absolute bottom-0 w-full bg-slate-900 bg-opacity-50 text-slate-100 justify-evenly p-2 rounded-b-lg;
+  @apply flex  gap-x-2 text-sm mt-4 font-quicksand items-center  absolute bottom-0 w-full bg-slate-900 bg-opacity-50 text-slate-100 justify-evenly p-2 rounded-b-lg;
 }
 
 .product-price-and-rating .product-price {
-  @apply text-slate-50 bg-orange-600 rounded-lg p-2 px-4  font-bold  text-base;
+  @apply text-slate-50 bg-orange-600 rounded-lg p-2 px-4  font-bold  text-sm;
 }
 
 /* NOTE: Footer btn group */
@@ -577,7 +581,7 @@ export default {
 }
 
 .product-variants .product-variant {
-  @apply flex flex-col gap-x-2 px-5 md:px-0;
+  @apply flex flex-col gap-x-2 px-5 md:px-0 text-sm;
 }
 
 .product-variant-options {
@@ -589,7 +593,7 @@ export default {
 }
 
 .product-variant-title {
-  @apply text-base font-quicksand font-semibold;
+  @apply font-quicksand font-semibold;
 }
 
 .product-variant-option.active {
