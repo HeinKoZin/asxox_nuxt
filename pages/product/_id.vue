@@ -16,10 +16,16 @@
         />
       </div>
       <div class="product-detail">
-        <ProductImages :description_photos="product.description_photos" />
+        <!-- <ProductImages :description_photos="product.description_photos" /> -->
+        <VerticalProductImages
+          :description_photos="product.description_photos"
+        />
         <ProductInfo :product="product" />
         <ProductDescription v-if="product.detail" />
         <RecommendedProducts :products="recommendedProducts" />
+      </div>
+      <div class="w-[20%]">
+        <!-- <RecommendedProducts :products="recommendedProducts" /> -->
       </div>
     </div>
   </div>
@@ -136,7 +142,7 @@ export default {
 
 <style lang="postcss" scoped>
 .product-detail-container {
-  @apply flex w-full  md:flex-row flex-col bg-slate-100 gap-2 md:gap-y-0 px-2 pb-2;
+  @apply flex w-full md:flex-row flex-col bg-slate-100 gap-2 md:gap-y-0 px-2 pb-2;
 }
 
 .product-cover {
@@ -144,7 +150,7 @@ export default {
 }
 
 .product-detail {
-  @apply w-full md:w-4/5 flex gap-y-2 flex-col;
+  @apply w-full md:w-3/5 flex gap-y-2 flex-col;
 }
 
 .product-detail-container::-webkit-scrollbar {
