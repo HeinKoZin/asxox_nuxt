@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full md:w-1/2 p-1">
+  <div class="relative w-full p-1 md:w-1/2">
     <label
       :for="id"
       class="address-content-container"
@@ -15,25 +15,30 @@
           :checked="address.status"
         />
       </div>
-      <div class="flex flex-grow gap-x-1">
-        <div class="flex flex-col justify-center flex-grow gap-y-2">
+      <div
+        class="flex flex-col flex-grow md:gap-x-1 gap-y-2 md:gap-y-0 md:flex-row"
+      >
+        <div class="flex flex-col justify-center flex-grow md:gap-y-2 gap-y-0">
           <div class="address-content-address">
             <span>{{ address.name }}</span>
           </div>
-          <div class="address-content-phone">
+          <div class="address-content-phone text-slate-500 md:text-slate-900">
             <span>{{ address.phone }}</span>
           </div>
         </div>
-        <div class="flex flex-col justify-center gap-y-2">
+        <div class="flex flex-col justify-center md:gap-y-2 gap-y-0">
           <div>
             <span> {{ address.state.name }}, {{ address.city.name }} </span>
           </div>
-          <div>
+          <div class="text-slate-500 md:text-slate-900">
             <span> {{ address.address }} </span>
           </div>
         </div>
       </div>
     </label>
+    <button class="remove-btn">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
   </div>
 </template>
 
@@ -84,5 +89,9 @@ export default {
 
 span {
   @apply line-clamp-1;
+}
+
+.remove-btn {
+  @apply flex-shrink-0 flex items-center justify-center text-sm absolute top-1 right-1 bg-red-600 text-white rounded-full h-6 w-6;
 }
 </style>

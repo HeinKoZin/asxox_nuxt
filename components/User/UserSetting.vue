@@ -249,7 +249,7 @@ export default {
 
 <style lang="postcss" scoped>
 .user-setting-container-wrapper {
-  @apply w-full h-full flex p-4;
+  @apply w-full h-full flex p-1 md:p-4;
 }
 
 .user-setting-container {
