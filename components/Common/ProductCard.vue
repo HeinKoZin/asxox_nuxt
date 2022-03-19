@@ -196,6 +196,7 @@ export default {
           //   categoryIndex: this.categoryIndex,
           //   productIndex: this.productIndex,
           // });
+          this.data = JSON.parse(JSON.stringify(this.data));
           this.data.is_wishlist = !is_wishlist;
         } else {
           this.$emit("removeWishlist", this.wishListIndex);
@@ -209,13 +210,6 @@ export default {
     encodedLink(data) {
       return data;
     },
-  },
-  fetch() {
-    if (!this.isWishListProduct)
-      this.data = JSON.parse(JSON.stringify(this.data));
-    // this.product = !this.isWishListProduct
-    //   ? JSON.parse(JSON.stringify(this.data))
-    //   : this.data;
   },
 };
 </script>
