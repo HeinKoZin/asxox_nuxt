@@ -34,7 +34,12 @@
             <span class="float-right text-xl md:text-2xl"
               >Have you already signed up?
               <a
-                class="text-blue-600 underline cursor-pointer underline-offset-2"
+                class="
+                  text-blue-600
+                  underline
+                  cursor-pointer
+                  underline-offset-2
+                "
                 @click.prevent="handleFormStatus"
                 >Login In</a
               ></span
@@ -88,7 +93,15 @@
           />
 
           <p
-            class="relative w-full -mt-3 text-2xl leading-4 text-center font-dongle"
+            class="
+              relative
+              w-full
+              -mt-3
+              text-2xl
+              leading-4
+              text-center
+              font-dongle
+            "
           >
             <a href="#" class="text-blue-600 underline">Terms</a>
             <span> & </span>
@@ -138,7 +151,12 @@
             <span class="float-right text-xl md:text-2xl"
               >Are you new member?
               <a
-                class="text-blue-600 underline cursor-pointer underline-offset-2"
+                class="
+                  text-blue-600
+                  underline
+                  cursor-pointer
+                  underline-offset-2
+                "
                 @click.prevent="handleFormStatus"
                 >Register here</a
               ></span
@@ -193,11 +211,11 @@
           </div>
 
           <div class="social-login-container">
-            <button class="social-login-btn">
+            <button class="social-login-btn" @click="socialLogin('facebook')">
               <img src="~/assets/img/facebook.png" alt="Facebook" />
             </button>
             <p class="text-lg font-semibold font-zen-kurenaido">OR</p>
-            <button class="social-login-btn">
+            <button class="social-login-btn" @click="socialLogin('gmail')">
               <img src="~/assets/img/google.png" alt="Google" />
             </button>
           </div>
@@ -259,6 +277,49 @@ export default {
       }
       this.isSpin = false;
     },
+    // === social login ===
+    async socialLogin(type) {
+      try {
+        //firebase auth login
+        const provider =
+          type === "gmail"
+            ? new this.$fire.auth.app.firebase.auth.GoogleAuthProvider()
+            : new this.$fire.auth.app.firebase.auth.FacebookAuthProvider();
+        const res = await this.$fire.auth.signInWithPopup(provider);
+        let client_data = {
+          name: res.additionalUserInfo.profile.name,
+          email: res.additionalUserInfo.profile.email,
+          phone_no: res.additionalUserInfo.profile.name,
+          avatar: res.additionalUserInfo.profile.picture,
+          provider: type === "gmail" ? "google" : "facebook",
+          provider_id: res.additionalUserInfo.profile.id,
+          access_token: res.credential.accessToken,
+        };
+
+        //server login
+        const loginRes = await this.$axios.post(
+          `login/${type === "gmail" ? "google" : "facebook"}`,
+          {
+            client_data,
+          }
+        );
+
+        //frontend login after server login success
+        if (loginRes.data.success) {
+          this.$auth.setUserToken(loginRes.data.data.token);
+          const userRes = await this.$axios.get("user");
+          this.$auth.$storage.setUniversal("user", userRes?.data?.data);
+          this.$auth.$storage.setUniversal("loggedIn", "true");
+          if (userRes.data.success) {
+            this.toast("Successfully Logged in!", "success");
+            this.$router.push("/");
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     // === register ===
     async userRegister(data) {
       this.isSpin = true;
