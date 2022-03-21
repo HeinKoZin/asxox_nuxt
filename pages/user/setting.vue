@@ -30,7 +30,7 @@ export default {
 }
 
 .header {
-  @apply w-full gap-x-4 flex items-center p-4 py-6;
+  @apply w-full gap-x-4 flex items-center p-1 md:p-4 py-6;
 }
 
 .header h2 {

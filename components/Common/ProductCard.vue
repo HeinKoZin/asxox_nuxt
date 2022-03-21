@@ -1,20 +1,16 @@
 <template>
   <div
-    :class="'group ' +
-      (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
-    "
+    class="group"
+    :class="[
+      isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ',
+      isPromotionProduct
+        ? 'promotion-product'
+        : 'product-card-container-wrapper',
+    ]"
     v-if="!isWishListProduct"
   >
     <div
-      class="
-        transition-[translate]
-        product-card-container
-        group-hover:shadow-slate-300
-        group-hover:-translate-y-[0.05rem]
-        group-hover:shadow-md
-        relative
-        overflow-hidden
-      "
+      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
     >
       <!-- NOTE: Later feature -->
       <!-- <div
@@ -56,7 +52,11 @@
             <i class="fa-solid fa-eye icon"></i>
           </button>
         </div>
-        <img class="card-header-image" :src="data.temp_photo" />
+        <img
+          class="card-header-image"
+          :src="data.temp_photo"
+          @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
+        />
       </div>
       <div class="card-body">
         <NuxtLink
@@ -73,21 +73,17 @@
     </div>
   </div>
   <div
-    :class="'group ' +
-      (isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ')
-    "
+    class="group"
+    :class="[
+      isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ',
+      isPromotionProduct
+        ? 'promotion-product'
+        : 'product-card-container-wrapper',
+    ]"
     v-else
   >
     <div
-      class="
-        transition-[translate]
-        product-card-container
-        group-hover:shadow-slate-300
-        group-hover:-translate-y-[0.05rem]
-        group-hover:shadow-md
-        relative
-        overflow-hidden
-      "
+      class="transition-[translate] product-card-container group-hover:shadow-slate-300 group-hover:-translate-y-[0.05rem] group-hover:shadow-md relative overflow-hidden"
     >
       <!-- NOTE: Later feature -->
       <!-- <div
@@ -120,7 +116,14 @@
             <i class="fa-solid fa-eye icon"></i>
           </button>
         </div>
-        <img class="card-header-image" :src="data.wishlist_product_photo" />
+
+        <img
+          class="card-header-image"
+          :src="data.wishlist_product_photo"
+          @click="
+            $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
+          "
+        />
       </div>
       <div class="card-body">
         <NuxtLink
@@ -146,6 +149,7 @@ export default {
   props: {
     data: Object,
     isAdsProduct: Boolean,
+    isPromotionProduct: Boolean,
     isInWishlist: Boolean,
     categoryIndex: Number,
     productIndex: Number,
@@ -212,6 +216,10 @@ export default {
   @apply min-w-[60%] max-w-[60%] md:min-w-[25%] md:max-w-[25%] xl:min-w-[14.285%] xl:max-w-[14.285%] h-auto p-1 text-slate-800;
 }
 
+.promotion-product {
+  @apply min-w-[100%] max-w-[100%]  lg:min-w-[50%] lg:max-w-[50%] h-auto p-1 text-slate-800;
+}
+
 .product-card-container {
   @apply p-0 rounded-lg  bg-white;
 }
@@ -221,7 +229,7 @@ export default {
 }
 
 .card-header .card-header-buttons {
-  @apply absolute top-0 right-0 w-full h-full rounded-lg rounded-b-none bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center group-hover:flex group-hover:bg-opacity-50 group-hover:animate-fadeIn;
+  @apply absolute top-0 right-0 w-full h-full rounded-lg rounded-b-none bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center md:group-hover:flex md:group-hover:bg-opacity-50 md:group-hover:animate-fadeIn;
 }
 
 .card-header .card-header-image {
