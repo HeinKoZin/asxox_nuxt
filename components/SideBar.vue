@@ -1,7 +1,6 @@
 <template>
   <div
-    :class="
-      'sidebar-container ' + (isMobileMenuOpen ? 'slide-up' : 'slide-down')
+    :class="'sidebar-container ' + (isMobileMenuOpen ? 'slide-up' : 'slide-down')
     "
   >
     <!-- NOTE: Menu -->
@@ -20,12 +19,13 @@
         <span class="menu-label">Home</span>
       </div>
       <!-- NOTE: Item -->
-      <div class="sidebar-menu-item">
+      <!-- WARNING: Temporary hide -->
+      <!-- <div class="sidebar-menu-item">
         <button class="btn">
           <i class="fa-solid fa-shop icon"></i>
         </button>
         <span class="menu-label">Shop</span>
-      </div>
+      </div> -->
     </div>
 
     <!-- <div class="sidebar-menu">
@@ -39,12 +39,13 @@
 
     <!-- NOTE: Cart -->
     <div class="sidebar-menu">
-      <div class="sidebar-menu-item active">
+      <!-- WARNING: Temporary hide -->
+      <!-- <div class="sidebar-menu-item active">
         <button class="btn">
           <i class="fa-solid fa-bars icon"></i>
         </button>
         <span class="menu-label">Category</span>
-      </div>
+      </div> -->
 
       <!-- <div class="sidebar-menu-item">
         <button class="btn">
