@@ -23,7 +23,7 @@
       <div class="card-header">
         <div
           class="card-header-buttons"
-          @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
+          @click.self="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
         >
           <button @click="addToWishList(data.id, data.is_wishlist)">
             <!-- <font-awesome-icon
@@ -99,7 +99,12 @@
         Discount
       </div> -->
       <div class="card-header">
-        <div class="card-header-buttons">
+        <div
+          class="card-header-buttons"
+          @click.self="
+            $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
+          "
+        >
           <button
             @click="addToWishList(data.product.id, data.product.is_wishlist)"
           >
