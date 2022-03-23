@@ -72,6 +72,23 @@ export default {
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
     "cookie-universal-nuxt",
+    [
+      "@nuxtjs/firebase",
+      {
+        config: {
+          apiKey: "AIzaSyCuarDfDNQtbUtPEO4MjZKhTeCk6Dqumdw",
+          authDomain: "asxoxfblogin.firebaseapp.com",
+          projectId: "asxoxfblogin",
+          storageBucket: "asxoxfblogin.appspot.com",
+          messagingSenderId: "539876334740",
+          appId: "1:539876334740:web:cecacc0987cb57a82be881",
+          measurementId: "G-G5DEYDYDMR",
+        },
+        services: {
+          auth: true, // Just as example. Can be any other service.
+        },
+      },
+    ],
   ],
 
   // fontawesome: {
