@@ -1,8 +1,6 @@
 <template>
   <div class="footer-container">
-    <div
-      class="flex flex-col flex-wrap justify-center w-full gap-4 md:items-center sm:items-center md:gap-0 md:flex-row"
-    >
+    <div class="flex flex-wrap justify-center w-full sm:items-center">
       <div class="footer-item">
         <div class="w-32">
           <img
@@ -82,11 +80,11 @@ export default {};
 
 <style lang="postcss" scoped>
 .footer-container {
-  @apply flex flex-col w-full  items-center justify-center  h-auto  bg-slate-50 py-5 md:py-16;
+  @apply flex flex-wrap w-full  items-center justify-center  h-auto  bg-slate-50 py-5 md:py-16;
 }
 
 .footer-item {
-  @apply w-full  sm:w-[33.33%] lg:w-[20%]  flex flex-col items-center   h-auto text-center;
+  @apply w-[50%]  sm:w-[33.33%] lg:w-[20%]  flex flex-col items-center   h-auto text-center;
 }
 .footer-item .description {
   @apply max-w-[60%] h-auto text-center;
@@ -97,7 +95,7 @@ export default {};
 }
 
 .footer-item .description p {
-  @apply text-sm md:text-base text-slate-500;
+  @apply text-xs md:text-base text-slate-500;
 }
 
 .footer-item .footer-img {

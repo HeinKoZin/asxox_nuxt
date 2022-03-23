@@ -1,5 +1,7 @@
 <template>
   <div
+    data-aos="zoom-in"
+    data-aos-duration="4000"
     class="group"
     :class="[
       isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ',
@@ -19,7 +21,10 @@
         Discount
       </div> -->
       <div class="card-header">
-        <div class="card-header-buttons">
+        <div
+          class="card-header-buttons"
+          @click.self="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
+        >
           <button @click="addToWishList(data.id, data.is_wishlist)">
             <!-- <font-awesome-icon
               v-if="!isInWishlist"
@@ -52,11 +57,13 @@
             <i class="fa-solid fa-eye icon"></i>
           </button>
         </div>
-        <img
-          class="card-header-image"
-          :src="data.temp_photo"
-          @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
-        />
+        <div class="card-header-image-wrapper">
+          <img
+            class="card-header-image"
+            :src="data.temp_photo"
+            @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
+          />
+        </div>
       </div>
       <div class="card-body">
         <NuxtLink
@@ -92,7 +99,12 @@
         Discount
       </div> -->
       <div class="card-header">
-        <div class="card-header-buttons">
+        <div
+          class="card-header-buttons"
+          @click.self="
+            $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
+          "
+        >
           <button
             @click="addToWishList(data.product.id, data.product.is_wishlist)"
           >
@@ -117,13 +129,15 @@
           </button>
         </div>
 
-        <img
-          class="card-header-image"
-          :src="data.wishlist_product_photo"
-          @click="
-            $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
-          "
-        />
+        <div class="card-header-image-wrapper">
+          <img
+            class="card-header-image"
+            :src="data.wishlist_product_photo"
+            @click="
+              $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
+            "
+          />
+        </div>
       </div>
       <div class="card-body">
         <NuxtLink
@@ -143,9 +157,10 @@
 
 <script>
 import { generalMixins } from "@/mixins/general";
+import aosMixin from "@/mixins/aos";
 import { mapMutations, mapActions, mapGetters } from "vuex";
 export default {
-  mixins: [generalMixins],
+  mixins: [generalMixins, aosMixin],
   props: {
     data: Object,
     isAdsProduct: Boolean,
@@ -229,11 +244,15 @@ export default {
 }
 
 .card-header .card-header-buttons {
-  @apply absolute top-0 right-0 w-full h-full rounded-lg rounded-b-none bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center md:group-hover:flex md:group-hover:bg-opacity-50 md:group-hover:animate-fadeIn;
+  @apply absolute top-0 right-0 w-full h-full z-30 rounded-lg rounded-b-none bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center md:group-hover:flex md:group-hover:bg-opacity-50 md:group-hover:animate-fadeIn;
+}
+
+.card-header-image-wrapper {
+  @apply w-full overflow-hidden rounded-lg rounded-b-none;
 }
 
 .card-header .card-header-image {
-  @apply w-full h-auto object-cover rounded-lg rounded-b-none;
+  @apply w-full h-auto object-cover rounded-lg rounded-b-none   group-hover:scale-110 transition-transform;
 }
 
 .product-card-container .product-price {
