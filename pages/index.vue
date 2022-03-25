@@ -88,10 +88,6 @@ export default {
       i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
     }
   },
-
-  async mounted() {
-    this.isLoading = this.categoryProducts.length ? false : true;
-  },
 };
 </script>
 

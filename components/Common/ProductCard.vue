@@ -1,8 +1,5 @@
 <template>
   <div
-    data-aos="zoom-in"
-    data-aos-duration="4000"
-    data-aos-once="true"
     class="group"
     :class="[
       isAdsProduct ? 'ads-product' : 'product-card-container-wrapper ',
