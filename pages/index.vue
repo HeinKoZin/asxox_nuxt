@@ -17,6 +17,7 @@
           </h4>
           <button class="see-all-btn">See All</button>
         </div>
+        <Loader v-if="isLoading" />
         <ProductCard
           :data="product"
           :categoryIndex="catIndex"
@@ -25,7 +26,7 @@
           :key="index"
           :isInWishlist="product.is_wishlist"
         />
-        <no-ssr><AdsShop v-if="category.shop" :shop="category.shop" /></no-ssr>
+        <AdsShop v-if="category.shop" :shop="category.shop" />
       </div>
     </div>
   </div>
@@ -42,6 +43,12 @@ export default {
   head() {
     return {
       title: `Asxox | Home`,
+    };
+  },
+
+  data() {
+    return {
+      isLoading: true,
     };
   },
 
@@ -79,6 +86,10 @@ export default {
       });
       i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
     }
+  },
+
+  async mounted() {
+    this.isLoading = this.categoryProducts.length ? false : true;
   },
 };
 </script>
