@@ -41,17 +41,13 @@
           <input type="text" placeholder="Search" />
           <Button class="header-search-button" size="sm">
             <i
-              class="
-                fa-solid fa-magnifying-glass
-                text-slate-500
-                hover:text-slate-700
-              "
+              class="fa-solid fa-magnifying-glass text-slate-500 hover:text-slate-700"
             ></i>
           </Button>
         </div>
       </div>
       <div class="header-right">
-        <div class="header-user">
+        <div class="header-user" v-click-outside="closeUserMenu">
           <button
             class="header-user-button"
             size="sm"
@@ -182,8 +178,16 @@ export default {
       this.isUserMenuOpen = !this.isUserMenuOpen;
     },
 
+    closeUserMenu() {
+      this.isUserMenuOpen = false;
+    },
+
     toggleCart() {
       this.SET_CART(!this.isCartOpen);
+    },
+
+    test() {
+      alert("test");
     },
     // === logout ===
     async userLogout() {

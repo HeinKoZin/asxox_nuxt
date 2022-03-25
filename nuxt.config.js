@@ -59,6 +59,7 @@ export default {
     "~/plugins/inject.js",
     { src: "~/plugins/v-dragscroll.js", ssr: false },
     "~/plugins/fontawesome.js",
+    "~/plugins/click-outside.js",
     // '@/plugins/aos.js'
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
