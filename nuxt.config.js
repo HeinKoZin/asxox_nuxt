@@ -49,6 +49,7 @@ export default {
     { path: "~/components/Checkout", extensions: ["vue"] },
     { path: "~/components/User", extensions: ["vue"] },
     { path: "~/components/Layouts", extensions: ["vue"] },
+    { path: "~/components/ModelBoxs", extensions: ["vue"] },
   ],
 
   purgeCSS: {},
