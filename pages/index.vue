@@ -6,7 +6,6 @@
     <!-- <CategoryBar /> -->
     <!-- Product list container -->
 
-    <Loader v-if="isLoading" />
     <div class="products-list-container">
       <div
         class="products-container"
