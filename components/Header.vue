@@ -41,7 +41,11 @@
           <input type="text" placeholder="Search" />
           <Button class="header-search-button" size="sm">
             <i
-              class="fa-solid fa-magnifying-glass text-slate-500 hover:text-slate-700"
+              class="
+                fa-solid fa-magnifying-glass
+                text-slate-500
+                hover:text-slate-700
+              "
             ></i>
           </Button>
         </div>
@@ -184,6 +188,7 @@ export default {
     // === logout ===
     async userLogout() {
       await this.$auth.logout("local");
+      this.$fire.auth.signOut();
 
       // === no response from auth logout so reuse isAuthenticated ===
       if (!this.isAuthenticated) {

@@ -34,12 +34,7 @@
             <span class="float-right text-xl md:text-2xl"
               >Have you already signed up?
               <a
-                class="
-                  text-blue-600
-                  underline
-                  cursor-pointer
-                  underline-offset-2
-                "
+                class="text-blue-600 underline cursor-pointer underline-offset-2"
                 @click.prevent="handleFormStatus"
                 >Login In</a
               ></span
@@ -93,15 +88,7 @@
           />
 
           <p
-            class="
-              relative
-              w-full
-              -mt-3
-              text-2xl
-              leading-4
-              text-center
-              font-dongle
-            "
+            class="relative w-full -mt-3 text-2xl leading-4 text-center font-dongle"
           >
             <a href="#" class="text-blue-600 underline">Terms</a>
             <span> & </span>
@@ -118,7 +105,7 @@
             Register
           </Button>
 
-          <div class="social-login-container">
+          <!-- <div class="social-login-container">
             <button class="social-login-btn">
               <img src="~/assets/img/facebook.png" alt="Facebook" />
             </button>
@@ -126,7 +113,7 @@
             <button class="social-login-btn">
               <img src="~/assets/img/google.png" alt="Google" />
             </button>
-          </div>
+          </div> -->
         </div>
       </AnimationView>
     </div>
@@ -151,12 +138,7 @@
             <span class="float-right text-xl md:text-2xl"
               >Are you new member?
               <a
-                class="
-                  text-blue-600
-                  underline
-                  cursor-pointer
-                  underline-offset-2
-                "
+                class="text-blue-600 underline cursor-pointer underline-offset-2"
                 @click.prevent="handleFormStatus"
                 >Register here</a
               ></span
@@ -285,16 +267,32 @@ export default {
           type === "gmail"
             ? new this.$fire.auth.app.firebase.auth.GoogleAuthProvider()
             : new this.$fire.auth.app.firebase.auth.FacebookAuthProvider();
+
         const res = await this.$fire.auth.signInWithPopup(provider);
-        let client_data = {
-          name: res.additionalUserInfo.profile.name,
-          email: res.additionalUserInfo.profile.email,
-          phone_no: res.additionalUserInfo.profile.name,
-          avatar: res.additionalUserInfo.profile.picture,
-          provider: type === "gmail" ? "google" : "facebook",
-          provider_id: res.additionalUserInfo.profile.id,
-          access_token: res.credential.accessToken,
-        };
+
+        console.log(res);
+
+        let client_data;
+        if (type === "gmail") {
+          client_data = {
+            name: res.additionalUserInfo.profile.name,
+            email: res.additionalUserInfo.profile.email,
+            phone_no: res.additionalUserInfo.profile.name,
+            avatar: res.additionalUserInfo.profile.picture,
+            provider: type === "gmail" ? "google" : "facebook",
+            provider_id: res.additionalUserInfo.profile.id,
+            access_token: res.credential.accessToken,
+          };
+        } else {
+          client_data = {
+            name: res.displayName,
+            email: res.email,
+            avatar: res.photoUrl,
+            provider: type === "gmail" ? "google" : "facebook",
+            provider_id: res.additionalUserInfo.profile.id,
+            access_token: res.credential.accessToken,
+          };
+        }
 
         //server login
         const loginRes = await this.$axios.post(
@@ -308,13 +306,17 @@ export default {
         if (loginRes.data.success) {
           this.$auth.setUserToken(loginRes.data.data.token);
           const userRes = await this.$axios.get("user");
-          this.$auth.$storage.setUniversal("user", userRes?.data?.data);
-          this.$auth.$storage.setUniversal("loggedIn", "true");
+
           if (userRes.data.success) {
+            this.$auth.$storage.setUniversal("user", userRes?.data?.data);
+            this.$auth.$storage.setUniversal("loggedIn", "true");
             this.toast("Successfully Logged in!", "success");
             this.$router.push("/");
           }
         }
+
+        // console.log(client_data);
+        console.log(res);
       } catch (err) {
         console.log(err);
       }
@@ -371,6 +373,9 @@ export default {
           this.register.checkbox;
       },
     },
+  },
+  mounted() {
+    console.log(this.$router);
   },
 };
 </script>
