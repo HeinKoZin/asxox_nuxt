@@ -314,7 +314,7 @@ export default {
                   // Sign in to provider. Note: browsers usually block popup triggered asynchronously,
                   // so in real scenario you should ask the user to click on a "continue" button
                   // that will trigger the signInWithPopup.
-                  this.$firebase.auth
+                  this.$fire.auth
                     .signInWithPopup(provider)
                     .then(function (result) {
                       // Remember that the user may have signed in with an account that has a different email
