@@ -34,12 +34,7 @@
             <span class="float-right text-xl md:text-2xl"
               >Have you already signed up?
               <a
-                class="
-                  text-blue-600
-                  underline
-                  cursor-pointer
-                  underline-offset-2
-                "
+                class="text-blue-600 underline cursor-pointer underline-offset-2"
                 @click.prevent="handleFormStatus"
                 >Login In</a
               ></span
@@ -93,15 +88,7 @@
           />
 
           <p
-            class="
-              relative
-              w-full
-              -mt-3
-              text-2xl
-              leading-4
-              text-center
-              font-dongle
-            "
+            class="relative w-full -mt-3 text-2xl leading-4 text-center font-dongle"
           >
             <a href="#" class="text-blue-600 underline">Terms</a>
             <span> & </span>
@@ -151,12 +138,7 @@
             <span class="float-right text-xl md:text-2xl"
               >Are you new member?
               <a
-                class="
-                  text-blue-600
-                  underline
-                  cursor-pointer
-                  underline-offset-2
-                "
+                class="text-blue-600 underline cursor-pointer underline-offset-2"
                 @click.prevent="handleFormStatus"
                 >Register here</a
               ></span
@@ -287,6 +269,9 @@ export default {
             : new this.$fire.auth.app.firebase.auth.FacebookAuthProvider();
 
         const res = await this.$fire.auth.signInWithPopup(provider);
+
+        console.log(res);
+
         let client_data;
         if (type === "gmail") {
           client_data = {
@@ -302,7 +287,7 @@ export default {
           client_data = {
             name: res.displayName,
             email: res.email,
-            avatar: res.additionalUserInfo.profile.picture,
+            avatar: res.photoUrl,
             provider: type === "gmail" ? "google" : "facebook",
             provider_id: res.additionalUserInfo.profile.id,
             access_token: res.credential.accessToken,
