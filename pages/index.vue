@@ -25,7 +25,7 @@
           :key="index"
           :isInWishlist="product.is_wishlist"
         />
-        <no-ssr><AdsShop v-if="category.shop" :shop="category.shop" /></no-ssr>
+        <AdsShop v-if="category.shop" :shop="category.shop" />
       </div>
     </div>
   </div>
