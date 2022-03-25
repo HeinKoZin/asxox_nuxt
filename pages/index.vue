@@ -5,7 +5,9 @@
     </div>
     <!-- <CategoryBar /> -->
     <!-- Product list container -->
+
     <div class="products-list-container">
+      <Loader v-if="isLoading" />
       <div
         class="products-container"
         v-for="(category, catIndex) in categoryProducts"
@@ -17,7 +19,7 @@
           </h4>
           <button class="see-all-btn">See All</button>
         </div>
-        <Loader v-if="isLoading" />
+
         <ProductCard
           :data="product"
           :categoryIndex="catIndex"
