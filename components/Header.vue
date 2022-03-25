@@ -41,11 +41,7 @@
           <input type="text" placeholder="Search" />
           <Button class="header-search-button" size="sm">
             <i
-              class="
-                fa-solid fa-magnifying-glass
-                text-slate-500
-                hover:text-slate-700
-              "
+              class="fa-solid fa-magnifying-glass text-slate-500 hover:text-slate-700"
             ></i>
           </Button>
         </div>
@@ -196,6 +192,7 @@ export default {
         this.$auth.$storage.removeUniversal("loggedIn");
         this.toast("You have been logged out!", "success");
         this.isUserMenuOpen = !this.isUserMenuOpen;
+        this.$router.push("/");
       } else this.toast("Fail to log out!", "error");
     },
   },
