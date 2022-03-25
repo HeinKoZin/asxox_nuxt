@@ -6,8 +6,8 @@
     <!-- <CategoryBar /> -->
     <!-- Product list container -->
 
+    <Loader v-if="isLoading" />
     <div class="products-list-container">
-      <Loader v-if="isLoading" />
       <div
         class="products-container"
         v-for="(category, catIndex) in categoryProducts"
