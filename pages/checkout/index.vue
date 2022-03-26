@@ -21,12 +21,18 @@
           Confirm
         </Button>
       </div>
+      <ModelBox content="Thank You"
+        ><button @click="$router.push('/user/orders')">
+          <i class="fa-solid fa-box"></i> Go to orders
+        </button>
+      </ModelBox>
     </div>
   </div>
 </template>
 
 <script>
 import { newEventSource } from "vue-parent-emit";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   layout: "MainLayout",
@@ -42,7 +48,11 @@ export default {
       isSpin: false,
     };
   },
+  computed: {
+    ...mapGetters(["isModel"]),
+  },
   methods: {
+    ...mapMutations(["SET_MODEL"]),
     spinResponse(value) {
       this.isSpin = value;
     },
