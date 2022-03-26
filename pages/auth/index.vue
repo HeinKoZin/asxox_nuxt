@@ -330,6 +330,7 @@ export default {
         console.log("login2", res);
       } catch (err) {
         console.log("error", err.email);
+        console.log("Error credential", err.credential);
       }
     },
 
