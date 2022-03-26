@@ -281,7 +281,7 @@ export default {
 
         const res = await this.$fire.auth.signInWithPopup(provider);
 
-        console.log(res);
+        console.log("login", res);
 
         let client_data;
         if (type === "gmail") {
@@ -304,6 +304,7 @@ export default {
             access_token: res.credential.accessToken,
           };
         }
+        console.log("client_data", client_data);
 
         //server login
         const loginRes = await this.$axios.post(
@@ -327,9 +328,9 @@ export default {
         }
 
         // console.log(client_data);
-        console.log(res);
+        console.log("login2", res);
       } catch (err) {
-        console.log(err);
+        console.log("error", err);
       }
     },
 
