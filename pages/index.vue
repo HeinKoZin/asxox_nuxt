@@ -6,6 +6,9 @@
     <!-- <CategoryBar /> -->
     <!-- Product list container -->
     <div class="products-list-container">
+      <div class="ads-image-container">
+        <img src="~/assets/img/ezgif.com-gif-maker.gif" />
+      </div>
       <div
         class="products-container"
         v-for="(category, catIndex) in categoryProducts"
@@ -14,7 +17,7 @@
         <div class="category-products">
           <div class="category-header">
             <h4 class="category-title">
-              <img :src="getCategoryLogo(category)" class="category-logo-img" />
+              <!-- <img :src="getCategoryLogo(category)" class="category-logo-img" /> -->
               {{ category.categoryName }}
             </h4>
             <button class="see-all-btn">See All</button>
@@ -136,5 +139,13 @@ export default {
 
 .category-logo-img {
   @apply w-10 h-10;
+}
+
+.ads-image-container {
+  @apply w-full p-1 h-auto mt-5 flex justify-center items-center;
+}
+
+.ads-image-container img {
+  @apply w-[70%] h-auto rounded-lg;
 }
 </style>
