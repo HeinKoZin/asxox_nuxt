@@ -284,18 +284,18 @@ export default {
 
         let client_data;
         client_data = {
-          name: res.additionalUserInfo.profile.name,
-          email: res.additionalUserInfo.profile.email,
-          avatar: res.additionalUserInfo.profile.picture,
+          name: res.additionalUserInfo.profile.name || res.user.displayName,
+          email: res.additionalUserInfo.profile.email || res.user.email,
+          avatar: res.additionalUserInfo.profile.picture || res.user.photoURL,
           provider: type === "gmail" ? "google" : "facebook",
           provider_id: res.additionalUserInfo.profile.id,
           access_token: res.credential.accessToken,
         };
         // if (type === "gmail") {
         //   client_data = {
-        //     name: res.additionalUserInfo.profile.name,
-        //     email: res.additionalUserInfo.profile.email,
-        //     avatar: res.additionalUserInfo.profile.picture,
+        //     name: res.additionalUserInfo.profile.name || res.user.displayName,
+        //     email: res.additionalUserInfo.profile.email || res.user.email,
+        //     avatar: res.additionalUserInfo.profile.picture || res.user.photoURL,
         //     provider: type === "gmail" ? "google" : "facebook",
         //     provider_id: res.additionalUserInfo.profile.id,
         //     access_token: res.credential.accessToken,
