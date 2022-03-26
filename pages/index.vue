@@ -12,9 +12,6 @@
         v-for="(category, catIndex) in categoryProducts"
         :key="catIndex"
       >
-        <!-- NOTE: Testing -->
-        <ModelBox content="Thank you!" />
-
         <div class="flex items-center justify-between w-full p-1">
           <h4 class="p-1 text-lg font-bold font-quicksand">
             {{ category.categoryName }}

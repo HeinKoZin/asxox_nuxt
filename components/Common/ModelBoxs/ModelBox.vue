@@ -1,5 +1,5 @@
 <template>
-  <div class="model-box-container-wrapper">
+  <div class="model-box-container-wrapper animate-fadeIn">
     <div class="model-box-container" :class="isLoader ? 'loader' : ''">
       <div class="model-box-icon">
         <i class="fa-solid fa-check" v-if="!isLoader"></i>
@@ -10,9 +10,14 @@
           {{ content ? content : "Loading..." }}
         </h3>
         <div class="model-action-buttons">
-          <button>Go to home</button>
-          <button>Go to orders</button>
+          <!-- <button><i class="fa-solid fa-house"></i> Go to home</button> -->
+          <button><i class="fa-solid fa-box"></i> Go to orders</button>
         </div>
+      </div>
+
+      <!-- NOTE: close model -->
+      <div class="model-box-close-btn" @click="closeModel">
+        <i class="fa-solid fa-times"></i>
       </div>
     </div>
   </div>
@@ -40,26 +45,34 @@ export default {
 }
 
 .model-box-container {
-  @apply p-4 px-10  flex flex-col items-center justify-center  text-white rounded-lg border border-slate-300;
+  @apply p-6 px-10  flex flex-col items-center justify-center bg-slate-50  text-white rounded-lg border border-slate-300 gap-3 min-w-[300px] relative;
 }
 
 .model-box-container.loader {
   @apply border-0;
 }
 
-.model-box-container.loader .model-box-content {
-  @apply font-quicksand text-sm md:text-base lg:text-lg py-2;
+.model-box-content {
+  @apply font-quicksand text-sm md:text-base flex flex-col lg:text-lg py-2 gap-3;
+}
+
+.model-box-content h3 {
+  @apply text-slate-900 font-bold;
 }
 
 .model-box-icon {
-  @apply text-lg md:text-xl lg:text-2xl;
+  @apply text-lg md:text-xl lg:text-2xl text-slate-50 rounded-full flex justify-center items-center h-16 w-16 bg-orange-500;
 }
 
 .model-action-buttons {
-  @apply flex  items-center justify-center gap-2;
+  @apply flex  items-center justify-center gap-2 mt-5;
 }
 
 .model-action-buttons button {
-  @apply flex-grow p-2 rounded-full bg-white text-slate-500 hover:bg-slate-700 hover:text-white;
+  @apply flex-grow p-2 px-4 rounded-lg bg-orange-500 text-slate-50 hover:text-white text-base;
+}
+
+.model-box-close-btn {
+  @apply bg-red-500 text-slate-50 hover:text-white text-base absolute -top-1 -right-1 w-6 h-6 flex justify-center items-center rounded-full shadow-sm;
 }
 </style>
