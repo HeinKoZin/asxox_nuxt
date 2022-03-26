@@ -5,6 +5,7 @@
     </div>
     <!-- <CategoryBar /> -->
     <!-- Product list container -->
+
     <div class="products-list-container">
       <div
         class="products-container"
@@ -17,7 +18,7 @@
           </h4>
           <button class="see-all-btn">See All</button>
         </div>
-        <Loader v-if="isLoading" />
+
         <ProductCard
           :data="product"
           :categoryIndex="catIndex"
@@ -26,7 +27,7 @@
           :key="index"
           :isInWishlist="product.is_wishlist"
         />
-        <AdsShop v-if="category.shop" :shop="category.shop" />
+        <no-ssr><AdsShop v-if="category.shop" :shop="category.shop" /></no-ssr>
       </div>
     </div>
   </div>
@@ -86,10 +87,6 @@ export default {
       });
       i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
     }
-  },
-
-  async mounted() {
-    this.isLoading = this.categoryProducts.length ? false : true;
   },
 };
 </script>
