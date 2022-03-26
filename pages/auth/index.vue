@@ -279,7 +279,7 @@ export default {
             ? new this.$fire.auth.app.firebase.auth.GoogleAuthProvider()
             : new this.$fire.auth.app.firebase.auth.FacebookAuthProvider();
 
-        const res = this.signInWithPopupFirebase();
+        const res = this.signInWithPopupFirebase(provider);
         console.log("login", res);
 
         let client_data;
@@ -333,7 +333,7 @@ export default {
       }
     },
 
-    async signInWithPopupFirebase() {
+    async signInWithPopupFirebase(provider) {
       const res = await this.$fire.auth
         .signInWithPopup(provider)
         .catch(async (err) => {
