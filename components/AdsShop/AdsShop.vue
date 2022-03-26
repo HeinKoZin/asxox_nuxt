@@ -80,7 +80,7 @@ export default {
 }
 
 .ads-shop-container .shop-info .shop-see-all-btn {
-  @apply bg-orange-600 p-2 px-6 mt-2 rounded-md  font-quicksand text-base md:text-lg hover:bg-slate-800;
+  @apply bg-orange-600 p-2 px-6 mt-2 rounded-md  font-quicksand text-base md:text-lg hover:bg-orange-500;
 }
 
 .ads-shop-container .products-list {
