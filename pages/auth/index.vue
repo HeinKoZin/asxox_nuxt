@@ -279,8 +279,7 @@ export default {
             ? new this.$fire.auth.app.firebase.auth.GoogleAuthProvider()
             : new this.$fire.auth.app.firebase.auth.FacebookAuthProvider();
 
-        const res = await this.$fire.auth.signInWithPopup(provider);
-
+        const res = this.signInWithPopupFirebase();
         console.log("login", res);
 
         let client_data;
@@ -332,6 +331,17 @@ export default {
       } catch (err) {
         console.log("error", err.code);
       }
+    },
+
+    signInWithPopupFirebase() {
+      const res = await this.$fire.auth
+        .signInWithPopup(provider)
+        .catch((err) => {
+          if (err.code === "auth/account-exists-with-different-credential") {
+            await this.$fire.auth.signInWithCredential(err.credential);
+          }
+        });
+      return res;
     },
 
     // === register ===
