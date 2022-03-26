@@ -279,7 +279,7 @@ export default {
             ? new this.$fire.auth.app.firebase.auth.GoogleAuthProvider()
             : new this.$fire.auth.app.firebase.auth.FacebookAuthProvider();
 
-        const res = await this.signInWithPopupFirebase(provider);
+        const res = this.signInWithPopupFirebase(provider);
         console.log("login", res);
 
         let client_data;
