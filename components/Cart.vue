@@ -47,11 +47,32 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 export default {
+  data() {
+    return {
+      initialState: true,
+    };
+  },
   computed: {
     ...mapGetters(["isCartOpen", "cartProducts", "cartProductsTotal"]),
   },
   methods: {
     ...mapMutations(["SET_CART"]),
+
+    test() {
+      this.SET_CART(!this.isCartOpen);
+      console.log(this.isCartOpen);
+    },
+  },
+
+  mounted() {
+    this.initialState = this.isCartOpen;
+    // if (this.isCartOpen) {
+    document.body.addEventListener("click", this.test);
+    // }
+  },
+
+  beforeDestroy() {
+    document.body.removeEventListener("click", this.test);
   },
 };
 </script>
