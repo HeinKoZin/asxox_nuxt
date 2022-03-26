@@ -329,7 +329,7 @@ export default {
         // console.log(client_data);
         console.log("login2", res);
       } catch (err) {
-        console.log("error", err.credential);
+        console.log("error", err.email);
       }
     },
 
