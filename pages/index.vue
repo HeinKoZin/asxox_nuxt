@@ -5,28 +5,33 @@
     </div>
     <!-- <CategoryBar /> -->
     <!-- Product list container -->
-
     <div class="products-list-container">
+      <div class="ads-image-container">
+        <img src="~/assets/img/ezgif.com-gif-maker.gif" />
+      </div>
       <div
         class="products-container"
         v-for="(category, catIndex) in categoryProducts"
         :key="catIndex"
       >
-        <div class="flex items-center justify-between w-full p-1">
-          <h4 class="p-1 text-lg font-bold font-quicksand">
-            {{ category.categoryName }}
-          </h4>
-          <button class="see-all-btn">See All</button>
-        </div>
+        <div class="category-products">
+          <div class="category-header">
+            <h4 class="category-title">
+              <!-- <img :src="getCategoryLogo(category)" class="category-logo-img" /> -->
+              {{ category.categoryName }}
+            </h4>
+            <button class="see-all-btn">See All</button>
+          </div>
 
-        <ProductCard
-          :data="product"
-          :categoryIndex="catIndex"
-          :productIndex="index"
-          v-for="(product, index) in category.products"
-          :key="index"
-          :isInWishlist="product.is_wishlist"
-        />
+          <ProductCard
+            :data="product"
+            :categoryIndex="catIndex"
+            :productIndex="index"
+            v-for="(product, index) in category.products"
+            :key="index"
+            :isInWishlist="product.is_wishlist"
+          />
+        </div>
         <no-ssr><AdsShop v-if="category.shop" :shop="category.shop" /></no-ssr>
       </div>
     </div>
@@ -71,6 +76,10 @@ export default {
       "getProductsByCategory",
       "getSlideAds",
     ]),
+
+    getCategoryLogo(category) {
+      return this.categories.find((c) => c.id === category.categoryId)?.logo;
+    },
   },
   async fetch() {
     if (this.categoryProducts.length > 0) return;
@@ -108,11 +117,35 @@ export default {
   @apply flex flex-wrap;
 }
 
+.products-container .category-products {
+  @apply flex flex-wrap bg-slate-50 p-2 rounded-lg;
+}
+
 .products-container .icon {
   @apply text-2xl text-slate-700;
 }
 
 .products-container .see-all-btn {
   @apply p-2 px-4 text-sm font-bold font-quicksand underline border text-orange-600  hover:text-slate-800 rounded-md;
+}
+
+.category-header {
+  @apply flex items-center justify-between w-full p-1;
+}
+
+.category-header .category-title {
+  @apply p-1 text-lg font-bold text-orange-600 font-quicksand flex gap-2 items-center;
+}
+
+.category-logo-img {
+  @apply w-10 h-10;
+}
+
+.ads-image-container {
+  @apply w-full p-1 h-auto mt-5 flex justify-center items-center;
+}
+
+.ads-image-container img {
+  @apply w-[70%] h-auto rounded-lg;
 }
 </style>
