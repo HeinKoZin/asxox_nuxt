@@ -294,7 +294,7 @@ export default {
           const userRes = await this.$axios.get("user");
 
           if (userRes.data.success) {
-            this.$auth.$storage.setUniversal("user", userRes?.data?.data);
+            this.$auth.$storage.setUniversal("user", userRes?.data);
             this.$auth.$storage.setUniversal("loggedIn", "true");
             this.toast("Successfully Logged in!", "success");
             this.$router.push("/");

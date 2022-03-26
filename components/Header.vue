@@ -1,7 +1,6 @@
 <template>
   <header>
     <div class="header-container">
-      state : {{ $store.state.auth.user.name }}
       <div class="header-left">
         <div class="mobile-header-menu">
           <button
