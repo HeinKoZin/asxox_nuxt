@@ -200,6 +200,7 @@ export default {
         this.$auth.$storage.removeUniversal("loggedIn");
         this.toast("You have been logged out!", "success");
         this.isUserMenuOpen = !this.isUserMenuOpen;
+        this.$router.push("/");
       } else this.toast("Fail to log out!", "error");
     },
   },

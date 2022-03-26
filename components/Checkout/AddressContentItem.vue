@@ -36,14 +36,17 @@
         </div>
       </div>
     </label>
-    <button class="remove-btn">
+    {{ address.id }}
+    <button class="remove-btn" @click="removeShippingAddress">
       <i class="fa-solid fa-xmark"></i>
     </button>
   </div>
 </template>
 
 <script>
+import { generalMixins } from "@/mixins/general";
 export default {
+  mixins: [generalMixins],
   props: {
     address: {
       type: Object,
@@ -62,6 +65,19 @@ export default {
   methods: {
     handleCheckbox(e) {
       this.isChecked = e.target.value;
+    },
+    async removeShippingAddress() {
+      try {
+        // const res = await this.$axios.delete(
+        //   `/shipping_address/${this.address.id}`
+        // );
+        this.toast("Shipping address deleted Successfully", "success");
+        this.$emit("removeAddress");
+        await this.$auth.fetchUser();
+        // console.log(this.$auth.user?.data?.customer);
+      } catch (error) {
+        this.toast("Something wrong", "error");
+      }
     },
   },
 

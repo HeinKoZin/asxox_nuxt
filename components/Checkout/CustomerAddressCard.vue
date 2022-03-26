@@ -1,6 +1,7 @@
 <template>
   <div
-    :class="'customer-address-container-wrapper ' + (isInProfile ? 'profile' : '')
+    :class="
+      'customer-address-container-wrapper ' + (isInProfile ? 'profile' : '')
     "
   >
     <div class="customer-address-container">
@@ -18,6 +19,7 @@
           </button>
         </div>
       </div>
+      {{ addresses.length }}
 
       <div class="address-contents-container-wrapper">
         <div class="address-contents-container">
@@ -27,6 +29,7 @@
             :address="address"
             :addressIndex="index"
             @changeAddress="changeAddress"
+            @removeAddress="removeAddress(index)"
           />
         </div>
       </div>
@@ -50,7 +53,11 @@ export default {
   },
   methods: {
     // NOTE: Method from Vuex actions
-    ...mapMutations(["SET_ADDRESS_TO_ORDER", "UPDATE_ADDRESS_STATUS"]),
+    ...mapMutations([
+      "SET_ADDRESS_TO_ORDER",
+      "UPDATE_ADDRESS_STATUS",
+      "REMOVE_ADDRESS",
+    ]),
     //NOTE: change addresses by index
     changeAddress(index) {
       this.addresses.forEach((address, i) => {
@@ -63,6 +70,11 @@ export default {
       this.SET_ADDRESS_TO_ORDER(
         this.addresses.filter((address) => address.status)[0]
       );
+    },
+
+    //NOTE: remove addresses by index
+    removeAddress(index) {
+      this.REMOVE_ADDRESS(index);
     },
   },
   mounted() {
