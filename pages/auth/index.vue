@@ -283,26 +283,33 @@ export default {
         console.log("login", res);
 
         let client_data;
-        if (type === "gmail") {
-          client_data = {
-            name: res.additionalUserInfo.profile.name,
-            email: res.additionalUserInfo.profile.email,
-            phone_no: res.additionalUserInfo.profile.name,
-            avatar: res.additionalUserInfo.profile.picture,
-            provider: type === "gmail" ? "google" : "facebook",
-            provider_id: res.additionalUserInfo.profile.id,
-            access_token: res.credential.accessToken,
-          };
-        } else {
-          client_data = {
-            name: res.displayName,
-            email: res.email,
-            avatar: res.photoUrl,
-            provider: type === "gmail" ? "google" : "facebook",
-            provider_id: res.additionalUserInfo.profile.id,
-            access_token: res.credential.accessToken,
-          };
-        }
+        client_data = {
+          name: res.additionalUserInfo.profile.name,
+          email: res.additionalUserInfo.profile.email,
+          avatar: res.additionalUserInfo.profile.picture,
+          provider: type === "gmail" ? "google" : "facebook",
+          provider_id: res.additionalUserInfo.profile.id,
+          access_token: res.credential.accessToken,
+        };
+        // if (type === "gmail") {
+        //   client_data = {
+        //     name: res.additionalUserInfo.profile.name,
+        //     email: res.additionalUserInfo.profile.email,
+        //     avatar: res.additionalUserInfo.profile.picture,
+        //     provider: type === "gmail" ? "google" : "facebook",
+        //     provider_id: res.additionalUserInfo.profile.id,
+        //     access_token: res.credential.accessToken,
+        //   };
+        // } else {
+        //   client_data = {
+        //     name: res.displayName,
+        //     email: res.email,
+        //     avatar: res.photoUrl,
+        //     provider: type === "gmail" ? "google" : "facebook",
+        //     provider_id: res.additionalUserInfo.profile.id,
+        //     access_token: res.credential.accessToken,
+        //   };
+        // }
         console.log("client_data", client_data);
 
         //server login
@@ -329,25 +336,7 @@ export default {
         // console.log(client_data);
         console.log("login2", res);
       } catch (err) {
-        console.log("error", err.email);
-        console.log("Error credential", err.credential);
-        const res = await this.$fire.auth.signInWithCredential(err.credential);
-        console.log(res);
-      }
-    },
-
-    async signInWithPopupFirebase(provider) {
-      try {
-        const res = await this.$fire.auth.signInWithPopup(provider);
-        console.log(res);
-        return res;
-      } catch (err) {
-        if (err.code === "auth/account-exists-with-different-credential") {
-          const res = await this.$fire.auth.signInWithCredential(
-            err.credential
-          );
-        }
-        return res;
+        console.log("error", err);
       }
     },
 
