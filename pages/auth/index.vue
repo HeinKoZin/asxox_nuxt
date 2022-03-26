@@ -331,6 +331,8 @@ export default {
       } catch (err) {
         console.log("error", err.email);
         console.log("Error credential", err.credential);
+        const res = await this.$fire.auth.signInWithCredential(err.credential);
+        console.log(res);
       }
     },
 
