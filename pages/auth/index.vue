@@ -336,7 +336,7 @@ export default {
     async signInWithPopupFirebase() {
       const res = await this.$fire.auth
         .signInWithPopup(provider)
-        .catch((err) => {
+        .catch(async (err) => {
           if (err.code === "auth/account-exists-with-different-credential") {
             await this.$fire.auth.signInWithCredential(err.credential);
           }
