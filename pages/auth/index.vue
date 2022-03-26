@@ -191,6 +191,9 @@
               >Reset Password</a
             >
           </div>
+          <div>
+            <button @click="test">Test</button>
+          </div>
 
           <div class="social-login-container">
             <button class="social-login-btn" @click="socialLogin('facebook')">
@@ -232,6 +235,14 @@ export default {
     errors: {},
   }),
   methods: {
+    test() {
+      window.FB.getLoginStatus(function (response) {
+        this.statusChangeCallback(response);
+      });
+    },
+    statusChangeCallback(response) {
+      console.log(response);
+    },
     // ့handle form status
     handleFormStatus() {
       this.isLogin = !this.isLogin;

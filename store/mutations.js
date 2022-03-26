@@ -22,6 +22,13 @@ const mutations = {
     state.auth.user.data.customer.shipping_addresses[data.index].status =
       data.value;
   },
+
+  REMOVE_ADDRESS(state, index) {
+    console.log(state.auth.user.data.customer.shipping_addresses);
+    state.auth.user.data.customer.shipping_addresses =
+      state.auth.user.data.customer.shipping_addresses.splice(index, 1);
+    console.log(state.auth.user.data.customer.shipping_addresses);
+  },
 };
 
 export default mutations;
