@@ -1,6 +1,10 @@
 <template>
-  <div class="model-box-container-wrapper animate-fadeIn">
-    <div class="model-box-container" :class="isLoader ? 'loader' : ''">
+  <div class="model-box-container-wrapper animate-fadeIn" v-if="isModel">
+    <div
+      class="model-box-container"
+      :class="isLoader ? 'loader' : ''"
+      v-click-outside="closeModel"
+    >
       <div class="model-box-icon">
         <i class="fa-solid fa-check" v-if="!isLoader"></i>
         <i class="fa-solid fa-circle-notch animate-spin" v-if="isLoader"></i>
@@ -11,7 +15,7 @@
         </h3>
         <div class="model-action-buttons">
           <!-- <button><i class="fa-solid fa-house"></i> Go to home</button> -->
-          <button><i class="fa-solid fa-box"></i> Go to orders</button>
+          <slot></slot>
         </div>
       </div>
 
@@ -24,6 +28,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
 export default {
   props: {
     isLoader: {
@@ -34,6 +39,16 @@ export default {
     content: {
       type: String,
       required: false,
+    },
+  },
+  computed: {
+    ...mapGetters(["isModel"]),
+  },
+  methods: {
+    ...mapMutations(["SET_MODEL"]),
+    closeModel() {
+      this.SET_MODEL(!this.isModel);
+      this.$router.push("/");
     },
   },
 };

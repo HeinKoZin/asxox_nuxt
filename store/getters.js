@@ -15,6 +15,10 @@ const getters = {
   isMobileMenuOpen(state) {
     return state.isMobileMenuOpen;
   },
+
+  isModel(state) {
+    return state.isModel;
+  },
 };
 
 export default getters;

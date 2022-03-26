@@ -91,7 +91,7 @@ export default {
   },
   // NOTE: Method from Vuex getters
   computed: {
-    ...mapGetters(["cartProducts", "cartProductsTotal", "order"]),
+    ...mapGetters(["cartProducts", "cartProductsTotal", "order", "isModel"]),
     calculateCartProductQuantity() {
       let qty = 0;
       for (let product of this.cartProducts) {
@@ -106,7 +106,11 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["REFRESH_ORDER", "SET_WHOLE_PRODUCTS_TO_CART"]),
+    ...mapMutations([
+      "REFRESH_ORDER",
+      "SET_WHOLE_PRODUCTS_TO_CART",
+      "SET_MODEL",
+    ]),
     async finalOrder() {
       this.spinOnOffAndEmit(true);
       if (this.cartProducts.length === 0) {
@@ -118,6 +122,7 @@ export default {
       if (res.status !== "error" && !res.errors) {
         this.toast("Ordered successfully", "success");
         this.SET_WHOLE_PRODUCTS_TO_CART([]);
+        this.SET_MODEL(!this.isModel);
         this.spinOnOffAndEmit(false);
         return;
       }
