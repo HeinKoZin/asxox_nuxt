@@ -36,7 +36,6 @@
         </div>
       </div>
     </label>
-    {{ address.id }}
     <button class="remove-btn" @click="removeShippingAddress">
       <i class="fa-solid fa-xmark"></i>
     </button>
