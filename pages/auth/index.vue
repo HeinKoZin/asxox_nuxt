@@ -333,7 +333,7 @@ export default {
       }
     },
 
-    signInWithPopupFirebase() {
+    async signInWithPopupFirebase() {
       const res = await this.$fire.auth
         .signInWithPopup(provider)
         .catch((err) => {
