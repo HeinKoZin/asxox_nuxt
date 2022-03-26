@@ -191,9 +191,6 @@
               >Reset Password</a
             >
           </div>
-          <div>
-            <button @click="test">Test</button>
-          </div>
 
           <div class="social-login-container">
             <button class="social-login-btn" @click="socialLogin('facebook')">
@@ -235,14 +232,6 @@ export default {
     errors: {},
   }),
   methods: {
-    test() {
-      window.FB.getLoginStatus(function (response) {
-        this.statusChangeCallback(response);
-      });
-    },
-    statusChangeCallback(response) {
-      console.log(response);
-    },
     // ့handle form status
     handleFormStatus() {
       this.isLogin = !this.isLogin;
@@ -280,7 +269,6 @@ export default {
             : new this.$fire.auth.app.firebase.auth.FacebookAuthProvider();
 
         const res = await this.$fire.auth.signInWithPopup(provider);
-        console.log("login", res);
 
         let client_data;
         client_data = {
@@ -291,26 +279,6 @@ export default {
           provider_id: res.additionalUserInfo.profile.id,
           access_token: res.credential.accessToken,
         };
-        // if (type === "gmail") {
-        //   client_data = {
-        //     name: res.additionalUserInfo.profile.name || res.user.displayName,
-        //     email: res.additionalUserInfo.profile.email || res.user.email,
-        //     avatar: res.additionalUserInfo.profile.picture || res.user.photoURL,
-        //     provider: type === "gmail" ? "google" : "facebook",
-        //     provider_id: res.additionalUserInfo.profile.id,
-        //     access_token: res.credential.accessToken,
-        //   };
-        // } else {
-        //   client_data = {
-        //     name: res.displayName,
-        //     email: res.email,
-        //     avatar: res.photoUrl,
-        //     provider: type === "gmail" ? "google" : "facebook",
-        //     provider_id: res.additionalUserInfo.profile.id,
-        //     access_token: res.credential.accessToken,
-        //   };
-        // }
-        console.log("client_data", client_data);
 
         //server login
         const loginRes = await this.$axios.post(
@@ -332,9 +300,6 @@ export default {
             this.$router.push("/");
           }
         }
-
-        // console.log(client_data);
-        console.log("login2", res);
       } catch (err) {
         console.log("error", err);
       }
