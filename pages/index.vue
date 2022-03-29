@@ -146,6 +146,6 @@ export default {
 }
 
 .ads-image-container img {
-  @apply w-[70%] h-auto rounded-lg;
+  @apply w-full md:w-[80%] lg:w-[70%] h-auto rounded-lg;
 }
 </style>
