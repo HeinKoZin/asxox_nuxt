@@ -1,6 +1,14 @@
 <template>
   <div :class="'cart-container-wrapper ' + (isCartOpen ? 'active ' : '')">
     <div class="cart-container">
+      <div class="cart-action-button" v-click-outside="closeCart">
+        <button @click="toggleCart">
+          <span class="badge" v-if="calculateCartProductQuantity">{{
+            calculateCartProductQuantity
+          }}</span>
+          <i class="fa-solid fa-cart-shopping icon"></i>
+        </button>
+      </div>
       <div class="cart-header">
         <button @click="SET_CART(!isCartOpen)">
           <i
@@ -54,26 +62,36 @@ export default {
   },
   computed: {
     ...mapGetters(["isCartOpen", "cartProducts", "cartProductsTotal"]),
+
+    calculateCartProductQuantity() {
+      let qty = 0;
+      for (let product of this.cartProducts) {
+        qty += product.qty;
+      }
+      return qty || null;
+    },
   },
   methods: {
     ...mapMutations(["SET_CART"]),
 
-    test() {
+    toggleCart() {
       this.SET_CART(!this.isCartOpen);
-      console.log(this.isCartOpen);
+    },
+    closeCart() {
+      this.SET_CART(false);
     },
   },
 
-  mounted() {
-    this.initialState = this.isCartOpen;
-    // if (this.isCartOpen) {
-    document.body.addEventListener("click", this.test);
-    // }
-  },
+  // mounted() {
+  //   this.initialState = this.isCartOpen;
+  //   if (this.isCartOpen) {
+  //     document.body.addEventListener("click", this.test);
+  //   }
+  // },
 
-  beforeDestroy() {
-    document.body.removeEventListener("click", this.test);
-  },
+  // beforeDestroy() {
+  //   document.body.removeEventListener("click", this.test);
+  // },
 };
 </script>
 
@@ -130,5 +148,17 @@ export default {
 
 .cart-bottom .cart-bottom-action button {
   @apply bg-orange-600 p-3 rounded-lg text-white text-sm font-semibold;
+}
+
+.cart-action-button {
+  @apply hidden absolute w-14 h-14 top-1/2  bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
+}
+
+.cart-action-button button {
+  @apply text-orange-600 text-2xl font-semibold border-0 relative;
+}
+
+.badge {
+  @apply absolute flex justify-center items-center  text-xs  bg-orange-500 text-white w-5 h-5 -top-2 -right-2 text-center  rounded-full;
 }
 </style>
