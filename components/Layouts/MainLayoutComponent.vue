@@ -12,7 +12,7 @@
       </div>
       <Cart />
     </div>
-    <FabCartButton />
+    <!-- <FabCartButton /> -->
   </div>
 </template>
 

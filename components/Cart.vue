@@ -1,11 +1,10 @@
 <template>
-  <div :class="'cart-container-wrapper ' + (isCartOpen ? 'active ' : '')">
+  <div
+    :class="'cart-container-wrapper ' + (isCartOpen ? 'active ' : '')"
+    v-click-outside="closeCart"
+  >
     <div class="cart-container">
-      <div
-        class="cart-action-button"
-        v-show="!isCartOpen"
-        v-click-outside="closeCart"
-      >
+      <div class="cart-action-button" v-show="!isCartOpen">
         <button @click="toggleCart">
           <span class="badge" v-if="calculateCartProductQuantity">
             {{ calculateCartProductQuantity }}
@@ -19,7 +18,11 @@
         >
           <i class="fa-brands fa-facebook fb-icon"></i>
         </a>
-        <a href="">
+        <a
+          href="viber://chat?number=959950668891"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <i class="fa-brands fa-viber viber-icon"></i>
         </a>
       </div>
@@ -62,6 +65,8 @@
           </button>
         </div>
       </div>
+      <!-- Fab -->
+      <FabCartButton @click.native="toggleCart" v-show="!isCartOpen" />
     </div>
   </div>
 </template>

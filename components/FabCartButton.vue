@@ -1,6 +1,6 @@
 <template>
-  <div class="fab-container" v-if="!isCartOpen">
-    <button class="fab-container-btn" @click="toggleCart">
+  <div class="fab-container">
+    <button class="fab-container-btn">
       <span class="badge">{{ calculateCartProductQuantity }}</span>
       <i class="fa-solid fa-cart-shopping icon"></i>
     </button>
