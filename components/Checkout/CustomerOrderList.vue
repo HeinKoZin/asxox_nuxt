@@ -161,6 +161,11 @@ export default {
           baseURL: "https://payments.wavemoney.io/",
           methods: "POST",
           data,
+          withCredentials: false,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+          },
         });
       } catch (error) {
         console.log(error);
