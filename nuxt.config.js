@@ -93,13 +93,6 @@ export default {
     ],
   ],
 
-  // fontawesome: {
-  //   icons: {
-  //     solid: true,
-  //     brands: true,
-  //     regular: true,
-  //   },
-  // },
   auth: {
     redirect: false,
     strategies: {
@@ -121,6 +114,11 @@ export default {
           logout: { url: "/logout", method: "get" },
           user: { url: "/user", method: "get" },
         },
+      },
+    },
+    cookie: {
+      options: {
+        expires: 100000,
       },
     },
   },

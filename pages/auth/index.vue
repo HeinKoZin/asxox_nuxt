@@ -268,95 +268,17 @@ export default {
             ? new this.$fire.auth.app.firebase.auth.GoogleAuthProvider()
             : new this.$fire.auth.app.firebase.auth.FacebookAuthProvider();
 
-        const res = await this.$fire.auth
-          .signInWithPopup(provider)
-          .catch(function (error) {
-            // An error happened.
-            if (
-              error.code === "auth/account-exists-with-different-credential"
-            ) {
-              // Step 2.
-              // User's email already exists.
-              // The pending Facebook credential.
-              var pendingCred = error.credential;
-              // The provider account's email address.
-              var email = error.email;
-              // Get sign-in methods for this email.
-              this.$fire.auth
-                .fetchSignInMethodsForEmail(email)
-                .then(function (methods) {
-                  // Step 3.
-                  // If the user has several sign-in methods,
-                  // the first method in the list will be the "recommended" method to use.
-                  if (methods[0] === "password") {
-                    // Asks the user their password.
-                    // In real scenario, you should handle this asynchronously.
-                    var password = promptUserForPassword(); // TODO: implement promptUserForPassword.
-                    this.$fire.auth
-                      .signInWithEmailAndPassword(email, password)
-                      .then(function (result) {
-                        // Step 4a.
-                        return result.user.linkWithCredential(pendingCred);
-                      })
-                      .then(function () {
-                        // Facebook account successfully linked to the existing Firebase user.
-                        goToApp();
-                      });
-                    return;
-                  }
-                  // All the other cases are external providers.
-                  // Construct provider object for that provider.
-                  // TODO: implement getProviderForProviderId.
-                  var provider = getProviderForProviderId(methods[0]);
-                  // At this point, you should let the user know that they already have an account
-                  // but with a different provider, and let them validate the fact they want to
-                  // sign in with this provider.
-                  // Sign in to provider. Note: browsers usually block popup triggered asynchronously,
-                  // so in real scenario you should ask the user to click on a "continue" button
-                  // that will trigger the signInWithPopup.
-                  this.$fire.auth
-                    .signInWithPopup(provider)
-                    .then(function (result) {
-                      // Remember that the user may have signed in with an account that has a different email
-                      // address than the first one. This can happen as Firebase doesn't control the provider's
-                      // sign in flow and the user is free to login using whichever account they own.
-                      // Step 4b.
-                      // Link to Facebook credential.
-                      // As we have access to the pending credential, we can directly call the link method.
-                      result.user
-                        .linkAndRetrieveDataWithCredential(pendingCred)
-                        .then(function (usercred) {
-                          // Facebook account successfully linked to the existing Firebase user.
-                          goToApp();
-                        });
-                    });
-                });
-            }
-          });
-
-        console.log(res);
+        const res = await this.$fire.auth.signInWithPopup(provider);
 
         let client_data;
-        if (type === "gmail") {
-          client_data = {
-            name: res.additionalUserInfo.profile.name,
-            email: res.additionalUserInfo.profile.email,
-            phone_no: res.additionalUserInfo.profile.name,
-            avatar: res.additionalUserInfo.profile.picture,
-            provider: type === "gmail" ? "google" : "facebook",
-            provider_id: res.additionalUserInfo.profile.id,
-            access_token: res.credential.accessToken,
-          };
-        } else {
-          client_data = {
-            name: res.displayName,
-            email: res.email,
-            avatar: res.photoUrl,
-            provider: type === "gmail" ? "google" : "facebook",
-            provider_id: res.additionalUserInfo.profile.id,
-            access_token: res.credential.accessToken,
-          };
-        }
+        client_data = {
+          name: res.additionalUserInfo.profile.name || res.user.displayName,
+          email: res.additionalUserInfo.profile.email || res.user.email,
+          avatar: res.additionalUserInfo.profile.picture || res.user.photoURL,
+          provider: type === "gmail" ? "google" : "facebook",
+          provider_id: res.additionalUserInfo.profile.id,
+          access_token: res.credential.accessToken,
+        };
 
         //server login
         const loginRes = await this.$axios.post(
@@ -372,17 +294,14 @@ export default {
           const userRes = await this.$axios.get("user");
 
           if (userRes.data.success) {
-            this.$auth.$storage.setUniversal("user", userRes?.data?.data);
+            this.$auth.$storage.setUniversal("user", userRes?.data);
             this.$auth.$storage.setUniversal("loggedIn", "true");
             this.toast("Successfully Logged in!", "success");
             this.$router.push("/");
           }
         }
-
-        // console.log(client_data);
-        console.log(res);
       } catch (err) {
-        console.log(err);
+        console.log("error", err);
       }
     },
 
@@ -437,9 +356,6 @@ export default {
           this.register.checkbox;
       },
     },
-  },
-  mounted() {
-    console.log(this.$router);
   },
 };
 </script>

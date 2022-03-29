@@ -91,7 +91,7 @@ export default {
   },
   // NOTE: Method from Vuex getters
   computed: {
-    ...mapGetters(["cartProducts", "cartProductsTotal", "order"]),
+    ...mapGetters(["cartProducts", "cartProductsTotal", "order", "isModel"]),
     calculateCartProductQuantity() {
       let qty = 0;
       for (let product of this.cartProducts) {
@@ -106,7 +106,11 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["REFRESH_ORDER", "SET_WHOLE_PRODUCTS_TO_CART"]),
+    ...mapMutations([
+      "REFRESH_ORDER",
+      "SET_WHOLE_PRODUCTS_TO_CART",
+      "SET_MODEL",
+    ]),
     async finalOrder() {
       this.spinOnOffAndEmit(true);
       if (this.cartProducts.length === 0) {
@@ -114,16 +118,60 @@ export default {
         return;
       }
       const res = await this.generalPostApis("orders", this.order);
+      this.getWavePayPaymentRequestData(res.data);
 
       if (res.status !== "error" && !res.errors) {
         this.toast("Ordered successfully", "success");
-        this.SET_WHOLE_PRODUCTS_TO_CART([]);
+        // this.SET_WHOLE_PRODUCTS_TO_CART([]);
+        this.SET_MODEL(!this.isModel);
         this.spinOnOffAndEmit(false);
         return;
       }
 
       this.toast(Object.values(res.errors)[0][0], "error");
       this.spinOnOffAndEmit(false);
+    },
+    async getWavePayPaymentRequestData(orderId) {
+      try {
+        const res = await this.$axios.get(
+          `wavepay/get-payment-info/${orderId}`
+        );
+        const newData = {
+          time_to_live_in_seconds: res.data.data.time_to_live_in_seconds,
+          merchant_id: res.data.data.merchant_id,
+          order_id: orderId,
+          merchant_reference_id: res.data.data.merchant_reference_id,
+          frontend_result_url: res.data.data.frontend_result_url,
+          backend_result_url: res.data.data.backend_result_url,
+          amount: res.data.data.amount,
+          payment_description: res.data.data.payment_description,
+          merchant_name: res.data.data.merchant_name,
+          items: res.data.items,
+          hash: res.data.hash,
+        };
+        this.paymentRequest(newData);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async paymentRequest(data) {
+      try {
+        const res = await this.$axios({
+          url: "payment",
+          baseURL: "https://payments.wavemoney.io/",
+          methods: "POST",
+          data,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "*",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
     spinOnOffAndEmit(isSpin) {
       this.$emit("spinResponse", isSpin);

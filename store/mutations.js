@@ -10,6 +10,9 @@ const mutations = {
   SET_MOBILE_MENU(state, data) {
     state.isMobileMenuOpen = data;
   },
+  SET_MODEL(state, data) {
+    state.isModel = data;
+  },
   ADD_NEW_ADDRESS(state, data) {
     const addresses = state.auth.user.data.customer.shipping_addresses;
     addresses.map((address, index) => {
@@ -21,6 +24,13 @@ const mutations = {
   UPDATE_ADDRESS_STATUS(state, data) {
     state.auth.user.data.customer.shipping_addresses[data.index].status =
       data.value;
+  },
+
+  REMOVE_ADDRESS(state, index) {
+    console.log(state.auth.user.data.customer.shipping_addresses);
+    state.auth.user.data.customer.shipping_addresses =
+      state.auth.user.data.customer.shipping_addresses.splice(index, 1);
+    console.log(state.auth.user.data.customer.shipping_addresses);
   },
 };
 
