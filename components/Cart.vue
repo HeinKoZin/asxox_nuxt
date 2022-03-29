@@ -1,7 +1,11 @@
 <template>
   <div :class="'cart-container-wrapper ' + (isCartOpen ? 'active ' : '')">
     <div class="cart-container">
-      <div class="cart-action-button" v-click-outside="closeCart">
+      <div
+        class="cart-action-button"
+        v-show="!isCartOpen"
+        v-click-outside="closeCart"
+      >
         <button @click="toggleCart">
           <span class="badge" v-if="calculateCartProductQuantity">{{
             calculateCartProductQuantity
