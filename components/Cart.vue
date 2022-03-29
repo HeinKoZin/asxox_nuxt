@@ -7,11 +7,21 @@
         v-click-outside="closeCart"
       >
         <button @click="toggleCart">
-          <span class="badge" v-if="calculateCartProductQuantity">{{
-            calculateCartProductQuantity
-          }}</span>
+          <span class="badge" v-if="calculateCartProductQuantity">
+            {{ calculateCartProductQuantity }}
+          </span>
           <i class="fa-solid fa-cart-shopping icon"></i>
         </button>
+        <a
+          href="https://www.facebook.com/asxox.ecommercemyanmar"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-facebook fb-icon"></i>
+        </a>
+        <a href="">
+          <i class="fa-brands fa-viber viber-icon"></i>
+        </a>
       </div>
       <div class="cart-header">
         <button @click="SET_CART(!isCartOpen)">
@@ -155,14 +165,26 @@ export default {
 }
 
 .cart-action-button {
-  @apply hidden absolute w-14 h-14 top-1/2  bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
+  @apply hidden absolute w-14 h-auto py-4 top-[40%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
 }
 
 .cart-action-button button {
-  @apply text-orange-600 text-2xl font-semibold border-0 relative;
+  @apply border-0 relative w-12 h-12 flex justify-center items-center rounded-full active:bg-orange-200;
+}
+
+.cart-action-button a {
+  @apply border-0 relative w-12 h-12 flex justify-center items-center rounded-full active:bg-orange-200;
+}
+
+.cart-action-button .fb-icon {
+  @apply text-blue-700;
+}
+
+.cart-action-button .viber-icon {
+  @apply text-violet-700;
 }
 
 .badge {
-  @apply absolute flex justify-center items-center  text-xs  bg-orange-500 text-white w-5 h-5 -top-2 -right-2 text-center  rounded-full;
+  @apply absolute flex justify-center items-center  text-xs  bg-orange-500 text-white w-5 h-5 -top-0 -right-0 text-center  rounded-full;
 }
 </style>
