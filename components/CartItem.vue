@@ -1,5 +1,14 @@
 <template>
-  <div class="cart-item">
+  <label :class="'cart-item ' + (isSelect ? 'active' : '')" :for="selectBoxId">
+    <!-- Select box -->
+    <div class="select-box-container">
+      <input
+        type="checkbox"
+        name=""
+        :id="selectBoxId"
+        @change="checkBoxHandler"
+      />
+    </div>
     <div class="cart-item-image">
       <img :src="product.cover_photo" alt="" />
     </div>
@@ -34,24 +43,16 @@
           </button>
         </div>
       </div>
-      <div class="cart-item-action">
-        <button
-          class="
-            text-white
-            bg-orange-600
-            rounded-md
-            btn btn-sm btn-outline-primary
-            w-7
-            h-7
-            hover:bg-orange-700
-          "
-          @click="REMOVE_PRODUCT_FROM_CART(productId)"
-        >
-          <i class="fa-solid fa-trash icon"></i>
-        </button>
-      </div>
     </div>
-  </div>
+    <div class="cart-item-action">
+      <button
+        class="text-white bg-orange-600 rounded-md btn btn-sm btn-outline-primary w-7 h-7 hover:bg-orange-700"
+        @click="REMOVE_PRODUCT_FROM_CART(productId)"
+      >
+        <i class="fa-solid fa-trash icon"></i>
+      </button>
+    </div>
+  </label>
 </template>
 
 <script>
@@ -61,6 +62,18 @@ export default {
     product: Object,
     productId: Number,
   },
+  data() {
+    return {
+      id: "select-box-item",
+      isSelect: false,
+    };
+  },
+
+  computed: {
+    selectBoxId() {
+      return `${this.id}-${this.productId}`;
+    },
+  },
   methods: {
     ...mapMutations(["UPDATE_PRODUCT_IN_CART", "REMOVE_PRODUCT_FROM_CART"]),
     changeQty(type, qty) {
@@ -68,13 +81,20 @@ export default {
       type === "minus" ? newQty-- : newQty++;
       this.UPDATE_PRODUCT_IN_CART({ productId: this.productId, newQty });
     },
+
+    checkBoxHandler() {
+      this.isSelect = !this.isSelect;
+    },
   },
 };
 </script>
 
 <style lang="postcss" scoped>
 .cart-item {
-  @apply flex flex-row items-center  w-auto p-2 h-auto bg-slate-100 m-1 rounded-lg relative;
+  @apply flex flex-row items-center  w-auto p-2 h-auto bg-slate-100 m-1 rounded-lg relative border-2 border-transparent cursor-pointer;
+}
+.cart-item.active {
+  @apply border-orange-500;
 }
 
 .cart-item .cart-item-image {
@@ -94,7 +114,7 @@ export default {
 }
 
 .cart-item-details {
-  @apply flex flex-row justify-start items-center h-full flex-grow px-2;
+  @apply flex flex-col md:flex-row justify-start items-center h-full flex-grow px-2;
 }
 
 .cart-item-quantity-input {
@@ -114,15 +134,15 @@ export default {
 }
 
 .cart-item-quantity {
-  @apply mr-5 md:mr-8 ml-2;
+  @apply mr-3 md:mr-2 ml-2;
 }
 
 .cart-item-quantity span {
   @apply px-4 text-sm font-semibold rounded-lg border border-slate-300;
 }
 
-.cart-item-details .cart-item-action {
-  @apply flex flex-row items-center justify-center;
+.cart-item-action {
+  @apply flex flex-row items-center justify-center mr-2;
 }
 
 .cart-item-variants {
@@ -139,5 +159,13 @@ export default {
 
 .cart-item-plus-btn {
   @apply bg-slate-800 text-slate-50;
+}
+
+.select-box-container {
+  @apply flex h-full items-center justify-center mr-2;
+}
+
+.select-box-container input {
+  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-4 h-4 lg:w-5 lg:h-5 rounded-lg  flex justify-center items-center before:w-1 before:lg:w-2 before:h-1 before:lg:h-2 before:bg-transparent before:rounded-lg checked:before:bg-slate-50;
 }
 </style>
