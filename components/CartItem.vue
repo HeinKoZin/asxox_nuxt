@@ -43,14 +43,14 @@
           </button>
         </div>
       </div>
-      <div class="cart-item-action">
-        <button
-          class="text-white bg-orange-600 rounded-md btn btn-sm btn-outline-primary w-7 h-7 hover:bg-orange-700"
-          @click="REMOVE_PRODUCT_FROM_CART(productId)"
-        >
-          <i class="fa-solid fa-trash icon"></i>
-        </button>
-      </div>
+    </div>
+    <div class="cart-item-action">
+      <button
+        class="text-white bg-orange-600 rounded-md btn btn-sm btn-outline-primary w-7 h-7 hover:bg-orange-700"
+        @click="REMOVE_PRODUCT_FROM_CART(productId)"
+      >
+        <i class="fa-solid fa-trash icon"></i>
+      </button>
     </div>
   </label>
 </template>
@@ -114,7 +114,7 @@ export default {
 }
 
 .cart-item-details {
-  @apply flex flex-row justify-start items-center h-full flex-grow px-2;
+  @apply flex flex-col md:flex-row justify-start items-center h-full flex-grow px-2;
 }
 
 .cart-item-quantity-input {
@@ -134,15 +134,15 @@ export default {
 }
 
 .cart-item-quantity {
-  @apply mr-5 md:mr-8 ml-2;
+  @apply mr-3 md:mr-2 ml-2;
 }
 
 .cart-item-quantity span {
   @apply px-4 text-sm font-semibold rounded-lg border border-slate-300;
 }
 
-.cart-item-details .cart-item-action {
-  @apply flex flex-row items-center justify-center;
+.cart-item-action {
+  @apply flex flex-row items-center justify-center mr-2;
 }
 
 .cart-item-variants {
