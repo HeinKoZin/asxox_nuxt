@@ -32,6 +32,10 @@ const mutations = {
       state.auth.user.data.customer.shipping_addresses.splice(index, 1);
     console.log(state.auth.user.data.customer.shipping_addresses);
   },
+
+  SET_PAYMENT(state, data) {
+    state.selectedPayment = data;
+  },
 };
 
 export default mutations;

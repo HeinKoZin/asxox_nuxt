@@ -20,7 +20,9 @@
           class="payment-method"
           :class="{ active: payment_method === 'Cash On Delivery' }"
         >
-          <button @click="payment_method = 'Cash On Delivery'">
+          <button
+            @click="(payment_method = 'Cash On Delivery'), SET_PAYMENT(null)"
+          >
             <span>
               <i class="fa-solid fa-circle-check payment-method-icon"></i>
             </span>
@@ -60,7 +62,7 @@ export default {
   },
   methods: {
     // NOTE: Method from Vuex actions
-    ...mapMutations(["SET_PAYMENT_METHOD"]),
+    ...mapMutations(["SET_PAYMENT_METHOD", "SET_PAYMENT"]),
   },
 };
 </script>

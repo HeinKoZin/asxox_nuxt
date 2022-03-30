@@ -39,22 +39,24 @@
             <img src="~/assets/img/kbz.png" alt="" srcset="" />
           </div>
         </div> -->
-        <div class="payment-method-wrapper">
-          <div class="payment-method">
+        <div
+          class="payment-method-wrapper"
+          v-for="(payment, index) in payments"
+          :key="index"
+          @click="setPaymentMethod(payment.name, index)"
+        >
+          <div class="payment-method" :class="payment.isSelect ? 'active' : ''">
             <span>
               <i class="fa-solid fa-circle-check payment-method-icon"></i>
             </span>
-            <img src="~/assets/img/wave.png" alt="" srcset="" />
+            <img
+              :src="require(`~/assets/img/${payment.image}`)"
+              alt=""
+              srcset=""
+            />
           </div>
         </div>
-        <div class="payment-method-wrapper">
-          <div class="payment-method">
-            <span>
-              <i class="fa-solid fa-circle-check payment-method-icon"></i>
-            </span>
-            <img src="~/assets/img/kbzpay.png" alt="" srcset="" />
-          </div>
-        </div>
+
         <!-- <div class="payment-method-wrapper">
           <div class="payment-method">
             <span>
@@ -72,7 +74,40 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters, mapMutations } from "vuex";
+export default {
+  data() {
+    return {
+      payments: [
+        {
+          id: 1,
+          name: "kbz-pay",
+          image: "kbzpay.png",
+          isSelect: false,
+        },
+        {
+          id: 2,
+          name: "wave-pay",
+          image: "wave.png",
+          isSelect: false,
+        },
+      ],
+    };
+  },
+  computed: {
+    ...mapGetters(["selectedPayment"]),
+  },
+  methods: {
+    ...mapMutations(["SET_PAYMENT"]),
+    setPaymentMethod(name, index) {
+      for (let i = 0; i < this.payments.length; i++) {
+        this.payments[i].isSelect = false;
+      }
+      this.payments[index].isSelect = true;
+      this.SET_PAYMENT(name);
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -125,6 +160,9 @@ export default {};
 }
 
 .payment-method.active img {
+  @apply border-orange-500;
+}
+.active {
   @apply border-orange-500;
 }
 </style>

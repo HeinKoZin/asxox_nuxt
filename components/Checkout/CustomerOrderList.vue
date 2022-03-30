@@ -91,7 +91,13 @@ export default {
   },
   // NOTE: Method from Vuex getters
   computed: {
-    ...mapGetters(["cartProducts", "cartProductsTotal", "order", "isModel"]),
+    ...mapGetters([
+      "cartProducts",
+      "cartProductsTotal",
+      "order",
+      "isModel",
+      "selectedPayment",
+    ]),
     calculateCartProductQuantity() {
       let qty = 0;
       for (let product of this.cartProducts) {
@@ -118,7 +124,16 @@ export default {
         return;
       }
       const res = await this.generalPostApis("orders", this.order);
-      this.getWavePayPaymentRequestData(res.data);
+      switch (this.selectedPayment) {
+        case "kbz-pay":
+          this.getKBZPayPaymentRequestData(res.data);
+          break;
+        case "wave-pay":
+          this.getWavePayPaymentRequestData(res.data);
+          break;
+        default:
+          break;
+      }
 
       if (res.status !== "error" && !res.errors) {
         this.toast("Ordered successfully", "success");
