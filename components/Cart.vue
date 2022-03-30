@@ -51,9 +51,15 @@
       </div>
       <!-- NOTE: Cart's bottom -->
       <div class="cart-bottom">
-        <div class="cart-bottom-total">
-          <span>Total</span>
-          <span>$ {{ cartProductsTotal }}</span>
+        <div class="total-and-select-all">
+          <div class="select-all-container">
+            <input type="checkbox" name="select-all" id="select-all" />
+            <label for="select-all">Select all</label>
+          </div>
+          <div class="cart-bottom-total">
+            <span>Total</span>
+            <span>$ {{ cartProductsTotal }}</span>
+          </div>
         </div>
         <div class="cart-bottom-action">
           <button
@@ -191,5 +197,21 @@ export default {
 
 .badge {
   @apply absolute flex justify-center items-center  text-xs  bg-orange-500 text-white w-5 h-5 -top-0 -right-0 text-center  rounded-full;
+}
+
+.total-and-select-all {
+  @apply flex flex-col gap-2;
+}
+
+.select-all-container {
+  @apply flex flex-row gap-2 items-center cursor-pointer;
+}
+
+.select-all-container input {
+  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-5 h-5 rounded-lg border-2 border-orange-500 flex justify-center items-center before:w-2 before:h-2 before:bg-transparent before:rounded-lg checked:before:bg-slate-50;
+}
+
+.select-all-container label {
+  @apply cursor-pointer text-sm font-bold text-slate-700;
 }
 </style>
