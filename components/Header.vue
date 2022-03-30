@@ -113,14 +113,15 @@
             </button>
           </div>
         </div>
-        <div class="header-cart" v-if="!isCartOpen">
+        <!-- WARNING: Temporary removed -->
+        <!-- <div class="header-cart" v-if="!isCartOpen">
           <button class="header-button" @click="toggleCart">
             <span class="badge" v-if="calculateCartProductQuantity">{{
               calculateCartProductQuantity
             }}</span>
             <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
-        </div>
+        </div> -->
         <div class="header-wishlist">
           <button
             class="header-button"

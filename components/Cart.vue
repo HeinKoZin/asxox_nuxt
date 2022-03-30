@@ -1,6 +1,31 @@
 <template>
-  <div :class="'cart-container-wrapper ' + (isCartOpen ? 'active ' : '')">
+  <div
+    :class="'cart-container-wrapper ' + (isCartOpen ? 'active ' : '')"
+    v-click-outside="closeCart"
+  >
     <div class="cart-container">
+      <div class="cart-action-button" v-show="!isCartOpen">
+        <button @click="toggleCart">
+          <span class="badge" v-if="calculateCartProductQuantity">
+            {{ calculateCartProductQuantity }}
+          </span>
+          <i class="fa-solid fa-cart-shopping icon"></i>
+        </button>
+        <a
+          href="https://www.facebook.com/asxox.ecommercemyanmar"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-facebook fb-icon"></i>
+        </a>
+        <a
+          href="viber://chat?number=959950668891"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-viber viber-icon"></i>
+        </a>
+      </div>
       <div class="cart-header">
         <button @click="SET_CART(!isCartOpen)">
           <i
@@ -26,9 +51,15 @@
       </div>
       <!-- NOTE: Cart's bottom -->
       <div class="cart-bottom">
-        <div class="cart-bottom-total">
-          <span>Total</span>
-          <span>$ {{ cartProductsTotal }}</span>
+        <div class="total-and-select-all">
+          <div class="select-all-container">
+            <input type="checkbox" name="select-all" id="select-all" />
+            <label for="select-all">Select all</label>
+          </div>
+          <div class="cart-bottom-total">
+            <span>Total</span>
+            <span>$ {{ cartProductsTotal }}</span>
+          </div>
         </div>
         <div class="cart-bottom-action">
           <button
@@ -40,6 +71,8 @@
           </button>
         </div>
       </div>
+      <!-- Fab -->
+      <FabCartButton @click.native="toggleCart" v-show="!isCartOpen" />
     </div>
   </div>
 </template>
@@ -47,12 +80,43 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 export default {
+  data() {
+    return {
+      initialState: true,
+    };
+  },
   computed: {
     ...mapGetters(["isCartOpen", "cartProducts", "cartProductsTotal"]),
+
+    calculateCartProductQuantity() {
+      let qty = 0;
+      for (let product of this.cartProducts) {
+        qty += product.qty;
+      }
+      return qty || null;
+    },
   },
   methods: {
     ...mapMutations(["SET_CART"]),
+
+    toggleCart() {
+      this.SET_CART(!this.isCartOpen);
+    },
+    closeCart() {
+      this.SET_CART(false);
+    },
   },
+
+  // mounted() {
+  //   this.initialState = this.isCartOpen;
+  //   if (this.isCartOpen) {
+  //     document.body.addEventListener("click", this.test);
+  //   }
+  // },
+
+  // beforeDestroy() {
+  //   document.body.removeEventListener("click", this.test);
+  // },
 };
 </script>
 
@@ -109,5 +173,45 @@ export default {
 
 .cart-bottom .cart-bottom-action button {
   @apply bg-orange-600 p-3 rounded-lg text-white text-sm font-semibold;
+}
+
+.cart-action-button {
+  @apply hidden absolute w-14 h-auto py-4 top-[40%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
+}
+
+.cart-action-button button {
+  @apply border-0 relative w-12 h-12 flex justify-center items-center rounded-full active:bg-orange-200;
+}
+
+.cart-action-button a {
+  @apply border-0 relative w-12 h-12 flex justify-center items-center rounded-full active:bg-orange-200;
+}
+
+.cart-action-button .fb-icon {
+  @apply text-blue-700;
+}
+
+.cart-action-button .viber-icon {
+  @apply text-violet-700;
+}
+
+.badge {
+  @apply absolute flex justify-center items-center  text-xs  bg-orange-500 text-white w-5 h-5 -top-0 -right-0 text-center  rounded-full;
+}
+
+.total-and-select-all {
+  @apply flex flex-col gap-2;
+}
+
+.select-all-container {
+  @apply flex flex-row gap-2 items-center cursor-pointer;
+}
+
+.select-all-container input {
+  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-5 h-5 rounded-lg border-2 border-orange-500 flex justify-center items-center before:w-2 before:h-2 before:bg-transparent before:rounded-lg checked:before:bg-slate-50;
+}
+
+.select-all-container label {
+  @apply cursor-pointer text-sm font-bold text-slate-700;
 }
 </style>
