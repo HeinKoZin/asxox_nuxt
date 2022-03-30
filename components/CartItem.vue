@@ -1,5 +1,14 @@
 <template>
-  <div class="cart-item">
+  <label :class="'cart-item ' + (isSelect ? 'active' : '')" :for="selectBoxId">
+    <!-- Select box -->
+    <div class="select-box-container">
+      <input
+        type="checkbox"
+        name=""
+        :id="selectBoxId"
+        @change="checkBoxHandler"
+      />
+    </div>
     <div class="cart-item-image">
       <img :src="product.cover_photo" alt="" />
     </div>
@@ -36,22 +45,14 @@
       </div>
       <div class="cart-item-action">
         <button
-          class="
-            text-white
-            bg-orange-600
-            rounded-md
-            btn btn-sm btn-outline-primary
-            w-7
-            h-7
-            hover:bg-orange-700
-          "
+          class="text-white bg-orange-600 rounded-md btn btn-sm btn-outline-primary w-7 h-7 hover:bg-orange-700"
           @click="REMOVE_PRODUCT_FROM_CART(productId)"
         >
           <i class="fa-solid fa-trash icon"></i>
         </button>
       </div>
     </div>
-  </div>
+  </label>
 </template>
 
 <script>
@@ -61,6 +62,18 @@ export default {
     product: Object,
     productId: Number,
   },
+  data() {
+    return {
+      id: "select-box-item",
+      isSelect: false,
+    };
+  },
+
+  computed: {
+    selectBoxId() {
+      return `${this.id}-${this.productId}`;
+    },
+  },
   methods: {
     ...mapMutations(["UPDATE_PRODUCT_IN_CART", "REMOVE_PRODUCT_FROM_CART"]),
     changeQty(type, qty) {
@@ -68,13 +81,20 @@ export default {
       type === "minus" ? newQty-- : newQty++;
       this.UPDATE_PRODUCT_IN_CART({ productId: this.productId, newQty });
     },
+
+    checkBoxHandler() {
+      this.isSelect = !this.isSelect;
+    },
   },
 };
 </script>
 
 <style lang="postcss" scoped>
 .cart-item {
-  @apply flex flex-row items-center  w-auto p-2 h-auto bg-slate-100 m-1 rounded-lg relative;
+  @apply flex flex-row items-center  w-auto p-2 h-auto bg-slate-100 m-1 rounded-lg relative border-2 border-transparent;
+}
+.cart-item.active {
+  @apply border-blue-500;
 }
 
 .cart-item .cart-item-image {
@@ -139,5 +159,13 @@ export default {
 
 .cart-item-plus-btn {
   @apply bg-slate-800 text-slate-50;
+}
+
+.select-box-container {
+  @apply flex h-full items-center justify-center mr-2;
+}
+
+.select-box-container input {
+  @apply cursor-pointer rounded-full bg-slate-300 appearance-none w-4 h-4 checked:bg-blue-500 border;
 }
 </style>
