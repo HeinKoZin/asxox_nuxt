@@ -121,12 +121,13 @@ export default {
       this.spinOnOffAndEmit(true);
       if (this.cartProducts.length === 0) {
         this.toast("Please add products to cart!", "info");
+        this.spinOnOffAndEmit(false);
         return;
       }
       const res = await this.generalPostApis("orders", this.order);
       switch (this.selectedPayment) {
         case "kbz-pay":
-          this.getKBZPayPaymentRequestData(res.data);
+          this.kpay(res.data);
           break;
         case "wave-pay":
           this.getWavePayPaymentRequestData(res.data);
@@ -146,6 +147,44 @@ export default {
       this.toast(Object.values(res.errors)[0][0], "error");
       this.spinOnOffAndEmit(false);
     },
+    async kpay(orderId) {
+      let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&merch_code=70022802&merch_order_id=${orderId}&method=kbz.payment.precreate&nonce_str=${this.getNonce()}&notify_url=https://asxox.com.mm/api/backend/payment/kpay&timestamp=${this.timestampGenerate()}&total_amount=${
+        this.calculateSubtotal
+      }&trade_type=APPH5&trans_currency=MMK&version=1.0`;
+      console.log(stringA);
+
+      let stringToSign = `${stringA}&key=13d961f122cbb78451d7f4b333147745`;
+      console.log(stringToSign);
+
+      let sign = await this.sha256Hash(stringToSign);
+
+      this.paymentRequestKBZpay(sign);
+
+      console.log(sign);
+    },
+    getNonce() {
+      var text = "";
+      var possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (var i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      return text;
+    },
+    sha256Hash(string) {
+      const utf8 = new TextEncoder().encode(string);
+      return crypto.subtle.digest("SHA-256", utf8).then((hashBuffer) => {
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray
+          .map((bytes) => bytes.toString(16).padStart(2, "0"))
+          .join("");
+        return hashHex;
+      });
+    },
+    timestampGenerate() {
+      return Date.now();
+    },
+
     async getWavePayPaymentRequestData(orderId) {
       try {
         const res = await this.$axios.get(
@@ -169,12 +208,24 @@ export default {
         console.log(error);
       }
     },
+    async paymentRequestKBZpay(data) {
+      try {
+        const res = await this.$axios({
+          url: "payment",
+          baseURL: "http://api.kbzpay.com/payment/gateway/uat/precreate",
+          methods: "POST",
+          data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async paymentRequest(data) {
       try {
         const res = await this.$axios({
           url: "payment",
           baseURL: "https://payments.wavemoney.io/",
-          methods: "POST",
+          method: "POST",
           data,
           headers: {
             "Access-Control-Allow-Origin": "*",
