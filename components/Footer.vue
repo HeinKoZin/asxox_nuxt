@@ -3,10 +3,7 @@
     <div class="footer-images-container">
       <div class="footer-item">
         <div class="w-32">
-          <img
-            class="footer-img"
-            src="https://asxox.com.mm/assets/photo/logo/prize.svg"
-          />
+          <img class="footer-img" src="~/assets/img/prize.svg" />
         </div>
         <div class="description">
           <h3>Quantity and Saving</h3>
@@ -15,10 +12,7 @@
       </div>
       <div class="footer-item">
         <div class="w-32">
-          <img
-            class="footer-img"
-            src="https://asxox.com.mm/assets/photo/logo/home.svg"
-          />
+          <img class="footer-img" src="~/assets/img/home.svg" />
         </div>
         <div class="description">
           <h3>Local Warehouse</h3>
@@ -27,10 +21,7 @@
       </div>
       <div class="footer-item">
         <div class="w-32">
-          <img
-            class="footer-img"
-            src="https://asxox.com.mm/assets/photo/logo/car.svg"
-          />
+          <img class="footer-img" src="~/assets/img/car.svg" />
         </div>
         <div class="description">
           <h3>Fast and convenient logistics</h3>
@@ -39,10 +30,7 @@
       </div>
       <div class="footer-item">
         <div class="w-32">
-          <img
-            class="footer-img"
-            src="https://asxox.com.mm/assets/photo/logo/$%20ed.svg"
-          />
+          <img class="footer-img" src="~/assets/img/ed.svg" />
         </div>
         <div class="description">
           <h3>Payment Security</h3>
@@ -51,10 +39,7 @@
       </div>
       <div class="footer-item">
         <div class="w-32">
-          <img
-            class="footer-img"
-            src="https://asxox.com.mm/assets/photo/logo/microphone.svg"
-          />
+          <img class="footer-img" src="~/assets/img/microphone.svg" />
         </div>
         <div class="description">
           <h3>Professional service</h3>
