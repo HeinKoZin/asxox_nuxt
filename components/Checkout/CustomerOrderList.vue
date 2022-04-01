@@ -144,7 +144,7 @@ export default {
 
       if (res.status !== "error" && !res.errors) {
         this.toast("Ordered successfully", "success");
-        // this.SET_WHOLE_PRODUCTS_TO_CART([]);
+        this.SET_WHOLE_PRODUCTS_TO_CART([]);
         this.SET_MODEL(!this.isModel);
         this.spinOnOffAndEmit(false);
         return;
@@ -160,12 +160,12 @@ export default {
         "pay"
       )}&trade_type=APPH5&trans_currency=MMK&version=1.0`;
 
-      console.log(stringA);
+      // console.log(stringA);
 
       let stringToSign = `${stringA}&key=13d961f122cbb78451d7f4b333147745`;
       let bytes1 = await utf8.encode(stringToSign);
-      console.log("bofore string to sign", stringToSign);
-      console.log("after sign", bytes1);
+      // console.log("bofore string to sign", stringToSign);
+      // console.log("after sign", bytes1);
 
       let sign = sha256(bytes1).toUpperCase();
 
