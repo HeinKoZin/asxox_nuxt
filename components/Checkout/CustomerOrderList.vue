@@ -78,7 +78,8 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import { generalMixins } from "@/mixins/general";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import { sha256 } from "js-sha256";
+import utf8 from "utf8";
 export default {
   mixins: [generalMixins],
   props: {
@@ -105,13 +106,18 @@ export default {
       }
       return qty;
     },
-    calculateSubtotal() {
-      return this.order.point_amount
-        ? this.order.total_amount - this.order.point_value
-        : this.order.total_amount + " " + this.cartProducts[0]?.currency;
-    },
   },
   methods: {
+    calculateSubtotal(type = "normal") {
+      if (type === "pay")
+        return this.order.point_amount
+          ? (this.order.total_amount - this.order.point_value).toString()
+          : this.order.total_amount.toString();
+      else
+        this.order.point_amount
+          ? this.order.total_amount - this.order.point_value
+          : this.order.total_amount + " " + this.cartProducts[0]?.currency;
+    },
     ...mapMutations([
       "REFRESH_ORDER",
       "SET_WHOLE_PRODUCTS_TO_CART",
@@ -148,21 +154,49 @@ export default {
       this.spinOnOffAndEmit(false);
     },
     async kpay(orderId) {
-      let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&merch_code=70022802&merch_order_id=${orderId}&method=kbz.payment.precreate&nonce_str=${this.getNonce()}&notify_url=https://asxox.com.mm/api/backend/payment/kpay&timestamp=${this.timestampGenerate()}&total_amount=${
-        this.calculateSubtotal
-      }&trade_type=APPH5&trans_currency=MMK&version=1.0`;
+      const timestamp = this.timestampGenerate();
+      const nonce_str = this.getNonce(32).toString();
+      let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&callback_info=$title%3diphonex&merch_code=70022802&merch_order_id=${orderId}&method=kbz.payment.precreate&nonce_str=${nonce_str}&notify_url=https://asxox.com.mm/api/backend/payment/kpay&timeout_express=100m&timestamp=${timestamp}&total_amount=${this.calculateSubtotal(
+        "pay"
+      )}&trade_type=APPH5&trans_currency=MMK&version=1.0`;
+
       console.log(stringA);
 
       let stringToSign = `${stringA}&key=13d961f122cbb78451d7f4b333147745`;
-      console.log(stringToSign);
+      let bytes1 = await utf8.encode(stringToSign);
+      console.log("bofore string to sign", stringToSign);
+      console.log("after sign", bytes1);
 
-      let sign = await this.sha256Hash(stringToSign);
+      let sign = sha256(bytes1).toUpperCase();
 
-      this.paymentRequestKBZpay(sign);
+      const paymentData = {
+        Request: {
+          timestamp,
+          notify_url: "https://api.asxox.com.mm/api/backend/payment/kpay",
+          nonce_str,
+          sign_type: "SHA256",
+          method: "kbz.payment.precreate",
+          sign,
+          version: "1.0",
+          biz_content: {
+            merch_order_id: orderId.toString(),
+            merch_code: "70022802",
+            title: "iPhoneX",
+            appid: "kp7845e3e156234868aaeaad2f2536dc",
+            trade_type: "PWAAPP",
+            total_amount: this.calculateSubtotal("pay"),
+            trans_currency: "MMK",
+            timeout_express: "100m",
+            callback_info: "title%3diphonex",
+          },
+        },
+      };
+
+      this.paymentRequestKBZpay(paymentData);
 
       console.log(sign);
     },
-    getNonce() {
+    getNonce(length) {
       var text = "";
       var possible =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -178,11 +212,11 @@ export default {
         const hashHex = hashArray
           .map((bytes) => bytes.toString(16).padStart(2, "0"))
           .join("");
-        return hashHex;
+        return hashHex.toUpperCase();
       });
     },
     timestampGenerate() {
-      return Date.now();
+      return Date.now().toString();
     },
 
     async getWavePayPaymentRequestData(orderId) {
@@ -211,22 +245,21 @@ export default {
     async paymentRequestKBZpay(data) {
       try {
         const res = await this.$axios({
-          url: "payment",
-          baseURL: "http://api.kbzpay.com/payment/gateway/uat/precreate",
-          methods: "POST",
-          data,
+          baseURL: "https://api.kbzpay.com/payment/gateway/precreate",
+          method: "POST",
+          data: data,
         });
       } catch (error) {
         console.log(error);
       }
     },
-    async paymentRequest(data) {
+    async paymentRequest(paymentData) {
       try {
         const res = await this.$axios({
           url: "payment",
           baseURL: "https://payments.wavemoney.io/",
           method: "POST",
-          data,
+          data: paymentData,
           headers: {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
