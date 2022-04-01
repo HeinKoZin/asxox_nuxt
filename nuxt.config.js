@@ -1,4 +1,4 @@
-let apiLink = "https://api.asxox.com.mm/api/";
+let apiLink = process.env.API_LINK;
 
 export default {
   mode: "universal",
@@ -33,7 +33,8 @@ export default {
 
   server: {
     host: "0.0.0.0",
-    port: 3001,
+    // for production
+    port: process.env.PORT || 3000,
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -65,7 +66,7 @@ export default {
     // '@/plugins/aos.js'
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxt/postcss8"],
+  buildModules: ["@nuxt/postcss8", "@nuxtjs/dotenv"],
 
   ssr: true,
   target: "server",
