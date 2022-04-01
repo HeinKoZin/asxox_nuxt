@@ -19,6 +19,10 @@ const getters = {
   isModel(state) {
     return state.isModel;
   },
+
+  selectedPayment(state) {
+    return state.selectedPayment;
+  },
 };
 
 export default getters;

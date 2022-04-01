@@ -20,6 +20,11 @@
       :class="!isLogin ? 'register' : ''"
       v-show="!isLogin"
     >
+      <div class="backward-button-container" @click="$router.back()">
+        <button>
+          <i class="fa-solid fa-arrow-left icon"></i>
+        </button>
+      </div>
       <AnimationView>
         <div class="form-container">
           <img
@@ -124,6 +129,11 @@
       :class="isLogin ? 'login' : ''"
       v-show="isLogin"
     >
+      <div class="backward-button-container" @click="$router.back()">
+        <button>
+          <i class="fa-solid fa-arrow-left icon"></i>
+        </button>
+      </div>
       <AnimationView>
         <div class="form-container">
           <img
@@ -428,5 +438,9 @@ export default {
 
 .forget-password-button {
   @apply text-sm font-sans font-semibold py-2 mt-2;
+}
+
+.backward-button-container {
+  @apply absolute top-9 left-9 rounded-md border-2 cursor-pointer border-slate-400 w-10 h-8 md:w-12 md:h-10 flex justify-center items-center text-sm md:text-base;
 }
 </style>
