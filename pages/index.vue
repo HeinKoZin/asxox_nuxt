@@ -9,6 +9,7 @@
       <div class="ads-image-container">
         <img src="~/assets/img/ezgif.com-gif-maker.gif" />
       </div>
+
       <div
         class="products-container"
         v-for="(category, catIndex) in categoryProducts"
@@ -33,6 +34,26 @@
           />
         </div>
         <no-ssr><AdsShop v-if="category.shop" :shop="category.shop" /></no-ssr>
+      </div>
+    </div>
+    <!-- Category Container -->
+    <div class="categories-container">
+      <div class="categories-header">
+        <h3>Categories</h3>
+      </div>
+      <div class="categories-wrapper">
+        <div
+          class="category-item-wrapper"
+          v-for="(category, index) in categories"
+          :key="index"
+        >
+          <div class="category-item">
+            <h3>{{ category.name }}</h3>
+            <div class="category-logo">
+              <img :src="category.logo" alt="" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -147,5 +168,37 @@ export default {
 
 .ads-image-container img {
   @apply w-full md:w-[80%] lg:w-[70%] h-auto rounded-lg;
+}
+
+.categories-container {
+  @apply w-full flex flex-col justify-center items-center my-10;
+}
+
+.categories-wrapper {
+  @apply flex flex-wrap  w-[70%] bg-transparent;
+}
+
+.category-logo {
+  @apply rounded-full w-14 h-14;
+}
+
+.category-logo img {
+  @apply w-full h-full object-cover;
+}
+
+.category-item-wrapper {
+  @apply w-1/2 sm:w-2/6 md:w-3/12 lg:w-1/5 xl:w-2/12 h-auto p-1 relative box-border;
+}
+
+.category-item {
+  @apply flex flex-col items-center justify-center w-full h-full  py-10  bg-white  hover:bg-orange-500 hover:text-white rounded-lg font-quicksand font-bold;
+}
+
+.categories-header {
+  @apply w-[70%] border-b-2 border-slate-300 p-2 mb-2;
+}
+
+.categories-header h3 {
+  @apply text-xl font-bold text-orange-500 font-quicksand;
 }
 </style>
