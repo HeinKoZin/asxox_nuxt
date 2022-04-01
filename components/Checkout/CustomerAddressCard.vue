@@ -19,7 +19,6 @@
           </button>
         </div>
       </div>
-      {{ addresses.length }}
 
       <div class="address-contents-container-wrapper">
         <div class="address-contents-container">
