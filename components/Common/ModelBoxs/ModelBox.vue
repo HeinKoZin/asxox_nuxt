@@ -10,6 +10,7 @@
         <i class="fa-solid fa-circle-notch animate-spin" v-if="isLoader"></i>
       </div>
       <div class="model-box-content">
+        <img src="~/assets/img/thankspp.png" alt="" />
         <h3 class="w-full text-center">
           {{ content ? content : "Loading..." }}
         </h3>
@@ -69,6 +70,10 @@ export default {
 
 .model-box-content {
   @apply font-quicksand text-sm md:text-base flex flex-col lg:text-lg py-2 gap-3;
+}
+
+.model-box-content img {
+  @apply w-40 lg:w-80 h-auto mx-auto;
 }
 
 .model-box-content h3 {

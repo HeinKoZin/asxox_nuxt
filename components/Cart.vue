@@ -19,11 +19,27 @@
           <i class="fa-brands fa-facebook fb-icon"></i>
         </a>
         <a
-          href="viber://chat?number=959950668891"
+          href="viber://chat?number=959961558491"
           target="_blank"
           rel="noopener noreferrer"
         >
           <i class="fa-brands fa-viber viber-icon"></i>
+        </a>
+        <a
+          href="https://www.tiktok.com/@asxoxecommerce"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-slate-900"
+        >
+          <i class="text-sm fa-brands fa-tiktok tiktok-icon"></i>
+        </a>
+
+        <a
+          href="https://www.youtube.com/channel/UCnXbJ5K2pmBIh_HJaUuh9kg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-youtube youtube-icon"></i>
         </a>
       </div>
       <div class="cart-header">
@@ -176,7 +192,7 @@ export default {
 }
 
 .cart-action-button {
-  @apply hidden absolute w-14 h-auto py-4 top-[40%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
+  @apply hidden absolute w-14 h-auto py-4 top-[30%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
 }
 
 .cart-action-button button {
@@ -193,6 +209,14 @@ export default {
 
 .cart-action-button .viber-icon {
   @apply text-violet-700;
+}
+
+.cart-action-button .youtube-icon {
+  @apply text-red-700;
+}
+
+.cart-action-button .tiktok-icon {
+  @apply text-white;
 }
 
 .badge {
