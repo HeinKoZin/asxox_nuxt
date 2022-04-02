@@ -19,7 +19,7 @@
           <i class="fa-brands fa-facebook fb-icon"></i>
         </a>
         <a
-          href="viber://chat?number=959950668891"
+          href="viber://chat?number=959961558491"
           target="_blank"
           rel="noopener noreferrer"
         >
