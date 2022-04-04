@@ -175,7 +175,7 @@ export default {
 }
 
 .categories-wrapper {
-  @apply flex flex-wrap  w-[70%] bg-transparent;
+  @apply flex flex-wrap w-[90%] lg:w-[70%] bg-transparent;
 }
 
 .category-logo {
@@ -195,7 +195,7 @@ export default {
 }
 
 .categories-header {
-  @apply w-[70%] border-b-2 border-slate-300 p-2 mb-2;
+  @apply w-[90%] border-b-2 border-slate-300 p-2 mb-2;
 }
 
 .categories-header h3 {
