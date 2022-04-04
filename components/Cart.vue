@@ -29,9 +29,8 @@
           href="https://www.tiktok.com/@asxoxecommerce"
           target="_blank"
           rel="noopener noreferrer"
-          class="bg-slate-900"
         >
-          <i class="text-sm fa-brands fa-tiktok tiktok-icon"></i>
+          <img src="~/assets/img/tiktok.png" class="tiktok-logo" alt="" />
         </a>
 
         <a
@@ -215,8 +214,8 @@ export default {
   @apply text-red-700;
 }
 
-.cart-action-button .tiktok-icon {
-  @apply text-white;
+.cart-action-button .tiktok-logo {
+  @apply text-white w-8 h-8;
 }
 
 .badge {
