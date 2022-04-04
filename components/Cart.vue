@@ -5,12 +5,13 @@
   >
     <div class="cart-container">
       <div class="cart-action-button" v-show="!isCartOpen">
-        <button @click="toggleCart">
+        <!-- WARNING: don't delete -->
+        <!-- <button @click="toggleCart">
           <span class="badge" v-if="calculateCartProductQuantity">
             {{ calculateCartProductQuantity }}
           </span>
           <i class="fa-solid fa-cart-shopping icon"></i>
-        </button>
+        </button> -->
         <a
           href="https://www.facebook.com/asxox.ecommercemyanmar"
           target="_blank"
