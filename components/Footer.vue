@@ -91,7 +91,7 @@
           <h3>Download App</h3>
           <div class="content-body">
             <a
-              href="  https://play.google.com/store/apps/details?id=com.asxox.mkza"
+              href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
               target="_blank"
               rel="noopener noreferrer"
               class="download-app"
