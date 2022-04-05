@@ -5,15 +5,18 @@
       :class="isLoader ? 'loader' : ''"
       v-click-outside="closeModel"
     >
-      <div class="model-box-icon">
+      <!-- <div class="model-box-icon">
         <i class="fa-solid fa-check" v-if="!isLoader"></i>
         <i class="fa-solid fa-circle-notch animate-spin" v-if="isLoader"></i>
-      </div>
-      <div class="model-box-content">
+      </div> -->
+
+      <div class="model-box-content max-w-lg">
         <img src="~/assets/img/thankspp.png" alt="" />
-        <h3 class="w-full text-center">
-          {{ content ? content : "Loading..." }}
-        </h3>
+        <div class="w-full text-center">
+          Order တင်ခြင်း ‌အောင်မြင်ပါသည်... <br />
+          အားပေးမှု အတွက် ကျေးဇူးတင်ရှိပါသည်..<br />
+          လူကြီးမင်း ဝယ်ထားသော ကုန်ပစ္စည်းများကို မကြာခင် ပို့ဆောင်ပေးပါမည်။
+        </div>
         <div class="model-action-buttons">
           <!-- <button><i class="fa-solid fa-house"></i> Go to home</button> -->
           <slot></slot>
@@ -57,11 +60,11 @@ export default {
 
 <style lang="postcss" scoped>
 .model-box-container-wrapper {
-  @apply w-full h-full flex justify-center items-center fixed top-0 left-0 z-50 bg-slate-900 bg-opacity-10;
+  @apply w-full h-full flex justify-center items-center fixed top-0 left-0 z-50 bg-slate-900 bg-opacity-40 p-6;
 }
 
 .model-box-container {
-  @apply p-6 px-10  flex flex-col items-center justify-center bg-slate-50  text-white rounded-lg border border-slate-300 gap-3 min-w-[300px] relative;
+  @apply p-5 lg:p-6 px-5 lg:px-10  flex flex-col items-center justify-center bg-slate-50  text-white rounded-lg border border-slate-500 gap-3  relative;
 }
 
 .model-box-container.loader {
@@ -73,11 +76,12 @@ export default {
 }
 
 .model-box-content img {
-  @apply w-40 lg:w-80 h-auto mx-auto;
+  /* @apply w-40 md:w-80  lg:w-[400px] h-auto mx-auto; */
+  @apply w-full h-auto mx-auto;
 }
 
-.model-box-content h3 {
-  @apply text-slate-900 font-bold;
+.model-box-content div {
+  @apply text-slate-900 font-bold  text-sm md:text-xl lg:text-xl tracking-widest leading-7 lg:leading-10;
 }
 
 .model-box-icon {
