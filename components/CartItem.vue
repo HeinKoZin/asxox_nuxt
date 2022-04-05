@@ -91,7 +91,7 @@ export default {
 
 <style lang="postcss" scoped>
 .cart-item {
-  @apply flex flex-row items-center  w-auto p-2 h-auto bg-slate-100 m-1 rounded-lg relative border-2 border-transparent cursor-pointer;
+  @apply flex flex-row items-center  w-auto p-2 h-auto bg-slate-100 m-1 rounded-lg relative border-4 border-transparent cursor-pointer;
 }
 .cart-item.active {
   @apply border-orange-500;
@@ -166,6 +166,6 @@ export default {
 }
 
 .select-box-container input {
-  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-4 h-4 lg:w-5 lg:h-5 rounded-lg  flex justify-center items-center before:w-1 before:lg:w-2 before:h-1 before:lg:h-2 before:bg-transparent before:rounded-lg checked:before:bg-slate-50;
+  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 border-4 border-orange-500 appearance-none w-4 h-4 lg:w-5 lg:h-5 rounded-lg  flex justify-center items-center before:w-1 before:lg:w-2 before:h-1 before:lg:h-2 before:bg-transparent before:rounded-lg checked:before:bg-slate-50;
 }
 </style>
