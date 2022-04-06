@@ -15,12 +15,11 @@
           :data="product"
           :categoryIndex="catIndex"
           :productIndex="index"
-          v-for="(product, index) in categoryProducts"
+          v-for="(product, index) in categoryProducts[0].products"
           :key="index"
           :isInWishlist="product.is_wishlist"
         />
       </div>
-      {{ categoryProducts }}
     </div>
   </div>
 </template>
@@ -39,14 +38,17 @@ export default {
   },
 
   async fetch() {
-    await this.getProductsByCategory(this.$route.params.id);
+    await this.getProductsByCategory({
+      categoryId: this.$route.params.id,
+      limit: 15,
+    });
   },
 };
 </script>
 
 <style lang="postcss" scoped>
 .category-container {
-  @apply w-full h-full flex;
+  @apply w-full  flex flex-col;
 }
 
 .category-header {
@@ -66,10 +68,10 @@ export default {
 }
 
 .products-list-container {
-  @apply w-full h-full flex;
+  @apply w-full  flex p-2 bg-white rounded-lg flex-wrap;
 }
 
 .category-body {
-  @apply w-full h-full flex;
+  @apply w-full  flex p-2 relative -mt-20;
 }
 </style>
