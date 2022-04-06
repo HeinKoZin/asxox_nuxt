@@ -36,6 +36,11 @@ const mutations = {
   SET_PAYMENT(state, data) {
     state.selectedPayment = data;
   },
+
+  SET_WAVEPAY_RESPONSE(state, data) {
+    console.log(data);
+    state.wavepayResponse = data;
+  },
 };
 
 export default mutations;
