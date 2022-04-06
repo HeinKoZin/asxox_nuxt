@@ -52,7 +52,7 @@ export default {
 
 <style lang="postcss" scoped>
 .order-list-container {
-  @apply flex w-full bg-slate-100 p-4 rounded-lg flex-col;
+  @apply flex w-full bg-slate-100 lg:p-4 p-1 rounded-lg flex-col;
 }
 
 .header {

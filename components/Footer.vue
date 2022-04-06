@@ -90,20 +90,38 @@
         <div class="footer-content-item">
           <h3>Download App</h3>
           <div class="content-body">
-            <div class="download-app">
-              <i class="fa-brands fa-google-play icon"></i>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="download-app"
+            >
+              <img
+                class="download-logo"
+                src="~/assets/img/playstore.png"
+                alt=""
+              />
               <div>
                 <p>Download our app on</p>
                 <h1>Play Store</h1>
               </div>
-            </div>
-            <div class="download-app">
-              <i class="fa-brands fa-app-store icon"></i>
+            </a>
+            <a
+              href="https://apps.apple.com/us/app/asxox/id1590791745"
+              class="download-app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                class="download-logo"
+                src="~/assets/img/appstore.png"
+                alt=""
+              />
               <div>
                 <p>Download our app on</p>
                 <h1>App Store</h1>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -181,11 +199,15 @@ export default {};
 }
 
 .download-app {
-  @apply flex gap-2 items-center md:text-base font-semibold my-2 font-quicksand bg-slate-50 border border-slate-800 text-slate-800 rounded-lg p-4 max-w-fit;
+  @apply flex gap-2 items-center md:text-base font-semibold my-2 font-quicksand no-underline hover:no-underline bg-slate-50 border border-slate-800 text-slate-800 rounded-xl p-4 max-w-fit;
 }
 
-.download-app .icon {
-  @apply text-lg md:text-3xl lg:text-4xl;
+.download-app .download-logo {
+  @apply w-10 h-10;
+}
+
+.download-app p {
+  @apply text-slate-800;
 }
 
 .download-app h1 {

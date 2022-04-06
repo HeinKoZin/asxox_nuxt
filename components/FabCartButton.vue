@@ -35,7 +35,7 @@ export default {
 
 <style lang="postcss" scoped>
 .fab-container {
-  @apply bg-orange-600 fixed right-5 bottom-5 z-50 rounded-full md:hidden;
+  @apply bg-orange-600 fixed right-5 bottom-5 z-50 rounded-full shadow-lg;
 }
 
 .fab-container-btn {

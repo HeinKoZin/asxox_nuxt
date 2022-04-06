@@ -5,12 +5,13 @@
   >
     <div class="cart-container">
       <div class="cart-action-button" v-show="!isCartOpen">
-        <button @click="toggleCart">
+        <!-- WARNING: don't delete -->
+        <!-- <button @click="toggleCart">
           <span class="badge" v-if="calculateCartProductQuantity">
             {{ calculateCartProductQuantity }}
           </span>
           <i class="fa-solid fa-cart-shopping icon"></i>
-        </button>
+        </button> -->
         <a
           href="https://www.facebook.com/asxox.ecommercemyanmar"
           target="_blank"
@@ -19,11 +20,26 @@
           <i class="fa-brands fa-facebook fb-icon"></i>
         </a>
         <a
-          href="viber://chat?number=959950668891"
+          href="viber://chat?number=959961558491"
           target="_blank"
           rel="noopener noreferrer"
         >
           <i class="fa-brands fa-viber viber-icon"></i>
+        </a>
+        <a
+          href="https://www.tiktok.com/@asxoxecommerce"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="~/assets/img/tiktok.png" class="tiktok-logo" alt="" />
+        </a>
+
+        <a
+          href="https://www.youtube.com/channel/UCnXbJ5K2pmBIh_HJaUuh9kg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-youtube youtube-icon"></i>
         </a>
       </div>
       <div class="cart-header">
@@ -176,7 +192,7 @@ export default {
 }
 
 .cart-action-button {
-  @apply hidden absolute w-14 h-auto py-4 top-[40%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
+  @apply hidden absolute w-14 h-auto py-4 top-[30%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
 }
 
 .cart-action-button button {
@@ -195,6 +211,14 @@ export default {
   @apply text-violet-700;
 }
 
+.cart-action-button .youtube-icon {
+  @apply text-red-700;
+}
+
+.cart-action-button .tiktok-logo {
+  @apply text-white w-8 h-8;
+}
+
 .badge {
   @apply absolute flex justify-center items-center  text-xs  bg-orange-500 text-white w-5 h-5 -top-0 -right-0 text-center  rounded-full;
 }
@@ -208,7 +232,7 @@ export default {
 }
 
 .select-all-container input {
-  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-5 h-5 rounded-lg border-2 border-orange-500 flex justify-center items-center before:w-2 before:h-2 before:bg-transparent before:rounded-lg checked:before:bg-slate-50;
+  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-5 h-5 rounded-lg border-4 border-orange-500 flex justify-center items-center before:w-2 before:h-2 before:bg-transparent before:rounded-lg checked:before:bg-slate-50;
 }
 
 .select-all-container label {
