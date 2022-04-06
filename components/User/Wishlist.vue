@@ -1,5 +1,14 @@
 <template>
   <div class="wishlist-container">
+    <div v-if="wishListProductList.length == 0">
+      <div class="empty-wishlist">
+        <h2>Your Wishlist is empty</h2>
+        <p>
+          You can add products to your wishlist by clicking on the heart icon on
+          the product page.
+        </p>
+      </div>
+    </div>
     <ProductCard
       v-for="(data, index) in wishListProductList"
       :key="index"
@@ -34,5 +43,17 @@ export default {
 <style lang="postcss" scoped>
 .wishlist-container {
   @apply w-full flex p-2 flex-wrap;
+}
+
+.empty-wishlist {
+  @apply flex flex-col items-center justify-center h-56 text-center;
+}
+
+.empty-wishlist h2 {
+  @apply text-lg lg:text-xl font-bold font-quicksand;
+}
+
+.empty-wishlist p {
+  @apply text-sm lg:text-base font-normal font-quicksand;
 }
 </style>

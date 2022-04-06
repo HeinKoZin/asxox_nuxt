@@ -191,14 +191,18 @@ export default {
 }
 
 .category-item {
-  @apply flex flex-col items-center justify-center w-full h-full  py-10  bg-white  hover:bg-orange-500 hover:text-white rounded-lg font-quicksand font-bold;
+  @apply flex flex-col items-center justify-center w-full h-full gap-y-2  py-10  bg-white  hover:bg-orange-500 hover:text-white rounded-lg font-quicksand font-bold;
+}
+
+.category-item h3 {
+  @apply text-sm lg:text-base;
 }
 
 .categories-header {
-  @apply w-[90%] border-b-2 border-slate-300 p-2 mb-2;
+  @apply w-[90%] lg:w-[70%] border-b-2 border-slate-300 p-2 mb-2;
 }
 
 .categories-header h3 {
-  @apply text-xl font-bold text-orange-500 font-quicksand;
+  @apply text-lg lg:text-xl font-bold text-orange-500 font-quicksand;
 }
 </style>

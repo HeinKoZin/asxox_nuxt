@@ -5,12 +5,13 @@
   >
     <div class="cart-container">
       <div class="cart-action-button" v-show="!isCartOpen">
-        <button @click="toggleCart">
+        <!-- WARNING: don't delete -->
+        <!-- <button @click="toggleCart">
           <span class="badge" v-if="calculateCartProductQuantity">
             {{ calculateCartProductQuantity }}
           </span>
           <i class="fa-solid fa-cart-shopping icon"></i>
-        </button>
+        </button> -->
         <a
           href="https://www.facebook.com/asxox.ecommercemyanmar"
           target="_blank"
@@ -231,7 +232,7 @@ export default {
 }
 
 .select-all-container input {
-  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-5 h-5 rounded-lg border-2 border-orange-500 flex justify-center items-center before:w-2 before:h-2 before:bg-transparent before:rounded-lg checked:before:bg-slate-50;
+  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-5 h-5 rounded-lg border-4 border-orange-500 flex justify-center items-center before:w-2 before:h-2 before:bg-transparent before:rounded-lg checked:before:bg-slate-50;
 }
 
 .select-all-container label {

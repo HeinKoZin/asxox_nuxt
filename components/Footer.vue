@@ -91,7 +91,7 @@
           <h3>Download App</h3>
           <div class="content-body">
             <a
-              href="https://apps.apple.com/us/app/asxox/id1590791745"
+              href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
               target="_blank"
               rel="noopener noreferrer"
               class="download-app"
@@ -107,7 +107,7 @@
               </div>
             </a>
             <a
-              href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
+              href="https://apps.apple.com/us/app/asxox/id1590791745"
               class="download-app"
               target="_blank"
               rel="noopener noreferrer"
