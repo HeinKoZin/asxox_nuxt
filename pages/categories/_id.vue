@@ -10,6 +10,13 @@
       </div>
     </div>
     <div class="category-body">
+      <div class="sub-categories-container">
+        <div>Filter by:</div>
+        <div class="sub-categories-body" v-dragscroll>
+          <div class="sub-category-container active">All</div>
+          <div class="sub-category-container">General</div>
+        </div>
+      </div>
       <div class="products-list-container">
         <ProductCard
           :data="product"
@@ -20,12 +27,18 @@
           :isInWishlist="product.is_wishlist"
         />
       </div>
+      <!-- {{ categoryProducts }} -->
+      <no-ssr>
+        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+      </no-ssr>
     </div>
   </div>
 </template>
 
 <script>
+import InfiniteLoading from "vue-infinite-loading";
 import { mapGetters, mapActions } from "vuex";
+
 export default {
   layout: "MainLayout",
 
@@ -35,6 +48,11 @@ export default {
   },
   methods: {
     ...mapActions(["getProductsByCategory"]),
+    infiniteHandler() {
+      this.getProductsByCategory(this.categoryProducts[0].id, {
+        page: this.categoryProducts[0].page + 1,
+      });
+    },
   },
 
   async fetch() {
@@ -64,7 +82,7 @@ export default {
 }
 
 .header-shape {
-  @apply absolute bottom-0 w-full h-[40%] bg-gradient-to-t from-slate-200 via-slate-300;
+  @apply absolute bottom-0 w-full h-[40%] bg-gradient-to-t from-slate-200 via-slate-200;
 }
 
 .products-list-container {
@@ -72,6 +90,27 @@ export default {
 }
 
 .category-body {
-  @apply w-full  flex p-2 relative -mt-20;
+  @apply w-full  flex flex-col p-2 relative -mt-5 lg:-mt-20;
+}
+
+.sub-categories-container {
+  @apply w-full  flex flex-col;
+}
+
+.sub-categories-body {
+  @apply w-full  flex  p-2 bg-slate-100 rounded-full mb-4 gap-x-2 overflow-hidden overflow-x-scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+.sub-categories-body::-webkit-scrollbar {
+  display: none;
+}
+
+.sub-category-container {
+  @apply bg-white px-4 rounded-full p-2 text-sm font-medium text-slate-500 hover:shadow-md shadow-orange-600;
+}
+
+.sub-category-container.active {
+  @apply bg-orange-600 text-white shadow-md;
 }
 </style>
