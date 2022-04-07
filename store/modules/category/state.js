@@ -5,6 +5,9 @@ const state = () => ({
 
   // draft recommended products
   draftRecommendedProducts: [],
+
+  // subcategories by category id
+  subCategoriesByCategoryId: [],
 });
 
 export default state;

@@ -13,11 +13,31 @@
       <div class="sub-categories-container">
         <div>Filter by:</div>
         <div class="sub-categories-body" v-dragscroll>
-          <div class="sub-category-container active">All</div>
-          <div class="sub-category-container">General</div>
+          <div
+            class="sub-category-container"
+            :class="{ active: selectedCategoryId === routeId }"
+            @click="handleSubCategoryClick(routeId)"
+          >
+            All
+          </div>
+          <div
+            class="sub-category-container"
+            :class="{ active: selectedCategoryId === category.id }"
+            v-for="(category, index) in subCategoriesByCategoryId[
+              'sub_categories'
+            ]"
+            :key="index"
+            @click="handleSubCategoryClick(category.id)"
+          >
+            {{ category.name }} {{ category.id }}
+          </div>
         </div>
       </div>
-      <div class="products-list-container">
+      <!-- NOTE: All products of page -->
+      <div
+        class="products-list-container"
+        v-if="selectedCategoryId === routeId"
+      >
         <ProductCard
           :data="product"
           :categoryIndex="catIndex"
@@ -27,9 +47,29 @@
           :isInWishlist="product.is_wishlist"
         />
       </div>
-      <!-- {{ categoryProducts }} -->
+
+      <!-- NOTE: All product with category id -->
+      <div
+        class="products-list-container"
+        v-if="selectedCategoryId !== routeId"
+      >
+        <div v-if="!checkProducts" class="products-status-message">
+          No products found in this category
+        </div>
+        <ProductCard
+          :data="product"
+          :categoryIndex="catIndex"
+          :productIndex="index"
+          v-for="(product, index) in getSelectedCategoryProducts()
+            ? getSelectedCategoryProducts().products
+            : []"
+          :key="index"
+          :isInWishlist="product.is_wishlist"
+        />
+      </div>
+
       <no-ssr>
-        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+        <!-- <infinite-loading @infinite="infiniteHandler"></infinite-loading> -->
       </no-ssr>
     </div>
   </div>
@@ -42,24 +82,56 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   layout: "MainLayout",
 
+  data() {
+    return {
+      selectedCategoryId: this.routeId,
+    };
+  },
+
   computed: {
     // NOTE: Method from Vuex getters
-    ...mapGetters(["categoryProducts"]),
+    ...mapGetters(["categoryProducts", "subCategoriesByCategoryId"]),
+
+    routeId() {
+      return this.$route.params.id;
+    },
+    checkProducts() {
+      return this.getSelectedCategoryProducts()?.products.length === 0
+        ? false
+        : true;
+    },
   },
   methods: {
-    ...mapActions(["getProductsByCategory"]),
-    infiniteHandler() {
-      this.getProductsByCategory(this.categoryProducts[0].id, {
-        page: this.categoryProducts[0].page + 1,
-      });
+    ...mapActions(["getProductsByCategory", "getSubCategoriesByCategoryId"]),
+    // infiniteHandler() {
+    //   this.getProductsByCategory(this.categoryProducts[0].id, {
+    //     page: this.categoryProducts[0].page + 1,
+    //   });
+    // },
+
+    handleSubCategoryClick(subCategoryId) {
+      this.selectedCategoryId = subCategoryId;
+    },
+
+    getSelectedCategoryProducts() {
+      return (
+        this.subCategoriesByCategoryId["sub_categories"].filter(
+          (category) => category.id === this.selectedCategoryId
+        )[0] || null
+      );
     },
   },
 
   async fetch() {
     await this.getProductsByCategory({
-      categoryId: this.$route.params.id,
+      categoryId: this.selectedCategoryId,
       limit: 15,
     });
+    await this.getSubCategoriesByCategoryId(this.$route.params.id);
+  },
+
+  mounted() {
+    this.selectedCategoryId = this.$route.params.id;
   },
 };
 </script>
@@ -112,5 +184,9 @@ export default {
 
 .sub-category-container.active {
   @apply bg-orange-600 text-white shadow-md;
+}
+
+.products-status-message {
+  @apply w-full py-10 text-center text-slate-800 text-xl font-medium;
 }
 </style>

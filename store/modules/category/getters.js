@@ -10,6 +10,11 @@ const getters = {
   recommendedProducts(state) {
     return state.draftRecommendedProducts;
   },
+
+  // subcategories by category id
+  subCategoriesByCategoryId(state) {
+    return state.subCategoriesByCategoryId;
+  }
 };
 
 export default getters;

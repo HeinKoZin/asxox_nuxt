@@ -22,6 +22,10 @@ const mutations = {
   SET_DRAFT_RECOMMENDED_PRODUCTS(state, data) {
     state.draftRecommendedProducts = data;
   },
+
+  SET_SUBCATEGORIES_BY_CATEGORY_ID(state, data) {
+    state.subCategoriesByCategoryId = data;
+  }
 };
 
 export default mutations;

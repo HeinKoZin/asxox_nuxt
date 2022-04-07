@@ -20,21 +20,28 @@ const actions = {
             : null,
       };
       commit("SET_PRODUCTS_BY_CATEGORY", products);
-    } catch (error) {}
+    } catch (error) { }
   },
 
   async getCategories({ commit }) {
     try {
       const res = await this.$axios.get("categories");
       commit("SET_CATEGORIES", res?.data?.data);
-    } catch (error) {}
+    } catch (error) { }
   },
 
   async getRecommendedProducts({ commit }) {
     try {
       const res = await this.$axios.get(`products/category/1?limit=15`);
       commit("SET_DRAFT_RECOMMENDED_PRODUCTS", res?.data?.data);
-    } catch (error) {}
+    } catch (error) { }
+  },
+
+  async getSubCategoriesByCategoryId({ commit }, categoryId) {
+    try {
+      const res = await this.$axios.get(`categories/${categoryId}`);
+      commit("SET_SUBCATEGORIES_BY_CATEGORY_ID", res?.data?.data);
+    } catch (error) { }
   },
 };
 
