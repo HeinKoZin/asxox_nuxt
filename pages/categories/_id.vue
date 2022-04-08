@@ -11,7 +11,7 @@
     </div>
     <div class="category-body">
       <div class="sub-categories-container">
-        <div>Filter by:</div>
+        <div class="sub-categories-header">Filter by:</div>
         <div class="sub-categories-body" v-dragscroll>
           <div
             class="sub-category-container"
@@ -34,6 +34,7 @@
         </div>
       </div>
       <!-- NOTE: All products of page -->
+      <div class="product-list-header">Products:</div>
       <div
         class="products-list-container"
         v-if="selectedCategoryId === routeId"
@@ -138,7 +139,7 @@ export default {
 
 <style lang="postcss" scoped>
 .category-container {
-  @apply w-full  flex flex-col;
+  @apply w-full pb-10 flex flex-col;
 }
 
 .category-header {
@@ -162,11 +163,15 @@ export default {
 }
 
 .category-body {
-  @apply w-full  flex flex-col p-2 relative -mt-5 lg:-mt-20;
+  @apply w-full h-full flex flex-col p-2 relative -mt-5 lg:-mt-20;
 }
 
 .sub-categories-container {
   @apply w-full  flex flex-col;
+}
+
+.sub-categories-header {
+  @apply w-full  p-2 text-gray-900 uppercase text-xl font-bold;
 }
 
 .sub-categories-body {
@@ -188,5 +193,9 @@ export default {
 
 .products-status-message {
   @apply w-full py-10 text-center text-slate-800 text-xl font-medium;
+}
+
+.product-list-header {
+  @apply w-full  p-2 text-gray-900 uppercase text-xl font-bold;
 }
 </style>
