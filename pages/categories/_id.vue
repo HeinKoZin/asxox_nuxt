@@ -43,7 +43,7 @@
           :data="product"
           :categoryIndex="catIndex"
           :productIndex="index"
-          v-for="(product, index) in categoryProducts[0].products"
+          v-for="(product, index) in products ? products : []"
           :key="index"
           :isInWishlist="product.is_wishlist"
         />
@@ -70,7 +70,11 @@
       </div>
 
       <no-ssr>
-        <!-- <infinite-loading @infinite="infiniteHandler"></infinite-loading> -->
+        <infinite-loading @infinite="infiniteHandler">
+          <div slot="no-more" class="no-more">
+            You reached end of the list
+          </div></infinite-loading
+        >
       </no-ssr>
     </div>
   </div>
@@ -82,16 +86,26 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   layout: "MainLayout",
+  components: {
+    InfiniteLoading,
+  },
 
   data() {
     return {
       selectedCategoryId: this.routeId,
+      products: this.productsByPagination,
+      current_page: 1,
+      last_page: null,
     };
   },
 
   computed: {
     // NOTE: Method from Vuex getters
-    ...mapGetters(["categoryProducts", "subCategoriesByCategoryId"]),
+    ...mapGetters([
+      "categoryProducts",
+      "subCategoriesByCategoryId",
+      "productsByPagination",
+    ]),
 
     routeId() {
       return this.$route.params.id;
@@ -103,7 +117,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getProductsByCategory", "getSubCategoriesByCategoryId"]),
+    ...mapActions([
+      "getProductsByCategory",
+      "getSubCategoriesByCategoryId",
+      "getProductsByPagination",
+    ]),
     // infiniteHandler() {
     //   this.getProductsByCategory(this.categoryProducts[0].id, {
     //     page: this.categoryProducts[0].page + 1,
@@ -121,6 +139,35 @@ export default {
         )[0] || null
       );
     },
+
+    // NOTE: Infinite scroll handler
+    infiniteHandler($state) {
+      setTimeout(() => {
+        this.current_page = this.productsByPagination["meta"]["current_page"];
+        this.last_page = this.productsByPagination["meta"]["last_page"];
+        if (this.current_page !== this.last_page) {
+          console.log("infiniteHandler");
+          const test = this.getProductsByPagination({
+            categoryId: this.selectedCategoryId,
+            page: this.productsByPagination["meta"]["current_page"] + 1,
+            limit: this.productsByPagination["meta"]["per_page"],
+          });
+          test.then((res) => {
+            // filter out the duplicates
+            const new_data = res["data"].filter(
+              (item) => !this.products.some((prev) => prev.id === item.id)
+            );
+
+            // append the new data
+            this.products = [...this.products, ...new_data];
+
+            $state.loaded();
+          });
+        } else {
+          $state.complete();
+        }
+      }, 1000);
+    },
   },
 
   async fetch() {
@@ -129,10 +176,17 @@ export default {
       limit: 15,
     });
     await this.getSubCategoriesByCategoryId(this.$route.params.id);
+
+    await this.getProductsByPagination({
+      categoryId: this.selectedCategoryId,
+      page: this.current_page,
+      limit: 15,
+    });
   },
 
   mounted() {
     this.selectedCategoryId = this.$route.params.id;
+    this.products = this.productsByPagination["data"];
   },
 };
 </script>
@@ -197,5 +251,9 @@ export default {
 
 .product-list-header {
   @apply w-full  p-2 text-gray-900 uppercase text-xl font-bold;
+}
+
+.no-more {
+  @apply w-full text-center text-slate-900 text-xl font-medium p-4 rounded-md bg-white  mt-2;
 }
 </style>

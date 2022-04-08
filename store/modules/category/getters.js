@@ -14,6 +14,11 @@ const getters = {
   // subcategories by category id
   subCategoriesByCategoryId(state) {
     return state.subCategoriesByCategoryId;
+  },
+
+  // products by pagination
+  productsByPagination(state) {
+    return state.productsByPagination;
   }
 };
 

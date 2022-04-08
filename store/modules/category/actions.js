@@ -43,6 +43,14 @@ const actions = {
       commit("SET_SUBCATEGORIES_BY_CATEGORY_ID", res?.data?.data);
     } catch (error) { }
   },
+
+  async getProductsByPagination({ commit }, { categoryId, limit, page }) {
+    try {
+      const res = await this.$axios.get(`products/category/${categoryId}?limit=${limit}&page=${page}`);
+      commit("SET_PRODUCTS_BY_PAGINATION", res?.data);
+      return res?.data;
+    } catch (error) { }
+  }
 };
 
 export default actions;

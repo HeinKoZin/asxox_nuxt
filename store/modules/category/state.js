@@ -8,6 +8,10 @@ const state = () => ({
 
   // subcategories by category id
   subCategoriesByCategoryId: [],
+
+  // products by pagination
+  productsByPagination: [],
+
 });
 
 export default state;
