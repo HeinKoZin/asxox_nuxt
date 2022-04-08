@@ -146,20 +146,18 @@ export default {
 
       if (res.status !== "error" && !res.errors) {
         this.toast("Ordered successfully", "success");
-        // this.SET_WHOLE_PRODUCTS_TO_CART([]);
-        // this.SET_MODEL(!this.isModel);
+        this.SET_WHOLE_PRODUCTS_TO_CART([]);
+        this.SET_MODEL(!this.isModel);
         this.spinOnOffAndEmit(false);
         return;
       }
-
       this.toast(Object.values(res.errors)[0][0], "error");
       this.spinOnOffAndEmit(false);
     },
     async kpay(orderId) {
+      // make sign with SHA256
       const timestamp = this.timestampGenerate().toString();
       const nonce_str = this.getNonce(32).toString().toUpperCase();
-      console.log("timestamp", timestamp);
-      console.log("nonce_str", nonce_str);
       let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&callback_info=title%3diphonex&merch_code=70022802&merch_order_id=${orderId}&method=kbz.payment.precreate&nonce_str=${nonce_str}&notify_url=https://asxox.com.mm/checkout?isOrder=true&timeout_express=100m&timestamp=${timestamp}&title=iPhoneX&total_amount=${this.calculateSubtotal(
         "pay"
       )}&trade_type=PWAAPP&trans_currency=MMK&version=1.0`;
@@ -204,15 +202,23 @@ export default {
         console.log(error);
       }
     },
+    //get kpay referer
     async kpayReferer(data) {
+      const timestamp = this.timestampGenerate().toString();
       try {
+        // make sign with SHA256
+        let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&merch_code=70022802&nonce_str=${data.nonce_str}&prepay_id=${data.prepay_id}&timestamp=${timestamp}`;
+        let stringToSign = `${stringA}&key=13d961f122cbb78451d7f4b333147745`;
+        let bytes1 = await utf8.encode(stringToSign);
+        let sign = sha256(bytes1).toUpperCase();
+
         var finalData = {
           prepay_id: data.prepay_id,
           appid: "kp7845e3e156234868aaeaad2f2536dc",
           merch_code: "70022802",
-          sign: "15400A3205A7FB5D4A4682DAB778CD3211FD4078BAEBCDD86589A3B80C0BB77A",
+          sign,
           nonce_str: data.nonce_str,
-          timestamp: this.timestampGenerate().toString(),
+          timestamp,
         };
         const res = await this.$axios.post("/kpay-referer", finalData);
         window.location.href = res.data;
@@ -229,16 +235,6 @@ export default {
       }
       return text;
     },
-    sha256Hash(string) {
-      const utf8 = new TextEncoder().encode(string);
-      return crypto.subtle.digest("SHA-256", utf8).then((hashBuffer) => {
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray
-          .map((bytes) => bytes.toString(16).padStart(2, "0"))
-          .join("");
-        return hashHex.toUpperCase();
-      });
-    },
     timestampGenerate() {
       return Date.now();
     },
@@ -246,7 +242,6 @@ export default {
     async getWavePayPaymentRequestData(orderId) {
       try {
         const res = await this.$axios.get(`wavepay/payment-request/${orderId}`);
-
         window.location.href = `https://payments.wavemoney.io/authenticate?transaction_id=${res.data.transaction_id}`;
       } catch (error) {
         console.log(error);
