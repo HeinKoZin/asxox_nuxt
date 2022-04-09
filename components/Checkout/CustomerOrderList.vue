@@ -14,7 +14,7 @@
         <div class="order-list-container">
           <!-- TODO: implement active design  -->
           <OrderItem
-            v-for="(product, index) in cartProducts"
+            v-for="(product, index) in cartSelectedProducts"
             :product="product"
             :key="index"
             :productId="index"
@@ -24,8 +24,8 @@
         <div class="total-price-container">
           <div class="total-price-wrapper">
             <div class="total-price-label">Total Price</div>
-            <div class="total-price" v-if="cartProducts.length > 0">
-              {{ cartProductsTotal }} {{ cartProducts[0].currency }}
+            <div class="total-price" v-if="cartSelectedProducts.length > 0">
+              {{ cartProductsTotal }} {{ cartSelectedProducts[0].currency }}
             </div>
             <div class="total-price" v-else>0.00</div>
           </div>
@@ -50,10 +50,9 @@
               {{ order.point_value }} MMK
             </div>
           </div>
-
           <div class="subtotal-price-wrapper">
             <div class="total-price-label">Subtotal :</div>
-            <div class="total-price" v-if="cartProducts.length > 0">
+            <div class="total-price" v-if="cartSelectedProducts.length > 0">
               {{ calculateSubtotal() }}
             </div>
             <div class="total-price" v-else>0.00</div>
@@ -94,15 +93,16 @@ export default {
   // NOTE: Method from Vuex getters
   computed: {
     ...mapGetters([
-      "cartProducts",
+      "cartSelectedProducts",
       "cartProductsTotal",
       "order",
       "isModel",
       "selectedPayment",
+      "cartUnSelectedProducts",
     ]),
     calculateCartProductQuantity() {
       let qty = 0;
-      for (let product of this.cartProducts) {
+      for (let product of this.cartSelectedProducts) {
         qty += product.qty;
       }
       return qty;
@@ -117,7 +117,9 @@ export default {
       else
         return this.order.point_amount
           ? this.order.total_amount - this.order.point_value
-          : this.order.total_amount + " " + this.cartProducts[0]?.currency;
+          : this.order.total_amount +
+              " " +
+              this.cartSelectedProducts[0]?.currency;
     },
     ...mapMutations([
       "REFRESH_ORDER",
@@ -127,7 +129,7 @@ export default {
     ]),
     async finalOrder() {
       this.spinOnOffAndEmit(true);
-      if (this.cartProducts.length === 0) {
+      if (this.cartSelectedProducts.length === 0) {
         this.toast("Please add products to cart!", "info");
         this.spinOnOffAndEmit(false);
         return;
@@ -146,7 +148,7 @@ export default {
 
       if (res.status !== "error" && !res.errors) {
         this.toast("Ordered successfully", "success");
-        this.SET_WHOLE_PRODUCTS_TO_CART([]);
+        this.SET_WHOLE_PRODUCTS_TO_CART(this.cartUnSelectedProducts);
         this.SET_MODEL(!this.isModel);
         this.spinOnOffAndEmit(false);
         return;
