@@ -1,5 +1,8 @@
 <template>
-  <label :class="'cart-item ' + (isSelect ? 'active' : '')" :for="selectBoxId">
+  <label
+    :class="'cart-item ' + (product.isSelected ? 'active' : '')"
+    :for="selectBoxId"
+  >
     <!-- Select box -->
     <div class="select-box-container">
       <input
@@ -75,7 +78,11 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["UPDATE_PRODUCT_IN_CART", "REMOVE_PRODUCT_FROM_CART"]),
+    ...mapMutations([
+      "UPDATE_PRODUCT_IN_CART",
+      "REMOVE_PRODUCT_FROM_CART",
+      "UPDATE_IS_SELECTED_PRODUCT_IN_CART",
+    ]),
     changeQty(type, qty) {
       let newQty = qty;
       type === "minus" ? newQty-- : newQty++;
@@ -83,7 +90,11 @@ export default {
     },
 
     checkBoxHandler() {
-      this.isSelect = !this.isSelect;
+      // this.product.isSelected = !this.product.isSelected;
+      this.UPDATE_IS_SELECTED_PRODUCT_IN_CART({
+        productId: this.productId,
+        isSelected: !this.product.isSelected,
+      });
     },
   },
 };

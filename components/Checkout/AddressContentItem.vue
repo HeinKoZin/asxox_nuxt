@@ -67,9 +67,9 @@ export default {
     },
     async removeShippingAddress() {
       try {
-        // const res = await this.$axios.delete(
-        //   `/shipping_address/${this.address.id}`
-        // );
+        const res = await this.$axios.delete(
+          `/shipping_address/${this.address.id}`
+        );
         this.toast("Shipping address deleted Successfully", "success");
         this.$emit("removeAddress");
         await this.$auth.fetchUser();

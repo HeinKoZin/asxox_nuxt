@@ -69,7 +69,13 @@
       <div class="cart-bottom">
         <div class="total-and-select-all">
           <div class="select-all-container">
-            <input type="checkbox" name="select-all" id="select-all" />
+            <input
+              type="checkbox"
+              name="select-all"
+              id="select-all"
+              @change="test"
+              v-model="isSelectAll"
+            />
             <label for="select-all">Select all</label>
           </div>
           <div class="cart-bottom-total">
@@ -78,13 +84,16 @@
           </div>
         </div>
         <div class="cart-bottom-action">
-          <button
-            class="btn btn-sm btn-primary"
-            @click="$router.push('/checkout'), SET_CART(!isCartOpen)"
+          <Button
+            variant="primary"
+            class="w-full"
+            :disabled="cartSelectedProducts.length === 0"
+            @click.native="$router.push('/checkout'), SET_CART(!isCartOpen)"
           >
             <i class="fa-solid fa-cart-shopping icon"></i>
             <span>Checkout</span>
-          </button>
+            Confirm
+          </Button>
         </div>
       </div>
       <!-- Fab -->
@@ -99,10 +108,16 @@ export default {
   data() {
     return {
       initialState: true,
+      isSelectAll: false,
     };
   },
   computed: {
-    ...mapGetters(["isCartOpen", "cartProducts", "cartProductsTotal"]),
+    ...mapGetters([
+      "isCartOpen",
+      "cartProducts",
+      "cartProductsTotal",
+      "cartSelectedProducts",
+    ]),
 
     calculateCartProductQuantity() {
       let qty = 0;
@@ -113,7 +128,10 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["SET_CART"]),
+    test() {
+      this.SELECTED_ALL_PRODUCT_IN_CART(this.isSelectAll);
+    },
+    ...mapMutations(["SET_CART", "SELECTED_ALL_PRODUCT_IN_CART"]),
 
     toggleCart() {
       this.SET_CART(!this.isCartOpen);
@@ -192,7 +210,7 @@ export default {
 }
 
 .cart-action-button {
-  @apply hidden absolute w-14 h-auto py-4 top-[30%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
+  @apply hidden absolute  bg-opacity-50 w-14 h-auto py-4 top-[30%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
 }
 
 .cart-action-button button {
@@ -200,7 +218,7 @@ export default {
 }
 
 .cart-action-button a {
-  @apply border-0 relative w-12 h-12 flex justify-center items-center rounded-full active:bg-orange-200;
+  @apply border-0  relative w-12 h-12 flex justify-center items-center rounded-full active:bg-orange-200;
 }
 
 .cart-action-button .fb-icon {

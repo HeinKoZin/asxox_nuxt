@@ -370,6 +370,7 @@ export default {
     },
 
     addToCartFinal(product) {
+      product.isSelected = true;
       !product.is_varient
         ? this.addProductToCart(product)
         : this.addProductToCart({
