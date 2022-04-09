@@ -2,10 +2,13 @@
   <div class="category-container">
     <div class="category-header">
       <div class="category-cover">
-        <img
-          src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/08/06/category/image/06-08-2021_Asxox_4610c9d17e5b049.02990017.png"
-          alt=""
-        />
+        <Skeleton class="w-full" height="30vh">
+          <img
+            v-if="!$fetchState.pending"
+            :src="subCategoriesByCategoryId['image']"
+            alt=""
+          />
+        </Skeleton>
         <div class="header-shape"></div>
       </div>
     </div>
@@ -29,25 +32,30 @@
             :key="index"
             @click="handleSubCategoryClick(category.id)"
           >
-            {{ category.name }} {{ category.id }}
+            <Skeleton>
+              {{ category.name }}
+            </Skeleton>
           </div>
         </div>
       </div>
       <!-- NOTE: All products of page -->
       <div class="product-list-header">Products:</div>
-      <div
-        class="products-list-container"
-        v-if="selectedCategoryId === routeId"
-      >
-        <ProductCard
-          :data="product"
-          :categoryIndex="catIndex"
-          :productIndex="index"
-          v-for="(product, index) in products ? products : []"
-          :key="index"
-          :isInWishlist="product.is_wishlist"
-        />
-      </div>
+      <!-- <div class="loading-status" v-if="$fetchState.pending">Loading....</div> -->
+      <Skeleton class="w-full" height="400px">
+        <div
+          class="products-list-container"
+          v-if="!$fetchState.pending && selectedCategoryId === routeId"
+        >
+          <ProductCard
+            :data="product"
+            :categoryIndex="catIndex"
+            :productIndex="index"
+            v-for="(product, index) in products ? products : []"
+            :key="index"
+            :isInWishlist="product.is_wishlist"
+          />
+        </div>
+      </Skeleton>
 
       <!-- NOTE: All product with category id -->
       <div
@@ -68,9 +76,13 @@
           :isInWishlist="product.is_wishlist"
         />
       </div>
+      <!-- {{ products }} -->
 
       <no-ssr>
-        <infinite-loading @infinite="infiniteHandler">
+        <infinite-loading
+          @infinite="infiniteHandler"
+          v-if="!$fetchState.pending"
+        >
           <div slot="no-more" class="no-more">
             You reached end of the list
           </div></infinite-loading
@@ -83,17 +95,19 @@
 <script>
 import InfiniteLoading from "vue-infinite-loading";
 import { mapGetters, mapActions } from "vuex";
+import { Skeleton } from "vue-loading-skeleton";
 
 export default {
   layout: "MainLayout",
   components: {
     InfiniteLoading,
+    Skeleton,
   },
 
   data() {
     return {
-      selectedCategoryId: this.routeId,
-      products: this.productsByPagination,
+      selectedCategoryId: this.routeId ? this.routeId : this.$route.params.id,
+      products: [],
       current_page: 1,
       last_page: null,
     };
@@ -102,7 +116,7 @@ export default {
   computed: {
     // NOTE: Method from Vuex getters
     ...mapGetters([
-      "categoryProducts",
+      "productsByCategoryId",
       "subCategoriesByCategoryId",
       "productsByPagination",
     ]),
@@ -118,7 +132,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      "getProductsByCategory",
+      "getProductsByCategoryId",
       "getSubCategoriesByCategoryId",
       "getProductsByPagination",
     ]),
@@ -139,6 +153,15 @@ export default {
         )[0] || null
       );
     },
+
+    // async getProductsByPagination() {
+    //   const res = await this.$axios.get(
+    //     `/products/category/${this.selectedCategoryId}?page=${this.current_page}?limit=30`
+    //   );
+    //   if (res?.data) {
+    //     this.products = [...this.products, ...res.data.data];
+    //   }
+    // },
 
     // NOTE: Infinite scroll handler
     infiniteHandler($state) {
@@ -171,17 +194,22 @@ export default {
   },
 
   async fetch() {
-    await this.getProductsByCategory({
+    await this.getProductsByCategoryId({
       categoryId: this.selectedCategoryId,
-      limit: 15,
+      limit: 30,
     });
     await this.getSubCategoriesByCategoryId(this.$route.params.id);
 
     await this.getProductsByPagination({
       categoryId: this.selectedCategoryId,
       page: this.current_page,
-      limit: 15,
+      limit: 30,
+    }).then((res) => {
+      // append the new data
+      this.products = res["data"];
     });
+
+    // await this.getProductsByPagination();
   },
 
   mounted() {
@@ -213,7 +241,7 @@ export default {
 }
 
 .products-list-container {
-  @apply w-full  flex p-2 bg-white rounded-lg flex-wrap;
+  @apply w-full flex p-2 bg-white rounded-lg flex-wrap;
 }
 
 .category-body {
@@ -225,7 +253,7 @@ export default {
 }
 
 .sub-categories-header {
-  @apply w-full  p-2 text-gray-900 uppercase text-xl font-bold;
+  @apply w-full p-1 md:p-2 text-gray-900 uppercase text-base md:text-lg lg:text-xl font-bold;
 }
 
 .sub-categories-body {
@@ -238,7 +266,7 @@ export default {
 }
 
 .sub-category-container {
-  @apply bg-white px-4 rounded-full p-2 text-sm font-medium text-slate-500 hover:shadow-md shadow-orange-600;
+  @apply bg-white px-2 md:px-4 rounded-full p-1 whitespace-nowrap md:p-2 text-xs md:text-sm font-medium text-slate-500 hover:shadow-md shadow-orange-600;
 }
 
 .sub-category-container.active {
@@ -250,10 +278,14 @@ export default {
 }
 
 .product-list-header {
-  @apply w-full  p-2 text-gray-900 uppercase text-xl font-bold;
+  @apply w-full p-1 md:p-2 text-gray-900 uppercase text-base md:text-lg lg:text-xl font-bold;
 }
 
 .no-more {
+  @apply w-full text-center text-slate-900 text-xl font-medium p-4 rounded-md bg-white  mt-2;
+}
+
+.loading-status {
   @apply w-full text-center text-slate-900 text-xl font-medium p-4 rounded-md bg-white  mt-2;
 }
 </style>

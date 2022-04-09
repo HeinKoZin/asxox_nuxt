@@ -44,6 +44,13 @@ const actions = {
     } catch (error) { }
   },
 
+  async getProductsByCategoryId({ commit }, { categoryId, limit = 15 }) {
+    try {
+      const res = await this.$axios.get(`products/category/${categoryId}?limit=${limit}`);
+      commit("SET_PRODUCTS_BY_CATEGORY_ID", res?.data?.data);
+    } catch (error) { }
+  },
+
   async getProductsByPagination({ commit }, { categoryId, limit, page }) {
     try {
       const res = await this.$axios.get(`products/category/${categoryId}?limit=${limit}&page=${page}`);

@@ -21,7 +21,12 @@
               <!-- <img :src="getCategoryLogo(category)" class="category-logo-img" /> -->
               {{ category.categoryName }}
             </h4>
-            <button class="see-all-btn">See All</button>
+            <button
+              class="see-all-btn"
+              @click="handleCategoryClick(category.categoryId)"
+            >
+              See All
+            </button>
           </div>
 
           <ProductCard
@@ -100,6 +105,10 @@ export default {
 
     getCategoryLogo(category) {
       return this.categories.find((c) => c.id === category.categoryId)?.logo;
+    },
+
+    handleCategoryClick(categoryId) {
+      this.$router.push({ name: "categories-id", params: { id: categoryId } });
     },
   },
   async fetch() {
