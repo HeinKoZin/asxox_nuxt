@@ -15,6 +15,7 @@ const actions = {
       original_unit_price: data.sell_price,
       sell_price: data.variantSellPrice || data.sell_price,
       is_variant: data.selectedVariantId,
+      isSelected: data.isSelected || false,
     };
     commit("SET_PRODUCT_TO_CART", newData);
     this.commit("REFRESH_ORDER");

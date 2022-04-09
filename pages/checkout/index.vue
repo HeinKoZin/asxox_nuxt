@@ -62,6 +62,11 @@ export default {
       // or this.myEventSource.emit(someEventPayload)
     },
   },
+  mounted() {
+    if (this.$route.query.isOrder) {
+      this.SET_MODEL(true);
+    }
+  },
 };
 </script>
 

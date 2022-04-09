@@ -15,6 +15,7 @@ export default {
     wishlistProduct: generateModule("wishlistProduct"),
     adsShop: generateModule("adsShop"),
     slideAds: generateModule("slideAds"),
+    shippingAddresses: generateModule("shippingAddresses"),
   },
 };
 

@@ -14,7 +14,7 @@
         <div class="order-list-container">
           <!-- TODO: implement active design  -->
           <OrderItem
-            v-for="(product, index) in cartProducts"
+            v-for="(product, index) in cartSelectedProducts"
             :product="product"
             :key="index"
             :productId="index"
@@ -24,8 +24,8 @@
         <div class="total-price-container">
           <div class="total-price-wrapper">
             <div class="total-price-label">Total Price</div>
-            <div class="total-price" v-if="cartProducts.length > 0">
-              {{ cartProductsTotal }} {{ cartProducts[0].currency }}
+            <div class="total-price" v-if="cartSelectedProducts.length > 0">
+              {{ cartProductsTotal }} {{ cartSelectedProducts[0].currency }}
             </div>
             <div class="total-price" v-else>0.00</div>
           </div>
@@ -50,11 +50,10 @@
               {{ order.point_value }} MMK
             </div>
           </div>
-
           <div class="subtotal-price-wrapper">
             <div class="total-price-label">Subtotal :</div>
-            <div class="total-price" v-if="cartProducts.length > 0">
-              {{ calculateSubtotal }}
+            <div class="total-price" v-if="cartSelectedProducts.length > 0">
+              {{ calculateSubtotal() }}
             </div>
             <div class="total-price" v-else>0.00</div>
           </div>
@@ -88,20 +87,22 @@ export default {
   data() {
     return {
       isSpin: false,
+      test: null,
     };
   },
   // NOTE: Method from Vuex getters
   computed: {
     ...mapGetters([
-      "cartProducts",
+      "cartSelectedProducts",
       "cartProductsTotal",
       "order",
       "isModel",
       "selectedPayment",
+      "cartUnSelectedProducts",
     ]),
     calculateCartProductQuantity() {
       let qty = 0;
-      for (let product of this.cartProducts) {
+      for (let product of this.cartSelectedProducts) {
         qty += product.qty;
       }
       return qty;
@@ -114,18 +115,21 @@ export default {
           ? (this.order.total_amount - this.order.point_value).toString()
           : this.order.total_amount.toString();
       else
-        this.order.point_amount
+        return this.order.point_amount
           ? this.order.total_amount - this.order.point_value
-          : this.order.total_amount + " " + this.cartProducts[0]?.currency;
+          : this.order.total_amount +
+              " " +
+              this.cartSelectedProducts[0]?.currency;
     },
     ...mapMutations([
       "REFRESH_ORDER",
       "SET_WHOLE_PRODUCTS_TO_CART",
       "SET_MODEL",
+      "SET_WAVEPAY_RESPONSE",
     ]),
     async finalOrder() {
       this.spinOnOffAndEmit(true);
-      if (this.cartProducts.length === 0) {
+      if (this.cartSelectedProducts.length === 0) {
         this.toast("Please add products to cart!", "info");
         this.spinOnOffAndEmit(false);
         return;
@@ -144,46 +148,41 @@ export default {
 
       if (res.status !== "error" && !res.errors) {
         this.toast("Ordered successfully", "success");
-        this.SET_WHOLE_PRODUCTS_TO_CART([]);
+        this.SET_WHOLE_PRODUCTS_TO_CART(this.cartUnSelectedProducts);
         this.SET_MODEL(!this.isModel);
         this.spinOnOffAndEmit(false);
         return;
       }
-
       this.toast(Object.values(res.errors)[0][0], "error");
       this.spinOnOffAndEmit(false);
     },
     async kpay(orderId) {
-      const timestamp = this.timestampGenerate();
-      const nonce_str = this.getNonce(32).toString();
-      let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&callback_info=$title%3diphonex&merch_code=70022802&merch_order_id=${orderId}&method=kbz.payment.precreate&nonce_str=${nonce_str}&notify_url=https://asxox.com.mm/api/backend/payment/kpay&timeout_express=100m&timestamp=${timestamp}&total_amount=${this.calculateSubtotal(
+      // make sign with SHA256
+      const timestamp = this.timestampGenerate().toString();
+      const nonce_str = this.getNonce(32).toString().toUpperCase();
+      let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&callback_info=title%3diphonex&merch_code=70022802&merch_order_id=${orderId}&method=kbz.payment.precreate&nonce_str=${nonce_str}&notify_url=https://asxox.com.mm/checkout?isOrder=true&timeout_express=100m&timestamp=${timestamp}&title=iPhoneX&total_amount=${this.calculateSubtotal(
         "pay"
-      )}&trade_type=APPH5&trans_currency=MMK&version=1.0`;
-
-      // console.log(stringA);
+      )}&trade_type=PWAAPP&trans_currency=MMK&version=1.0`;
 
       let stringToSign = `${stringA}&key=13d961f122cbb78451d7f4b333147745`;
       let bytes1 = await utf8.encode(stringToSign);
-      // console.log("bofore string to sign", stringToSign);
-      // console.log("after sign", bytes1);
-
       let sign = sha256(bytes1).toUpperCase();
 
-      const paymentData = {
+      var paymentData = {
         Request: {
           timestamp,
-          notify_url: "https://api.asxox.com.mm/api/backend/payment/kpay",
+          method: "kbz.payment.precreate",
+          notify_url: "https://asxox.com.mm/checkout?isOrder=true",
           nonce_str,
           sign_type: "SHA256",
-          method: "kbz.payment.precreate",
           sign,
           version: "1.0",
           biz_content: {
             merch_order_id: orderId.toString(),
             merch_code: "70022802",
-            title: "iPhoneX",
             appid: "kp7845e3e156234868aaeaad2f2536dc",
             trade_type: "PWAAPP",
+            title: "iPhoneX",
             total_amount: this.calculateSubtotal("pay"),
             trans_currency: "MMK",
             timeout_express: "100m",
@@ -191,10 +190,43 @@ export default {
           },
         },
       };
-
       this.paymentRequestKBZpay(paymentData);
+    },
+    async paymentRequestKBZpay(data) {
+      try {
+        const res = await this.$axios({
+          baseURL: "https://api.kbzpay.com/payment/gateway/precreate",
+          method: "POST",
+          data,
+        });
+        await this.kpayReferer(res.data.Response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //get kpay referer
+    async kpayReferer(data) {
+      const timestamp = this.timestampGenerate().toString();
+      try {
+        // make sign with SHA256
+        let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&merch_code=70022802&nonce_str=${data.nonce_str}&prepay_id=${data.prepay_id}&timestamp=${timestamp}`;
+        let stringToSign = `${stringA}&key=13d961f122cbb78451d7f4b333147745`;
+        let bytes1 = await utf8.encode(stringToSign);
+        let sign = sha256(bytes1).toUpperCase();
 
-      console.log(sign);
+        var finalData = {
+          prepay_id: data.prepay_id,
+          appid: "kp7845e3e156234868aaeaad2f2536dc",
+          merch_code: "70022802",
+          sign,
+          nonce_str: data.nonce_str,
+          timestamp,
+        };
+        const res = await this.$axios.post("/kpay-referer", finalData);
+        window.location.href = res.data;
+      } catch (error) {
+        console.log(error);
+      }
     },
     getNonce(length) {
       var text = "";
@@ -205,69 +237,14 @@ export default {
       }
       return text;
     },
-    sha256Hash(string) {
-      const utf8 = new TextEncoder().encode(string);
-      return crypto.subtle.digest("SHA-256", utf8).then((hashBuffer) => {
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray
-          .map((bytes) => bytes.toString(16).padStart(2, "0"))
-          .join("");
-        return hashHex.toUpperCase();
-      });
-    },
     timestampGenerate() {
-      return Date.now().toString();
+      return Date.now();
     },
 
     async getWavePayPaymentRequestData(orderId) {
       try {
-        const res = await this.$axios.get(
-          `wavepay/get-payment-info/${orderId}`
-        );
-        const newData = {
-          time_to_live_in_seconds: res.data.data.time_to_live_in_seconds,
-          merchant_id: res.data.data.merchant_id,
-          order_id: orderId,
-          merchant_reference_id: res.data.data.merchant_reference_id,
-          frontend_result_url: res.data.data.frontend_result_url,
-          backend_result_url: res.data.data.backend_result_url,
-          amount: res.data.data.amount,
-          payment_description: res.data.data.payment_description,
-          merchant_name: res.data.data.merchant_name,
-          items: res.data.items,
-          hash: res.data.hash,
-        };
-        this.paymentRequest(newData);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async paymentRequestKBZpay(data) {
-      try {
-        const res = await this.$axios({
-          baseURL: "https://api.kbzpay.com/payment/gateway/precreate",
-          method: "POST",
-          data: data,
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async paymentRequest(paymentData) {
-      try {
-        const res = await this.$axios({
-          url: "payment",
-          baseURL: "https://payments.wavemoney.io/",
-          method: "POST",
-          data: paymentData,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-            "Access-Control-Allow-Credentials": "true",
-            "Access-Control-Allow-Headers": "*",
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        });
+        const res = await this.$axios.get(`wavepay/payment-request/${orderId}`);
+        window.location.href = `https://payments.wavemoney.io/authenticate?transaction_id=${res.data.transaction_id}`;
       } catch (error) {
         console.log(error);
       }

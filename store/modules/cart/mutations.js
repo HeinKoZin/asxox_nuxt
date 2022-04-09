@@ -4,6 +4,7 @@ const mutations = {
     state.isCartOpen = data;
   },
   SET_PRODUCT_TO_CART(state, data) {
+    data.isSelected = data.isSelected || false;
     const filteredIndex = state.cartProducts.findIndex((product) => {
       if (data.variant_name && product.id === data.id) {
         return product.is_variant === data.is_variant;
@@ -22,16 +23,6 @@ const mutations = {
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
-    let original_total_amount = 0;
-    state.cartProducts.forEach((product) => {
-      original_total_amount += product.sell_price * product.qty;
-    });
-
-    const newData = [
-      { type: "original_total_amount", data: original_total_amount },
-      { type: "products", data: state.cartProducts },
-    ];
-    newData.forEach((item) => this.commit("SET_ORDER", item));
     this.commit("REFRESH_ORDER");
   },
 
@@ -65,20 +56,44 @@ const mutations = {
     this.commit("REFRESH_ORDER");
   },
 
+  UPDATE_IS_SELECTED_PRODUCT_IN_CART(state, data) {
+    state.cartProducts[data.productId].isSelected = data.isSelected;
+    this.app.$cookies.remove("cartProducts");
+    this.app.$cookies.set("cartProducts", state.cartProducts, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+    this.commit("REFRESH_ORDER");
+  },
+
+  SELECTED_ALL_PRODUCT_IN_CART(state, data) {
+    for (let i = 0; i < state.cartProducts.length; i++) {
+      state.cartProducts[i].isSelected = data;
+    }
+    this.app.$cookies.remove("cartProducts");
+    this.app.$cookies.set("cartProducts", state.cartProducts, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+    this.commit("REFRESH_ORDER");
+  },
+
   REFRESH_ORDER(state, data) {
+    const selectedProducts = state.cartProducts.filter((product) => {
+      return product.isSelected;
+    });
+
     let original_total_amount = 0;
-    state.cartProducts.forEach((product) => {
+    selectedProducts.forEach((product) => {
       original_total_amount += product.sell_price * product.qty;
     });
 
     const newData = [
       { type: "original_total_amount", data: original_total_amount },
+      { type: "products", data: selectedProducts },
       { type: "total_amount", data: original_total_amount },
     ];
-
-    newData.forEach((data) => {
-      this.commit("SET_ORDER", data);
-    });
+    newData.forEach((item) => this.commit("SET_ORDER", item));
   },
 };
 

@@ -111,6 +111,7 @@ export default {
         );
         this.newAddress.state = selectedState;
         this.newAddress.city = selectedCity;
+        this.newAddress.id = response.data.id;
 
         if (Object.keys(this.errors).length > 0) return true;
 
