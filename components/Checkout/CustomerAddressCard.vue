@@ -23,7 +23,7 @@
       <div class="address-contents-container-wrapper">
         <div class="address-contents-container">
           <AddressContentItem
-            v-for="(address, index) in addresses"
+            v-for="(address, index) in shippingAddresses"
             :key="index"
             :address="address"
             :addressIndex="index"
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -50,16 +50,20 @@ export default {
       default: false,
     },
   },
+  computed: {
+    ...mapGetters(["shippingAddresses"]),
+  },
   methods: {
     // NOTE: Method from Vuex actions
     ...mapMutations([
       "SET_ADDRESS_TO_ORDER",
       "UPDATE_ADDRESS_STATUS",
       "REMOVE_ADDRESS",
+      "SET_SHIPPING_ADDRESSES",
     ]),
     //NOTE: change addresses by index
     changeAddress(index) {
-      this.addresses.forEach((address, i) => {
+      this.shippingAddresses.forEach((address, i) => {
         if (i === index) {
           this.UPDATE_ADDRESS_STATUS({ index: i, value: true });
         } else {
@@ -67,7 +71,7 @@ export default {
         }
       });
       this.SET_ADDRESS_TO_ORDER(
-        this.addresses.filter((address) => address.status)[0]
+        this.shippingAddresses.filter((address) => address.status)[0]
       );
     },
 
@@ -77,10 +81,16 @@ export default {
     },
   },
   mounted() {
-    this.addresses = this.$auth.user?.data?.customer?.shipping_addresses || [];
-    if (this.addresses.length === 0) return;
+    // this.addresses = this.$auth.user?.data?.customer?.shipping_addresses || [];
+    this.SET_SHIPPING_ADDRESSES(
+      this.$auth.user?.data?.customer?.shipping_addresses || []
+    );
+    if (this.shippingAddresses.length === 0) return;
+    console.log(this.shippingAddresses);
+    // console.log(this.shippingAddresses.filter((address) => !address.status));
     this.SET_ADDRESS_TO_ORDER(
-      this.addresses.filter((address) => address.status)[0]
+      this.shippingAddresses.filter((address) => !address.status)[0] ||
+        this.shippingAddresses.filter((address) => address.status)[0]
     );
   },
 };

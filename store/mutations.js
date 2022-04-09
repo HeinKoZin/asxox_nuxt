@@ -21,17 +21,14 @@ const mutations = {
     state.auth.user.data.customer.shipping_addresses.push(data);
   },
 
-  UPDATE_ADDRESS_STATUS(state, data) {
-    state.auth.user.data.customer.shipping_addresses[data.index].status =
-      data.value;
-  },
+  // UPDATE_ADDRESS_STATUS(state, data) {
+  //   state.auth.user.data.customer.shipping_addresses[data.index].status =
+  //     data.value;
+  // },
 
-  REMOVE_ADDRESS(state, index) {
-    console.log(state.auth.user.data.customer.shipping_addresses);
-    state.auth.user.data.customer.shipping_addresses =
-      state.auth.user.data.customer.shipping_addresses.splice(index, 1);
-    console.log(state.auth.user.data.customer.shipping_addresses);
-  },
+  // REMOVE_ADDRESS(state, index) {
+  //   state.shipping_addresses.splice(index, 1);
+  // },
 
   SET_PAYMENT(state, data) {
     state.selectedPayment = data;
