@@ -210,7 +210,7 @@ export default {
 }
 
 .cart-action-button {
-  @apply hidden absolute w-14 h-auto py-4 top-[30%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
+  @apply hidden absolute  bg-opacity-50 w-14 h-auto py-4 top-[30%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
 }
 
 .cart-action-button button {
@@ -218,7 +218,7 @@ export default {
 }
 
 .cart-action-button a {
-  @apply border-0 relative w-12 h-12 flex justify-center items-center rounded-full active:bg-orange-200;
+  @apply border-0  relative w-12 h-12 flex justify-center items-center rounded-full active:bg-orange-200;
 }
 
 .cart-action-button .fb-icon {
