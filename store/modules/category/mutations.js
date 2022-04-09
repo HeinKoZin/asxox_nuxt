@@ -29,6 +29,10 @@ const mutations = {
 
   SET_PRODUCTS_BY_PAGINATION(state, data) {
     state.productsByPagination = data;
+  },
+
+  SET_PRODUCTS_BY_CATEGORY_ID(state, data) {
+    state.productsByCategoryId = data;
   }
 };
 

@@ -19,6 +19,11 @@ const getters = {
   // products by pagination
   productsByPagination(state) {
     return state.productsByPagination;
+  },
+
+  // products by category id
+  productsByCategoryId(state) {
+    return state.productsByCategoryId;
   }
 };
 
