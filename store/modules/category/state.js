@@ -12,6 +12,9 @@ const state = () => ({
   // products by pagination
   productsByPagination: [],
 
+  // products by category id
+  productsByCategoryId: [],
+
 });
 
 export default state;
