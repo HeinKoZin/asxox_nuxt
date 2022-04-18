@@ -184,7 +184,7 @@
           <button @click="decreaseQuantity()">
             <i class="fa-solid fa-minus icon"></i>
           </button>
-          <input type="number" :value="product.quantity" />
+          <input type="number" v-model="product.quantity" />
           <button @click="increaseQuantity()">
             <i class="fa-solid fa-plus icon"></i>
           </button>
@@ -272,6 +272,11 @@ export default {
       },
     },
   },
+
+  mounted() {
+    this.product.quantity ? this.product.quantity : (this.product.quantity = 1);
+  },
+
   methods: {
     // NOTE: Method from Vuex actions
     ...mapActions(["addProductToCart", "getWishListProducts"]),
