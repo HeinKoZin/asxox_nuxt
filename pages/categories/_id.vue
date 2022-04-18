@@ -41,14 +41,17 @@
       <!-- NOTE: All products of page -->
       <div class="product-list-header">Products:</div>
       <!-- <div class="loading-status" v-if="$fetchState.pending">Loading....</div> -->
-      <Skeleton class="w-full" height="400px">
+      <Skeleton
+        class="w-full"
+        height="400px"
+        v-if="selectedCategoryId === routeId"
+      >
         <div
           class="products-list-container"
           v-if="!$fetchState.pending && selectedCategoryId === routeId"
         >
           <ProductCard
             :data="product"
-            :categoryIndex="catIndex"
             :productIndex="index"
             v-for="(product, index) in products ? products : []"
             :key="index"
@@ -67,7 +70,6 @@
         </div>
         <ProductCard
           :data="product"
-          :categoryIndex="catIndex"
           :productIndex="index"
           v-for="(product, index) in getSelectedCategoryProducts()
             ? getSelectedCategoryProducts().products
@@ -81,7 +83,7 @@
       <no-ssr>
         <infinite-loading
           @infinite="infiniteHandler"
-          v-if="!$fetchState.pending"
+          v-if="!$fetchState.pending && selectedCategoryId === routeId"
         >
           <div slot="no-more" class="no-more">
             You reached end of the list
