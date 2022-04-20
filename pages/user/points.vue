@@ -8,15 +8,17 @@
         </p>
       </div>
       <div class="point-action-buttons">
-        <button>Top up</button>
+        <button @click="handleTopup()">Top up</button>
         <button>Transfer</button>
       </div>
+      <BuyPointModel v-if="isTopup" @handleTopup="handleTopup" />
     </div>
   </div>
 </template>
 
 <script>
 import Button from "../../components/Common/Button.vue";
+
 export default {
   components: { Button },
   layout: "ProfileLayout",
@@ -24,7 +26,14 @@ export default {
   data() {
     return {
       points: 0,
+      isTopup: false,
     };
+  },
+
+  methods: {
+    handleTopup() {
+      this.isTopup = !this.isTopup;
+    },
   },
 };
 </script>
