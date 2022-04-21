@@ -9,9 +9,10 @@
       </div>
       <div class="point-action-buttons">
         <button @click="handleTopup()">Top up</button>
-        <button>Transfer</button>
+        <button @click="handleTransfer()">Transfer</button>
       </div>
       <BuyPointModel v-if="isTopup" @handleTopup="handleTopup" />
+      <TransferPointModel v-if="isTransfer" @handleTransfer="handleTransfer" />
     </div>
   </div>
 </template>
@@ -27,12 +28,16 @@ export default {
     return {
       points: 0,
       isTopup: false,
+      isTransfer: true,
     };
   },
 
   methods: {
     handleTopup() {
       this.isTopup = !this.isTopup;
+    },
+    handleTransfer() {
+      this.isTransfer = !this.isTransfer;
     },
   },
 };
