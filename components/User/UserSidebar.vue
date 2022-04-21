@@ -39,6 +39,14 @@
             Purchased History
           </li> -->
           <li
+            :class="linkIsActive('/user/points') ? 'active' : ''"
+            @click="$router.push('/user/points').catch(() => {})"
+          >
+            <i class="fa-solid fa-1 icon"></i>
+            Points
+          </li>
+
+          <li
             :class="linkIsActive('/user/setting') ? 'active' : ''"
             @click="$router.push('/user/setting').catch(() => {})"
           >
@@ -55,7 +63,7 @@
           @click.native="userLogout"
         >
           <div class="mr-3" v-show="!isSpin">
-            <i class="fa-solid fa-arrow-right-from-bracket icon mr-3"></i>
+            <i class="mr-3 fa-solid fa-arrow-right-from-bracket icon"></i>
             Logout
           </div>
           <Spinner slot="loader" v-if="isSpin" />
