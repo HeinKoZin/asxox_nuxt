@@ -28,7 +28,7 @@ export default {
     return {
       points: 0,
       isTopup: false,
-      isTransfer: true,
+      isTransfer: false,
     };
   },
 
