@@ -1,5 +1,5 @@
 <template>
-  <div class="buy-point-container" @click="handleTopup()">
+  <div class="buy-point-container" @click.self="handleTopup()">
     <div class="buy-point-wrapper">
       <div class="header">Options to Buy</div>
       <div class="body">

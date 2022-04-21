@@ -1,5 +1,5 @@
 <template>
-  <div class="transfer-point-container" @click="handleTransfer()">
+  <div class="transfer-point-container" @click.self="handleTransfer()">
     <div class="transfer-point-wrapper">
       <div class="header">Transfer Points</div>
       <div class="input-container">
