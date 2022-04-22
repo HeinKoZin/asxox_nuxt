@@ -63,6 +63,7 @@ export default {
     { src: "~/plugins/v-dragscroll.js", ssr: false },
     "~/plugins/fontawesome.js",
     "~/plugins/click-outside.js",
+    { src: "~/plugins/v-carousel.js", ssr: false },
     // '@/plugins/aos.js'
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
