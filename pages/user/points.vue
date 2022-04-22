@@ -4,7 +4,8 @@
       <div class="points-item">
         <h2>My Points</h2>
         <p>
-          You have <span class="points">{{ points }}</span> points.
+          You have
+          <span class="points">{{ userData.point.amount }}</span> points.
         </p>
       </div>
       <div class="point-action-buttons">
@@ -26,9 +27,9 @@ export default {
 
   data() {
     return {
-      points: 0,
       isTopup: false,
       isTransfer: false,
+      userData: {},
     };
   },
 
@@ -39,6 +40,22 @@ export default {
     handleTransfer() {
       this.isTransfer = !this.isTransfer;
     },
+    async makePointConfirm() {
+      try {
+        const res = await this.$axios.post(
+          `/point_buy?amount=${this.$route.query.amount}&status=${this.$route.query.status}&point_order_id=${this.$route.query.point_order_id}`,
+          {
+            amount: this.pointAmount,
+          }
+        );
+      } catch (error) {}
+    },
+  },
+  fetch() {
+    this.userData = this.$auth.user.data;
+    if (this.$route.query.status) {
+      this.makePointConfirm();
+    }
   },
 };
 </script>

@@ -6,30 +6,66 @@
         <h3>Amount</h3>
         <div class="point-amount-container">
           <div class="point-amount-item">
-            <input type="radio" name="amount" id="500" />
+            <input
+              type="radio"
+              name="amount"
+              id="500"
+              value="500"
+              v-model="pointAmount"
+            />
             <label for="500">500</label>
           </div>
           <div class="point-amount-item">
-            <input type="radio" name="amount" id="1000" />
+            <input
+              type="radio"
+              name="amount"
+              id="1000"
+              value="1000"
+              v-model="pointAmount"
+            />
             <label for="1000">1000</label>
           </div>
           <div class="point-amount-item">
-            <input type="radio" name="amount" id="3000" />
+            <input
+              type="radio"
+              name="amount"
+              id="3000"
+              value="3000"
+              v-model="pointAmount"
+            />
             <label for="3000">3000</label>
           </div>
           <div class="point-amount-item">
-            <input type="radio" name="amount" id="5000" />
+            <input
+              type="radio"
+              name="amount"
+              id="5000"
+              value="5000"
+              v-model="pointAmount"
+            />
             <label for="5000">5000</label>
           </div>
           <div class="w-full point-amount-item">
-            <input type="radio" name="amount" id="other" />
-            <input type="number" name="amount" placeholder="Other amount" />
+            <input
+              type="radio"
+              name="amount"
+              id="other"
+              @click="pointAmount = null"
+            />
+            <input
+              type="number"
+              name="amount"
+              placeholder="Other amount"
+              v-model="customPointAmount"
+              @click="pointAmount = null"
+              min="500"
+            />
           </div>
         </div>
 
         <OnlinePaymentMethods isBuyPoints />
 
-        <button class="confirm-btn">Confirm</button>
+        <button class="confirm-btn" @click="finalOrder">Confirm</button>
         <button class="cancel-btn" @click="handleTopup()">Cancel</button>
       </div>
     </div>
@@ -37,10 +73,164 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
+  data() {
+    return {
+      pointAmount: null,
+      customPointAmount: null,
+    };
+  },
+  watch: {
+    customPointAmount(val) {
+      this.pointAmount = val;
+    },
+  },
+  computed: {
+    ...mapGetters(["selectedPayment"]),
+  },
   methods: {
+    async pointOrder() {
+      const res = await this.$axios.post("/point_buy", {
+        amount: this.pointAmount,
+      });
+      console.log(res.data.data.id);
+      const orderId = res.data.data.id;
+      const totalAmount = res.data.data.cash_amount;
+    },
     handleTopup() {
       this.$emit("handleTopup");
+    },
+    async finalOrder() {
+      try {
+        // this.spinOnOffAndEmit(true);
+        const res = await this.$axios.post("/point_buy", {
+          amount: this.pointAmount,
+        });
+        const orderId = res.data.data.id;
+        console.log(orderId);
+        switch (this.selectedPayment) {
+          case "kbz-pay":
+            this.kpay(orderId);
+            break;
+          case "wave-pay":
+            this.getWavePayPaymentRequestData(orderId);
+            break;
+          default:
+            break;
+        }
+
+        if (res.status !== "error" && !res.errors) {
+          this.toast("Ordered successfully", "success");
+          // this.SET_WHOLE_PRODUCTS_TO_CART(this.cartUnSelectedProducts);
+          this.SET_MODEL(!this.isModel);
+          // this.spinOnOffAndEmit(false);
+          return;
+        }
+        this.toast(Object.values(res.errors)[0][0], "error");
+        // this.spinOnOffAndEmit(false);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async kpay(orderId, totalAmount) {
+      // make sign with SHA256
+      const timestamp = this.timestampGenerate().toString();
+      const nonce_str = this.getNonce(32).toString().toUpperCase();
+      let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&callback_info=title%3diphonex&merch_code=70022802&merch_order_id=${orderId}&method=kbz.payment.precreate&nonce_str=${nonce_str}&notify_url=https://asxox.com.mm/checkout?isOrder=true&timeout_express=100m&timestamp=${timestamp}&title=iPhoneX&total_amount=${this.pointAmount}&trade_type=PWAAPP&trans_currency=MMK&version=1.0`;
+
+      let stringToSign = `${stringA}&key=13d961f122cbb78451d7f4b333147745`;
+      let bytes1 = await utf8.encode(stringToSign);
+      let sign = sha256(bytes1).toUpperCase();
+
+      var paymentData = {
+        Request: {
+          timestamp,
+          method: "kbz.payment.precreate",
+          notify_url: "https://asxox.com.mm/checkout?isOrder=true",
+          nonce_str,
+          sign_type: "SHA256",
+          sign,
+          version: "1.0",
+          biz_content: {
+            merch_order_id: orderId.toString(),
+            merch_code: "70022802",
+            appid: "kp7845e3e156234868aaeaad2f2536dc",
+            trade_type: "PWAAPP",
+            title: "iPhoneX",
+            total_amount: this.pointAmount,
+            trans_currency: "MMK",
+            timeout_express: "100m",
+            callback_info: "title%3diphonex",
+          },
+        },
+      };
+      this.paymentRequestKBZpay(paymentData);
+    },
+    async paymentRequestKBZpay(data) {
+      try {
+        const res = await this.$axios({
+          baseURL: "https://api.kbzpay.com/payment/gateway/precreate",
+          method: "POST",
+          data,
+        });
+        await this.kpayReferer(res.data.Response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //get kpay referer
+    async kpayReferer(data) {
+      const timestamp = this.timestampGenerate().toString();
+      try {
+        // make sign with SHA256
+        let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&merch_code=70022802&nonce_str=${data.nonce_str}&prepay_id=${data.prepay_id}&timestamp=${timestamp}`;
+        let stringToSign = `${stringA}&key=13d961f122cbb78451d7f4b333147745`;
+        let bytes1 = await utf8.encode(stringToSign);
+        let sign = sha256(bytes1).toUpperCase();
+
+        var finalData = {
+          prepay_id: data.prepay_id,
+          appid: "kp7845e3e156234868aaeaad2f2536dc",
+          merch_code: "70022802",
+          sign,
+          nonce_str: data.nonce_str,
+          timestamp,
+        };
+        const res = await this.$axios.post("/kpay-referer", finalData);
+        window.location.href = res.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    getNonce(length) {
+      var text = "";
+      var possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (var i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      return text;
+    },
+    timestampGenerate() {
+      return Date.now();
+    },
+
+    async getWavePayPaymentRequestData(orderId) {
+      try {
+        const res = await this.$axios.get(
+          `wavepay/payment-request/${orderId}`,
+          {
+            params: {
+              type: "point",
+            },
+          }
+        );
+        window.location.href = `https://payments.wavemoney.io/authenticate?transaction_id=${res.data.transaction_id}`;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
