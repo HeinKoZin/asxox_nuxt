@@ -20,8 +20,10 @@
 
 <script>
 import Button from "../../components/Common/Button.vue";
+import { generalMixins } from "@/mixins/general";
 
 export default {
+  mixins: [generalMixins],
   components: { Button },
   layout: "ProfileLayout",
 
@@ -40,22 +42,12 @@ export default {
     handleTransfer() {
       this.isTransfer = !this.isTransfer;
     },
-    async makePointConfirm() {
-      try {
-        const res = await this.$axios.post(
-          `/point_buy?amount=${this.$route.query.amount}&status=${this.$route.query.status}&point_order_id=${this.$route.query.point_order_id}`,
-          {
-            amount: this.pointAmount,
-          }
-        );
-      } catch (error) {}
-    },
   },
-  fetch() {
+  async fetch() {
     this.userData = this.$auth.user.data;
-    if (this.$route.query.status) {
-      this.makePointConfirm();
-    }
+    await this.$auth.fetchUser();
+    if (this.$route.query.isPointConfirm === "success")
+      this.toast("Points have been successfully added!", "success");
   },
 };
 </script>

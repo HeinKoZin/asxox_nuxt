@@ -65,7 +65,20 @@
 
         <OnlinePaymentMethods isBuyPoints />
 
-        <button class="confirm-btn" @click="finalOrder">Confirm</button>
+        <!-- <button class="confirm-btn" @click="finalOrder" disabled>
+          <Spinner slot="loader" />
+          Confirm
+        </button> -->
+        <Button
+          variant="primary"
+          class="w-full mt-7"
+          :disabled="isPointOrder"
+          @click.native="finalOrder"
+        >
+          <Spinner slot="loader" v-if="isPointOrder" />
+          Confirm
+        </Button>
+
         <button class="cancel-btn" @click="handleTopup()">Cancel</button>
       </div>
     </div>
@@ -74,12 +87,15 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { sha256 } from "js-sha256";
+import utf8 from "utf8";
 
 export default {
   data() {
     return {
       pointAmount: null,
       customPointAmount: null,
+      isPointOrder: false,
     };
   },
   watch: {
@@ -91,45 +107,28 @@ export default {
     ...mapGetters(["selectedPayment"]),
   },
   methods: {
-    async pointOrder() {
-      const res = await this.$axios.post("/point_buy", {
-        amount: this.pointAmount,
-      });
-      console.log(res.data.data.id);
-      const orderId = res.data.data.id;
-      const totalAmount = res.data.data.cash_amount;
-    },
     handleTopup() {
       this.$emit("handleTopup");
     },
     async finalOrder() {
       try {
-        // this.spinOnOffAndEmit(true);
+        this.isPointOrder = true;
         const res = await this.$axios.post("/point_buy", {
           amount: this.pointAmount,
         });
         const orderId = res.data.data.id;
-        console.log(orderId);
         switch (this.selectedPayment) {
           case "kbz-pay":
             this.kpay(orderId);
             break;
           case "wave-pay":
-            this.getWavePayPaymentRequestData(orderId);
+            this.getWavePayPaymentRequestData("000" + orderId);
             break;
           default:
             break;
         }
-
-        if (res.status !== "error" && !res.errors) {
-          this.toast("Ordered successfully", "success");
-          // this.SET_WHOLE_PRODUCTS_TO_CART(this.cartUnSelectedProducts);
-          this.SET_MODEL(!this.isModel);
-          // this.spinOnOffAndEmit(false);
-          return;
-        }
-        this.toast(Object.values(res.errors)[0][0], "error");
-        // this.spinOnOffAndEmit(false);
+        // this.toast(Object.values(res.errors)[0][0], "error");
+        this.isPointOrder = false;
       } catch (error) {
         console.log(error);
       }
@@ -148,7 +147,7 @@ export default {
         Request: {
           timestamp,
           method: "kbz.payment.precreate",
-          notify_url: "https://asxox.com.mm/checkout?isOrder=true",
+          notify_url: "https://asxox.com.mm/user/points?isPointConfirm=success",
           nonce_str,
           sign_type: "SHA256",
           sign,
