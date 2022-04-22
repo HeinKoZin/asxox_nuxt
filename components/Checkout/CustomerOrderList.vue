@@ -143,17 +143,17 @@ export default {
           this.getWavePayPaymentRequestData(res.data);
           break;
         default:
+          if (!res.errors) {
+            this.toast("Ordered successfully", "success");
+            this.SET_WHOLE_PRODUCTS_TO_CART(this.cartUnSelectedProducts);
+            this.SET_MODEL(!this.isModel);
+            this.spinOnOffAndEmit(false);
+            return;
+          }
+          this.toast(Object.values(res.errors)[0][0], "error");
           break;
       }
 
-      if (res.status !== "error" && !res.errors) {
-        this.toast("Ordered successfully", "success");
-        this.SET_WHOLE_PRODUCTS_TO_CART(this.cartUnSelectedProducts);
-        this.SET_MODEL(!this.isModel);
-        this.spinOnOffAndEmit(false);
-        return;
-      }
-      this.toast(Object.values(res.errors)[0][0], "error");
       this.spinOnOffAndEmit(false);
     },
     async kpay(orderId) {

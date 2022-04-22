@@ -49,10 +49,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["isModel"]),
+    ...mapGetters(["isModel", "cartUnSelectedProducts"]),
   },
   methods: {
-    ...mapMutations(["SET_MODEL"]),
+    ...mapMutations(["SET_MODEL", "SET_WHOLE_PRODUCTS_TO_CART"]),
     spinResponse(value) {
       this.isSpin = value;
     },
@@ -65,6 +65,7 @@ export default {
   mounted() {
     if (this.$route.query.isOrder) {
       this.SET_MODEL(true);
+      this.SET_WHOLE_PRODUCTS_TO_CART(this.cartUnSelectedProducts);
     }
   },
 };
