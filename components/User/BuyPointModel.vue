@@ -119,10 +119,10 @@ export default {
         const orderId = res.data.data.id;
         switch (this.selectedPayment) {
           case "kbz-pay":
-            this.kpay(orderId);
+            this.kpay("000" + orderId);
             break;
           case "wave-pay":
-            this.getWavePayPaymentRequestData("000" + orderId);
+            this.getWavePayPaymentRequestData(orderId);
             break;
           default:
             break;
@@ -226,6 +226,7 @@ export default {
             },
           }
         );
+        console.log(res);
         window.location.href = `https://payments.wavemoney.io/authenticate?transaction_id=${res.data.transaction_id}`;
       } catch (error) {
         console.log(error);
