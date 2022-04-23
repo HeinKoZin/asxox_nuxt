@@ -50,7 +50,14 @@
           :key="index"
           @click="setPaymentMethod(payment.name, index)"
         >
-          <div class="payment-method" :class="payment.isSelect ? 'active' : ''">
+          <div
+            class="payment-method"
+            :class="
+              payment.isSelect || selectedPayment === payment.name
+                ? 'active'
+                : ''
+            "
+          >
             <span>
               <i class="fa-solid fa-circle-check payment-method-icon"></i>
             </span>

@@ -4,7 +4,8 @@
       <div class="points-item">
         <h2>My Points</h2>
         <p>
-          You have <span class="points">{{ points }}</span> points.
+          You have
+          <span class="points">{{ userData.point.amount }}</span> points.
         </p>
       </div>
       <div class="point-action-buttons">
@@ -19,16 +20,18 @@
 
 <script>
 import Button from "../../components/Common/Button.vue";
+import { generalMixins } from "@/mixins/general";
 
 export default {
+  mixins: [generalMixins],
   components: { Button },
   layout: "ProfileLayout",
 
   data() {
     return {
-      points: 0,
       isTopup: false,
       isTransfer: false,
+      userData: {},
     };
   },
 
@@ -39,6 +42,12 @@ export default {
     handleTransfer() {
       this.isTransfer = !this.isTransfer;
     },
+  },
+  async fetch() {
+    this.userData = this.$auth.user.data;
+    await this.$auth.fetchUser();
+    if (this.$route.query.isPointConfirm === "success")
+      this.toast("Points have been successfully added!", "success");
   },
 };
 </script>
