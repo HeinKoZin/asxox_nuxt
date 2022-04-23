@@ -36,7 +36,7 @@
       </div>
       <div
         class="flex flex-wrap w-full"
-        v-if="$fetchState.pending && !categories"
+        v-if="$fetchState.pending && categories === []"
       >
         <Skeleton class="w-1/3 h-32 p-1" v-for="i in 6" :key="i" />
       </div>
