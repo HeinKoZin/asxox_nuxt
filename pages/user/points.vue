@@ -58,11 +58,11 @@ export default {
 }
 
 .points-detail-container {
-  @apply flex  items-center gap-4 flex-col justify-center h-full w-full;
+  @apply flex  items-center px-3 lg:px-0 gap-4 flex-col justify-center h-full w-full;
 }
 
 .points-item {
-  @apply bg-slate-100 w-1/2 mx-auto md:mx-0 font-quicksand font-bold text-center p-4 py-6 border-2 border-slate-300 rounded-md;
+  @apply bg-slate-100 w-full md:w-1/2 mx-auto md:mx-0 font-quicksand font-bold text-center p-4 py-6 border-2 border-slate-300 rounded-md;
 }
 
 .points-item h2 {

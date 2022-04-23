@@ -134,6 +134,7 @@ export default {
         this.spinOnOffAndEmit(false);
         return;
       }
+      this.order.type = "Web";
       const res = await this.generalPostApis("orders", this.order);
       switch (this.selectedPayment) {
         case "kbz-pay":
