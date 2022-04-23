@@ -41,24 +41,34 @@
       <!-- NOTE: All products of page -->
       <div class="product-list-header">Products:</div>
       <!-- <div class="loading-status" v-if="$fetchState.pending">Loading....</div> -->
-      <Skeleton
+      <!-- <Skeleton
         class="w-full"
         height="400px"
-        v-if="selectedCategoryId === routeId"
+
+      > -->
+      <!-- NOTE: Skeleton -->
+      <div
+        class="products-list-container"
+        v-if="selectedCategoryId === routeId && $fetchState.pending"
       >
-        <div
-          class="products-list-container"
-          v-if="!$fetchState.pending && selectedCategoryId === routeId"
-        >
-          <ProductCard
-            :data="product"
-            :productIndex="index"
-            v-for="(product, index) in products ? products : []"
-            :key="index"
-            :isInWishlist="product.is_wishlist"
-          />
+        <div class="p-1 w-[12.5%] h-80" v-for="i in 10" :key="i">
+          <Skeleton width="100%" height="100%" />
         </div>
-      </Skeleton>
+      </div>
+
+      <div
+        class="products-list-container"
+        v-if="!$fetchState.pending && selectedCategoryId === routeId"
+      >
+        <ProductCard
+          :data="product"
+          :productIndex="index"
+          v-for="(product, index) in products ? products : []"
+          :key="index"
+          :isInWishlist="product.is_wishlist"
+        />
+      </div>
+      <!-- </Skeleton> -->
 
       <!-- NOTE: All product with category id -->
       <div
@@ -78,6 +88,7 @@
           :isInWishlist="product.is_wishlist"
         />
       </div>
+
       <!-- {{ products }} -->
 
       <no-ssr>
