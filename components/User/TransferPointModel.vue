@@ -4,29 +4,61 @@
       <div class="header">Transfer Points</div>
       <div class="input-container">
         <label for="user-id">To: </label>
-        <input type="number" id="user-id" />
+        <input type="number" id="user-id" v-model="receiver_point_id" />
       </div>
       <div class="input-container">
         <label for="amount">Amount: </label>
-        <input type="number" id="amount" />
+        <input type="number" id="amount" v-model="amount" />
       </div>
-      <button class="confirm-btn">Confirm</button>
+      <button class="confirm-btn" @click="transferPoint()">Confirm</button>
       <button class="cancel-btn" @click="handleTransfer()">Cancel</button>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  layout: "ProfileLayout",
+import { generalMixins } from "@/mixins/general";
 
+export default {
+  mixins: [generalMixins],
+  layout: "ProfileLayout",
   data() {
-    return {};
+    return {
+      receiver_point_id: null,
+      amount: null,
+      note: null,
+    };
   },
 
   methods: {
+    async updateUserData() {
+      try {
+        const res = await this.$auth.fetchUser();
+        this.$auth.setUser(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     handleTransfer() {
       this.$emit("handleTransfer");
+    },
+    async transferPoint() {
+      try {
+        const res = await this.$axios.post("/transfer-point", {
+          receiver_point_id: this.receiver_point_id,
+          transfer_amount: this.amount,
+          note: this.note,
+        });
+        console.log(res);
+        this.receiver_point_id = null;
+        this.amount = null;
+        this.note = null;
+        this.toast("Points has been transferred successfully");
+        this.handleTransfer();
+        this.updateUserData();
+      } catch (err) {
+        this.toast(Object.values(err.response.data.errors)[0][0], "error");
+      }
     },
   },
 };
