@@ -1,6 +1,7 @@
 <template>
   <div
-    :class="'sidebar-container ' + (isMobileMenuOpen ? 'slide-up' : 'slide-down')
+    :class="
+      'sidebar-container ' + (isMobileMenuOpen ? 'slide-up' : 'slide-down')
     "
   >
     <!-- NOTE: Menu -->
@@ -12,7 +13,7 @@
         </a>
       </div>
       <!-- NOTE: Item -->
-      <div class="sidebar-menu-item active">
+      <div class="sidebar-menu-item" :class="linkIsActive('/') ? 'active' : ''">
         <button class="btn" @click="$router.push('/')">
           <i class="fa-solid fa-house icon"></i>
         </button>
@@ -40,12 +41,15 @@
     <!-- NOTE: Cart -->
     <div class="sidebar-menu">
       <!-- WARNING: Temporary hide -->
-      <!-- <div class="sidebar-menu-item active">
-        <button class="btn">
+      <div
+        class="sidebar-menu-item"
+        :class="linkIsActive('/categories') ? 'active' : ''"
+      >
+        <button class="btn" @click="$router.push('/categories')">
           <i class="fa-solid fa-bars icon"></i>
         </button>
         <span class="menu-label">Category</span>
-      </div> -->
+      </div>
 
       <!-- <div class="sidebar-menu-item">
         <button class="btn">
@@ -65,6 +69,17 @@ export default {
     ...mapGetters({
       isMobileMenuOpen: "isMobileMenuOpen",
     }),
+  },
+
+  methods: {
+    linkIsActive(link) {
+      const paths = Array.isArray(link) ? link : [link];
+      const res = paths.some((path) => this.$route.path === path);
+      if (res) {
+        return true;
+      }
+      return false;
+    },
   },
 };
 </script>

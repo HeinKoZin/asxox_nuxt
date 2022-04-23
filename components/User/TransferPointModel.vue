@@ -10,7 +10,20 @@
         <label for="amount">Amount: </label>
         <input type="number" id="amount" v-model="amount" />
       </div>
-      <button class="confirm-btn" @click="transferPoint()">Confirm</button>
+      <div class="input-container">
+        <label for="note">Note (Optional):</label>
+        <textarea id="note" rows="6" v-model="note" />
+      </div>
+      <Button
+        variant="primary"
+        class="w-full mt-7"
+        :disabled="isPointTransfer"
+        @click.native="transferPoint()"
+      >
+        <Spinner slot="loader" v-if="isPointTransfer" />
+        Confirm
+      </Button>
+
       <button class="cancel-btn" @click="handleTransfer()">Cancel</button>
     </div>
   </div>
@@ -27,6 +40,7 @@ export default {
       receiver_point_id: null,
       amount: null,
       note: null,
+      isPointTransfer: false,
     };
   },
 
@@ -44,12 +58,12 @@ export default {
     },
     async transferPoint() {
       try {
+        this.isPointTransfer = true;
         const res = await this.$axios.post("/transfer-point", {
           receiver_point_id: this.receiver_point_id,
           transfer_amount: this.amount,
           note: this.note,
         });
-        console.log(res);
         this.receiver_point_id = null;
         this.amount = null;
         this.note = null;
@@ -59,6 +73,7 @@ export default {
       } catch (err) {
         this.toast(Object.values(err.response.data.errors)[0][0], "error");
       }
+      this.isPointTransfer = false;
     },
   },
 };
@@ -70,7 +85,7 @@ export default {
 }
 
 .transfer-point-wrapper {
-  @apply p-5 bg-white text-black bg-opacity-100 text-lg rounded-md lg:min-w-[350px] lg:max-w-[450px];
+  @apply p-5 bg-white text-black bg-opacity-100 text-lg rounded-md lg:min-w-[400px] lg:max-w-[500px];
 }
 
 .header {
@@ -83,6 +98,10 @@ export default {
 
 .input-container input {
   @apply w-full border border-slate-300 rounded-md p-2 px-3;
+}
+
+.input-container textarea {
+  @apply focus:outline-none border border-slate-300 p-2 px-3;
 }
 
 .input-container label {
