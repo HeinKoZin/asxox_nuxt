@@ -10,6 +10,10 @@
         <label for="amount">Amount: </label>
         <input type="number" id="amount" />
       </div>
+      <div class="input-container">
+        <label for="note">Note (Optional):</label>
+        <textarea id="note" rows="6" />
+      </div>
       <button class="confirm-btn">Confirm</button>
       <button class="cancel-btn" @click="handleTransfer()">Cancel</button>
     </div>
@@ -38,7 +42,7 @@ export default {
 }
 
 .transfer-point-wrapper {
-  @apply p-5 bg-white text-black bg-opacity-100 text-lg rounded-md lg:min-w-[350px] lg:max-w-[450px];
+  @apply p-5 bg-white text-black bg-opacity-100 text-lg rounded-md lg:min-w-[400px] lg:max-w-[500px];
 }
 
 .header {
@@ -51,6 +55,10 @@ export default {
 
 .input-container input {
   @apply w-full border border-slate-300 rounded-md p-2 px-3;
+}
+
+.input-container textarea {
+  @apply focus:outline-none border border-slate-300 p-2 px-3;
 }
 
 .input-container label {
