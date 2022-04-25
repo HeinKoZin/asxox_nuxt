@@ -1,10 +1,13 @@
 <template>
   <div class="search-container">
     <div class="search-header">
-      <h2>You searched : <span>Keyword</span></h2>
+      <h2>
+        You searched : <span>{{ keyword }}</span>
+      </h2>
     </div>
     <div class="search-body">
-      <div class="sub-categories-container">
+      <!-- WARNING: Temporary hide -->
+      <!-- <div class="sub-categories-container">
         <div class="sub-categories-header">Filter by:</div>
         <div class="sub-categories-body" v-dragscroll>
           <div
@@ -28,35 +31,37 @@
             </Skeleton>
           </div>
         </div>
-      </div>
+      </div> -->
+
       <!-- NOTE: All products of page -->
-      <div class="product-list-header">Products:</div>
-      <!-- <div class="loading-status" v-if="$fetchState.pending">Loading....</div> -->
-      <Skeleton
-        class="w-full"
-        height="400px"
-        v-if="selectedCategoryId === routeId"
-      >
-        <div
-          class="products-list-container"
-          v-if="!$fetchState.pending && selectedCategoryId === routeId"
-        >
-          <ProductCard
-            :data="product"
-            :productIndex="index"
-            v-for="(product, index) in products ? products : []"
-            :key="index"
-            :isInWishlist="product.is_wishlist"
-          />
+      <div class="product-list-header">
+        Found {{ searchedProducts["meta"]["total"] }} Products:
+      </div>
+
+      <!-- NOTE: Skeleton -->
+      <div class="products-list-container" v-if="$fetchState.pending">
+        <div class="p-1 w-[12.5%] h-80" v-for="i in 10" :key="i">
+          <Skeleton width="100%" height="100%" />
         </div>
-      </Skeleton>
+      </div>
+
+      <div class="products-list-container" v-if="!$fetchState.pending">
+        <ProductCard
+          :data="product"
+          :productIndex="index"
+          v-for="(product, index) in products ? products : []"
+          :key="index"
+          :isInWishlist="product.is_wishlist"
+        />
+      </div>
+      <!-- </Skeleton> -->
 
       <!-- NOTE: All product with category id -->
-      <div
+      <!-- <div
         class="products-list-container"
         v-if="selectedCategoryId !== routeId"
       >
-        <div v-if="!checkProducts" class="products-status-message">
+        <div v-if="!products" class="products-status-message">
           No products found in this category
         </div>
         <ProductCard
@@ -68,7 +73,8 @@
           :key="index"
           :isInWishlist="product.is_wishlist"
         />
-      </div>
+      </div> -->
+
       <!-- {{ products }} -->
 
       <no-ssr>
@@ -99,6 +105,7 @@ export default {
 
   data() {
     return {
+      keyword: this.$route.query.keyword,
       selectedCategoryId: this.routeId
         ? this.routeId
         : this.$route.query.keyword,
@@ -114,61 +121,33 @@ export default {
       "productsByCategoryId",
       "subCategoriesByCategoryId",
       "productsByPagination",
+      // New
+      "searchedProducts",
     ]),
 
-    routeId() {
-      return this.$route.query.keyword;
-    },
-    checkProducts() {
-      return this.getSelectedCategoryProducts()?.products.length === 0
-        ? false
-        : true;
-    },
+    // routeId() {
+    //   return this.$route.query.keyword;
+    // },
+    // checkProducts() {
+    //   return this.searchedProducts()?.products.length === 0
+    //     ? false
+    //     : true;
+    // },
   },
   methods: {
-    ...mapActions([
-      "getProductsByCategoryId",
-      "getSubCategoriesByCategoryId",
-      "getProductsByPagination",
-    ]),
-    // infiniteHandler() {
-    //   this.getProductsByCategory(this.categoryProducts[0].id, {
-    //     page: this.categoryProducts[0].page + 1,
-    //   });
-    // },
-
-    handleSubCategoryClick(subCategoryId) {
-      this.selectedCategoryId = subCategoryId;
-    },
-
-    getSelectedCategoryProducts() {
-      return (
-        this.subCategoriesByCategoryId["sub_categories"].filter(
-          (category) => category.id === this.selectedCategoryId
-        )[0] || null
-      );
-    },
-
-    // async getProductsByPagination() {
-    //   const res = await this.$axios.get(
-    //     `/products/category/${this.selectedCategoryId}?page=${this.current_page}?limit=30`
-    //   );
-    //   if (res?.data) {
-    //     this.products = [...this.products, ...res.data.data];
-    //   }
-    // },
+    ...mapActions(["getSearchedProducts"]),
 
     // NOTE: Infinite scroll handler
     infiniteHandler($state) {
+      // New
       setTimeout(() => {
-        this.current_page = this.productsByPagination["meta"]["current_page"];
-        this.last_page = this.productsByPagination["meta"]["last_page"];
+        this.current_page = this.searchedProducts["meta"]["current_page"];
+        this.last_page = this.searchedProducts["meta"]["last_page"];
         if (this.current_page !== this.last_page) {
           console.log("infiniteHandler");
-          const test = this.getProductsByPagination({
-            categoryId: this.selectedCategoryId,
-            page: this.productsByPagination["meta"]["current_page"] + 1,
-            limit: this.productsByPagination["meta"]["per_page"],
+          const test = this.getSearchedProducts({
+            keyword: this.keyword,
+            page: this.searchedProducts["meta"]["current_page"] + 1,
           });
           test.then((res) => {
             // filter out the duplicates
@@ -189,27 +168,22 @@ export default {
   },
 
   async fetch() {
-    await this.getProductsByCategoryId({
-      categoryId: this.selectedCategoryId,
-      limit: 30,
-    });
-    await this.getSubCategoriesByCategoryId(this.$route.query.keyword);
-
-    await this.getProductsByPagination({
-      categoryId: this.selectedCategoryId,
+    // New
+    await this.getSearchedProducts({
+      keyword: this.keyword,
       page: this.current_page,
-      limit: 30,
     }).then((res) => {
       // append the new data
       this.products = res["data"];
     });
-
-    // await this.getProductsByPagination();
   },
 
   mounted() {
-    this.selectedCategoryId = this.$route.query.keyword;
-    this.products = this.productsByPagination["data"];
+    // this.selectedCategoryId = this.$route.query.keyword;
+    // this.products = this.productsByPagination["data"];
+
+    // New
+    this.products = this.searchedProducts["data"];
   },
 };
 </script>
