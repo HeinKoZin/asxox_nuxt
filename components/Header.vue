@@ -38,8 +38,8 @@
       </div>
       <div class="header-center group">
         <div class="header-search">
-          <input type="text" placeholder="Search" />
-          <Button class="header-search-button" size="sm">
+          <input type="text" placeholder="Search" v-model="keyword" />
+          <Button class="header-search-button" size="sm" @click="search">
             <i
               class="fa-solid fa-magnifying-glass text-slate-500 hover:text-slate-700"
             ></i>
@@ -146,6 +146,7 @@ export default {
   data() {
     return {
       isUserMenuOpen: false,
+      keyword: "",
     };
   },
   computed: {
@@ -203,6 +204,18 @@ export default {
         this.isUserMenuOpen = !this.isUserMenuOpen;
         this.$router.push("/");
       } else this.toast("Fail to log out!", "error");
+    },
+
+    // === search ===
+    search() {
+      if (this.keyword) {
+        this.$router.push({
+          name: "search",
+          query: {
+            keyword: this.keyword,
+          },
+        });
+      }
     },
   },
   mounted() {

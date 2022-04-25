@@ -10,6 +10,10 @@ const actions = {
       return res?.data;
     } catch (error) { }
   },
+
+  setSearchKeyword({ commit }, keyword) {
+    commit("SET_SEARCH_KEYWORD", keyword);
+  }
 };
 
 export default actions;

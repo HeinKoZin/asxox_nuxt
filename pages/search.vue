@@ -106,9 +106,9 @@ export default {
   data() {
     return {
       keyword: this.$route.query.keyword,
-      selectedCategoryId: this.routeId
-        ? this.routeId
-        : this.$route.query.keyword,
+      // selectedCategoryId: this.routeId
+      //   ? this.routeId
+      //   : this.$route.query.keyword,
       products: [],
       current_page: 1,
       last_page: null,
