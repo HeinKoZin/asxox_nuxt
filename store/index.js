@@ -17,6 +17,7 @@ export default {
     slideAds: generateModule("slideAds"),
     shippingAddresses: generateModule("shippingAddresses"),
     searchProducts: generateModule("search"),
+    products: generateModule("products"),
   },
 };
 

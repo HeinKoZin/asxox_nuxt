@@ -44,6 +44,7 @@
             v-model="keyword"
             v-on:keyup.enter="search()"
           />
+
           <Button class="header-search-button" size="sm" @click.native="search">
             <i
               class="fa-solid fa-magnifying-glass text-slate-500 hover:text-slate-700"
@@ -213,13 +214,19 @@ export default {
 
     // === search ===
     search() {
-      if (this.keyword) {
-        this.setSearchKeyword(this.keyword);
-        this.$router.push({
-          name: "search",
-        });
-      }
+      // if (this.keyword) {
+      this.setSearchKeyword(this.keyword);
+      this.$router.push({
+        name: "search",
+      });
+      // }
     },
+
+    // === clear search ===
+    // clear() {
+    //   this.setSearchKeyword("");
+    //   this.$router.push("/");
+    // },
   },
   mounted() {
     if (!this.wishListProductList?.length > 0 && this.checkAuthenticated())
