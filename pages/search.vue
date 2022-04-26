@@ -34,8 +34,14 @@
       </div> -->
 
       <!-- NOTE: All products of page -->
-      <div class="product-list-header">
-        Found {{ searchedProducts["meta"]["total"] }} Products:
+      <div class="product-list-header" v-if="!$fetchState.pending">
+        Found
+        {{
+          searchedProducts["meta"]["total"]
+            ? searchedProducts["meta"]["total"]
+            : ""
+        }}
+        Products:
       </div>
 
       <!-- NOTE: Skeleton -->
@@ -80,7 +86,7 @@
       <no-ssr>
         <infinite-loading
           @infinite="infiniteHandler"
-          v-if="!$fetchState.pending && selectedCategoryId === routeId"
+          v-if="!$fetchState.pending"
         >
           <div slot="no-more" class="no-more">
             You reached end of the list
@@ -102,10 +108,14 @@ export default {
     InfiniteLoading,
     Skeleton,
   },
+  // fetchOnServer: false,
+
+  watch: {
+    keyword: "$fetch",
+  },
 
   data() {
     return {
-      keyword: this.$route.query.keyword,
       // selectedCategoryId: this.routeId
       //   ? this.routeId
       //   : this.$route.query.keyword,
@@ -123,6 +133,7 @@ export default {
       "productsByPagination",
       // New
       "searchedProducts",
+      "keyword",
     ]),
 
     // routeId() {

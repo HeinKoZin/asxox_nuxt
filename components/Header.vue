@@ -38,8 +38,13 @@
       </div>
       <div class="header-center group">
         <div class="header-search">
-          <input type="text" placeholder="Search" v-model="keyword" />
-          <Button class="header-search-button" size="sm" @click="search">
+          <input
+            type="text"
+            placeholder="Search"
+            v-model="keyword"
+            v-on:keyup.enter="search()"
+          />
+          <Button class="header-search-button" size="sm" @click.native="search">
             <i
               class="fa-solid fa-magnifying-glass text-slate-500 hover:text-slate-700"
             ></i>
@@ -174,7 +179,7 @@ export default {
   methods: {
     // NOTE: Methods from Vuex actions and mutations
     ...mapMutations(["SET_MOBILE_MENU", "SET_CART"]),
-    ...mapActions(["getWishListProducts"]),
+    ...mapActions(["getWishListProducts", "setSearchKeyword"]),
 
     toggleUserMenu() {
       this.isUserMenuOpen = !this.isUserMenuOpen;
@@ -209,11 +214,9 @@ export default {
     // === search ===
     search() {
       if (this.keyword) {
+        this.setSearchKeyword(this.keyword);
         this.$router.push({
           name: "search",
-          query: {
-            keyword: this.keyword,
-          },
         });
       }
     },
@@ -271,7 +274,7 @@ export default {
 }
 
 .header-search .header-search-button {
-  @apply w-10 h-10 rounded-md bg-transparent text-slate-700 hover:text-slate-500 hover:bg-slate-100;
+  @apply w-10 h-10 rounded-md bg-transparent text-slate-700 hover:text-slate-500 hover:bg-slate-100 z-50;
 }
 
 /* .header-cart .header-cart-button {
