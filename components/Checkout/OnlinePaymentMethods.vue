@@ -1,12 +1,17 @@
 <template>
-  <div class="online-payment-methods-container-wrapper">
+  <div
+    class="online-payment-methods-container-wrapper"
+    :class="isBuyPoints ? 'buy-points' : ''"
+  >
     <div class="payment-methods-container">
       <div class="payment-methods-title">
         <div class="flex gap-x-2">
           <span>
             <i class="fa-solid fa-credit-card credit-card-icon"></i>
           </span>
-          <span>Online Payment Methods</span>
+          <span>{{
+            isBuyPoints ? "Choose Payment Method" : "Online Payment Methods"
+          }}</span>
         </div>
         <!-- <div>
           <button>
@@ -45,7 +50,14 @@
           :key="index"
           @click="setPaymentMethod(payment.name, index)"
         >
-          <div class="payment-method" :class="payment.isSelect ? 'active' : ''">
+          <div
+            class="payment-method"
+            :class="
+              payment.isSelect || selectedPayment === payment.name
+                ? 'active'
+                : ''
+            "
+          >
             <span>
               <i class="fa-solid fa-circle-check payment-method-icon"></i>
             </span>
@@ -76,6 +88,12 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 export default {
+  props: {
+    isBuyPoints: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       payments: [
@@ -115,12 +133,27 @@ export default {
   @apply w-full  p-1 flex font-quicksand order-2 md:order-none;
 }
 
+/* NOTE: Buy points */
+.online-payment-methods-container-wrapper.buy-points {
+  @apply p-0;
+}
+
 .payment-methods-container {
   @apply w-full flex flex-col gap-y-4 border border-slate-300 p-5 md:p-10 rounded-lg justify-center;
 }
 
+/* NOTE: buy points */
+.buy-points .payment-methods-container {
+  @apply p-3;
+}
+
 .payment-methods-title {
   @apply text-slate-800 text-base md:text-lg flex justify-between font-bold font-quicksand border-b border-slate-300 py-2 items-center;
+}
+
+/* NOTE: buy points */
+.buy-points .payment-methods-title {
+  @apply text-sm md:text-base;
 }
 
 .body {
@@ -143,12 +176,21 @@ export default {
   @apply p-1 flex w-2/4 md:w-1/4;
 }
 
+/* NOTE: Buy points */
+.buy-points .payment-method-wrapper {
+  @apply p-1 w-1/2 md:w-1/2;
+}
+
 .payment-method {
   @apply w-full relative;
 }
 
 .payment-method span {
   @apply absolute top-3 left-4 text-transparent text-lg;
+}
+
+.buy-points .payment-method span {
+  @apply absolute top-2 left-3 text-transparent text-lg;
 }
 
 .payment-method.active span {

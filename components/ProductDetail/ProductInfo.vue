@@ -28,7 +28,7 @@
         <div class="categories">
           <a
             href="#"
-            @click.prevent=""
+            @click.prevent="handleCategoryClick(category.category_id)"
             v-for="(category, index) in product.categories"
             :key="index"
             >{{ category.name }}</a
@@ -56,6 +56,9 @@ export default {
         case "out_of_stock":
           return "Out of Stock";
       }
+    },
+    handleCategoryClick(categoryId) {
+      this.$router.push({ name: "categories-id", params: { id: categoryId } });
     },
   },
 };
