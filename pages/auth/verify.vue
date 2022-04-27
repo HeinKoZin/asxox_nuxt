@@ -28,14 +28,13 @@
   </AuthLayout>
 </template>
 
-
 <script>
 import { generalMixins } from "@/mixins/general";
 import AuthLayout from "@/layouts/AuthLayout";
 export default {
   components: { AuthLayout },
   mixins: [generalMixins],
-  middleware: ["auth/authenticated"],
+  // middleware: ["auth/authenticated"],
   data() {
     return {
       verify: {
@@ -44,6 +43,7 @@ export default {
       isFilledCode: false,
       errors: {},
       isSpin: false,
+      isVerified: false,
     };
   },
 
@@ -58,17 +58,28 @@ export default {
         const res = await this.generalGetApis(link, null);
         if (res.data?.success) {
           this.toast("Successfully Verified", "success");
+          this.isVerified = true;
           this.$router.push({
             name: "auth-new-password",
           });
         } else this.filterErrors(res);
-      } else {
+      } else if (verify.type === "register") {
         const link = verify.path;
         const res = await this.generalPostApis(link, {
           two_factor_code,
         });
         if (res.success) {
-          this.toast("Successfully Verfified", "success");
+          this.toast("Successfully Verified", "success");
+          this.$router.push("/");
+        } else this.filterErrors(res);
+      } else if (verify.type === "login") {
+        const link = verify.path;
+        const res = await this.generalPostApis(link, {
+          two_factor_code,
+          email_or_phone: verify.email_or_phone,
+        });
+        if (res.success) {
+          this.toast("Successfully Verified", "success");
           this.$router.push("/");
         } else this.filterErrors(res);
       }

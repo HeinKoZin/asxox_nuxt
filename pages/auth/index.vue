@@ -266,6 +266,16 @@ export default {
         }
       } catch (err) {
         this.errors = err.response.data.data;
+        if (this.errors["error"] == "User not verified") {
+          this.$router.push({
+            name: "auth-verify",
+          });
+          this.$auth.$storage.setLocalStorage("verify", {
+            path: "/verify-token-unauthenticated",
+            type: "login",
+            email_or_phone: err.response.data.email_or_phone,
+          });
+        }
       }
       this.isSpin = false;
     },
@@ -322,7 +332,9 @@ export default {
         this.errorsReset();
         const res = await this.generalPostApis("/register", data);
         if (res.success) {
-          this.userLogin(data, null);
+          // this.userLogin(data, null);
+          this.$auth.setUserToken(res.data.token);
+          this.$auth.$storage.setUniversal("loggedIn", "true");
           this.$router.push({
             name: "auth-verify",
           });
