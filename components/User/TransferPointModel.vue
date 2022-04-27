@@ -4,11 +4,11 @@
       <div class="header">Transfer Points</div>
       <div class="input-container">
         <label for="user-id">To: </label>
-        <input type="number" id="user-id" />
+        <input type="number" id="user-id" placeholder="Eg. 12345" />
       </div>
       <div class="input-container">
         <label for="amount">Amount: </label>
-        <input type="number" id="amount" />
+        <input type="number" id="amount" placeholder="1000" />
       </div>
       <div class="input-container">
         <label for="note">Note (Optional):</label>

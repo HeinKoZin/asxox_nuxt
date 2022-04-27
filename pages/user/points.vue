@@ -4,6 +4,9 @@
       <div class="points-item">
         <h2>My Points</h2>
         <p>
+          Your Point ID: <span>{{ userData.point.id }}</span>
+        </p>
+        <p>
           You have
           <span class="points">{{ userData.point.amount }}</span> points.
         </p>
@@ -62,7 +65,11 @@ export default {
 }
 
 .points-item {
-  @apply bg-slate-100 w-full md:w-1/2 mx-auto md:mx-0 font-quicksand font-bold text-center p-4 py-6 border-2 border-slate-300 rounded-md;
+  @apply bg-slate-100 w-full md:w-1/2 mx-auto md:mx-0 font-quicksand font-bold text-center flex flex-col gap-2 p-4 py-6 border-2 border-slate-300 rounded-md;
+}
+
+.points-item p span {
+  @apply text-lg font-semibold  text-slate-600  font-quicksand;
 }
 
 .points-item h2 {

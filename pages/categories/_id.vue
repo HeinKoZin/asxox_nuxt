@@ -51,7 +51,11 @@
         class="products-list-container"
         v-if="selectedCategoryId === routeId && $fetchState.pending"
       >
-        <div class="p-1 w-[12.5%] h-80" v-for="i in 10" :key="i">
+        <div
+          class="p-1 w-6/12 md:w-[20%] xl:w-[12.5%] h-80"
+          v-for="i in 10"
+          :key="i"
+        >
           <Skeleton width="100%" height="100%" />
         </div>
       </div>
@@ -279,7 +283,7 @@ export default {
 }
 
 .sub-category-container {
-  @apply bg-white px-2 md:px-4 rounded-full p-1 whitespace-nowrap md:p-2 text-xs md:text-sm font-medium text-slate-500 hover:shadow-md shadow-orange-600;
+  @apply bg-white px-2 md:px-4 rounded-full p-1 whitespace-nowrap md:p-2 text-sm font-medium text-slate-500 hover:shadow-md shadow-orange-600;
 }
 
 .sub-category-container.active {
