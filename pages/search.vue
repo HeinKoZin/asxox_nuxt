@@ -44,7 +44,11 @@
 
       <!-- NOTE: searched products -->
       <div class="products-list-container" v-if="$fetchState.pending">
-        <div class="p-1 w-[12.5%] h-80" v-for="i in 10" :key="i">
+        <div
+          class="p-1 w-6/12 md:w-[20%] xl:w-[12.5%] h-80"
+          v-for="i in 10"
+          :key="i"
+        >
           <Skeleton width="100%" height="100%" />
         </div>
       </div>
