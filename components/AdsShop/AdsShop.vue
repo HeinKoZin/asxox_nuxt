@@ -68,7 +68,7 @@ export default {
 }
 
 .ads-shop-container .shop-info {
-  @apply w-full md:w-1/3 lg:w-3/12 flex flex-col items-center justify-center gap-2 mb-4 md:mb-0;
+  @apply w-full md:w-1/3 lg:w-3/12 flex flex-col items-center justify-center gap-2 mb-4 md:mb-0 bg-yellow-100 rounded-2xl mr-3;
 }
 
 .ads-shop-container .shop-info .shop-image {
