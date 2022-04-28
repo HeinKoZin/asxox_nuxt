@@ -273,7 +273,7 @@ export default {
           this.$auth.$storage.setLocalStorage("verify", {
             path: "/verify-token-unauthenticated",
             type: "login",
-            email_or_phone: err.response.data.email_or_phone,
+            email_or_phone: err.response.data.data.email_or_phone,
           });
         }
       }

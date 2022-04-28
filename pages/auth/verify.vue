@@ -80,6 +80,9 @@ export default {
         });
         if (res.success) {
           this.toast("Successfully Verified", "success");
+          this.$auth.setUserToken(res.data.token);
+          this.$auth.$storage.setUniversal("user", res.data.user_info);
+          this.$auth.$storage.setUniversal("loggedIn", "true");
           this.$router.push("/");
         } else this.filterErrors(res);
       }
