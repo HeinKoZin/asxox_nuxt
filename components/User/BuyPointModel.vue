@@ -226,7 +226,6 @@ export default {
             },
           }
         );
-        console.log(res);
         window.location.href = `https://payments.wavemoney.io/authenticate?transaction_id=${res.data.transaction_id}`;
       } catch (error) {
         console.log(error);
