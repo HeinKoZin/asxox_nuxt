@@ -1,10 +1,13 @@
 <template>
   <div class="search-container">
     <div class="search-header">
-      <h2>You searched : <span>Keyword</span></h2>
+      <h2>
+        You searched : <span>{{ keyword }}</span>
+      </h2>
     </div>
     <div class="search-body">
-      <div class="sub-categories-container">
+      <!-- WARNING: Temporary hide -->
+      <!-- <div class="sub-categories-container">
         <div class="sub-categories-header">Filter by:</div>
         <div class="sub-categories-body" v-dragscroll>
           <div
@@ -28,35 +31,57 @@
             </Skeleton>
           </div>
         </div>
-      </div>
+      </div> -->
+
       <!-- NOTE: All products of page -->
-      <div class="product-list-header">Products:</div>
-      <!-- <div class="loading-status" v-if="$fetchState.pending">Loading....</div> -->
-      <Skeleton
-        class="w-full"
-        height="400px"
-        v-if="selectedCategoryId === routeId"
-      >
+      <div class="product-list-header" v-if="!$fetchState.pending">
+        Found
+        {{ productCounts }}
+        Products:
+      </div>
+
+      <!-- NOTE: Skeleton -->
+
+      <!-- NOTE: searched products -->
+      <div class="products-list-container" v-if="$fetchState.pending">
         <div
-          class="products-list-container"
-          v-if="!$fetchState.pending && selectedCategoryId === routeId"
+          class="p-1 w-6/12 md:w-[20%] xl:w-[12.5%] h-80"
+          v-for="i in 10"
+          :key="i"
         >
-          <ProductCard
-            :data="product"
-            :productIndex="index"
-            v-for="(product, index) in products ? products : []"
-            :key="index"
-            :isInWishlist="product.is_wishlist"
-          />
+          <Skeleton width="100%" height="100%" />
         </div>
-      </Skeleton>
+      </div>
+
+      <div class="products-list-container" v-if="!$fetchState.pending">
+        <ProductCard
+          :data="product"
+          v-for="(product, index) in products ? products : []"
+          :key="index"
+          :isInWishlist="product.is_wishlist"
+        />
+      </div>
+
+      <!-- NOTE: all products -->
+      <!-- <div
+        class="products-list-container"
+        v-if="!$fetchState.pending && keyword === ''"
+      >
+        <ProductCard
+          :data="product"
+          v-for="(product, index) in allProducts ? allProducts : []"
+          :key="index"
+          :isInWishlist="product.is_wishlist"
+        />
+      </div> -->
+      <!-- </Skeleton> -->
 
       <!-- NOTE: All product with category id -->
-      <div
+      <!-- <div
         class="products-list-container"
         v-if="selectedCategoryId !== routeId"
       >
-        <div v-if="!checkProducts" class="products-status-message">
+        <div v-if="!products" class="products-status-message">
           No products found in this category
         </div>
         <ProductCard
@@ -68,13 +93,14 @@
           :key="index"
           :isInWishlist="product.is_wishlist"
         />
-      </div>
+      </div> -->
+
       <!-- {{ products }} -->
 
       <no-ssr>
         <infinite-loading
           @infinite="infiniteHandler"
-          v-if="!$fetchState.pending && selectedCategoryId === routeId"
+          v-if="!$fetchState.pending"
         >
           <div slot="no-more" class="no-more">
             You reached end of the list
@@ -96,12 +122,22 @@ export default {
     InfiniteLoading,
     Skeleton,
   },
+  // fetchOnServer: false,
+
+  watch: {
+    keyword(oldValue, newValue) {
+      if (oldValue !== newValue) {
+        this.current_page = 1;
+      }
+      this.$fetch();
+    },
+  },
 
   data() {
     return {
-      selectedCategoryId: this.routeId
-        ? this.routeId
-        : this.$route.query.keyword,
+      // selectedCategoryId: this.routeId
+      //   ? this.routeId
+      //   : this.$route.query.keyword,
       products: [],
       current_page: 1,
       last_page: null,
@@ -114,102 +150,104 @@ export default {
       "productsByCategoryId",
       "subCategoriesByCategoryId",
       "productsByPagination",
+      // New
+      "searchedProducts",
+      "keyword",
+      "allProducts",
     ]),
 
-    routeId() {
-      return this.$route.query.keyword;
-    },
-    checkProducts() {
-      return this.getSelectedCategoryProducts()?.products.length === 0
-        ? false
-        : true;
+    // routeId() {
+    //   return this.$route.query.keyword;
+    // },
+    // checkProducts() {
+    //   return this.searchedProducts()?.products.length === 0
+    //     ? false
+    //     : true;
+    // },
+    productCounts() {
+      return this.keyword === ""
+        ? this.allProducts?.meta?.total
+          ? this.allProducts?.meta?.total
+          : ""
+        : this.searchedProducts?.meta?.total
+        ? this.searchedProducts?.meta?.total
+        : "";
     },
   },
   methods: {
-    ...mapActions([
-      "getProductsByCategoryId",
-      "getSubCategoriesByCategoryId",
-      "getProductsByPagination",
-    ]),
-    // infiniteHandler() {
-    //   this.getProductsByCategory(this.categoryProducts[0].id, {
-    //     page: this.categoryProducts[0].page + 1,
-    //   });
-    // },
-
-    handleSubCategoryClick(subCategoryId) {
-      this.selectedCategoryId = subCategoryId;
-    },
-
-    getSelectedCategoryProducts() {
-      return (
-        this.subCategoriesByCategoryId["sub_categories"].filter(
-          (category) => category.id === this.selectedCategoryId
-        )[0] || null
-      );
-    },
-
-    // async getProductsByPagination() {
-    //   const res = await this.$axios.get(
-    //     `/products/category/${this.selectedCategoryId}?page=${this.current_page}?limit=30`
-    //   );
-    //   if (res?.data) {
-    //     this.products = [...this.products, ...res.data.data];
-    //   }
-    // },
+    ...mapActions(["getSearchedProducts", "getAllProducts"]),
 
     // NOTE: Infinite scroll handler
     infiniteHandler($state) {
-      setTimeout(() => {
-        this.current_page = this.productsByPagination["meta"]["current_page"];
-        this.last_page = this.productsByPagination["meta"]["last_page"];
-        if (this.current_page !== this.last_page) {
-          console.log("infiniteHandler");
-          const test = this.getProductsByPagination({
-            categoryId: this.selectedCategoryId,
-            page: this.productsByPagination["meta"]["current_page"] + 1,
-            limit: this.productsByPagination["meta"]["per_page"],
-          });
-          test.then((res) => {
-            // filter out the duplicates
-            const new_data = res["data"].filter(
-              (item) => !this.products.some((prev) => prev.id === item.id)
-            );
+      console.log(this.allProducts["meta"]["current_page"]);
+      // New
+      if (this.$fetchState.pending) {
+        return;
+      } else {
+        setTimeout(() => {
+          this.current_page = this.keyword
+            ? this.searchedProducts["meta"]["current_page"]
+            : this.allProducts["meta"]["current_page"];
+          console.log("current", this.current_page);
+          this.last_page = this.keyword
+            ? this.searchedProducts["meta"]["last_page"]
+            : this.allProducts["meta"]["last_page"];
+          console.log(this.last_page);
+          if (this.current_page !== this.last_page) {
+            console.log("infiniteHandler");
+            const test = this.keyword
+              ? this.getSearchedProducts({
+                  keyword: this.keyword,
+                  page: this.current_page + 1,
+                })
+              : this.getAllProducts({
+                  page: this.current_page + 1,
+                });
+            test.then((res) => {
+              // filter out the duplicates
+              const new_data = res["data"].filter(
+                (item) => !this.products.some((prev) => prev.id === item.id)
+              );
 
-            // append the new data
-            this.products = [...this.products, ...new_data];
+              // append the new data
+              this.products = [...this.products, ...new_data];
 
-            $state.loaded();
-          });
-        } else {
-          $state.complete();
-        }
-      }, 1000);
+              $state.loaded();
+            });
+          } else {
+            $state.complete();
+          }
+        }, 1000);
+      }
     },
   },
 
   async fetch() {
-    await this.getProductsByCategoryId({
-      categoryId: this.selectedCategoryId,
-      limit: 30,
-    });
-    await this.getSubCategoriesByCategoryId(this.$route.query.keyword);
+    // New
 
-    await this.getProductsByPagination({
-      categoryId: this.selectedCategoryId,
-      page: this.current_page,
-      limit: 30,
-    }).then((res) => {
-      // append the new data
-      this.products = res["data"];
-    });
-
-    // await this.getProductsByPagination();
+    if (this.keyword === "") {
+      await this.getAllProducts({ page: this.current_page }).then((res) => {
+        this.products = res["data"];
+      });
+    } else {
+      await this.getSearchedProducts({
+        keyword: this.keyword,
+        page: this.current_page,
+      }).then((res) => {
+        // append the new data
+        this.products = res["data"];
+      });
+    }
   },
 
   mounted() {
-    this.selectedCategoryId = this.$route.query.keyword;
-    this.products = this.productsByPagination["data"];
+    // this.selectedCategoryId = this.$route.query.keyword;
+    // this.products = this.productsByPagination["data"];
+
+    // New
+    this.products = this.keyword
+      ? this.searchedProducts["data"]
+      : this.allProducts["data"];
   },
 };
 </script>
