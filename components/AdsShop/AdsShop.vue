@@ -12,14 +12,29 @@
           <button>See All</button>
         </div>
       </div>
-      <div class="products-list" ref="adsShopContainer" v-dragscroll>
-        <ProductCard
-          :data="data"
-          v-for="(data, index) in datas"
+      <carousel
+        class="flex w-full"
+        ref="adsShopContainer"
+        :scrollPerPage="true"
+        :paginationEnabled="false"
+        :autoplay="true"
+        :perPage="1"
+        :loop="true"
+        :speed="1000"
+        :autoplayTimeout="3000"
+      >
+        <slide
+          v-for="(data, index) in products"
           :key="index"
-          isAdsProduct
-        />
-      </div>
+          class="products-list"
+        >
+          <ShopProductCard
+            v-for="(product, y) in data"
+            :key="y"
+            :product="product"
+          />
+        </slide>
+      </carousel>
     </div>
   </div>
 </template>
@@ -55,6 +70,21 @@ export default {
       }
     },
   },
+
+  computed: {
+    products() {
+      let products = [];
+      // push every three products to new object and then push to products array
+      for (let i = 0; i < this.datas.length; i++) {
+        if (i % 6 === 0) {
+          products.push([]);
+        }
+        products[products.length - 1].push(this.datas[i]);
+      }
+
+      return products;
+    },
+  },
 };
 </script>
 
@@ -64,11 +94,11 @@ export default {
 }
 
 .ads-shop-container {
-  @apply w-full p-5 bg-blue-200 flex text-white rounded-lg flex-col md:flex-row;
+  @apply w-full p-5 bg-white flex text-white rounded-xl flex-col md:flex-row;
 }
 
 .ads-shop-container .shop-info {
-  @apply w-full md:w-1/3 lg:w-3/12 flex flex-col items-center justify-center gap-2 mb-4 md:mb-0;
+  @apply w-full md:w-1/3 lg:w-3/12 flex flex-col items-center justify-center gap-2 mb-4 md:mb-0 bg-yellow-100 rounded-2xl mr-3;
 }
 
 .ads-shop-container .shop-info .shop-image {
@@ -84,7 +114,7 @@ export default {
 }
 
 .ads-shop-container .products-list {
-  @apply w-full md:w-2/3 lg:w-9/12 flex  items-center overflow-hidden overflow-x-scroll;
+  @apply w-full lg:min-w-[100%] lg:max-w-[100%] md:w-2/3 lg:w-9/12 flex    overflow-hidden overflow-x-scroll flex-wrap;
 }
 
 .ads-shop-container .products-list::-webkit-scrollbar {
