@@ -5,7 +5,7 @@
         <h2>My Points</h2>
         <p>
           You have
-          <span class="points">{{ userData.point.amount }}</span> points.
+          <span class="points">{{ $auth.user.data.point.amount }}</span> points.
         </p>
       </div>
       <div class="point-action-buttons">
@@ -31,7 +31,6 @@ export default {
     return {
       isTopup: false,
       isTransfer: false,
-      userData: {},
     };
   },
 
@@ -44,7 +43,6 @@ export default {
     },
   },
   async fetch() {
-    this.userData = this.$auth.user.data;
     await this.$auth.fetchUser();
     if (this.$route.query.isPointConfirm === "success")
       this.toast("Points have been successfully added!", "success");

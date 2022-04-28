@@ -161,7 +161,7 @@ export default {
       // make sign with SHA256
       const timestamp = this.timestampGenerate().toString();
       const nonce_str = this.getNonce(32).toString().toUpperCase();
-      let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&callback_info=title%3diphonex&merch_code=70022802&merch_order_id=${orderId}&method=kbz.payment.precreate&nonce_str=${nonce_str}&notify_url=https://asxox.com.mm/checkout?isOrder=true&timeout_express=100m&timestamp=${timestamp}&title=iPhoneX&total_amount=${this.calculateSubtotal(
+      let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&callback_info=title%3diphonex&merch_code=70022802&merch_order_id=${orderId}&method=kbz.payment.precreate&nonce_str=${nonce_str}&notify_url=https://asxox.com.mm/api/backend/payment/kpay&timeout_express=100m&timestamp=${timestamp}&title=iPhoneX&total_amount=${this.calculateSubtotal(
         "pay"
       )}&trade_type=PWAAPP&trans_currency=MMK&version=1.0`;
 
@@ -173,7 +173,7 @@ export default {
         Request: {
           timestamp,
           method: "kbz.payment.precreate",
-          notify_url: "https://asxox.com.mm/checkout?isOrder=true",
+          notify_url: "https://asxox.com.mm/api/backend/payment/kpay",
           nonce_str,
           sign_type: "SHA256",
           sign,
