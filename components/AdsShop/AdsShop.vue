@@ -13,7 +13,7 @@
         </div>
       </div>
       <carousel
-        class="flex w-full"
+        class="flex w-[70%] md:w-full"
         ref="adsShopContainer"
         :scrollPerPage="true"
         :paginationEnabled="false"
@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       datas: [],
+      display: 6,
     };
   },
   async fetch() {
@@ -69,14 +70,23 @@ export default {
         this.$refs.adsShopContainer.scrollLeft -= 100;
       }
     },
+
+    onResize() {
+      if (window.innerWidth > 960) {
+        this.display = 6;
+      } else {
+        this.display = 2;
+      }
+    },
   },
 
   computed: {
     products() {
+      console.log(window.innerWidth);
       let products = [];
       // push every three products to new object and then push to products array
       for (let i = 0; i < this.datas.length; i++) {
-        if (i % 6 === 0) {
+        if (i % this.display === 0) {
           products.push([]);
         }
         products[products.length - 1].push(this.datas[i]);
@@ -84,6 +94,14 @@ export default {
 
       return products;
     },
+  },
+
+  created() {
+    window.addEventListener("resize", this.onResize);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
   },
 };
 </script>
@@ -94,15 +112,15 @@ export default {
 }
 
 .ads-shop-container {
-  @apply w-full p-5 bg-white flex text-white rounded-xl flex-col md:flex-row;
+  @apply w-full p-1 md:p-5 bg-white flex text-white rounded-xl  flex-row;
 }
 
 .ads-shop-container .shop-info {
-  @apply w-full md:w-1/3 lg:w-3/12 flex flex-col items-center justify-center gap-2 mb-4 md:mb-0 bg-yellow-100 rounded-2xl mr-3;
+  @apply w-[30%] md:w-1/3 lg:w-3/12 flex flex-col items-center justify-center gap-2 mb-0 bg-yellow-100 rounded-2xl mr-0 md:mr-3 p-3;
 }
 
 .ads-shop-container .shop-info .shop-image {
-  @apply w-32 h-auto;
+  @apply w-24 md:w-32 h-auto;
 }
 
 .ads-shop-container .shop-info .shop-title {
@@ -114,7 +132,7 @@ export default {
 }
 
 .ads-shop-container .products-list {
-  @apply w-full lg:min-w-[100%] lg:max-w-[100%] md:w-2/3 lg:w-9/12 flex    overflow-hidden overflow-x-scroll flex-wrap;
+  @apply w-[70%] lg:min-w-[100%] lg:max-w-[100%] md:w-2/3 lg:w-9/12 flex flex-col md:flex-row    overflow-hidden overflow-x-scroll flex-wrap;
 }
 
 .ads-shop-container .products-list::-webkit-scrollbar {
