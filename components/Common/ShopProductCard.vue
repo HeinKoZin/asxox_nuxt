@@ -29,7 +29,7 @@ export default {
 
 <style lang="postcss" scoped>
 .shop-product-card-container-wrapper {
-  @apply p-1 min-w-[50%] max-w-[50%] md:min-w-[33.33%] md:max-w-[33.33%] h-auto;
+  @apply p-1 min-w-[100%] max-w-[100%] md:min-w-[33.33%] md:max-w-[33.33%] h-auto;
 }
 
 .shop-product-card-container {
@@ -37,7 +37,7 @@ export default {
 }
 
 .shop-product-card-image-container {
-  @apply h-auto w-24;
+  @apply h-auto w-20 md:w-44;
 }
 
 .shop-product-card-image {
@@ -53,6 +53,6 @@ export default {
 }
 
 .product-details-container p {
-  @apply text-sm md:text-base font-bold font-quicksand py-2 w-full bg-orange-500 text-white text-center;
+  @apply text-sm md:text-base font-bold font-quicksand py-2 px-4 bg-orange-500 text-white text-center;
 }
 </style>
