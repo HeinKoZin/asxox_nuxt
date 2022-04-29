@@ -15,6 +15,7 @@
         <div class="user-profile-info-container">
           <div class="user-profile-name">
             <h2>{{ userData.name }}</h2>
+            <span> ({{ userData.point.id }}) </span>
           </div>
 
           <div class="user-profile-card-container">
@@ -118,7 +119,11 @@ export default {
 }
 
 .user-profile-name {
-  @apply text-lg md:text-2xl font-bold p-5 font-quicksand text-center md:text-left border-b border-slate-400 w-full;
+  @apply text-lg md:text-2xl font-bold p-5 font-quicksand text-center md:text-left border-b border-slate-400 w-full flex gap-2 items-center;
+}
+
+.user-profile-name span {
+  @apply text-base font-bold  text-slate-600  font-quicksand;
 }
 
 .user-profile-card-container {

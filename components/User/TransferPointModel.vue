@@ -4,11 +4,16 @@
       <div class="header">Transfer Points</div>
       <div class="input-container">
         <label for="user-id">To: </label>
-        <input type="number" id="user-id" v-model="receiver_point_id" />
+        <input
+          type="number"
+          id="user-id"
+          placeholder="Eg. 12345"
+          v-model="receiver_point_id"
+        />
       </div>
       <div class="input-container">
         <label for="amount">Amount: </label>
-        <input type="number" id="amount" v-model="amount" />
+        <input type="number" id="amount" placeholder="1000" v-model="amount" />
       </div>
       <div class="input-container">
         <label for="note">Note (Optional):</label>
