@@ -4,7 +4,7 @@
       <div class="points-item">
         <h2>My Points</h2>
         <p>
-          Your Point ID: <span>{{ userData.point.id }}</span>
+          Your Point ID: <span>{{ $auth.user.data.point.id }}</span>
         </p>
         <p>
           You have
@@ -36,7 +36,6 @@ export default {
       isTransfer: false,
     };
   },
-
   methods: {
     handleTopup() {
       this.isTopup = !this.isTopup;
