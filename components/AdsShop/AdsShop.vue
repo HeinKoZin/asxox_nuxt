@@ -120,15 +120,15 @@ export default {
 }
 
 .ads-shop-container .shop-info .shop-image {
-  @apply w-24 md:w-32 h-auto;
+  @apply w-20 md:w-32 h-auto;
 }
 
 .ads-shop-container .shop-info .shop-title {
-  @apply w-full text-center line-clamp-2 text-2xl font-zen-kurenaido text-slate-900 font-semibold;
+  @apply w-full text-center line-clamp-2 text-lg md:text-2xl font-zen-kurenaido text-slate-900 font-semibold;
 }
 
 .ads-shop-container .shop-info .shop-see-all-btn {
-  @apply bg-orange-600 p-2 px-6 mt-2 rounded-md  font-quicksand text-base md:text-lg hover:bg-orange-500;
+  @apply bg-orange-600 p-2 px-6 mt-2 rounded-md  font-quicksand text-sm md:text-lg hover:bg-orange-500;
 }
 
 .ads-shop-container .products-list {
