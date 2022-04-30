@@ -22,7 +22,7 @@ export default {
           orderId = orderId.toString();
           const realOrderId = orderId.substr(3);
           const amount = window.localStorage.getItem("pointAmount");
-          if (this.$route.query.orderId == realOrderId) {
+          if (this.$route.query.orderId == orderId) {
             const res = this.$axios.post(
               `/point_buy?amount=${amount}&status=success&point_order_id=${realOrderId}`
             );
