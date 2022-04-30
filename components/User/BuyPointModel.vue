@@ -133,7 +133,10 @@ export default {
         console.log(error);
       }
     },
-    async kpay(orderId, totalAmount) {
+    async kpay(orderId) {
+      //set order id and point amount for kpay
+      window.localStorage.setItem("orderId", orderId);
+      window.localStorage.setItem("pointAmount", this.pointAmount);
       // make sign with SHA256
       const timestamp = this.timestampGenerate().toString();
       const nonce_str = this.getNonce(32).toString().toUpperCase();
@@ -218,6 +221,8 @@ export default {
 
     async getWavePayPaymentRequestData(orderId) {
       try {
+        //set point order id
+        window.localStorage.setItem("orderId", orderId);
         const res = await this.$axios.get(
           `wavepay/payment-request/${orderId}`,
           {

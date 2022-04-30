@@ -4,7 +4,7 @@
       <div class="points-item">
         <h2>My Points</h2>
         <p>
-          Your Point ID: <span>{{ userData.point.id }}</span>
+          Your Point ID: <span>{{ $auth.user.data.point.id }}</span>
         </p>
         <p>
           You have
@@ -36,7 +36,6 @@ export default {
       isTransfer: false,
     };
   },
-
   methods: {
     handleTopup() {
       this.isTopup = !this.isTopup;
@@ -44,11 +43,41 @@ export default {
     handleTransfer() {
       this.isTransfer = !this.isTransfer;
     },
+    async updateUserData() {
+      try {
+        const res = await this.$auth.fetchUser();
+        this.$auth.setUser(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async pointBuy() {
+      try {
+        if (process.browser) {
+          const orderId = window.localStorage.getItem("orderId");
+          if (this.$route.query.orderId === orderId) {
+            const res = this.$axios.post(
+              `/point_buy?amount=${this.$route.query.amount}&status=success&point_order_id=${orderId}`
+            );
+          }
+          window.localStorage.removeItem("orderId");
+          this.updateUserData();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   async fetch() {
     await this.$auth.fetchUser();
-    if (this.$route.query.isPointConfirm === "success")
-      this.toast("Points have been successfully added!", "success");
+    if (process.browser) {
+      if (this.$route.query.isPointConfirm === "success")
+        this.toast("Points have been successfully added!", "success");
+    }
+  },
+
+  mounted() {
+    this.pointBuy();
   },
 };
 </script>
