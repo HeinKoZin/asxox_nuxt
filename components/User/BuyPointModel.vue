@@ -134,6 +134,9 @@ export default {
       }
     },
     async kpay(orderId) {
+      //set order id and point amount for kpay
+      window.localStorage.setItem("orderId", orderId);
+      window.localStorage.setItem("pointAmount", orderId);
       // make sign with SHA256
       const timestamp = this.timestampGenerate().toString();
       const nonce_str = this.getNonce(32).toString().toUpperCase();
