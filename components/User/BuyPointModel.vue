@@ -119,9 +119,6 @@ export default {
         const orderId = res.data.data.id;
         switch (this.selectedPayment) {
           case "kbz-pay":
-            //set order id and point amount for kpay
-            window.localStorage.setItem("orderId", orderId);
-            window.localStorage.setItem("pointAmount", this.pointAmount);
             this.kpay("000" + orderId);
             break;
           case "wave-pay":
@@ -137,6 +134,9 @@ export default {
       }
     },
     async kpay(orderId) {
+      //set order id and point amount for kpay
+      window.localStorage.setItem("orderId", orderId);
+      window.localStorage.setItem("pointAmount", this.pointAmount);
       // make sign with SHA256
       const timestamp = this.timestampGenerate().toString();
       const nonce_str = this.getNonce(32).toString().toUpperCase();
