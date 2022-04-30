@@ -18,8 +18,9 @@ export default {
     async pointBuy() {
       try {
         if (process.browser) {
-          let orderId = window.localStorage.getItem("orderId").toString();
-          const realOrderId = orderId.substring(3);
+          let orderId = window.localStorage.getItem("orderId");
+          orderId = orderId.toString();
+          const realOrderId = orderId.substr(3);
           const amount = window.localStorage.getItem("pointAmount");
           if (this.$route.query.orderId == realOrderId) {
             const res = this.$axios.post(
@@ -37,6 +38,7 @@ export default {
   },
   mounted() {
     this.pointBuy();
+    console.log("helo");
   },
 };
 </script>
