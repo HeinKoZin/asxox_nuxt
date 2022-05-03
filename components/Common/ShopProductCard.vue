@@ -6,7 +6,7 @@
           :src="product.temp_photo"
           alt=""
           srcset=""
-          ref="productCover"
+          :ref="id"
           class="shop-product-card-image"
           crossorigin="anonymous"
         />
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       bgColor: "",
+      id: this._uid,
     };
   },
 
@@ -50,22 +51,18 @@ export default {
     async getPalette() {
       // run on server
 
-      if (process.server) {
+      if (process.browser) {
         const colorThief = new ColorThief();
-        // const img = document.querySelector("img");
+        const img = this.$refs[this.id];
 
         // Make sure image is finished loading
         if (img.complete) {
-          const color = colorThief.getColor(this.product.temp_photo);
+          const color = colorThief.getColor(img);
           this.bgColor = this.getHexColor(color[0], color[1], color[2]);
           // apply this color to ref productCover
+          console.log(this.bgColor);
           this.$refs.productContainer.style.backgroundColor = this.bgColor;
         } else {
-          image.addEventListener("load", function () {
-            const color = colorThief.getColor(this.product.temp_photo);
-            this.bgColor = this.getHexColor(color[0], color[1], color[2]);
-            this.$refs.productContainer.style.backgroundColor = this.bgColor;
-          });
         }
         // const img =
         //   "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/04/26/products/feature/26-04-2022_Asxox_46267b31ccebee2.51432099.jpg";
