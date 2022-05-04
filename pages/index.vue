@@ -140,7 +140,7 @@ export default {
 }
 
 .products-list-container {
-  @apply w-full p-1 md:p-3 flex gap-10 flex-col;
+  @apply w-full md:w-[90%] lg:w-[80%] mx-auto p-1 md:p-3 flex gap-10 flex-col;
 }
 
 .products-container {
@@ -176,7 +176,7 @@ export default {
 }
 
 .ads-image-container img {
-  @apply w-full md:w-[80%] lg:w-[70%] h-auto rounded-lg;
+  @apply w-full  h-auto rounded-lg;
 }
 
 .categories-container {

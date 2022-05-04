@@ -4,7 +4,7 @@
     <div
       class="flex w-full h-[calc(100%-4rem)] flex-col-reverse md:flex-row relative backdrop-filter"
     >
-      <SideBar />
+      <!-- <SideBar /> -->
       <div class="main-layout">
         <!-- <nuxt v-if="!$slots.profilelayout" /> -->
         <slot />
@@ -39,6 +39,6 @@ export default {
 
 <style lang="postcss" scoped>
 .main-layout {
-  @apply mt-16 ml-0 md:ml-[4.4rem]  min-h-[calc(100%-4rem)]   w-full md:w-[calc(100%_-_4rem)]  items-start;
+  @apply mt-16 ml-0  min-h-[calc(100%-4rem)]   w-full md:w-full  items-start;
 }
 </style>

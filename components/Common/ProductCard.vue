@@ -222,7 +222,7 @@ export default {
 
 <style lang="postcss" scoped>
 .product-card-container-wrapper {
-  @apply w-6/12 md:w-[20%] xl:w-[12.5%] h-auto p-1;
+  @apply w-6/12 md:w-[20%] xl:w-[14.285%] h-auto p-1;
 }
 
 .ads-product {
