@@ -6,13 +6,13 @@
           :src="product.temp_photo"
           alt=""
           srcset=""
-          :ref="id"
+          :ref="id + 'image'"
           class="shop-product-card-image"
           crossorigin="anonymous"
         />
       </div>
       <div class="product-details-container">
-        <h3>{{ product.name + "." + palette }}</h3>
+        <h1>{{ product.name + "." }}</h1>
         <p>{{ product.sell_price + " " + product.currency }}</p>
       </div>
     </div>
@@ -45,44 +45,29 @@ export default {
   methods: {
     //  get hex color from rgb
     getHexColor(r, g, b) {
-      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+      return (
+        "#" +
+        ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1) +
+        "88"
+      );
     },
 
     async getPalette() {
-      // run on server
-
       if (process.browser) {
         const colorThief = new ColorThief();
-        const img = this.$refs[this.id];
-
+        const img = this.$refs[this.id + "image"];
         // Make sure image is finished loading
-        if (img.complete) {
-          const color = colorThief.getColor(img);
-          this.bgColor = this.getHexColor(color[0], color[1], color[2]);
-          // apply this color to ref productCover
-          console.log(this.bgColor);
-          this.$refs.productContainer.style.backgroundColor = this.bgColor;
-        } else {
-        }
-        // const img =
-        //   "https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/04/26/products/feature/26-04-2022_Asxox_46267b31ccebee2.51432099.jpg";
-        // colorThief
-        //   .getColor(img)
-        //   .then((color) => {
-        //     console.log(color);
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //   });
-
-        // colorThief
-        //   .getPalette(img, 5)
-        //   .then((palette) => {
-        //     console.log(palette);
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //   });
+        this.$nextTick(() => {
+          if (img.complete) {
+            console.log("success");
+          } else {
+            img.addEventListener("load", () => {
+              const color = colorThief.getColor(img);
+              this.bgColor = this.getHexColor(color[0], color[1], color[2]);
+              this.$refs.productContainer.style.backgroundColor = this.bgColor;
+            });
+          }
+        });
       }
     },
   },
@@ -114,11 +99,11 @@ export default {
   @apply flex flex-col  flex-grow items-center justify-center gap-3 pl-2;
 }
 
-.product-details-container h3 {
-  @apply text-sm md:text-base font-bold font-quicksand text-orange-500 w-full text-center;
+.product-details-container h1 {
+  @apply md:text-base font-bold text-black w-full text-center mt-2 mb-0 pb-0;
 }
 
 .product-details-container p {
-  @apply text-sm md:text-base font-bold font-quicksand py-2 px-4 bg-orange-500 text-white text-center;
+  @apply text-sm md:text-base font-bold font-quicksand py-2 mb-3 mt-0 px-4 bg-black rounded-lg text-white text-center;
 }
 </style>
