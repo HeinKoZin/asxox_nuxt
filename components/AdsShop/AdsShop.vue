@@ -13,7 +13,7 @@
         </div>
       </div>
       <carousel
-        class="flex w-[70%] md:w-full"
+        class="flex w-full"
         ref="adsShopContainer"
         :scrollPerPage="true"
         :paginationEnabled="false"
@@ -112,11 +112,11 @@ export default {
 }
 
 .ads-shop-container {
-  @apply w-full p-1 md:p-5 bg-white flex text-white rounded-xl  flex-row;
+  @apply w-full p-2 md:p-5 bg-white flex text-white rounded-xl flex-col gap-2 md:flex-row;
 }
 
 .ads-shop-container .shop-info {
-  @apply w-[30%] md:w-1/3 lg:w-3/12 flex flex-col items-center justify-center gap-2 mb-0 bg-yellow-100 rounded-2xl mr-0 md:mr-3 p-3;
+  @apply w-[100%] md:w-1/3 lg:w-3/12 flex flex-col items-center justify-center gap-2 mb-0 bg-yellow-100 rounded-2xl mr-0 md:mr-3 p-3;
 }
 
 .ads-shop-container .shop-info .shop-image {
@@ -132,7 +132,7 @@ export default {
 }
 
 .ads-shop-container .products-list {
-  @apply w-[70%] lg:min-w-[100%] lg:max-w-[100%] md:w-2/3 lg:w-9/12 flex flex-col md:flex-row    overflow-hidden overflow-x-scroll flex-wrap;
+  @apply w-[100%] lg:min-w-[100%] lg:max-w-[100%] md:w-2/3 lg:w-9/12 flex flex-col md:flex-row    overflow-hidden overflow-x-scroll flex-wrap;
 }
 
 .ads-shop-container .products-list::-webkit-scrollbar {

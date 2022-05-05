@@ -37,7 +37,7 @@ export default {
 }
 
 .shop-product-card-image-container {
-  @apply h-auto w-20 md:w-44;
+  @apply h-auto w-20 md:w-32;
 }
 
 .shop-product-card-image {
