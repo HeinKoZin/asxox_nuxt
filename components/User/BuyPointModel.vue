@@ -115,6 +115,7 @@ export default {
         this.isPointOrder = true;
         const res = await this.$axios.post("/point_buy", {
           amount: this.pointAmount,
+          payment_type: this.selectedPayment === "kbz-pay" ? "Kpay" : "Wavepay",
         });
         const orderId = res.data.data.id;
         switch (this.selectedPayment) {
