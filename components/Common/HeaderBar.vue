@@ -174,7 +174,7 @@ export default {
 }
 
 .menu-container {
-  @apply flex gap-3 items-center font-semibold;
+  @apply flex gap-10 items-center font-semibold;
 }
 
 .categories-menu-container {
@@ -214,18 +214,18 @@ export default {
 }
 
 .download-app {
-  @apply flex gap-2 items-center md:text-base font-semibold my-0 font-quicksand no-underline hover:no-underline bg-black   text-white rounded-md p-1 px-2;
+  @apply flex gap-2 items-center md:text-base font-semibold my-0 font-quicksand no-underline hover:no-underline bg-black   text-white rounded-md p-2 px-2;
 }
 
 .download-app .download-logo {
-  @apply w-8 h-8;
+  @apply w-7 h-7;
 }
 
 .download-app p {
-  @apply text-white whitespace-nowrap text-xs;
+  @apply text-white whitespace-nowrap text-[8px] leading-none;
 }
 
 .download-app h1 {
-  @apply text-sm  font-bold font-quicksand text-slate-50;
+  @apply text-xs  font-bold font-quicksand text-slate-50;
 }
 </style>
