@@ -86,7 +86,7 @@ export default {
 
 <style lang="postcss" scoped>
 .sidebar-container {
-  @apply w-[4.4rem] bg-slate-100 h-[calc(100%-4rem)] top-0 md:h-[calc(100%_-_4rem)] p-2 md:px-1 py-4 flex  flex-col justify-between fixed  z-40 transition-[margin] mt-16;
+  @apply md:hidden w-[4.4rem] bg-slate-100 h-[calc(100%-4rem)] top-0 md:h-[calc(100%_-_4rem)] p-2 md:px-1 py-4 flex  flex-col justify-between fixed  z-40 transition-[margin] mt-16;
   /* box-shadow: 2px 10px 5px 1px rgba(0, 0, 0, 0.1); */
 }
 

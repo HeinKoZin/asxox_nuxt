@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="fixed z-50 w-full">
     <div class="header-container">
       <div class="header-left">
         <div class="mobile-header-menu">
@@ -141,6 +141,7 @@
         </div>
       </div>
     </div>
+    <HeaderBar />
   </header>
 </template>
 
@@ -237,7 +238,7 @@ export default {
 
 <style lang="postcss" scoped>
 .header-container {
-  @apply w-full h-16 bg-slate-100 px-4  flex items-center justify-between fixed z-50;
+  @apply w-full h-16 bg-slate-100 px-4  flex items-center justify-between;
 }
 
 .header-left {
