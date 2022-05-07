@@ -140,7 +140,7 @@ export default {
 }
 
 .products-list-container {
-  @apply w-full md:w-[90%] lg:w-[80%] mx-auto p-1 md:p-3 flex gap-10 flex-col;
+  @apply w-full  mx-auto p-1 md:p-3 flex gap-10 flex-col;
 }
 
 .products-container {
@@ -148,7 +148,7 @@ export default {
 }
 
 .products-container .category-products {
-  @apply flex flex-wrap bg-slate-50 p-2 rounded-lg;
+  @apply flex flex-wrap bg-transparent p-2 rounded-lg;
 }
 
 .products-container .icon {
@@ -184,7 +184,7 @@ export default {
 }
 
 .categories-wrapper {
-  @apply flex flex-wrap w-[90%] lg:w-[70%] bg-transparent;
+  @apply flex flex-wrap w-full bg-transparent;
 }
 
 .category-logo {
@@ -208,7 +208,7 @@ export default {
 }
 
 .categories-header {
-  @apply w-[90%] lg:w-[70%] border-b-2 border-slate-300 p-2 mb-2;
+  @apply w-full border-b-2 border-slate-300 p-2 mb-2;
 }
 
 .categories-header h3 {
