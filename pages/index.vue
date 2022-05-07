@@ -51,6 +51,7 @@
           class="category-item-wrapper"
           v-for="(category, index) in categories"
           :key="index"
+          @click="handleCategoryClick(category.id)"
         >
           <div class="category-item">
             <h3>{{ category.name }}</h3>
