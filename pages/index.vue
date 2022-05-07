@@ -148,7 +148,7 @@ export default {
 }
 
 .products-container .category-products {
-  @apply flex flex-wrap bg-slate-50 p-2 rounded-lg;
+  @apply flex flex-wrap bg-transparent p-2 rounded-lg;
 }
 
 .products-container .icon {
