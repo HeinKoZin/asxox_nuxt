@@ -174,7 +174,7 @@ export default {
 }
 
 .menu-container {
-  @apply flex gap-10 items-center font-semibold;
+  @apply flex gap-5 items-center font-semibold;
 }
 
 .categories-menu-container {
