@@ -19,6 +19,15 @@
         </button>
         <span class="menu-label">Home</span>
       </div>
+      <div
+        class="sidebar-menu-item"
+        :class="linkIsActive('/categories') ? 'active' : ''"
+      >
+        <button class="btn" @click="$router.push('/categories')">
+          <i class="fa-solid fa-bars icon"></i>
+        </button>
+        <span class="menu-label">Category</span>
+      </div>
       <!-- NOTE: Item -->
       <!-- WARNING: Temporary hide -->
       <!-- <div class="sidebar-menu-item">
@@ -41,15 +50,27 @@
     <!-- NOTE: Cart -->
     <div class="sidebar-menu">
       <!-- WARNING: Temporary hide -->
-      <div
-        class="sidebar-menu-item"
-        :class="linkIsActive('/categories') ? 'active' : ''"
+      <a
+        href="https://apps.apple.com/us/app/asxox/id1590791745"
+        class="app-link"
       >
-        <button class="btn" @click="$router.push('/categories')">
-          <i class="fa-solid fa-bars icon"></i>
-        </button>
-        <span class="menu-label">Category</span>
-      </div>
+        <img src="~/assets/img/appstore.png" alt="App Store" />
+      </a>
+
+      <a
+        href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
+        class="app-link"
+      >
+        <img src="~/assets/img/playstore.png" alt="Play Store" />
+      </a>
+
+      <a href="#" class="app-link">
+        <img src="~/assets/img/appgallery.png" alt="App Store" />
+      </a>
+
+      <a href="#" class="app-link bg-slate-900 p-2 rounded-lg">
+        <img src="~/assets/img/download-white.png" alt="Direct Link" />
+      </a>
 
       <!-- <div class="sidebar-menu-item">
         <button class="btn">
@@ -86,7 +107,7 @@ export default {
 
 <style lang="postcss" scoped>
 .sidebar-container {
-  @apply w-[4.4rem] bg-slate-100 h-[calc(100%-4rem)] top-0 md:h-[calc(100%_-_4rem)] p-2 md:px-1 py-4 flex  flex-col justify-between fixed  z-40 transition-[margin] mt-16;
+  @apply md:hidden w-[4.4rem] bg-slate-100 h-[calc(100%-4rem)] top-0 md:h-[calc(100%_-_4rem)] p-2 md:px-1 py-4 flex  flex-col justify-between fixed  z-40 transition-[margin] mt-16;
   /* box-shadow: 2px 10px 5px 1px rgba(0, 0, 0, 0.1); */
 }
 
@@ -136,5 +157,16 @@ export default {
 
 .sidebar-menu .sidebar-menu-item.active .menu-label {
   @apply hidden;
+}
+
+.app-link-container {
+  @apply mx-auto;
+}
+.app-link {
+  @apply w-10 h-10 mx-auto relative;
+}
+
+.app-link img {
+  @apply w-full h-full;
 }
 </style>

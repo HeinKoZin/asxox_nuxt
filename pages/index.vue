@@ -132,7 +132,7 @@ export default {
 
 <style lang="postcss" scoped>
 .home-container {
-  @apply w-full pb-4;
+  @apply w-full pb-4 md:w-[90%] lg:w-[80%] mx-auto;
 }
 
 .home-header {
@@ -140,7 +140,7 @@ export default {
 }
 
 .products-list-container {
-  @apply w-full md:w-[90%] lg:w-[80%] mx-auto p-1 md:p-3 flex gap-10 flex-col;
+  @apply w-full  mx-auto p-1 md:p-3 flex gap-10 flex-col;
 }
 
 .products-container {

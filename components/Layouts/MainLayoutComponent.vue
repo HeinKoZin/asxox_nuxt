@@ -1,10 +1,11 @@
 <template>
   <div class="w-full h-full bg-slate-200">
     <Header />
+
     <div
-      class="flex w-full h-[calc(100%-4rem)] flex-col-reverse md:flex-row relative backdrop-filter"
+      class="flex w-full h-[calc(100%-8rem)] flex-col-reverse md:flex-row relative backdrop-filter"
     >
-      <!-- <SideBar /> -->
+      <SideBar />
       <div class="main-layout">
         <!-- <nuxt v-if="!$slots.profilelayout" /> -->
         <slot />
