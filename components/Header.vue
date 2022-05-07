@@ -4,13 +4,13 @@
       <div class="header-left">
         <div class="mobile-header-menu">
           <button
-            v-if="!isMobileMenuOpen"
+            v-show="!isMobileMenuOpen"
             @click="SET_MOBILE_MENU(!isMobileMenuOpen)"
           >
             <i class="fa-solid fa-bars icon"></i>
           </button>
           <button
-            v-if="isMobileMenuOpen"
+            v-show="isMobileMenuOpen"
             @click="SET_MOBILE_MENU(!isMobileMenuOpen)"
           >
             <i class="fa-solid fa-xmark icon"></i>
