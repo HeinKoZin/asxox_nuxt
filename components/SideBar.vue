@@ -163,7 +163,7 @@ export default {
   @apply mx-auto;
 }
 .app-link {
-  @apply w-10 h-10  relative;
+  @apply w-10 h-10 mx-auto relative;
 }
 
 .app-link img {
