@@ -185,7 +185,7 @@ export default {
 }
 
 .category-item-wrapper {
-  @apply w-full m-1 px-4 py-1 hover:bg-orange-400;
+  @apply w-full  px-4 py-2 hover:bg-orange-400;
 }
 
 .category-item {
