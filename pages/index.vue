@@ -175,7 +175,7 @@ export default {
 }
 
 .ads-image-container {
-  @apply w-full p-1 h-auto mt-5 flex justify-center items-center;
+  @apply w-full md:w-[90%] mx-auto p-1 h-auto mt-5 flex justify-center items-center;
 }
 
 .ads-image-container img {
