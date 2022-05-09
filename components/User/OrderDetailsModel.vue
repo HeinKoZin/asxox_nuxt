@@ -10,7 +10,7 @@
       </button>
       <div class="modal-header">
         <h2>Order Details</h2>
-        <span>Cash on Delivery</span>
+        <span>{{ orderDetail.payment_method }}</span>
       </div>
       <div class="customer-details-container">
         <div class="customer-details">
