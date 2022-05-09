@@ -154,19 +154,19 @@ export default {
 
 <style lang="postcss" scoped>
 .slider-container {
-  @apply w-full relative mb-20 md:mb-0;
+  @apply w-full relative mb-20 md:mb-0 md:rounded-lg;
 }
 
 .slider-container .slider-wrapper {
-  @apply w-full;
+  @apply w-full md:rounded-lg;
 }
 
 .slider-container .slidable-items {
-  @apply w-full absolute  -bottom-20 md:bottom-0 z-30 bg-gradient-to-t from-slate-200 via-slate-300;
+  @apply w-full absolute  -bottom-20 md:bottom-0 z-30 bg-gradient-to-t from-slate-200 via-slate-300 md:rounded-lg;
 }
 
 .slider-container .slider-items {
-  @apply w-full;
+  @apply w-full md:rounded-lg;
 }
 
 .slider-container .slidable-items .slidable-items-wrapper {

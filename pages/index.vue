@@ -1,7 +1,27 @@
 <template>
   <div class="home-container">
     <div class="home-header">
-      <Slider :products="slideAds" />
+      <div class="w-full md:w-[70%]">
+        <Slider :products="slideAds" />
+      </div>
+      <div class="hidden md:flex flex-grow flex-col gap-2">
+        <div class="w-full rounded-lg flex-grow relative">
+          <img
+            class="w-full h-full absolute rounded-lg object-cover"
+            src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/04/09/ads/09-04-2022_Asxox_4625103fa7b5f27.18836799.png"
+            alt=""
+            srcset=""
+          />
+        </div>
+        <div class="w-full rounded-lg flex-grow relative">
+          <img
+            class="w-full h-full absolute rounded-lg object-cover"
+            src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/04/09/ads/09-04-2022_Asxox_4625103fa7b5f27.18836799.png"
+            alt=""
+            srcset=""
+          />
+        </div>
+      </div>
     </div>
     <!-- <CategoryBar /> -->
 
@@ -12,13 +32,15 @@
       </div> -->
       <div class="categories-wrapper">
         <div
-          class="category-item-wrapper"
+          class="category-item-wrapper group"
           v-for="(category, index) in categories"
           :key="index"
           @click="handleCategoryClick(category.id)"
         >
           <div class="category-item">
-            <h3>{{ category.name }}</h3>
+            <div class="category-content">
+              <h3>{{ category.name }}</h3>
+            </div>
             <div class="category-logo">
               <img :src="category.logo" alt="" />
             </div>
@@ -139,11 +161,11 @@ export default {
 }
 
 .home-header {
-  @apply w-full;
+  @apply w-full flex p-0 md:p-5 md:bg-white rounded-lg mt-4 gap-2;
 }
 
 .products-list-container {
-  @apply w-full  mx-auto p-1 md:p-3 flex gap-10 flex-col;
+  @apply w-full  mx-auto p-1 md:p-3 flex gap-5 flex-col;
 }
 
 .products-container {
@@ -175,7 +197,7 @@ export default {
 }
 
 .ads-image-container {
-  @apply w-full md:w-[90%] mx-auto p-1 h-auto mt-5 flex justify-center items-center;
+  @apply w-full md:w-[80%] mx-auto p-1 h-auto mt-5 flex justify-center items-center;
 }
 
 .ads-image-container img {
@@ -183,7 +205,7 @@ export default {
 }
 
 .categories-container {
-  @apply w-full flex flex-col justify-center items-center my-10;
+  @apply w-full flex flex-col justify-center items-center my-5;
 }
 
 .categories-wrapper {
@@ -191,7 +213,7 @@ export default {
 }
 
 .category-logo {
-  @apply rounded-full w-14 h-14;
+  @apply rounded-full w-20 h-20 md:w-32 md:h-32;
 }
 
 .category-logo img {
@@ -203,11 +225,15 @@ export default {
 }
 
 .category-item {
-  @apply flex flex-col items-center justify-center w-full h-full gap-y-2  py-10  bg-white  hover:bg-orange-500 hover:text-white rounded-lg font-quicksand font-bold;
+  @apply flex flex-col items-center relative justify-center w-full h-full gap-y-2  py-10  bg-white hover:shadow-md    rounded-lg font-quicksand font-bold;
 }
 
-.category-item h3 {
-  @apply text-sm lg:text-base;
+.category-item .category-content h3 {
+  @apply text-sm lg:text-lg text-white text-center hidden group-hover:block font-bold;
+}
+
+.category-item .category-content {
+  @apply w-full h-full bg-black bg-opacity-0 hover:bg-opacity-40 rounded-lg absolute m-auto flex justify-center items-center;
 }
 
 .categories-header {
