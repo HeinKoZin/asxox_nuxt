@@ -247,7 +247,9 @@ export default {
         const res = await this.$axios.get(
           `wavepay/payment-request/${orderId}`,
           {
-            type: "order",
+            params: {
+              type: "order",
+            },
           }
         );
         window.location.href = `https://payments.wavemoney.io/authenticate?transaction_id=${res.data.transaction_id}`;
