@@ -75,14 +75,13 @@ export default {
       if (window.innerWidth > 960) {
         this.display = 6;
       } else {
-        this.display = 2;
+        this.display = 1;
       }
     },
   },
 
   computed: {
     products() {
-      console.log(window.innerWidth);
       let products = [];
       // push every three products to new object and then push to products array
       for (let i = 0; i < this.datas.length; i++) {
@@ -98,6 +97,11 @@ export default {
 
   created() {
     window.addEventListener("resize", this.onResize);
+
+    // NOTE: Check for Mobile
+    if (window.innerWidth < 960) {
+      this.display = 1;
+    }
   },
 
   beforeDestroy() {
@@ -112,7 +116,7 @@ export default {
 }
 
 .ads-shop-container {
-  @apply w-full p-2 md:p-5 bg-white flex text-white rounded-xl flex-col gap-2 md:flex-row;
+  @apply w-full p-2 md:p-5 bg-white flex text-white rounded-xl flex-col gap-4 md:flex-row;
 }
 
 .ads-shop-container .shop-info {

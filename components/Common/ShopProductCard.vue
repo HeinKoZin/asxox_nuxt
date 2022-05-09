@@ -1,16 +1,18 @@
 <template>
   <div class="shop-product-card-container-wrapper">
-    <div class="shop-product-card-container">
+    <div class="shop-product-card-container" ref="productContainer">
       <div class="shop-product-card-image-container">
         <img
           :src="product.temp_photo"
           alt=""
           srcset=""
+          :ref="id + 'image'"
           class="shop-product-card-image"
+          crossorigin="anonymous"
         />
       </div>
       <div class="product-details-container">
-        <h3>{{ product.name }}</h3>
+        <h1>{{ product.name + "." }}</h1>
         <p>{{ product.sell_price + " " + product.currency }}</p>
       </div>
     </div>
@@ -18,11 +20,60 @@
 </template>
 
 <script>
+import ColorThief from "colorthief";
+
 export default {
   props: {
     product: {
       type: Object,
     },
+  },
+
+  data() {
+    return {
+      bgColor: "",
+      id: this._uid,
+    };
+  },
+
+  computed: {
+    backgroundColor() {
+      return `bg-[${this.bgColor}]`;
+    },
+  },
+
+  methods: {
+    //  get hex color from rgb
+    getHexColor(r, g, b) {
+      return (
+        "#" +
+        ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1) +
+        "88"
+      );
+    },
+
+    async getPalette() {
+      if (process.browser) {
+        const colorThief = new ColorThief();
+        const img = this.$refs[this.id + "image"];
+        // Make sure image is finished loading
+        this.$nextTick(() => {
+          if (img.complete) {
+            console.log("success");
+          } else {
+            img.addEventListener("load", () => {
+              const color = colorThief.getColor(img);
+              this.bgColor = this.getHexColor(color[0], color[1], color[2]);
+              this.$refs.productContainer.style.backgroundColor = this.bgColor;
+            });
+          }
+        });
+      }
+    },
+  },
+
+  mounted() {
+    this.getPalette();
   },
 };
 </script>
@@ -33,7 +84,7 @@ export default {
 }
 
 .shop-product-card-container {
-  @apply flex bg-slate-200 text-black p-2 rounded-xl shadow-sm;
+  @apply flex text-slate-100 rounded-xl shadow-sm flex-col justify-center items-center;
 }
 
 .shop-product-card-image-container {
@@ -41,18 +92,18 @@ export default {
 }
 
 .shop-product-card-image {
-  @apply object-cover w-full h-full rounded-xl;
+  @apply object-cover w-full h-full rounded-t-xl;
 }
 
 .product-details-container {
   @apply flex flex-col  flex-grow items-center justify-center gap-3 pl-2;
 }
 
-.product-details-container h3 {
-  @apply text-sm md:text-base font-bold font-quicksand text-orange-500 w-full text-center;
+.product-details-container h1 {
+  @apply md:text-base font-bold text-black w-full text-center mt-2 mb-0 pb-0;
 }
 
 .product-details-container p {
-  @apply text-sm md:text-base font-bold font-quicksand py-2 px-4 bg-orange-500 text-white text-center;
+  @apply text-sm md:text-base font-bold font-quicksand py-2 mb-3 mt-0 px-4 bg-black rounded-lg text-white text-center;
 }
 </style>
