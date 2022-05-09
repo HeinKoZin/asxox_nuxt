@@ -244,7 +244,14 @@ export default {
 
     async getWavePayPaymentRequestData(orderId) {
       try {
-        const res = await this.$axios.get(`wavepay/payment-request/${orderId}`);
+        const res = await this.$axios.get(
+          `wavepay/payment-request/${orderId}`,
+          {
+            params: {
+              type: "order",
+            },
+          }
+        );
         window.location.href = `https://payments.wavemoney.io/authenticate?transaction_id=${res.data.transaction_id}`;
       } catch (error) {
         console.log(error);
