@@ -4,6 +4,29 @@
       <Slider :products="slideAds" />
     </div>
     <!-- <CategoryBar /> -->
+
+    <!-- Category Container -->
+    <div class="categories-container">
+      <!-- <div class="categories-header">
+        <h3>Categories</h3>
+      </div> -->
+      <div class="categories-wrapper">
+        <div
+          class="category-item-wrapper"
+          v-for="(category, index) in categories"
+          :key="index"
+          @click="handleCategoryClick(category.id)"
+        >
+          <div class="category-item">
+            <h3>{{ category.name }}</h3>
+            <div class="category-logo">
+              <img :src="category.logo" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Product list container -->
     <div class="products-list-container">
       <div class="ads-image-container">
@@ -39,27 +62,6 @@
           />
         </div>
         <no-ssr><AdsShop v-if="category.shop" :shop="category.shop" /></no-ssr>
-      </div>
-    </div>
-    <!-- Category Container -->
-    <div class="categories-container">
-      <div class="categories-header">
-        <h3>Categories</h3>
-      </div>
-      <div class="categories-wrapper">
-        <div
-          class="category-item-wrapper"
-          v-for="(category, index) in categories"
-          :key="index"
-          @click="handleCategoryClick(category.id)"
-        >
-          <div class="category-item">
-            <h3>{{ category.name }}</h3>
-            <div class="category-logo">
-              <img :src="category.logo" alt="" />
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
