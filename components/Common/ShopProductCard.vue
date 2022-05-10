@@ -80,7 +80,7 @@ export default {
 
 <style lang="postcss" scoped>
 .shop-product-card-container-wrapper {
-  @apply md:p-1 min-w-[100%] max-w-[100%] md:min-w-[33.33%] md:max-w-[33.33%] h-auto;
+  @apply md:p-1 min-w-[100%] max-w-[100%] md:min-w-[33.33%] md:max-w-[33.33%] lg:max-w-[25%] lg:min-w-[25%] h-auto;
 }
 
 .shop-product-card-container {
