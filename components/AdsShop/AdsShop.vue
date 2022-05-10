@@ -2,13 +2,15 @@
   <div class="ads-shop-container-wrapper">
     <div class="ads-shop-container">
       <div class="shop-info">
-        <div class="shop-image">
-          <img :src="shop.logo" />
+        <div class="flex items-center justify-start flex-grow gap-2">
+          <div class="shop-image">
+            <img :src="shop.logo" />
+          </div>
+          <div class="shop-title" v-if="shop">
+            <h1>{{ shop.shop_name }}</h1>
+          </div>
         </div>
-        <div class="shop-title" v-if="shop">
-          <h1>{{ shop.shop_name }}</h1>
-        </div>
-        <div class="shop-see-all-btn">
+        <div class="shop-see-all-btn text-nowrap">
           <button>See All</button>
         </div>
       </div>
@@ -112,15 +114,15 @@ export default {
 
 <style lang="postcss" scoped>
 .ads-shop-container-wrapper {
-  @apply p-1 w-full mt-5;
+  @apply md:p-1 w-full mt-5;
 }
 
 .ads-shop-container {
-  @apply w-full p-2 md:p-5 bg-white flex text-white rounded-xl flex-col gap-4 md:flex-row;
+  @apply w-full  md:p-4 bg-white flex text-white md:rounded-xl flex-col md:gap-2 md:flex-row;
 }
 
 .ads-shop-container .shop-info {
-  @apply w-[100%] md:w-1/3 lg:w-3/12 flex flex-col items-center justify-center gap-2 mb-0 bg-yellow-100 rounded-2xl mr-0 md:mr-3 p-3;
+  @apply w-[100%] md:w-1/3  flex md:flex-col items-center justify-center gap-2 mb-0 bg-yellow-100 md:rounded-2xl mr-0 md:mr-2 p-3;
 }
 
 .ads-shop-container .shop-info .shop-image {
@@ -128,7 +130,7 @@ export default {
 }
 
 .ads-shop-container .shop-info .shop-title {
-  @apply w-full text-center line-clamp-2 text-lg md:text-2xl font-zen-kurenaido text-slate-900 font-semibold;
+  @apply w-full  line-clamp-2 text-lg md:text-2xl font-zen-kurenaido text-slate-900 font-semibold;
 }
 
 .ads-shop-container .shop-info .shop-see-all-btn {
