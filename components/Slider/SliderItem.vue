@@ -15,11 +15,11 @@ export default {
 
 <style lang="postcss" scoped>
 .slider-item {
-  @apply w-full relative;
+  @apply w-full relative md:rounded-lg;
 }
 
 .slider-item .slider-item-info {
-  @apply flex absolute w-full h-full  bg-opacity-60 justify-start items-center p-4 md:p-10 bg-gradient-to-r from-gray-700 via-transparent;
+  @apply flex absolute w-full h-full  bg-opacity-60 justify-start items-center p-4 md:p-10 bg-gradient-to-r from-gray-700 via-transparent  md:rounded-lg;
 }
 
 .slider-item .slider-item-info button {
@@ -27,6 +27,6 @@ export default {
 }
 
 .slider-item img {
-  @apply w-full h-auto md:h-[calc(100vh_-_10rem)] object-cover object-center;
+  @apply w-full h-auto  object-cover object-center md:rounded-lg;
 }
 </style>
