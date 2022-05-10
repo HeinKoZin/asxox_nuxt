@@ -141,7 +141,7 @@ export default {
       // make sign with SHA256
       const timestamp = this.timestampGenerate().toString();
       const nonce_str = this.getNonce(32).toString().toUpperCase();
-      let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&callback_info=title%3diphonex&merch_code=70022802&merch_order_id=${orderId}&method=kbz.payment.precreate&nonce_str=${nonce_str}&notify_url=https://api.asxox.com.mm/api/point_buy?amount=${this.pointAmount}&status=success&point_order_id=${orderId}&timeout_express=100m&timestamp=${timestamp}&title=iPhoneX&total_amount=${this.pointAmount}&trade_type=PWAAPP&trans_currency=MMK&version=1.0`;
+      let stringA = `appid=kp7845e3e156234868aaeaad2f2536dc&callback_info=title%3diphonex&merch_code=70022802&merch_order_id=${orderId}&method=kbz.payment.precreate&nonce_str=${nonce_str}&notify_url=https://api.asxox.com.mm/api/backend/payment/kpay&timeout_express=100m&timestamp=${timestamp}&title=iPhoneX&total_amount=${this.pointAmount}&trade_type=PWAAPP&trans_currency=MMK&version=1.0`;
 
       let stringToSign = `${stringA}&key=13d961f122cbb78451d7f4b333147745`;
       let bytes1 = await utf8.encode(stringToSign);
@@ -151,7 +151,7 @@ export default {
         Request: {
           timestamp,
           method: "kbz.payment.precreate",
-          notify_url: `https://api.asxox.com.mm/api/point_buy?amount=${this.pointAmount}&status=success&point_order_id=${orderId}`,
+          notify_url: `https://api.asxox.com.mm/api/backend/payment/kpay`,
           nonce_str,
           sign_type: "SHA256",
           sign,
