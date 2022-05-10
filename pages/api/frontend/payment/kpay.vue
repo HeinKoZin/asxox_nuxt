@@ -15,30 +15,30 @@ export default {
         console.log(error);
       }
     },
-    async pointBuy() {
-      try {
-        if (process.browser) {
-          let orderId = window.localStorage.getItem("orderId");
-          orderId = orderId.toString();
-          const realOrderId = orderId.substr(3);
-          const amount = window.localStorage.getItem("pointAmount");
-          if (this.$route.query.merch_order_id == orderId) {
-            const res = this.$axios.post(
-              `/point_buy?amount=${amount}&status=success&point_order_id=${realOrderId}`
-            );
-          }
-          window.localStorage.removeItem("orderId");
-          window.localStorage.removeItem("pointAmount");
-          this.updateUserData();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    // async pointBuy() {
+    //   try {
+    //     if (process.browser) {
+    //       let orderId = window.localStorage.getItem("orderId");
+    //       orderId = orderId.toString();
+    //       const realOrderId = orderId.substr(3);
+    //       const amount = window.localStorage.getItem("pointAmount");
+    //       if (this.$route.query.merch_order_id == orderId) {
+    //         const res = this.$axios.post(
+    //           `/point_buy?amount=${amount}&status=success&point_order_id=${realOrderId}`
+    //         );
+    //       }
+    //       window.localStorage.removeItem("orderId");
+    //       window.localStorage.removeItem("pointAmount");
+    //       this.updateUserData();
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
   },
   mounted() {
-    this.pointBuy();
-    console.log("helo");
+    // this.pointBuy();
+    // console.log("helo");
   },
 };
 </script>

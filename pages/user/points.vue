@@ -51,22 +51,22 @@ export default {
         console.log(error);
       }
     },
-    async pointBuy() {
-      try {
-        if (process.browser) {
-          const orderId = window.localStorage.getItem("orderId");
-          if (this.$route.query.orderId === orderId) {
-            const res = this.$axios.post(
-              `/point_buy?amount=${this.$route.query.amount}&status=success&point_order_id=${orderId}`
-            );
-          }
-          window.localStorage.removeItem("orderId");
-          this.updateUserData();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    // async pointBuy() {
+    //   try {
+    //     if (process.browser) {
+    //       const orderId = window.localStorage.getItem("orderId");
+    //       if (this.$route.query.orderId === orderId) {
+    //         const res = this.$axios.post(
+    //           `/point_buy?amount=${this.$route.query.amount}&status=success&point_order_id=${orderId}`
+    //         );
+    //       }
+    //       window.localStorage.removeItem("orderId");
+    //       this.updateUserData();
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
   },
   async fetch() {
     await this.$auth.fetchUser();
@@ -76,9 +76,9 @@ export default {
     }
   },
 
-  mounted() {
-    this.pointBuy();
-  },
+  // mounted() {
+  //   this.pointBuy();
+  // },
 };
 </script>
 
