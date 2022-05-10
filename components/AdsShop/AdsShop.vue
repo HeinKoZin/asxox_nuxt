@@ -2,7 +2,9 @@
   <div class="ads-shop-container-wrapper">
     <div class="ads-shop-container">
       <div class="shop-info">
-        <div class="flex items-center justify-start flex-grow gap-2">
+        <div
+          class="flex items-center justify-start flex-grow gap-2 md:justify-center md:flex-col md:flex-grow-0"
+        >
           <div class="shop-image">
             <img :src="shop.logo" />
           </div>
@@ -51,7 +53,7 @@ export default {
   data() {
     return {
       datas: [],
-      display: 6,
+      display: 8,
     };
   },
   async fetch() {
@@ -74,8 +76,12 @@ export default {
     },
 
     onResize() {
-      if (window.innerWidth > 960) {
-        this.display = 6;
+      if (window.innerWidth > 760) {
+        if (window.innerWidth > 960) {
+          this.display = 8;
+        } else {
+          this.display = 6;
+        }
       } else {
         this.display = 1;
       }
@@ -130,7 +136,7 @@ export default {
 }
 
 .ads-shop-container .shop-info .shop-title {
-  @apply w-full  line-clamp-2 text-lg md:text-2xl font-zen-kurenaido text-slate-900 font-semibold;
+  @apply w-full md:text-center line-clamp-2 text-lg md:text-2xl font-zen-kurenaido text-slate-900 font-semibold;
 }
 
 .ads-shop-container .shop-info .shop-see-all-btn {
