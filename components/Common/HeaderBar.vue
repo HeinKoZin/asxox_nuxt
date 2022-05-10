@@ -44,7 +44,7 @@
         </div> -->
 
         <a
-          href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
+          href="https://appgallery.huawei.com/app/C105045159"
           class="download-app"
           target="_blank"
           rel="noopener noreferrer"
@@ -94,7 +94,7 @@
         </a>
 
         <a
-          href="https://apps.apple.com/us/app/asxox/id1590791745"
+          href="https://www.mediafire.com/file/fpefav2zsfuj87v/app-release.apk/file"
           class="download-app"
           target="_blank"
           rel="noopener noreferrer"

@@ -4,19 +4,19 @@
       <div class="w-full md:w-[70%]">
         <Slider :products="slideAds" />
       </div>
-      <div class="hidden md:flex flex-grow flex-col gap-2">
-        <div class="w-full rounded-lg flex-grow relative">
+      <div class="flex-col flex-grow hidden gap-2 md:flex">
+        <div class="relative flex-grow w-full rounded-lg">
           <img
-            class="w-full h-full absolute rounded-lg object-cover"
-            src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/04/09/ads/09-04-2022_Asxox_4625103fa7b5f27.18836799.png"
+            class="absolute object-cover w-full h-full rounded-lg"
+            src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/04/seeder/ads/bannerads/04-05-2021_Asxox_46090ce95655580.57927422.png"
             alt=""
             srcset=""
           />
         </div>
-        <div class="w-full rounded-lg flex-grow relative">
+        <div class="relative flex-grow w-full rounded-lg">
           <img
-            class="w-full h-full absolute rounded-lg object-cover"
-            src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2022/04/09/ads/09-04-2022_Asxox_4625103fa7b5f27.18836799.png"
+            class="absolute object-cover w-full h-full rounded-lg"
+            src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/04/seeder/ads/bannerads/04-05-2021_Asxox_46090ce3b6386c3.56220880.png"
             alt=""
             srcset=""
           />

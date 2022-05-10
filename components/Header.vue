@@ -18,7 +18,7 @@
         </div>
         <div class="header-back-button">
           <button @click="$router.back()" v-if="$route.path !== '/'">
-            <i class="fa-solid fa-arrow-left icon"></i>
+            <i class="text-lg md:text-2xl fa-solid fa-arrow-left"></i>
           </button>
         </div>
         <div class="header-logo">
@@ -30,6 +30,7 @@
             class="hidden md:block"
             alt=""
             srcset=""
+            @click="$router.push('/')"
           />
         </div>
         <!-- <div class="header-brand">
@@ -59,7 +60,9 @@
             size="sm"
             @click="toggleUserMenu()"
           >
-            <i class="fa-solid fa-circle-user icon"></i>
+            <i
+              class="text-2xl text-blue-600 fa-solid fa-circle-user hover:text-blue-500 md:text-3xl"
+            ></i>
           </button>
           <div
             v-if="isUserMenuOpen && $auth.$storage.getLocalStorage('loggedIn')"
@@ -136,7 +139,9 @@
             <span class="badge" v-if="giveWishlistLength">{{
               giveWishlistLength
             }}</span>
-            <i class="fa-solid fa-heart icon"></i>
+            <i
+              class="text-2xl text-red-600 md:text-3xl fa-regular fa-heart hover:text-red-500"
+            ></i>
           </button>
         </div>
       </div>
@@ -238,7 +243,7 @@ export default {
 
 <style lang="postcss" scoped>
 .header-container {
-  @apply w-full h-16 bg-slate-100 px-4  flex items-center justify-between;
+  @apply w-full h-16 bg-slate-100 px-4 md:px-[10%] flex items-center justify-between;
 }
 
 .header-left {

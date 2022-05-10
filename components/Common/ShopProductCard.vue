@@ -80,19 +80,19 @@ export default {
 
 <style lang="postcss" scoped>
 .shop-product-card-container-wrapper {
-  @apply p-1 min-w-[100%] max-w-[100%] md:min-w-[33.33%] md:max-w-[33.33%] h-auto;
+  @apply md:p-1 min-w-[100%] max-w-[100%] md:min-w-[33.33%] md:max-w-[33.33%] h-auto;
 }
 
 .shop-product-card-container {
-  @apply flex text-slate-100 rounded-xl shadow-sm flex-col justify-center items-center;
+  @apply flex text-slate-100 md:rounded-xl shadow-sm flex-col justify-center items-center py-3;
 }
 
 .shop-product-card-image-container {
-  @apply h-auto w-20 md:w-32;
+  @apply h-auto w-44 md:w-32;
 }
 
 .shop-product-card-image {
-  @apply object-cover w-full h-full rounded-t-xl;
+  @apply object-cover w-full h-full rounded-md;
 }
 
 .product-details-container {
@@ -104,6 +104,6 @@ export default {
 }
 
 .product-details-container p {
-  @apply text-sm md:text-base font-bold font-quicksand py-2 mb-3 mt-0 px-4 bg-black rounded-lg text-white text-center;
+  @apply text-sm md:text-base font-bold font-quicksand py-2  mt-0 px-4 bg-black rounded-lg text-white text-center;
 }
 </style>
