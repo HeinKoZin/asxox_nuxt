@@ -146,7 +146,7 @@ export default {
 }
 
 .product-cover {
-  @apply w-full h-full md:w-1/5  md:sticky md:top-16;
+  @apply w-full h-full md:w-1/5  md:sticky md:top-32;
 }
 
 .product-detail {

@@ -229,11 +229,11 @@ export default {
 }
 
 .category-item .category-content h3 {
-  @apply text-sm lg:text-lg text-white text-center hidden group-hover:block font-bold;
+  @apply text-sm md:text-base lg:text-lg text-white text-center  font-bold drop-shadow-sm bg-orange-500 bg-opacity-100 text-opacity-100 p-1 w-full;
 }
 
 .category-item .category-content {
-  @apply w-full h-full bg-black bg-opacity-0 hover:bg-opacity-40 rounded-lg absolute m-auto flex justify-center items-center;
+  @apply w-full h-full bg-black bg-opacity-0 hover:bg-opacity-0 hidden group-hover:flex rounded-lg absolute m-auto animate-slideUp justify-center items-end;
 }
 
 .categories-header {

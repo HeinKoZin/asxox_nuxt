@@ -1,6 +1,10 @@
 <template>
   <div class="shop-product-card-container-wrapper">
-    <div class="shop-product-card-container" ref="productContainer">
+    <div
+      class="shop-product-card-container"
+      ref="productContainer"
+      @click="$router.push(`/product/${$asxox.asxox_encode(product.id)}`)"
+    >
       <div class="shop-product-card-image-container">
         <img
           :src="product.temp_photo"

@@ -25,7 +25,7 @@ export default {
 
 <style lang="postcss" scoped>
 .promotion-products-container {
-  @apply flex w-full bg-slate-100 border border-slate-300 rounded-lg flex-col md:sticky top-16 h-[calc(100vh_-_4rem)];
+  @apply flex w-full bg-slate-100 border border-slate-300 rounded-lg flex-col md:sticky top-32 h-[calc(100vh_-_8rem)];
 }
 
 .header {
