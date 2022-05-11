@@ -189,8 +189,12 @@ export default {
   @apply flex-col items-center absolute top-16 bg-orange-500 text-white w-full  min-w-[200px] hidden group-hover:flex;
 }
 
+.menu-item {
+  @apply hover:cursor-pointer;
+}
+
 .category-item-wrapper {
-  @apply w-full  px-4 py-2 hover:bg-orange-400;
+  @apply w-full  px-4 py-2 hover:bg-orange-400 hover:cursor-pointer;
 }
 
 .category-item {
