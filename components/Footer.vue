@@ -82,46 +82,86 @@
         <div class="footer-content-item">
           <h3>Follow us</h3>
           <div class="content-body">
-            <a href="#">Facebook</a>
-            <a href="#">TikTok</a>
-            <a href="#">Youtube</a>
+            <a href="https://www.facebook.com/asxox.ecommercemyanmar"
+              >Facebook</a
+            >
+            <a href="https://www.tiktok.com/@asxoxecommerce">TikTok</a>
+            <a href="https://www.youtube.com/channel/UCnXbJ5K2pmBIh_HJaUuh9kg"
+              >Youtube</a
+            >
           </div>
         </div>
         <div class="footer-content-item">
           <h3>Download App</h3>
           <div class="content-body">
-            <a
-              href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="download-app"
-            >
-              <img
-                class="download-logo"
-                src="~/assets/img/playstore.png"
-                alt=""
-              />
-              <div>
-                <p>Download our app on</p>
-                <h1>Play Store</h1>
-              </div>
-            </a>
-            <a
-              href="https://apps.apple.com/us/app/asxox/id1590791745"
-              class="download-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                class="download-logo"
-                src="~/assets/img/appstore.png"
-                alt=""
-              />
-              <div>
-                <p>Download our app on</p>
-                <h1>App Store</h1>
-              </div>
-            </a>
+            <div class="flex gap-2 w-full">
+              <a
+                href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="download-app"
+              >
+                <img
+                  class="download-logo"
+                  src="~/assets/img/playstore.png"
+                  alt=""
+                />
+                <div>
+                  <p>Download our app on</p>
+                  <h1>Play Store</h1>
+                </div>
+              </a>
+              <a
+                href="https://apps.apple.com/us/app/asxox/id1590791745"
+                class="download-app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  class="download-logo"
+                  src="~/assets/img/appstore.png"
+                  alt=""
+                />
+                <div>
+                  <p>Download our app on</p>
+                  <h1>App Store</h1>
+                </div>
+              </a>
+            </div>
+            <div class="w-full flex gap-2">
+              <a
+                href="https://appgallery.huawei.com/app/C105045159"
+                class="download-app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  class="download-logo"
+                  src="~/assets/img/appgallery.png"
+                  alt=""
+                />
+                <div>
+                  <p>Download our app on</p>
+                  <h1>App Store</h1>
+                </div>
+              </a>
+              <a
+                href="https://www.mediafire.com/file/fpefav2zsfuj87v/app-release.apk/file"
+                class="download-app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  class="download-logo"
+                  src="~/assets/img/download.png"
+                  alt=""
+                />
+                <div>
+                  <p>Download our app on</p>
+                  <h1>App Store</h1>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -179,7 +219,7 @@ export default {};
 }
 
 .footer-content-item .content-body {
-  @apply flex flex-col text-sm mt-2 gap-1;
+  @apply flex flex-col text-sm mt-2 gap-0;
 }
 
 .footer-content-item .content-body a {
@@ -199,7 +239,7 @@ export default {};
 }
 
 .download-app {
-  @apply flex gap-2 items-center md:text-base font-semibold my-2 font-quicksand no-underline hover:no-underline bg-slate-50 border border-slate-800 text-slate-800 rounded-xl p-4 max-w-fit;
+  @apply flex gap-2 items-center md:text-base font-semibold my-1 font-quicksand no-underline hover:no-underline bg-slate-50 border border-slate-800 text-slate-800 rounded-xl p-2 max-w-fit;
 }
 
 .download-app .download-logo {
@@ -207,10 +247,10 @@ export default {};
 }
 
 .download-app p {
-  @apply text-slate-800;
+  @apply text-slate-800 text-[12px] md:text-sm;
 }
 
 .download-app h1 {
-  @apply text-base md:text-2xl font-bold font-quicksand text-slate-900;
+  @apply text-sm md:text-base font-bold font-quicksand text-slate-900;
 }
 </style>
