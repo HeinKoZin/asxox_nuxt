@@ -226,7 +226,7 @@ export default {
 }
 
 .ads-product {
-  @apply min-w-[60%] max-w-[60%] md:min-w-[25%] md:max-w-[25%] xl:min-w-[14.285%] xl:max-w-[14.285%] h-auto p-1 text-slate-800;
+  @apply min-w-[60%] max-w-[60%] md:min-w-[25%] md:max-w-[25%] xl:min-w-[16.66%] xl:max-w-[16.66%] h-auto p-1 text-slate-800;
 }
 
 .promotion-product {

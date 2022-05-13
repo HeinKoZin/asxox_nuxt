@@ -4,7 +4,10 @@
       <!-- Categories menu  -->
       <div class="menu-container">
         <div class="categories-menu-container group">
-          <div class="categories-menu-header">
+          <div
+            class="categories-menu-header"
+            @click="$router.push('/categories')"
+          >
             <i class="fa-solid fa-list"></i>
             <h3>Categories</h3>
           </div>
