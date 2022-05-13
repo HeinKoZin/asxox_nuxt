@@ -82,9 +82,7 @@
         <div class="footer-content-item">
           <h3>Follow us</h3>
           <div class="content-body">
-            <a href="https://www.facebook.com/asxox.ecommercemyanmar"
-              >Facebook</a
-            >
+            <a href="https://www.facebook.com/AsxoxOnlineshop">Facebook</a>
             <a href="https://www.tiktok.com/@asxoxecommerce">TikTok</a>
             <a href="https://www.youtube.com/channel/UCnXbJ5K2pmBIh_HJaUuh9kg"
               >Youtube</a
@@ -94,7 +92,7 @@
         <div class="footer-content-item">
           <h3>Download App</h3>
           <div class="content-body">
-            <div class="flex gap-2 w-full">
+            <div class="flex w-full gap-2">
               <a
                 href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
                 target="_blank"
@@ -128,7 +126,7 @@
                 </div>
               </a>
             </div>
-            <div class="w-full flex gap-2">
+            <div class="flex w-full gap-2">
               <a
                 href="https://appgallery.huawei.com/app/C105045159"
                 class="download-app"
