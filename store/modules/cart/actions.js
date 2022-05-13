@@ -1,6 +1,7 @@
 // ==== actions =====
 const actions = {
   addProductToCart({ commit }, data) {
+    console.log('addProductToCart', data);
     const newData = {
       id: data.id,
       qty: data.quantity || 1,
@@ -16,6 +17,7 @@ const actions = {
       sell_price: data.variantSellPrice || data.sell_price,
       is_variant: data.selectedVariantId,
       isSelected: data.isSelected || false,
+      shop_id: data.shop.id,
     };
     commit("SET_PRODUCT_TO_CART", newData);
     this.commit("REFRESH_ORDER");

@@ -51,11 +51,6 @@
         <div class="cart-header-title">
           <h3>Your Cart</h3>
         </div>
-        <!-- <div class="cart-header-action">
-          <button class="btn btn-sm btn-outline-primary">
-            <font-awesome-icon :icon="['fas', 'shopping-cart']" class="icon" />
-          </button>
-        </div> -->
       </div>
       <div class="cart-body" v-dragscroll>
         <CartItem
