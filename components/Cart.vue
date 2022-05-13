@@ -13,7 +13,7 @@
           <i class="fa-solid fa-cart-shopping icon"></i>
         </button> -->
         <a
-          href="https://www.facebook.com/asxox.ecommercemyanmar"
+          href="https://www.facebook.com/AsxoxOnlineshop"
           target="_blank"
           rel="noopener noreferrer"
         >
