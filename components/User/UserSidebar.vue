@@ -116,7 +116,7 @@ export default {
 }
 
 .user-sidebar-wrapper {
-  @apply flex flex-col items-center bg-slate-100 p-5 rounded-lg;
+  @apply flex flex-col items-center bg-white p-5 rounded-lg;
 }
 
 .user-sidebar-header {
