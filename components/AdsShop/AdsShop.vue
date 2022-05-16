@@ -1,5 +1,8 @@
 <template>
-  <div class="ads-shop-container-wrapper">
+  <div
+    class="ads-shop-container-wrapper"
+    :class="products.length > 0 ? '' : 'hidden'"
+  >
     <div class="ads-shop-container">
       <div class="shop-info">
         <div
