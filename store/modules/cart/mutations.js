@@ -87,6 +87,12 @@ const mutations = {
     }
 
 
+
+
+
+
+
+
     this.app.$cookies.remove("cartProducts");
     this.app.$cookies.set("cartProducts", state.cartProducts, {
       path: "/",

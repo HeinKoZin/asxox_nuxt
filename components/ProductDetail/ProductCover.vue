@@ -274,7 +274,7 @@ export default {
   },
 
   mounted() {
-    this.product.quantity ? this.product.quantity : (this.product.quantity = 1);
+    // this.product.quantity ? this.product.quantity : (this.product.quantity = 1);
   },
 
   methods: {
@@ -367,7 +367,9 @@ export default {
     },
 
     increaseQuantity() {
-      this.product.quantity++;
+      this.product.quantity >= 100
+        ? this.product.quantity
+        : this.product.quantity++;
     },
 
     decreaseQuantity() {

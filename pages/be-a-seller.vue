@@ -1,9 +1,11 @@
 <template>
-  <div class="be-a-seller"></div>
+  <div class="be-a-seller">Be A Seller</div>
 </template>
 
 <script>
-export default {};
+export default {
+  layout: "ProfileLayout",
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="postcss" scoped></style>
