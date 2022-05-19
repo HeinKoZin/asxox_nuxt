@@ -49,6 +49,7 @@
           v-for="(payment, index) in payments"
           :key="index"
           @click="setPaymentMethod(payment.name, index)"
+          v-show="isBuyingJewelry(payment)"
         >
           <div
             class="payment-method"
@@ -109,11 +110,17 @@ export default {
           image: "wave.png",
           isSelect: false,
         },
+        {
+          id: 3,
+          name: "cb-bank",
+          image: "cbbank.png",
+          isSelect: false,
+        },
       ],
     };
   },
   computed: {
-    ...mapGetters(["selectedPayment"]),
+    ...mapGetters(["selectedPayment", "cartSelectedProducts"]),
   },
   methods: {
     ...mapMutations(["SET_PAYMENT"]),
@@ -123,6 +130,16 @@ export default {
       }
       this.payments[index].isSelect = true;
       this.SET_PAYMENT(name);
+    },
+
+    isBuyingJewelry(payment) {
+      if (this.cartSelectedProducts.length > 0) {
+        if (this.cartSelectedProducts[0].shop_id === 2) {
+          return payment.name === "cb-bank";
+        } else {
+          return payment.name === "kbz-pay" || payment.name === "wave-pay";
+        }
+      }
     },
   },
 };
