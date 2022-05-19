@@ -71,8 +71,10 @@
           {{ data.name }}</NuxtLink
         >
         <div class="product-price">
-          <span class="text-orange-600">$</span>
-          <span class="text-orange-600">{{ data.sell_price }}</span>
+          <span class="text-orange-600">{{
+            priceFormat(data.sell_price)
+          }}</span>
+          <span class="text-orange-600">{{ data.currency }}</span>
         </div>
       </div>
     </div>
@@ -145,8 +147,10 @@
           {{ data.product.name }}</NuxtLink
         >
         <div class="product-price">
-          <span class="text-orange-600">$</span>
-          <span class="text-orange-600">{{ data.product.sell_price }}</span>
+          <span class="text-orange-600">{{
+            priceFormat(data.product.sell_price)
+          }}</span>
+          <span class="text-orange-600">{{ data.product.currency }}</span>
         </div>
       </div>
     </div>
@@ -215,6 +219,10 @@ export default {
     },
     encodedLink(data) {
       return data;
+    },
+    priceFormat(x) {
+      var d = parseInt(x);
+      return d.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
 };
