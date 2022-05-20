@@ -53,7 +53,12 @@
           <tbody>
             <tr v-for="(product, index) in orderDetail.products" :key="index">
               <td class="w-24">
-                <img :src="subProductImage(product)" />
+                <nuxt-img
+                  format="webp"
+                  quality="50"
+                  loading="lazy"
+                  :src="subProductImage(product)"
+                />
               </td>
               <td style="wordwrap: break-word">
                 <span>{{ subProductName(product) }}</span

@@ -4,7 +4,13 @@
       <div class="user-setting">
         <div class="w-full">
           <div class="user-profile-img">
-            <img :src="profileImage" alt="Profile Photo" />
+            <nuxt-img
+              format="webp"
+              quality="50"
+              loading="lazy"
+              :src="profileImage"
+              alt="Profile Photo"
+            />
             <button class="image-upload-btn" @click="$refs.profile.click()">
               <i class="fa-solid fa-camera"></i>
               <input

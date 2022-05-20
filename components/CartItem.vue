@@ -13,7 +13,13 @@
       />
     </div>
     <div class="cart-item-image">
-      <img :src="product.cover_photo" alt="" />
+      <nuxt-img
+        format="webp"
+        quality="50"
+        loading="lazy"
+        :src="product.cover_photo"
+        alt=""
+      />
     </div>
     <div class="cart-item-details">
       <div class="flex flex-col flex-grow">

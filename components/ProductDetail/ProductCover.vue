@@ -21,13 +21,19 @@
               </div>
             </div>
 
-            <img
+            <nuxt-img
+              format="webp"
+              quality="50"
+              loading="lazy"
               class="feature-photo"
               :src="
                 variantPhoto || product.feature_photos[currentImageIndex].photo
               "
             />
-            <img
+            <nuxt-img
+              format="webp"
+              quality="50"
+              loading="lazy"
               v-for="(prod, index) in product.product_varients"
               :key="index"
               :src="prod.varient_photo"
@@ -50,7 +56,12 @@
                 @click="isDrag ? null : changeImage(index)"
                 :class="{ active: index === currentImageIndex }"
               >
-                <img :src="featuredImage.photo" />
+                <nuxt-img
+                  format="webp"
+                  quality="50"
+                  loading="lazy"
+                  :src="featuredImage.photo"
+                />
               </div>
             </div>
           </div>
