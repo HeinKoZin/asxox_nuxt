@@ -46,7 +46,13 @@
               <h3>{{ category.name }}</h3>
             </div>
             <div class="category-logo">
-              <img :src="category.logo" alt="" />
+              <nuxt-img
+                format="webp"
+                quality="50"
+                loading="lazy"
+                :src="category.logo"
+                alt=""
+              />
             </div>
           </div>
         </div>

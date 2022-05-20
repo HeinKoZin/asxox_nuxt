@@ -30,7 +30,13 @@
         <div class="category-item" @click="handleCategoryClick(category.id)">
           <h2>{{ category.name }}</h2>
           <div class="category-cover">
-            <img :src="category.image" alt="" />
+            <nuxt-img
+              format="webp"
+              quality="50"
+              loading="lazy"
+              :src="category.image"
+              alt=""
+            />
           </div>
         </div>
       </div>

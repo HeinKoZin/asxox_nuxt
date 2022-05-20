@@ -6,7 +6,10 @@
       @click="$router.push(`/product/${$asxox.asxox_encode(product.id)}`)"
     >
       <div class="shop-product-card-image-container">
-        <img
+        <nuxt-img
+          format="webp"
+          quality="50"
+          loading="lazy"
           :src="product.temp_photo"
           alt=""
           srcset=""

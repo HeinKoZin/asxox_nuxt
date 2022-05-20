@@ -3,7 +3,7 @@
     <div class="slider-item-info">
       <button>See Details</button>
     </div>
-    <img :src="image" />
+    <nuxt-img format="webp" quality="50" loading="lazy" :src="image" />
   </div>
 </template>
 

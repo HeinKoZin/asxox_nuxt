@@ -1,7 +1,7 @@
 <template>
   <div class="slidable-item">
     <div class="img-wrapper" :class="{ active: isActive }">
-      <img :src="image" />
+      <nuxt-img format="webp" quality="50" loading="lazy" :src="image" />
     </div>
   </div>
 </template>
