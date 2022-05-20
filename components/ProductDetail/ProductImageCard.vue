@@ -3,7 +3,13 @@
     <div class="video-play-style" ref="videoIcon">
       <i class="fa-solid fa-circle-play icon" v-if="this.isVideo"></i>
     </div>
-    <img :src="this.checkImageOrVideo" ref="productImageRef" />
+    <nuxt-img
+      format="webp"
+      quality="50"
+      loading="lazy"
+      :src="this.checkImageOrVideo"
+      ref="productImageRef"
+    />
   </div>
 </template>
 

@@ -69,6 +69,10 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/postcss8", "@nuxtjs/dotenv"],
 
+  image: {
+    domains: ['cdn.asxox.com.mm']
+  },
+
   ssr: true,
   target: "server",
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -76,6 +80,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
+    "@nuxt/image",
     "cookie-universal-nuxt",
     [
       "@nuxtjs/firebase",
