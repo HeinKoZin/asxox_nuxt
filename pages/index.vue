@@ -6,19 +6,23 @@
       </div>
       <div class="flex-col flex-grow hidden gap-2 md:flex">
         <div class="relative flex-grow w-full rounded-lg">
-          <img
+          <nuxt-img
             class="absolute object-cover w-full h-full rounded-lg"
-            src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/04/seeder/ads/bannerads/04-05-2021_Asxox_46090ce95655580.57927422.png"
+            src="https://cdn.asxox.com.mm/upload/2021/05/04/seeder/ads/bannerads/04-05-2021_Asxox_46090ce95655580.57927422.png"
             alt=""
             srcset=""
+            format="webp"
+            loading="lazy"
           />
         </div>
         <div class="relative flex-grow w-full rounded-lg">
-          <img
+          <nuxt-img
             class="absolute object-cover w-full h-full rounded-lg"
-            src="https://asxox-production-space.nyc3.digitaloceanspaces.com/upload/2021/05/04/seeder/ads/bannerads/04-05-2021_Asxox_46090ce3b6386c3.56220880.png"
+            src="https://cdn.asxox.com.mm/upload/2021/05/04/seeder/ads/bannerads/04-05-2021_Asxox_46090ce3b6386c3.56220880.png"
             alt=""
             srcset=""
+            format="webp"
+            loading="lazy"
           />
         </div>
       </div>

@@ -56,10 +56,15 @@
           </button>
         </div>
         <div class="card-header-image-wrapper">
-          <img
+          <nuxt-img
             class="card-header-image"
+            format="webp"
+            loading="lazy"
             :src="data.temp_photo"
-            @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
+            @click.native="
+              $router.push(`/product/${$asxox.asxox_encode(data.id)}`)
+            "
+            quality="50"
           />
         </div>
       </div>
@@ -130,12 +135,15 @@
         </div>
 
         <div class="card-header-image-wrapper">
-          <img
+          <nuxt-img
             class="card-header-image"
+            format="webp"
+            loading="lazy"
             :src="data.wishlist_product_photo"
             @click="
               $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
             "
+            quality="50"
           />
         </div>
       </div>
