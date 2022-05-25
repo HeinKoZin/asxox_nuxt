@@ -43,12 +43,13 @@
               class="icon"
             /> -->
           </button>
-          <button
+          <!-- WARNING: Temporary hidden -->
+          <!-- <button
             @click="addProductToCart(data), toast('Added to cart', 'success')"
             v-if="!data.is_varient"
           >
             <i class="fa-solid fa-cart-shopping icon"></i>
-          </button>
+          </button> -->
           <button
             @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
           >
@@ -117,14 +118,15 @@
               <i class="fa-solid fa-heart icon active"></i>
             </div>
           </button>
-          <button
+          <!-- WARNING: Temporary hidden -->
+          <!-- <button
             @click="
               addProductToCart(data.product), toast('Added to cart', 'success')
             "
             v-if="!data.product.is_varient"
           >
             <i class="fa-solid fa-cart-shopping icon"></i>
-          </button>
+          </button> -->
           <button
             @click="
               $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
