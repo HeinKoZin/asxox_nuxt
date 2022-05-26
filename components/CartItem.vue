@@ -1,16 +1,13 @@
 <template>
-  <label
+  <div
     :class="'cart-item ' + (product.isSelected ? 'active' : '')"
-    :for="selectBoxId"
+    @click="checkBoxHandler"
   >
     <!-- Select box -->
     <div class="select-box-container">
-      <input
-        type="checkbox"
-        name=""
-        :id="selectBoxId"
-        @change="checkBoxHandler"
-      />
+      <div
+        :class="'select-status ' + (product.isSelected ? 'active' : '')"
+      ></div>
     </div>
     <div class="cart-item-image">
       <nuxt-img
@@ -46,7 +43,7 @@
           <span>{{ product.qty }}</span>
           <button
             class="cart-item-plus-btn"
-            @click="changeQty('plus', product.qty)"
+            @click.self="changeQty('plus', product.qty)"
           >
             <i class="fa-solid fa-plus icon"></i>
           </button>
@@ -61,7 +58,7 @@
         <i class="fa-solid fa-trash icon"></i>
       </button>
     </div>
-  </label>
+  </div>
 </template>
 
 <script>
@@ -183,6 +180,14 @@ export default {
 }
 
 .select-box-container input {
-  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 border-4 border-orange-500 appearance-none w-4 h-4 lg:w-5 lg:h-5 rounded-lg  flex justify-center items-center before:w-1 before:lg:w-2 before:h-1 before:lg:h-2 before:bg-transparent before:rounded-lg checked:before:bg-orange-500;
+  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 border-2 border-slate-300 checked:border-orange-500 appearance-none w-4 h-4 lg:w-5 lg:h-5 rounded-lg  flex justify-center items-center before:w-1 before:lg:w-2 before:h-1 before:lg:h-2 before:bg-transparent before:rounded-lg checked:before:bg-orange-500;
+}
+
+.select-box-container .select-status {
+  @apply border-2 border-slate-300 bg-transparent w-4 h-4 lg:w-5 lg:h-5 rounded-lg flex justify-center items-center;
+}
+
+.select-box-container .select-status.active {
+  @apply bg-orange-500 border-orange-500;
 }
 </style>

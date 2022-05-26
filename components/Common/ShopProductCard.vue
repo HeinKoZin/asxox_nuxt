@@ -68,11 +68,11 @@ export default {
           if (img.complete) {
             console.log("success");
           } else {
-            img.addEventListener("load", () => {
-              const color = colorThief.getColor(img);
-              this.bgColor = this.getHexColor(color[0], color[1], color[2]);
-              this.$refs.productContainer.style.backgroundColor = this.bgColor;
-            });
+            // img.addEventListener("load", () => {
+            //   const color = colorThief.getColor(img);
+            //   this.bgColor = this.getHexColor(color[0], color[1], color[2]);
+            //   this.$refs.productContainer.style.backgroundColor = this.bgColor;
+            // });
           }
         });
       }

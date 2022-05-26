@@ -85,14 +85,6 @@ const mutations = {
         state.cartProducts[data.productId].isSelected = data.isSelected;
       }
     }
-
-
-
-
-
-
-
-
     this.app.$cookies.remove("cartProducts");
     this.app.$cookies.set("cartProducts", state.cartProducts, {
       path: "/",
@@ -102,8 +94,25 @@ const mutations = {
   },
 
   SELECTED_ALL_PRODUCT_IN_CART(state, data) {
+
     for (let i = 0; i < state.cartProducts.length; i++) {
-      state.cartProducts[i].isSelected = data;
+      var selectedProducts = state.cartProducts.filter((product, index) => {
+        return product.isSelected === true;
+      });
+      if (selectedProducts[0]) {
+        if (selectedProducts[0].shop_id === 2) {
+          if (state.cartProducts[i].shop_id === 2) {
+            state.cartProducts[i].isSelected = data;
+          }
+        } else {
+          if (state.cartProducts[i].shop_id !== 2) {
+            state.cartProducts[i].isSelected = data;
+          }
+        }
+
+      } else {
+        state.cartProducts[i].isSelected = data;
+      }
     }
     this.app.$cookies.remove("cartProducts");
     this.app.$cookies.set("cartProducts", state.cartProducts, {
