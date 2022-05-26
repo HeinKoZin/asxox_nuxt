@@ -267,7 +267,7 @@ export default {
 
     cbBank(orderId) {
       // redirect to cb bank
-      window.location.href = `https://dev.asxox.com.mm/api/cb-p?id=${orderId}&type=w`;
+      window.location.href = `https://api.asxox.com.mm/api/cb-p?id=${orderId}&type=w`;
     },
   },
   mounted() {
