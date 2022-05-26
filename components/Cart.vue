@@ -68,7 +68,7 @@
               type="checkbox"
               name="select-all"
               id="select-all"
-              @change="test"
+              @change="selectAll"
               v-model="isSelectAll"
             />
             <label for="select-all">Select all</label>
@@ -123,7 +123,7 @@ export default {
     },
   },
   methods: {
-    test() {
+    selectAll() {
       this.SELECTED_ALL_PRODUCT_IN_CART(this.isSelectAll);
     },
     ...mapMutations(["SET_CART", "SELECTED_ALL_PRODUCT_IN_CART"]),

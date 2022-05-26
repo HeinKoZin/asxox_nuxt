@@ -43,7 +43,7 @@
           <span>{{ product.qty }}</span>
           <button
             class="cart-item-plus-btn"
-            @click="changeQty('plus', product.qty)"
+            @click.self="changeQty('plus', product.qty)"
           >
             <i class="fa-solid fa-plus icon"></i>
           </button>
