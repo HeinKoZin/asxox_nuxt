@@ -47,7 +47,14 @@ const mutations = {
   },
 
   UPDATE_PRODUCT_IN_CART(state, data) {
-    state.cartProducts[data.productId].qty = data.newQty;
+    // var productId = this.state.cartProducts.filter((product) => {
+    //   return product.id === data.productId;
+    // });
+
+    var productIndex = state.cartProducts.findIndex((product) => {
+      return product.id === data.productId;
+    });
+    state.cartProducts[productIndex].qty = data.newQty;
     this.app.$cookies.remove("cartProducts");
     this.app.$cookies.set("cartProducts", state.cartProducts, {
       path: "/",

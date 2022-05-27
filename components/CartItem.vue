@@ -36,14 +36,16 @@
         <div class="cart-item-quantity-input">
           <button
             class="btn btn-sm btn-outline-primary"
-            @click="product.qty > 1 ? changeQty('minus', product.qty) : null"
+            @click.stop="
+              product.qty > 1 ? changeQty('minus', product.qty) : null
+            "
           >
             <i class="fa-solid fa-minus icon"></i>
           </button>
           <span>{{ product.qty }}</span>
           <button
             class="cart-item-plus-btn"
-            @click.self="changeQty('plus', product.qty)"
+            @click.stop="changeQty('plus', product.qty)"
           >
             <i class="fa-solid fa-plus icon"></i>
           </button>
@@ -89,7 +91,7 @@ export default {
     changeQty(type, qty) {
       let newQty = qty;
       type === "minus" ? newQty-- : newQty++;
-      this.UPDATE_PRODUCT_IN_CART({ productId: this.productId, newQty });
+      this.UPDATE_PRODUCT_IN_CART({ productId: this.product.id, newQty });
     },
 
     checkBoxHandler() {
