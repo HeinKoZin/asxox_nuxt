@@ -55,7 +55,7 @@
     <div class="cart-item-action">
       <button
         class="text-white bg-orange-600 rounded-md btn btn-sm btn-outline-primary w-7 h-7 hover:bg-orange-700"
-        @click="REMOVE_PRODUCT_FROM_CART(productId)"
+        @click.stop="REMOVE_PRODUCT_FROM_CART(product.id)"
       >
         <i class="fa-solid fa-trash icon"></i>
       </button>
