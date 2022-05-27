@@ -37,7 +37,8 @@ const mutations = {
   },
 
   REMOVE_PRODUCT_FROM_CART(state, id) {
-    state.cartProducts.splice(id, 1);
+    var productIndex = state.cartProducts.findIndex((product) => product.id === id);
+    state.cartProducts.splice(productIndex, 1);
     this.app.$cookies.remove("cartProducts");
     this.app.$cookies.set("cartProducts", state.cartProducts, {
       path: "/",
