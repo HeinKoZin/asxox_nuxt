@@ -5,15 +5,14 @@ Todo:
   ✔ Product detail's page design @started(22-02-18 16:22) @done(22-02-18 16:22) @lasted(41s)
   ☐ Home page product's variant selection modal box (not yet implemented)
   ☐ Redesign the ProductCard
-  ☐ Redesign Cart
+  ✔ Redesign Cart @done(22-05-26 15:36)
   ✔ Add Checkout page @done(22-03-03 11:31)
   ✔ Add Order page @done(22-03-03 11:31)
   ✔ Add Order confirmation page @done(22-03-03 11:31)
-  ☐ Add Order history page
+  ✔ Add Order history page @done(22-05-26 09:42)
   ✔ Add Order details page @started(22-03-03 11:31) @done(22-03-03 11:31) @lasted(28s)
   ✔ Add recommendations to product detail's page @started(22-02-21 13:18) @done(22-02-21 13:23) @lasted(5m7s)
-  ☐ Remove logout button from sidebar
-  ☐ User profile page
-  ☐ Add user profile page
-
+  ✔ Remove logout button from sidebar @done(22-05-26 09:42)
+  ✔ User profile page @done(22-05-26 09:42)
+  ✔ Add user profile page @done(22-05-26 09:42)
 

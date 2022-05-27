@@ -68,7 +68,7 @@
               type="checkbox"
               name="select-all"
               id="select-all"
-              @change="test"
+              @change="selectAll"
               v-model="isSelectAll"
             />
             <label for="select-all">Select all</label>
@@ -123,7 +123,7 @@ export default {
     },
   },
   methods: {
-    test() {
+    selectAll() {
       this.SELECTED_ALL_PRODUCT_IN_CART(this.isSelectAll);
     },
     ...mapMutations(["SET_CART", "SELECTED_ALL_PRODUCT_IN_CART"]),
@@ -245,7 +245,7 @@ export default {
 }
 
 .select-all-container input {
-  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-5 h-5 rounded-lg border-4 border-orange-500 flex justify-center items-center before:w-2 before:h-2 before:bg-transparent before:rounded-lg checked:before:bg-orange-500;
+  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-5 h-5 rounded-lg border-2 border-slate-300 checked:border-orange-500 flex justify-center items-center before:w-2 before:h-2 before:bg-transparent before:rounded-lg checked:before:bg-orange-500;
 }
 
 .select-all-container label {

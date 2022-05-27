@@ -1,12 +1,13 @@
 <template>
   <div class="customer-info-container">
-    <div class="flex flex-col order-1 w-full md:order-none md:w-1/2 gap-y-2">
-      <CustomerDataCard />
-      <PaymentMethodsCard @openPaymentSection="openPaymentSection" />
-    </div>
+    <!-- <div
+      class="flex flex-col order-1 w-full md:order-none md:w-1/2 gap-y-2"
+    ></div> -->
+    <CustomerDataCard />
 
+    <PromotionInputCard v-if="selectedShop !== 2" />
+    <PaymentMethodsCard @openPaymentSection="openPaymentSection" />
     <!-- <div class="flex flex-col w-full md:w-1/2 gap-y-2"> -->
-    <PromotionInputCard />
     <!-- </div> -->
     <OnlinePaymentMethods v-if="isPaymentSectionOpen" />
 
@@ -19,6 +20,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   methods: {},
   data() {
@@ -40,6 +43,14 @@ export default {
     // close modal box
     closeModal() {
       this.isModalOpen = false;
+    },
+  },
+
+  computed: {
+    ...mapGetters(["cartSelectedProducts"]),
+
+    selectedShop() {
+      return this.cartSelectedProducts[0]?.shop_id;
     },
   },
 };

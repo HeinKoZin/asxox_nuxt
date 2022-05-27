@@ -44,12 +44,12 @@
             /> -->
           </button>
           <!-- WARNING: Temporary hidden -->
-          <!-- <button
+          <button
             @click="addProductToCart(data), toast('Added to cart', 'success')"
             v-if="!data.is_varient"
           >
             <i class="fa-solid fa-cart-shopping icon"></i>
-          </button> -->
+          </button>
           <button
             @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
           >
