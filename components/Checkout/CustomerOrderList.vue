@@ -17,7 +17,7 @@
             v-for="(product, index) in cartSelectedProducts"
             :product="product"
             :key="index"
-            :productId="index"
+            :productId="product.id"
           />
         </div>
 
