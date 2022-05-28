@@ -79,16 +79,28 @@
             <h1>Play Store</h1>
           </div>
         </a> -->
-        <a href="" class="app-download-link-test">
+        <a
+          href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
+          class="app-download-link-test"
+        >
           <img src="~/assets/img/playstore-icon.png" class="h-full" alt="" />
         </a>
-        <a href="" class="app-download-link-test">
+        <a
+          href="https://appgallery.huawei.com/app/C105045159"
+          class="app-download-link-test"
+        >
           <img src="~/assets/img/app-gallery-icon.png" class="h-full" alt="" />
         </a>
-        <a href="" class="app-download-link-test">
+        <a
+          href="https://apps.apple.com/us/app/asxox/id1590791745"
+          class="app-download-link-test"
+        >
           <img src="~/assets/img/app-store-icon.png" class="h-full" alt="" />
         </a>
-        <a href="" class="app-download-link-test">
+        <a
+          href="https://www.mediafire.com/file/fpefav2zsfuj87v/app-release.apk/file"
+          class="app-download-link-test"
+        >
           <img src="~/assets/img/direct-icon.png" class="h-full" alt="" />
         </a>
         <!-- <a
@@ -185,7 +197,7 @@ export default {
 }
 
 .header-bar-container {
-  @apply w-full h-full flex items-center  bg-orange-500 text-white px-[10%] justify-between gap-1;
+  @apply w-full h-full flex items-center  bg-orange-500 text-white px-[10%] justify-between gap-4;
 }
 
 .menu-container {
@@ -217,7 +229,7 @@ export default {
 }
 
 .app-download-links {
-  @apply flex gap-2 items-center;
+  @apply flex gap-1 items-center;
 }
 
 .app-download-link {
