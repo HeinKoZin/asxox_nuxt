@@ -46,7 +46,7 @@
           </a>
         </div> -->
 
-        <a
+        <!-- <a
           href="https://appgallery.huawei.com/app/C105045159"
           class="download-app"
           target="_blank"
@@ -61,9 +61,9 @@
             <p>Download our app on</p>
             <h1>App Gallery</h1>
           </div>
-        </a>
+        </a> -->
 
-        <a
+        <!-- <a
           href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
           class="download-app"
           target="_blank"
@@ -78,8 +78,32 @@
             <p>Download our app on</p>
             <h1>Play Store</h1>
           </div>
+        </a> -->
+        <a
+          href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
+          class="app-download-link-test"
+        >
+          <img src="~/assets/img/playstore-icon.png" class="h-full" alt="" />
         </a>
         <a
+          href="https://appgallery.huawei.com/app/C105045159"
+          class="app-download-link-test"
+        >
+          <img src="~/assets/img/app-gallery-icon.png" class="h-full" alt="" />
+        </a>
+        <a
+          href="https://apps.apple.com/us/app/asxox/id1590791745"
+          class="app-download-link-test"
+        >
+          <img src="~/assets/img/app-store-icon.png" class="h-full" alt="" />
+        </a>
+        <a
+          href="https://www.mediafire.com/file/fpefav2zsfuj87v/app-release.apk/file"
+          class="app-download-link-test"
+        >
+          <img src="~/assets/img/direct-icon.png" class="h-full" alt="" />
+        </a>
+        <!-- <a
           href="https://apps.apple.com/us/app/asxox/id1590791745"
           class="download-app"
           target="_blank"
@@ -94,9 +118,9 @@
             <p>Download our app on</p>
             <h1>App Store</h1>
           </div>
-        </a>
+        </a> -->
 
-        <a
+        <!-- <a
           href="https://www.mediafire.com/file/fpefav2zsfuj87v/app-release.apk/file"
           class="download-app"
           target="_blank"
@@ -111,7 +135,7 @@
             <p>Download our app on</p>
             <h1>Direct Link</h1>
           </div>
-        </a>
+        </a> -->
       </div>
     </div>
   </div>
@@ -173,11 +197,11 @@ export default {
 }
 
 .header-bar-container {
-  @apply w-full h-full flex items-center  bg-orange-500 text-white px-[10%] justify-between;
+  @apply w-full h-full flex items-center  bg-orange-500 text-white px-[10%] justify-between gap-4;
 }
 
 .menu-container {
-  @apply flex gap-5 items-center font-semibold;
+  @apply flex md:gap-2 lg:gap-3 items-center font-semibold;
 }
 
 .categories-menu-container {
@@ -185,7 +209,7 @@ export default {
 }
 
 .categories-menu-header {
-  @apply text-lg  text-white flex gap-2 items-center;
+  @apply sm:text-sm md:text-base lg:text-base  text-white flex gap-2 items-center;
 }
 
 .categories-menu-wrapper {
@@ -205,7 +229,7 @@ export default {
 }
 
 .app-download-links {
-  @apply flex gap-2;
+  @apply flex gap-1 items-center;
 }
 
 .app-download-link {
@@ -234,5 +258,10 @@ export default {
 
 .download-app h1 {
   @apply text-xs  font-bold font-quicksand text-slate-50;
+}
+
+/* NOTE: Test */
+.app-download-link-test {
+  @apply flex items-center md:h-7 lg:h-10 relative;
 }
 </style>
