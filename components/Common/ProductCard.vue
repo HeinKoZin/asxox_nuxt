@@ -146,7 +146,9 @@
               $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
             "
             quality="50"
+            v-if="data.product.photo"
           />
+          <nuxt-img v-else src="https://via.placeholder.com/500?text=Asxox" />
         </div>
       </div>
       <div class="card-body">
