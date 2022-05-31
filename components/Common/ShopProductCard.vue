@@ -19,7 +19,7 @@
         />
       </div>
       <div class="product-details-container">
-        <h1>{{ product.name + "." }}</h1>
+        <h1 class="text-ellipsis line-clamp-1">{{ product.name + "." }}</h1>
         <p>{{ product.sell_price + " " + product.currency }}</p>
       </div>
     </div>
@@ -87,15 +87,15 @@ export default {
 
 <style lang="postcss" scoped>
 .shop-product-card-container-wrapper {
-  @apply md:p-1 min-w-[100%] max-w-[100%] md:min-w-[33.33%] md:max-w-[33.33%] lg:max-w-[25%] lg:min-w-[25%] h-auto;
+  @apply md:p-1 min-w-[100%] max-w-[100%] md:min-w-[50%] md:max-w-[50%] lg:max-w-[33.33%] lg:min-w-[33.33%] h-auto;
 }
 
 .shop-product-card-container {
-  @apply flex text-slate-100 md:rounded-xl shadow-sm flex-col justify-center items-center py-3;
+  @apply bg-slate-200 flex text-slate-100 md:rounded-xl shadow-sm  justify-center items-center p-3;
 }
 
 .shop-product-card-image-container {
-  @apply h-auto w-44 md:w-32;
+  @apply h-auto min-w-[160px] max-w-[160px] md:min-w-[112px] md:max-w-[112px] lg:max-w-[100px] lg:min-w-[100px] md:rounded-xl lg:rounded-xl;
 }
 
 .shop-product-card-image {
@@ -111,6 +111,6 @@ export default {
 }
 
 .product-details-container p {
-  @apply text-sm md:text-base font-bold font-quicksand py-2  mt-0 px-4 bg-black rounded-lg text-white text-center;
+  @apply text-sm md:text-base font-bold font-quicksand py-2  mt-0 px-4 bg-orange-500 rounded-lg text-white text-center;
 }
 </style>

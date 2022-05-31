@@ -243,7 +243,7 @@ export default {
 
 <style lang="postcss" scoped>
 .header-container {
-  @apply w-full h-16 bg-slate-100 px-4 md:px-[10%] flex items-center justify-between;
+  @apply w-full h-16 bg-slate-100 px-[4] md:px-[5%] xl:px-[10%] flex items-center justify-between;
 }
 
 .header-left {
@@ -279,7 +279,7 @@ export default {
 }
 
 .header-search input {
-  @apply h-10 px-2 pl-4 bg-transparent  text-sm text-slate-700 w-24 focus:w-48 md:w-[30rem] transition-[width] md:focus-within:w-[40rem] focus:outline-none active:outline-none;
+  @apply h-10 px-2 pl-4 bg-transparent  text-sm text-slate-700 w-24 focus:w-48 md:w-[20rem] lg:w-[30rem] transition-[width] md:focus-within:w-[40rem] focus:outline-none active:outline-none;
 }
 
 .header-cart {

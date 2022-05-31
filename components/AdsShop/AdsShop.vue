@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       datas: [],
-      display: 8,
+      display: 6,
     };
   },
   async fetch() {
@@ -81,9 +81,9 @@ export default {
     onResize() {
       if (window.innerWidth > 760) {
         if (window.innerWidth > 960) {
-          this.display = 8;
-        } else {
           this.display = 6;
+        } else {
+          this.display = 4;
         }
       } else {
         this.display = 1;
@@ -110,8 +110,12 @@ export default {
     window.addEventListener("resize", this.onResize);
 
     // NOTE: Check for Mobile
-    if (window.innerWidth < 960) {
+    if (window.innerWidth < 768) {
       this.display = 1;
+    } else if (window.innerWidth < 960) {
+      this.display = 4;
+    } else {
+      this.display = 6;
     }
   },
 

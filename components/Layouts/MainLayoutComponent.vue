@@ -42,10 +42,10 @@ export default {
 
 <style lang="postcss" scoped>
 .main-layout {
-  @apply mt-16 md:mt-32 ml-0  min-h-[calc(100%-8rem)]   w-full md:w-full  items-start;
+  @apply mt-16 md:mt-32 ml-0  min-h-[calc(100%-8rem)]   w-full md:w-full  items-start mx-auto;
 }
 
 .main-content {
-  @apply w-full md:w-[90%] lg:w-[80%] mx-auto;
+  @apply w-full md:w-[90%] xl:w-[80%] mx-auto;
 }
 </style>

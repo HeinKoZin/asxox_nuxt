@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <div class="home-header">
-      <div class="w-full md:w-[70%]">
+      <div class="w-full lg:w-[70%]">
         <Slider :products="slideAds" />
       </div>
       <div class="flex-col flex-grow hidden gap-2 md:flex">
