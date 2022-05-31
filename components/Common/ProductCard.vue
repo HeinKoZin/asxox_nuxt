@@ -119,14 +119,14 @@
             </div>
           </button>
           <!-- WARNING: Temporary hidden -->
-          <!-- <button
+          <button
             @click="
               addProductToCart(data.product), toast('Added to cart', 'success')
             "
             v-if="!data.product.is_varient"
           >
             <i class="fa-solid fa-cart-shopping icon"></i>
-          </button> -->
+          </button>
           <button
             @click="
               $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
@@ -139,16 +139,22 @@
         <div class="card-header-image-wrapper">
           <nuxt-img
             class="card-header-image"
-            format="webp"
-            loading="lazy"
             :src="data.wishlist_product_photo"
             @click="
               $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
             "
-            quality="50"
-            v-if="data.product.photo"
+            v-if="data.wishlist_product_photo"
+            quality="10"
+            format="webp"
+            loading="lazy"
           />
-          <nuxt-img v-else src="https://via.placeholder.com/500?text=Asxox" />
+          <nuxt-img
+            v-else
+            quality="10"
+            format="webp"
+            loading="lazy"
+            src="https://via.placeholder.com/500?text=Asxox"
+          />
         </div>
       </div>
       <div class="card-body">

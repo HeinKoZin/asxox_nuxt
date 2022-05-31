@@ -1,6 +1,6 @@
 <template>
   <div class="wishlist-container">
-    <div v-if="wishListProductList.length == 0">
+    <div v-if="wishListProductList.length == 0" class="w-full mx-auto">
       <div class="empty-wishlist">
         <h2>Your Wishlist is empty</h2>
         <p>
@@ -9,6 +9,7 @@
         </p>
       </div>
     </div>
+    <!-- {{ wishListProductList }} -->
     <ProductCard
       v-for="(data, index) in wishListProductList"
       :key="index"
@@ -46,7 +47,7 @@ export default {
 }
 
 .empty-wishlist {
-  @apply flex flex-col items-center justify-center h-56 text-center;
+  @apply flex-grow flex flex-col items-center justify-center h-56 text-center;
 }
 
 .empty-wishlist h2 {
