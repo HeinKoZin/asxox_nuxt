@@ -6373,6 +6373,11 @@ launch-editor@^2.3.0:
     picocolors "^1.0.0"
     shell-quote "^1.6.1"
 
+lazysizes@^5.3.2:
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/lazysizes/-/lazysizes-5.3.2.tgz#27f974c26f5fcc33e7db765c0f4930488c8a2984"
+  integrity sha512-22UzWP+Vedi/sMeOr8O7FWimRVtiNJV2HCa+V8+peZOw6QbswN9k58VUhd7i6iK5bw5QkYrF01LJbeJe0PV8jg==
+
 lie@~3.3.0:
   version "3.3.0"
   resolved "https://registry.npmjs.org/lie/-/lie-3.3.0.tgz"
@@ -7217,6 +7222,13 @@ nuxt-fontawesome@^0.4.0:
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.12"
     "@fortawesome/vue-fontawesome" "^0.1.4"
+
+nuxt-lazysizes@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/nuxt-lazysizes/-/nuxt-lazysizes-1.4.1.tgz#00776d693df4c16d9c5d2f3ae4ab29434f2c6a89"
+  integrity sha512-eucZIal8hgJpcZiblxDU79X3+C6ININP7m8hTS4t6AHsQeAxyDMvHCwfd8xCu/9UqqHYOKBMO+8N3MJM2LDzYw==
+  dependencies:
+    lazysizes "^5.3.2"
 
 nuxt@^2.15.8:
   version "2.15.8"

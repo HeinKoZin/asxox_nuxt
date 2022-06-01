@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       datas: [],
-      display: 8,
+      display: 6,
     };
   },
   async fetch() {
@@ -81,9 +81,9 @@ export default {
     onResize() {
       if (window.innerWidth > 760) {
         if (window.innerWidth > 960) {
-          this.display = 8;
-        } else {
           this.display = 6;
+        } else {
+          this.display = 4;
         }
       } else {
         this.display = 1;
@@ -110,8 +110,12 @@ export default {
     window.addEventListener("resize", this.onResize);
 
     // NOTE: Check for Mobile
-    if (window.innerWidth < 960) {
+    if (window.innerWidth < 768) {
       this.display = 1;
+    } else if (window.innerWidth < 960) {
+      this.display = 4;
+    } else {
+      this.display = 6;
     }
   },
 
@@ -123,7 +127,7 @@ export default {
 
 <style lang="postcss" scoped>
 .ads-shop-container-wrapper {
-  @apply md:p-1 w-full mt-5;
+  @apply md:p-1 lg:px-5 w-full mt-5;
 }
 
 .ads-shop-container {
@@ -131,7 +135,7 @@ export default {
 }
 
 .ads-shop-container .shop-info {
-  @apply w-[100%] md:w-1/3  flex md:flex-col items-center justify-center gap-2 mb-0 bg-yellow-100 md:rounded-2xl mr-0 md:mr-2 p-3;
+  @apply w-[100%] md:w-1/3  flex md:flex-col items-center justify-center gap-2 mb-0 bg-yellow-100 mr-0 md:mr-2 p-3;
 }
 
 .ads-shop-container .shop-info .shop-image {

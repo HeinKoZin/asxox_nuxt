@@ -58,10 +58,11 @@
         </div>
         <div class="card-header-image-wrapper">
           <nuxt-img
-            class="card-header-image"
+            class="card-header-image lazyload"
             format="webp"
             loading="lazy"
-            :src="data.temp_photo"
+            src="https://via.placeholder.com/193x245?text=Asxox"
+            :data-src="data.temp_photo"
             @click.native="
               $router.push(`/product/${$asxox.asxox_encode(data.id)}`)
             "
@@ -119,14 +120,14 @@
             </div>
           </button>
           <!-- WARNING: Temporary hidden -->
-          <!-- <button
+          <button
             @click="
               addProductToCart(data.product), toast('Added to cart', 'success')
             "
             v-if="!data.product.is_varient"
           >
             <i class="fa-solid fa-cart-shopping icon"></i>
-          </button> -->
+          </button>
           <button
             @click="
               $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
@@ -139,16 +140,22 @@
         <div class="card-header-image-wrapper">
           <nuxt-img
             class="card-header-image"
-            format="webp"
-            loading="lazy"
             :src="data.wishlist_product_photo"
             @click="
               $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
             "
-            quality="50"
-            v-if="data.product.photo"
+            v-if="data.wishlist_product_photo"
+            quality="10"
+            format="webp"
+            loading="lazy"
           />
-          <nuxt-img v-else src="https://via.placeholder.com/500?text=Asxox" />
+          <nuxt-img
+            v-else
+            quality="10"
+            format="webp"
+            loading="lazy"
+            src="https://via.placeholder.com/500?text=Asxox"
+          />
         </div>
       </div>
       <div class="card-body">
@@ -242,7 +249,7 @@ export default {
 
 <style lang="postcss" scoped>
 .product-card-container-wrapper {
-  @apply w-6/12 md:w-[20%] xl:w-[14.285%] h-auto p-1;
+  @apply w-6/12 md:w-[25%] xl:w-[20%] h-auto p-1 md:p-3 xl:p-5;
 }
 
 .ads-product {
@@ -254,7 +261,7 @@ export default {
 }
 
 .product-card-container {
-  @apply p-0 rounded-lg  bg-white;
+  @apply p-0   bg-white;
 }
 
 .card-header {
@@ -262,26 +269,26 @@ export default {
 }
 
 .card-header .card-header-buttons {
-  @apply absolute top-0 right-0 w-full h-full z-30 rounded-lg rounded-b-none bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center md:group-hover:flex md:group-hover:bg-opacity-50 md:group-hover:animate-fadeIn;
+  @apply absolute top-0 right-0 w-full h-full z-30  rounded-b-none bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center md:group-hover:flex md:group-hover:bg-opacity-50 md:group-hover:animate-fadeIn;
 }
 
 .card-header-image-wrapper {
-  @apply w-full overflow-hidden rounded-lg rounded-b-none;
+  @apply w-full overflow-hidden  rounded-b-none;
 }
 
 .card-header .card-header-image {
-  @apply w-full h-auto object-cover rounded-lg rounded-b-none   group-hover:scale-110 transition-transform;
+  @apply w-full h-auto object-cover  rounded-b-none   group-hover:scale-110 transition-transform;
 }
 
 .product-card-container .product-price {
-  @apply text-sm font-semibold mt-2;
+  @apply text-base lg:text-lg font-semibold mt-2;
 }
 
 .product-card-container .card-body {
   @apply flex-grow flex flex-col justify-between p-3;
 }
 .product-card-container .card-body .card-header-title {
-  @apply text-sm  line-clamp-2 mt-2 hover:underline hover:underline-offset-2 h-10 font-comfortaa font-bold;
+  @apply text-sm  line-clamp-2 mt-2 hover:underline hover:underline-offset-2 h-10 font-comfortaa text-slate-700;
 }
 
 .product-card-container .product-description {
