@@ -19,6 +19,13 @@
         />
       </div>
       <div class="product-details-container">
+        <div class="star-container">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
         <h1 class="text-ellipsis line-clamp-1">{{ product.name + "." }}</h1>
         <p>{{ product.sell_price + " " + product.currency }}</p>
       </div>
@@ -91,26 +98,30 @@ export default {
 }
 
 .shop-product-card-container {
-  @apply bg-slate-200 flex text-slate-100 md:rounded-xl shadow-sm  justify-center items-center p-3;
+  @apply flex    justify-center items-center p-3;
 }
 
 .shop-product-card-image-container {
-  @apply h-auto min-w-[160px] max-w-[160px] md:min-w-[112px] md:max-w-[112px] lg:max-w-[100px] lg:min-w-[100px] md:rounded-xl lg:rounded-xl;
+  @apply h-auto min-w-[160px] border max-w-[160px] md:min-w-[112px] md:max-w-[112px] lg:max-w-[100px] lg:min-w-[100px];
 }
 
 .shop-product-card-image {
-  @apply object-cover w-full h-full rounded-md;
+  @apply object-cover w-full h-full;
 }
 
 .product-details-container {
-  @apply flex flex-col  flex-grow items-center justify-center gap-3 pl-2;
+  @apply flex flex-col  flex-grow   gap-1 pl-2;
 }
 
 .product-details-container h1 {
-  @apply md:text-base font-bold text-black w-full text-center mt-2 mb-0 pb-0;
+  @apply md:text-base  text-slate-600 w-full  mt-2 mb-0 pb-0;
 }
 
 .product-details-container p {
-  @apply text-sm md:text-base font-bold font-quicksand py-2  mt-0 px-4 bg-orange-500 rounded-lg text-white text-center;
+  @apply text-sm md:text-base lg:text-lg font-bold font-quicksand    text-black;
+}
+
+.star-container {
+  @apply flex items-center text-slate-400 gap-1 text-xs;
 }
 </style>

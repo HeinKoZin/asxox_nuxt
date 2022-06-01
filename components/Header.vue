@@ -243,7 +243,7 @@ export default {
 
 <style lang="postcss" scoped>
 .header-container {
-  @apply w-full h-16 bg-slate-100 px-[4] md:px-[5%] xl:px-[10%] flex items-center justify-between;
+  @apply w-full h-16 bg-slate-100 px-4 md:px-[5%] xl:px-[10%] flex items-center justify-between;
 }
 
 .header-left {
