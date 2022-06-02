@@ -88,11 +88,14 @@ export default {
       if (window.innerWidth > 760) {
         if (window.innerWidth > 960) {
           this.display = 6;
+          this.showNavigation = true;
         } else {
           this.display = 4;
+          this.showNavigation = true;
         }
       } else {
         this.display = 1;
+        this.showNavigation = false;
       }
     },
 
@@ -125,6 +128,7 @@ export default {
       this.display = 1;
     } else if (window.innerWidth < 960) {
       this.display = 4;
+      this.showNavigation = true;
     } else {
       this.display = 6;
       this.showNavigation = true;
