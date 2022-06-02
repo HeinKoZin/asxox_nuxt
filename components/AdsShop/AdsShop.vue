@@ -19,6 +19,7 @@
           <button>See All</button>
         </div>
       </div>
+
       <carousel
         class="flex w-full"
         ref="adsShopContainer"
@@ -29,6 +30,10 @@
         :loop="true"
         :speed="1000"
         :autoplayTimeout="3000"
+        :mouse-drag="false"
+        :navigationEnabled="showNavigation"
+        navigationNextLabel='<i class="fa-solid fa-circle-chevron-right -ml-7 h-8 w-8 text-slate-600"></i>'
+        navigationPrevLabel='<i class="fa-solid fa-circle-chevron-left -mr-7 h-8 w-8 text-slate-600"></i>'
       >
         <slide
           v-for="(data, index) in products"
@@ -57,6 +62,7 @@ export default {
     return {
       datas: [],
       display: 6,
+      showNavigation: true,
     };
   },
   async fetch() {
@@ -89,6 +95,10 @@ export default {
         this.display = 1;
       }
     },
+
+    dragStartListener() {
+      alert("drag start");
+    },
   },
 
   computed: {
@@ -111,11 +121,13 @@ export default {
 
     // NOTE: Check for Mobile
     if (window.innerWidth < 768) {
+      this.showNavigation = false;
       this.display = 1;
     } else if (window.innerWidth < 960) {
       this.display = 4;
     } else {
       this.display = 6;
+      this.showNavigation = true;
     }
   },
 
@@ -161,4 +173,8 @@ export default {
 .ads-shop-container .products-list::-webkit-scrollbar-thumb {
   @apply bg-slate-400 rounded-md;
 }
+
+/* .VueCarousel-navigation-button {
+  @apply bg-orange-600 p-2 px-6 mt-2 rounded-md  font-quicksand text-sm md:text-lg hover:bg-orange-500;
+} */
 </style>
