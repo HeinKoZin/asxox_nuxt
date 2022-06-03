@@ -26,11 +26,15 @@
         </div>
         <span> | </span>
         <div class="menu-item">
-          <h3>Home</h3>
+          <NuxtLink to="/">
+            <h3>Home</h3>
+          </NuxtLink>
         </div>
         <span> | </span>
         <div class="menu-item">
-          <h3>Shops</h3>
+          <NuxtLink to="/shops">
+            <h3>Shops</h3>
+          </NuxtLink>
         </div>
         <span> | </span>
         <div class="menu-item">

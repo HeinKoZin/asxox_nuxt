@@ -253,7 +253,7 @@ export default {
 }
 
 .ads-product {
-  @apply min-w-[60%] max-w-[60%] md:min-w-[25%] md:max-w-[25%] xl:min-w-[16.66%] xl:max-w-[16.66%] h-auto p-1 text-slate-800;
+  @apply min-w-[60%] max-w-[60%] md:min-w-[33.33%] md:max-w-[33.33%] xl:min-w-[16.66%] xl:max-w-[16.66%] h-auto p-1 text-slate-800;
 }
 
 .promotion-product {
@@ -291,6 +291,14 @@ export default {
   @apply text-sm  line-clamp-2 mt-2 hover:underline hover:underline-offset-2 h-10 font-comfortaa text-slate-700;
 }
 
+.promotion-product .product-card-container .product-price {
+  @apply text-sm;
+}
+
+.ads-product .product-card-container .product-price {
+  @apply text-sm;
+}
+
 .product-card-container .product-description {
   @apply text-sm font-semibold line-clamp-4 mt-2 text-slate-500 h-20 font-quicksand;
 }
@@ -299,8 +307,24 @@ export default {
   @apply text-slate-500 hover:text-slate-700 text-base;
 }
 
+.ads-product .icon {
+  @apply text-slate-500 hover:text-slate-700 text-sm;
+}
+
+.promotion-product .icon {
+  @apply text-slate-500 hover:text-slate-700 text-xs;
+}
+
+.promotion-product .card-header-buttons button {
+  @apply w-7 h-7 lg:w-8 lg:h-8 bg-white rounded-full;
+}
+
 .card-header-buttons button {
   @apply w-9 h-9 lg:w-10 lg:h-10 bg-white rounded-full;
+}
+
+.ads-product .card-header-buttons button {
+  @apply w-9 h-8 lg:w-9 lg:h-9 bg-white rounded-full;
 }
 
 .icon.active {
