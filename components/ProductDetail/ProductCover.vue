@@ -25,8 +25,11 @@
               format="webp"
               quality="50"
               loading="lazy"
-              class="feature-photo"
-              :src="
+              class="feature-photo lazyload"
+              src="
+               https://via.placeholder.com/500?text=Asxox
+              "
+              :data-src="
                 variantPhoto || product.feature_photos[currentImageIndex].photo
               "
             />
@@ -36,8 +39,9 @@
               loading="lazy"
               v-for="(prod, index) in product.product_varients"
               :key="index"
-              :src="prod.varient_photo"
-              class="hidden"
+              src="https://via.placeholder.com/500?text=Asxox"
+              :data-src="prod.varient_photo"
+              class="hidden lazyload"
             />
           </div>
 
@@ -60,7 +64,9 @@
                   format="webp"
                   quality="50"
                   loading="lazy"
-                  :src="featuredImage.photo"
+                  class="lazyload"
+                  src="https://via.placeholder.com/500?text=Asxox"
+                  :data-src="featuredImage.photo"
                 />
               </div>
             </div>

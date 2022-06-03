@@ -1,6 +1,6 @@
 <template>
   <div class="promotion-products-container">
-    <div class="header">Recommended Products</div>
+    <div class="header">Promotion Products</div>
     <div class="body" v-dragscroll>
       <ProductCard
         :data="data"

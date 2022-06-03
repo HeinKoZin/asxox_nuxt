@@ -253,7 +253,7 @@ export default {
 }
 
 .ads-product {
-  @apply min-w-[60%] max-w-[60%] md:min-w-[25%] md:max-w-[25%] xl:min-w-[16.66%] xl:max-w-[16.66%] h-auto p-1 text-slate-800;
+  @apply min-w-[60%] max-w-[60%] md:min-w-[33.33%] md:max-w-[33.33%] xl:min-w-[16.66%] xl:max-w-[16.66%] h-auto p-1 text-slate-800;
 }
 
 .promotion-product {
@@ -299,8 +299,24 @@ export default {
   @apply text-slate-500 hover:text-slate-700 text-base;
 }
 
+.ads-product .icon {
+  @apply text-slate-500 hover:text-slate-700 text-sm;
+}
+
+.promotion-product .icon {
+  @apply text-slate-500 hover:text-slate-700 text-xs;
+}
+
+.promotion-product .card-header-buttons button {
+  @apply w-7 h-7 lg:w-8 lg:h-8 bg-white rounded-full;
+}
+
 .card-header-buttons button {
   @apply w-9 h-9 lg:w-10 lg:h-10 bg-white rounded-full;
+}
+
+.ads-product .card-header-buttons button {
+  @apply w-9 h-8 lg:w-9 lg:h-9 bg-white rounded-full;
 }
 
 .icon.active {
