@@ -32,8 +32,8 @@
         :autoplayTimeout="3000"
         :mouse-drag="false"
         :navigationEnabled="showNavigation"
-        navigationNextLabel='<i class="fa-solid fa-circle-chevron-right -ml-7 h-8 w-8 text-slate-600"></i>'
-        navigationPrevLabel='<i class="fa-solid fa-circle-chevron-left -mr-7 h-8 w-8 text-slate-600"></i>'
+        navigationNextLabel='<i class="fa-solid fa-circle-chevron-right md:h-7 md:w-7 lg:h-8 lg:w-8 text-slate-500"></i>'
+        navigationPrevLabel='<i class="fa-solid fa-circle-chevron-left md:h-7 md:w-7 lg:h-8 lg:w-8 text-slate-500"></i>'
       >
         <slide
           v-for="(data, index) in products"

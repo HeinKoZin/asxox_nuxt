@@ -291,6 +291,14 @@ export default {
   @apply text-sm  line-clamp-2 mt-2 hover:underline hover:underline-offset-2 h-10 font-comfortaa text-slate-700;
 }
 
+.promotion-product .product-card-container .product-price {
+  @apply text-sm;
+}
+
+.ads-product .product-card-container .product-price {
+  @apply text-sm;
+}
+
 .product-card-container .product-description {
   @apply text-sm font-semibold line-clamp-4 mt-2 text-slate-500 h-20 font-quicksand;
 }
