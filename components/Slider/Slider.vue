@@ -16,23 +16,47 @@
             :key="index"
             @click.native="isDrag ? null : setSlideItem(product)"
             :image="product.photo"
-            :isActive="selectImage.currentPosition === index ? true : false"
+            :isActive="currentSlideIndex === index ? true : false"
           />
         </div>
       </div>
-      <div
+      <!-- NOTE: Old Slider code -->
+      <!-- <div
         class="slider-items"
         v-touch:swipe.left="leftSwipeHandler"
         v-touch:swipe.right="rightSwipeHandler"
       >
         <SliderItem :image="selectImage.image" />
-      </div>
+      </div> -->
+      <vueper-slides
+        @slide="setCurrentSlideIndex($event.currentSlide.index)"
+        :slide-ratio="2 / 4"
+        ref="slides"
+        :duration="4000"
+        :autoplay="true"
+        :dragging-distance="50"
+        :touchable="true"
+      >
+        <vueper-slide
+          v-for="(slide, index) in products"
+          :key="index"
+          :image="slide.photo"
+          link="#"
+          :style="'background-color: #000; color:#fff; '"
+          class="h-auto w-full"
+        >
+        </vueper-slide>
+      </vueper-slides>
     </div>
   </div>
 </template>
 
 <script>
+import { VueperSlides, VueperSlide } from "vueperslides";
+import "vueperslides/dist/vueperslides.css";
+
 export default {
+  components: { VueperSlides, VueperSlide },
   props: ["products"],
   data() {
     return {
@@ -49,6 +73,7 @@ export default {
 
       // isDrag
       isDrag: false,
+      currentSlideIndex: 0,
     };
   },
   watch: {
@@ -61,13 +86,18 @@ export default {
     },
   },
   methods: {
+    setCurrentSlideIndex(index) {
+      this.currentSlideIndex = index;
+    },
     // Change slide item
     changeSliderItem(action) {
       if (action === "next") {
         if (this.selectImage.currentPosition < this.products.length - 1) {
           this.selectImage.currentPosition++;
+          // this.$refs.slides.next();
         } else {
           this.selectImage.currentPosition = 0;
+          // this.$refs.slides.next();
         }
       } else if (action === "prev") {
         if (this.selectImage.currentPosition < 1) {
@@ -97,6 +127,7 @@ export default {
     // Set slide item
     setSlideItem(product) {
       if (!this.isDrag) {
+        this.$refs.slides.goToSlide(this.products.indexOf(product));
         this.selectImage.currentPosition = this.products.indexOf(product);
         this.selectImage.image = product.photo;
 
