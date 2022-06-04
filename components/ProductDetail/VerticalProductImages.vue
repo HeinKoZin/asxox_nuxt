@@ -6,9 +6,11 @@
         format="webp"
         quality="50"
         loading="lazy"
+        class="lazyload"
         v-for="(description_photo, index) in description_photos"
         :key="index"
-        :src="description_photo.photo"
+        src="https://via.placeholder.com/500?text=Asxox"
+        :data-src="description_photo.photo"
       />
     </div>
   </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <div class="home-header">
-      <div class="w-full md:w-[70%]">
+      <div class="w-full lg:w-[70%]">
         <Slider :products="slideAds" />
       </div>
       <div class="flex-col flex-grow hidden gap-2 md:flex">
@@ -156,7 +156,7 @@ export default {
       await this.getProductsByCategory({
         categoryId: this.categories[i].id,
         categoryName: this.categories[i].name,
-        limit: 16,
+        limit: 10,
         shopIndex: i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex : null,
       });
       i % 2 === 1 && this.adsShops[shopIndex] ? shopIndex++ : shopIndex;
@@ -195,7 +195,7 @@ export default {
 }
 
 .category-header {
-  @apply flex items-center justify-between w-full p-1;
+  @apply flex items-center justify-between w-full p-1 lg:px-4;
 }
 
 .category-header .category-title {

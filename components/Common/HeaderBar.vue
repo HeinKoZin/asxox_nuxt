@@ -26,11 +26,15 @@
         </div>
         <span> | </span>
         <div class="menu-item">
-          <h3>Home</h3>
+          <NuxtLink to="/">
+            <h3>Home</h3>
+          </NuxtLink>
         </div>
         <span> | </span>
         <div class="menu-item">
-          <h3>Shops</h3>
+          <NuxtLink to="/shops">
+            <h3>Shops</h3>
+          </NuxtLink>
         </div>
         <span> | </span>
         <div class="menu-item">
@@ -197,7 +201,7 @@ export default {
 }
 
 .header-bar-container {
-  @apply w-full h-full flex items-center  bg-orange-500 text-white px-[10%] justify-between gap-4;
+  @apply w-full h-full flex items-center  bg-orange-500 text-white px-4 md:px-[5%] xl:px-[10%] justify-between gap-4;
 }
 
 .menu-container {
