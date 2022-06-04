@@ -98,7 +98,7 @@ export default {
 }
 
 .shop-product-card-container {
-  @apply flex    justify-center items-center p-3;
+  @apply flex    justify-center items-center p-3 cursor-pointer;
 }
 
 .shop-product-card-image-container {

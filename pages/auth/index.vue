@@ -33,7 +33,7 @@
             alt="Logo"
             @click="$router.push('/')"
           />
-          <h3 class="company-title">Asxox Ecommerce</h3>
+          <h3 class="company-title">Asxox</h3>
           <h2 class="mt-6 form-title">
             Register
             <span class="float-right text-xl md:text-2xl"
@@ -129,7 +129,7 @@
       :class="isLogin ? 'login' : ''"
       v-show="isLogin"
     >
-      <div class="backward-button-container" @click="$router.back()">
+      <div class="backward-button-container" @click="$router.push('/')">
         <button>
           <i class="fa-solid fa-arrow-left icon"></i>
         </button>
@@ -146,7 +146,7 @@
           <h2 class="mt-6 form-title">
             Login
             <span class="float-right text-xl md:text-2xl"
-              >Are you new member?
+              >Are you new customer?
               <a
                 class="text-blue-600 underline cursor-pointer underline-offset-2"
                 @click.prevent="handleFormStatus"
@@ -405,7 +405,7 @@ export default {
 }
 
 .form-container .company-title {
-  @apply font-zen-kurenaido text-4xl;
+  @apply font-quicksand font-extrabold text-2xl;
 }
 
 .form-container .form-title {
@@ -430,7 +430,7 @@ export default {
 
 /* NOTE: Info container */
 .info-container-wrapper {
-  @apply w-full md:w-7/12 h-full  bg-slate-600   hidden md:flex flex-col  box-border absolute z-40;
+  @apply w-full md:w-7/12 h-full   bg-slate-600   hidden md:flex flex-col  box-border absolute z-40;
 }
 
 .info-container-wrapper.login {
