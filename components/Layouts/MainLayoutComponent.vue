@@ -46,6 +46,6 @@ export default {
 }
 
 .main-content {
-  @apply w-full md:w-[90%] xl:w-[80%] mx-auto;
+  @apply w-full md:w-[90%] 2xl:w-[80%] mx-auto;
 }
 </style>

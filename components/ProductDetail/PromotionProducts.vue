@@ -33,7 +33,7 @@ export default {
 }
 
 .body {
-  @apply w-full cursor-auto p-2 flex flex-wrap overflow-y-scroll overflow-hidden;
+  @apply w-full cursor-auto p-2  overflow-y-scroll overflow-hidden grid grid-cols-2;
 }
 
 .body::-webkit-scrollbar {

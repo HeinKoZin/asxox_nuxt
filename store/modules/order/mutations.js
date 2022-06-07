@@ -12,7 +12,7 @@ const mutations = {
         (data.data.percentage * state.order.original_total_amount) / 100;
       const percentage = data.data.percentage;
       state.order.total_amount =
-        state.order.original_total_amount - coupon_amount;
+        (state.order.original_total_amount - coupon_amount) < 0 ? 0 : state.order.original_total_amount - coupon_amount;
       state.order.coupon_amount = coupon_amount;
       state.order.coupon_percent = percentage;
     } else {
