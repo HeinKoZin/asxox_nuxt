@@ -30,11 +30,11 @@
     <!-- <CategoryBar /> -->
 
     <!-- Category Container -->
-    <div class="categories-container">
-      <!-- <div class="categories-header">
+    <!-- <div class="categories-container"> -->
+    <!-- <div class="categories-header">
         <h3>Categories</h3>
       </div> -->
-      <div class="categories-wrapper">
+    <!-- <div class="categories-wrapper">
         <div
           class="category-item-wrapper group"
           v-for="(category, index) in categories"
@@ -56,14 +56,18 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
+
+    <CategoryList :categories="categories" />
 
     <!-- Product list container -->
     <div class="products-list-container">
-      <div class="ads-image-container">
-        <img src="~/assets/img/ezgif.com-gif-maker.gif" />
-      </div>
+      <NuxtLink to="/user/points">
+        <div class="ads-image-container">
+          <img src="~/assets/img/ezgif.com-gif-maker.gif" />
+        </div>
+      </NuxtLink>
 
       <div
         class="products-container"
@@ -152,7 +156,7 @@ export default {
     await this.getAdsShops();
     await this.getCategories();
     let shopIndex = 0;
-    for (let i = 0; i < this.categories.length; i++) {
+    for (let i = 3; i < this.categories.length; i++) {
       await this.getProductsByCategory({
         categoryId: this.categories[i].id,
         categoryName: this.categories[i].name,
