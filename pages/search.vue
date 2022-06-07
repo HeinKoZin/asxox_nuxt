@@ -43,13 +43,12 @@
       <!-- NOTE: Skeleton -->
 
       <!-- NOTE: searched products -->
-      <div class="products-list-container" v-if="$fetchState.pending">
-        <div
-          class="p-1 w-6/12 md:w-[20%] xl:w-[12.5%] h-80"
-          v-for="i in 10"
-          :key="i"
-        >
-          <Skeleton width="100%" height="100%" />
+      <div
+        class="grid w-full grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-4"
+        v-if="$fetchState.pending"
+      >
+        <div v-for="i in 10" :key="i">
+          <Skeleton width="100%" height="300px" />
         </div>
       </div>
 
@@ -282,7 +281,8 @@ export default {
 }
 
 .products-list-container {
-  @apply w-full flex p-2 bg-white rounded-lg flex-wrap;
+  /* @apply w-full flex p-2 bg-white rounded-lg flex-wrap; */
+  @apply grid w-full grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-4;
 }
 
 .search-body {

@@ -88,14 +88,18 @@
             </button>
           </div>
 
-          <ProductCard
-            :data="product"
-            :categoryIndex="catIndex"
-            :productIndex="index"
-            v-for="(product, index) in category.products"
-            :key="index"
-            :isInWishlist="product.is_wishlist"
-          />
+          <div
+            class="grid w-full grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-6"
+          >
+            <ProductCard
+              :data="product"
+              :categoryIndex="catIndex"
+              :productIndex="index"
+              v-for="(product, index) in category.products"
+              :key="index"
+              :isInWishlist="product.is_wishlist"
+            />
+          </div>
         </div>
         <no-ssr><AdsShop v-if="category.shop" :shop="category.shop" /></no-ssr>
       </div>
@@ -199,7 +203,7 @@ export default {
 }
 
 .category-header {
-  @apply flex items-center justify-between w-full p-1 lg:px-4;
+  @apply flex items-center justify-between w-full p-1 lg:px-0 lg:py-4;
 }
 
 .category-header .category-title {

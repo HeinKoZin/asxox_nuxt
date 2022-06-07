@@ -4,7 +4,7 @@
     v-click-outside="closeCart"
   >
     <div class="cart-container">
-      <div class="cart-action-button" v-show="!isCartOpen">
+      <div class="cart-action-button bg-white" v-show="!isCartOpen">
         <!-- WARNING: don't delete -->
         <!-- <button @click="toggleCart">
           <span class="badge" v-if="calculateCartProductQuantity">
@@ -205,7 +205,7 @@ export default {
 }
 
 .cart-action-button {
-  @apply hidden absolute  bg-opacity-50 w-14 h-auto py-4 top-[30%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
+  @apply hidden absolute  bg-opacity-50 w-14 h-auto py-4 top-[30%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-white md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
 }
 
 .cart-action-button button {

@@ -21,7 +21,11 @@
       <div class="card-header">
         <div
           class="card-header-buttons"
-          @click.self="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
+          @click.self="
+            isAdsProduct
+              ? ''
+              : $router.push(`/product/${$asxox.asxox_encode(data.id)}`)
+          "
         >
           <button @click="addToWishList(data.id, data.is_wishlist)">
             <!-- <font-awesome-icon
@@ -64,7 +68,9 @@
             src="https://via.placeholder.com/193x245?text=Asxox"
             :data-src="data.temp_photo"
             @click.native="
-              $router.push(`/product/${$asxox.asxox_encode(data.id)}`)
+              isAdsProduct
+                ? ''
+                : $router.push(`/product/${$asxox.asxox_encode(data.id)}`)
             "
             quality="50"
           />
@@ -73,6 +79,7 @@
       <div class="card-body">
         <NuxtLink
           class="card-header-title"
+          :class="isAdsProduct ? ' pointer-events-none' : ''"
           :to="encodedLink(`/product/${$asxox.asxox_encode(data.id)}`)"
         >
           {{ data.name }}</NuxtLink
@@ -109,7 +116,9 @@
         <div
           class="card-header-buttons"
           @click.self="
-            $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
+            isAdsProduct
+              ? ''
+              : $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
           "
         >
           <button
@@ -142,7 +151,11 @@
             class="card-header-image"
             :src="data.wishlist_product_photo"
             @click="
-              $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
+              isAdsProduct
+                ? ''
+                : $router.push(
+                    `/product/${$asxox.asxox_encode(data.product.id)}`
+                  )
             "
             v-if="data.wishlist_product_photo"
             quality="10"
@@ -249,15 +262,15 @@ export default {
 
 <style lang="postcss" scoped>
 .product-card-container-wrapper {
-  @apply w-6/12 md:w-[25%] xl:w-[20%] h-auto p-1 md:p-3 xl:p-5;
+  @apply h-auto;
 }
 
 .ads-product {
-  @apply min-w-[60%] max-w-[60%] md:min-w-[33.33%] md:max-w-[33.33%] xl:min-w-[16.66%] xl:max-w-[16.66%] h-auto p-1 text-slate-800;
+  @apply min-w-[60%] max-w-[60%] md:min-w-[33.33%] md:max-w-[33.33%] xl:min-w-[20%] xl:max-w-[20%] h-auto p-1 text-slate-800;
 }
 
 .promotion-product {
-  @apply min-w-[100%] max-w-[100%]  lg:min-w-[50%] lg:max-w-[50%] h-auto p-1 text-slate-800;
+  @apply h-auto p-1 text-slate-800;
 }
 
 .product-card-container {

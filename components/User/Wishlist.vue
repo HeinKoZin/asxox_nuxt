@@ -10,15 +10,19 @@
       </div>
     </div>
     <!-- {{ wishListProductList }} -->
-    <ProductCard
-      v-for="(data, index) in wishListProductList"
-      :key="index"
-      :data="data"
-      isInWishlist
-      isWishListProduct
-      :wishListIndex="index"
-      @removeWishlist="removeWishlist"
-    />
+    <div
+      class="grid w-full grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-3 p-1 lg:p-2"
+    >
+      <ProductCard
+        v-for="(data, index) in wishListProductList"
+        :key="index"
+        :data="data"
+        isInWishlist
+        isWishListProduct
+        :wishListIndex="index"
+        @removeWishlist="removeWishlist"
+      />
+    </div>
   </div>
 </template>
 

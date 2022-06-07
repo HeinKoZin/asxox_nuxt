@@ -27,9 +27,9 @@
         <!-- <NuxtLink to="#" class="text-sm">
         <h3 class="line-clamp-1">{{ product.name }}</h3></NuxtLink
       > -->
-        <strong class="lg:text-sm 2xl:text-base">{{
-          priceFormat(product.sell_price) + " " + product.currency
-        }}</strong>
+        <p class="lg:text-sm 2xl:text-base font-semibold text-slate-700">
+          {{ priceFormat(product.sell_price) + " " + product.currency }}
+        </p>
       </div>
     </div>
   </NuxtLink>
