@@ -92,7 +92,6 @@ export default {
     "@nuxtjs/auth-next",
     "@nuxt/image",
     "cookie-universal-nuxt",
-    "@nuxtjs/proxy",
 
 
     [
