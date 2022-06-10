@@ -12,6 +12,8 @@
 <script>
 export default {
   layout: "ProfileLayout",
+
+
 };
 </script>
 
