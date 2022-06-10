@@ -5,17 +5,21 @@
         <Slider :products="slideAds" />
       </div>
       <div class="flex-col flex-grow hidden gap-2 md:flex">
-        <div class="relative flex-grow w-full rounded-lg">
-          <nuxt-img
+        <div
+          class="relative flex-grow w-full rounded-lg"
+          v-for="(ads, index) in widgetOneAds"
+          :key="index"
+          v-show="index < 3"
+        >
+          <img
             class="absolute object-cover w-full h-full rounded-lg"
-            src="https://cdn.asxox.com.mm/upload/2021/05/04/seeder/ads/bannerads/04-05-2021_Asxox_46090ce95655580.57927422.png"
-            alt=""
+            :src="ads.photo"
             srcset=""
             format="webp"
             loading="lazy"
           />
         </div>
-        <div class="relative flex-grow w-full rounded-lg">
+        <!-- <div class="relative flex-grow w-full rounded-lg">
           <nuxt-img
             class="absolute object-cover w-full h-full rounded-lg"
             src="https://cdn.asxox.com.mm/upload/2021/05/04/seeder/ads/bannerads/04-05-2021_Asxox_46090ce3b6386c3.56220880.png"
@@ -24,7 +28,8 @@
             format="webp"
             loading="lazy"
           />
-        </div>
+        </div> -->
+        <!-- {{ widgetOneAds }} -->
       </div>
     </div>
     <!-- <CategoryBar /> -->
@@ -89,7 +94,7 @@
           </div>
 
           <div
-            class="grid w-full grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-6"
+            class="grid w-full grid-cols-2 gap-2 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6"
           >
             <ProductCard
               :data="product"
@@ -135,6 +140,7 @@ export default {
       "adsShops",
       "categoryProducts",
       "slideAds",
+      "widgetOneAds",
     ]),
   },
   methods: {
@@ -144,6 +150,7 @@ export default {
       "getCategories",
       "getProductsByCategory",
       "getSlideAds",
+      "getWidgetOneAds",
     ]),
 
     getCategoryLogo(category) {
@@ -159,6 +166,7 @@ export default {
     await this.getSlideAds();
     await this.getAdsShops();
     await this.getCategories();
+    await this.getWidgetOneAds();
     let shopIndex = 0;
     for (let i = 3; i < this.categories.length; i++) {
       await this.getProductsByCategory({
