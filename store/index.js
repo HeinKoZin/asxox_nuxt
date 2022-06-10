@@ -18,6 +18,7 @@ export default {
     shippingAddresses: generateModule("shippingAddresses"),
     searchProducts: generateModule("search"),
     products: generateModule("products"),
+    widgetOneAds: generateModule("widgetOneAds"),
   },
 };
 
