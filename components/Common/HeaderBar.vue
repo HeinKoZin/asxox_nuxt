@@ -201,7 +201,7 @@ export default {
 }
 
 .header-bar-container {
-  @apply w-full h-full flex items-center  bg-orange-500 text-white px-4 md:px-[5%] xl:px-[10%] justify-between gap-4;
+  @apply w-full h-full flex items-center  bg-orange-500 text-white px-4 md:px-[5%] 2xl:px-[10%] justify-between gap-4;
 }
 
 .menu-container {
