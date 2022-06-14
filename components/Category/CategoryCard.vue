@@ -21,22 +21,12 @@
       </div>
     </div>
     <div class="grid w-full grid-cols-3 gap-5 p-5">
-      <div
-        v-for="i in 3"
-        :key="i"
-        class="h-28 grid grid-cols-1 gap-2"
-        v-show="$fetchState.pending"
-      >
-        <Skeleton width="100%" height="96px" />
-        <Skeleton width="100%" height="20px" />
-      </div>
       <CategoryShopProductCard
         v-for="(product, index) in categoryProducts.data
           ? categoryProducts.data
           : []"
         :key="index"
         :product="product"
-        v-show="!$fetchState.pending"
       />
     </div>
   </div>
@@ -44,13 +34,9 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-// import CategoryShopProductCard from "./CategoryShopProductCard.vue";
-import { Skeleton } from "vue-loading-skeleton";
+import CategoryShopProductCard from "./CategoryShopProductCard.vue";
 
 export default {
-  components: {
-    Skeleton,
-  },
   props: {
     category: {
       type: Object,

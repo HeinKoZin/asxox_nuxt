@@ -21,17 +21,27 @@
               </div>
             </div>
 
-            <img
-              class="feature-photo"
-              :src="
+            <nuxt-img
+              format="webp"
+              quality="50"
+              loading="lazy"
+              class="feature-photo lazyload"
+              src="
+               https://via.placeholder.com/500?text=Asxox
+              "
+              :data-src="
                 variantPhoto || product.feature_photos[currentImageIndex].photo
               "
             />
-            <img
+            <nuxt-img
+              format="webp"
+              quality="50"
+              loading="lazy"
               v-for="(prod, index) in product.product_varients"
               :key="index"
-              :src="prod.varient_photo"
-              class="hidden"
+              src="https://via.placeholder.com/500?text=Asxox"
+              :data-src="prod.varient_photo"
+              class="hidden lazyload"
             />
           </div>
 
@@ -50,7 +60,14 @@
                 @click="isDrag ? null : changeImage(index)"
                 :class="{ active: index === currentImageIndex }"
               >
-                <img :src="featuredImage.photo" />
+                <nuxt-img
+                  format="webp"
+                  quality="50"
+                  loading="lazy"
+                  class="lazyload"
+                  src="https://via.placeholder.com/500?text=Asxox"
+                  :data-src="featuredImage.photo"
+                />
               </div>
             </div>
           </div>
