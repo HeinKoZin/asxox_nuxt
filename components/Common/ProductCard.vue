@@ -146,11 +146,12 @@
           >
             <i class="fa-solid fa-eye icon"></i>
           </button>
+          {{ data.product.wishlist_product_photo }}
         </div>
 
         <div class="card-header-image-wrapper">
           <nuxt-img
-            class="card-header-image"
+            class="card-header-image lazyload"
             src="https://via.placeholder.com/500?text=Asxox"
             :data-src="data.wishlist_product_photo"
             @click="
