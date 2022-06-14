@@ -48,10 +48,14 @@
       > -->
       <!-- NOTE: Skeleton -->
       <div
-        class="products-list-container grid w-full grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-4"
+        class="products-list-container"
         v-if="selectedCategoryId === routeId && $fetchState.pending"
       >
-        <div class="w-full h-80" v-for="i in 10" :key="i">
+        <div
+          class="p-1 w-6/12 md:w-[20%] xl:w-[12.5%] h-80"
+          v-for="i in 10"
+          :key="i"
+        >
           <Skeleton width="100%" height="100%" />
         </div>
       </div>
@@ -71,23 +75,22 @@
       <!-- </Skeleton> -->
 
       <!-- NOTE: All product with category id -->
-      <div class="w-full flex" v-if="selectedCategoryId !== routeId">
+      <div
+        class="products-list-container"
+        v-if="selectedCategoryId !== routeId"
+      >
         <div v-if="!checkProducts" class="products-status-message">
           No products found in this category
         </div>
-        <div
-          class="grid w-full grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-4"
-        >
-          <ProductCard
-            :data="product"
-            :productIndex="index"
-            v-for="(product, index) in getSelectedCategoryProducts()
-              ? getSelectedCategoryProducts().products
-              : []"
-            :key="index"
-            :isInWishlist="product.is_wishlist"
-          />
-        </div>
+        <ProductCard
+          :data="product"
+          :productIndex="index"
+          v-for="(product, index) in getSelectedCategoryProducts()
+            ? getSelectedCategoryProducts().products
+            : []"
+          :key="index"
+          :isInWishlist="product.is_wishlist"
+        />
       </div>
 
       <!-- {{ products }} -->
@@ -255,7 +258,7 @@ export default {
 }
 
 .products-list-container {
-  @apply w-full p-2 bg-white rounded-lg  grid  grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-4;
+  @apply w-full flex p-2 bg-white rounded-lg flex-wrap;
 }
 
 .category-body {
