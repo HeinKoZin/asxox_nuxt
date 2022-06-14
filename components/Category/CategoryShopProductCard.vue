@@ -23,11 +23,11 @@
           v-else
         />
       </div>
-      <div class="flex flex-col p-2 gap-y-2">
+      <div class="flex flex-col py-2 gap-y-2">
         <!-- <NuxtLink to="#" class="text-sm">
         <h3 class="line-clamp-1">{{ product.name }}</h3></NuxtLink
       > -->
-        <p class="lg:text-sm 2xl:text-base font-semibold text-slate-700">
+        <p class="sm:text-xs lg:text-sm font-semibold text-slate-700">
           {{ priceFormat(product.sell_price) + " " + product.currency }}
         </p>
       </div>

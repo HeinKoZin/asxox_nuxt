@@ -19,6 +19,7 @@ export default {
     searchProducts: generateModule("search"),
     products: generateModule("products"),
     widgetOneAds: generateModule("widgetOneAds"),
+    shops: generateModule("shops"),
   },
 };
 
