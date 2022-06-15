@@ -19,6 +19,7 @@
           <button>See All</button>
         </div>
       </div>
+
       <carousel
         class="flex w-full"
         ref="adsShopContainer"
@@ -29,6 +30,10 @@
         :loop="true"
         :speed="1000"
         :autoplayTimeout="3000"
+        :mouse-drag="false"
+        :navigationEnabled="showNavigation"
+        navigationNextLabel='<i class="fa-solid fa-circle-chevron-right md:h-7 md:w-7 lg:h-8 lg:w-8 text-slate-500"></i>'
+        navigationPrevLabel='<i class="fa-solid fa-circle-chevron-left md:h-7 md:w-7 lg:h-8 lg:w-8 text-slate-500"></i>'
       >
         <slide
           v-for="(data, index) in products"
@@ -56,7 +61,8 @@ export default {
   data() {
     return {
       datas: [],
-      display: 8,
+      display: 6,
+      showNavigation: true,
     };
   },
   async fetch() {
@@ -81,13 +87,20 @@ export default {
     onResize() {
       if (window.innerWidth > 760) {
         if (window.innerWidth > 960) {
-          this.display = 8;
-        } else {
           this.display = 6;
+          this.showNavigation = true;
+        } else {
+          this.display = 4;
+          this.showNavigation = true;
         }
       } else {
         this.display = 1;
+        this.showNavigation = false;
       }
+    },
+
+    dragStartListener() {
+      alert("drag start");
     },
   },
 
@@ -110,8 +123,15 @@ export default {
     window.addEventListener("resize", this.onResize);
 
     // NOTE: Check for Mobile
-    if (window.innerWidth < 960) {
+    if (window.innerWidth < 768) {
+      this.showNavigation = false;
       this.display = 1;
+    } else if (window.innerWidth < 960) {
+      this.display = 4;
+      this.showNavigation = true;
+    } else {
+      this.display = 6;
+      this.showNavigation = true;
     }
   },
 
@@ -123,7 +143,7 @@ export default {
 
 <style lang="postcss" scoped>
 .ads-shop-container-wrapper {
-  @apply md:p-1 w-full mt-5;
+  @apply md:p-1 lg:px-5 w-full mt-5;
 }
 
 .ads-shop-container {
@@ -131,7 +151,7 @@ export default {
 }
 
 .ads-shop-container .shop-info {
-  @apply w-[100%] md:w-1/3  flex md:flex-col items-center justify-center gap-2 mb-0 bg-yellow-100 md:rounded-2xl mr-0 md:mr-2 p-3;
+  @apply w-[100%] md:w-1/3  flex md:flex-col items-center justify-center gap-2 mb-0 bg-yellow-100 mr-0 md:mr-2 p-3;
 }
 
 .ads-shop-container .shop-info .shop-image {
@@ -157,4 +177,8 @@ export default {
 .ads-shop-container .products-list::-webkit-scrollbar-thumb {
   @apply bg-slate-400 rounded-md;
 }
+
+/* .VueCarousel-navigation-button {
+  @apply bg-orange-600 p-2 px-6 mt-2 rounded-md  font-quicksand text-sm md:text-lg hover:bg-orange-500;
+} */
 </style>

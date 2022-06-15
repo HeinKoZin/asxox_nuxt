@@ -2,10 +2,15 @@
   <div class="product-images-container">
     <div class="header">Product Images</div>
     <div class="body">
-      <img
+      <nuxt-img
+        format="webp"
+        quality="50"
+        loading="lazy"
+        class="lazyload"
         v-for="(description_photo, index) in description_photos"
         :key="index"
-        :src="description_photo.photo"
+        src="https://via.placeholder.com/500?text=Asxox"
+        :data-src="description_photo.photo"
       />
     </div>
   </div>

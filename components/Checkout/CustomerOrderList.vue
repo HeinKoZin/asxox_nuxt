@@ -17,7 +17,7 @@
             v-for="(product, index) in cartSelectedProducts"
             :product="product"
             :key="index"
-            :productId="index"
+            :productId="product.id"
           />
         </div>
 
@@ -143,6 +143,9 @@ export default {
         case "wave-pay":
           this.getWavePayPaymentRequestData(res.data);
           break;
+        case "cb-bank":
+          this.cbBank(res.data);
+          break;
         default:
           if (!res.errors) {
             this.toast("Ordered successfully", "success");
@@ -260,6 +263,11 @@ export default {
     spinOnOffAndEmit(isSpin) {
       this.$emit("spinResponse", isSpin);
       this.isSpin = isSpin;
+    },
+
+    cbBank(orderId) {
+      // redirect to cb bank
+      window.location.href = `https://api.asxox.com.mm/api/cb-p?id=${orderId}&type=w`;
     },
   },
   mounted() {

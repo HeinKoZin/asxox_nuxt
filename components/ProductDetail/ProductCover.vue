@@ -214,7 +214,7 @@
         <button
           class="buy-now"
           :disabled="product.is_varient && !isVariantHas"
-          @click="addToCartFinal(product), $router.push('/checkout')"
+          @click="buyNow(product)"
         >
           <span
             ><span><i class="fa-solid fa-cart-plus icon"></i></span
@@ -283,6 +283,7 @@ export default {
     ...mapMutations([
       "SET_CATEGORY_PRODUCT_FAVOURITE",
       // "SET_PRODUCT_FAVOURITE",
+      "SELECTED_ALL_PRODUCT_IN_CART",
     ]),
 
     //NOTE: add and remove product from wishlist
@@ -386,6 +387,20 @@ export default {
           });
 
       //draft
+      this.toast("Added product to cart", "success");
+    },
+
+    buyNow(product) {
+      this.SELECTED_ALL_PRODUCT_IN_CART(false);
+      product.isSelected = true;
+      product.is_buy_now = true;
+      !product.is_varient
+        ? this.addProductToCart(product)
+        : this.addProductToCart({
+            ...product,
+            ...this.isVariantObject,
+          });
+      this.$router.push("/checkout");
       this.toast("Added product to cart", "success");
     },
 

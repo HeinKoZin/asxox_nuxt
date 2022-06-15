@@ -93,7 +93,7 @@
           <h3>Download App</h3>
           <div class="content-body">
             <div class="flex w-full gap-2">
-              <a
+              <!-- <a
                 href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -108,8 +108,28 @@
                   <p>Download our app on</p>
                   <h1>Play Store</h1>
                 </div>
+              </a> -->
+              <a
+                href="https://play.google.com/store/apps/details?id=com.asxox.mkza"
+                class="app-download-link-test"
+              >
+                <img
+                  src="~/assets/img/playstore-icon.png"
+                  class="h-full"
+                  alt=""
+                />
               </a>
               <a
+                href="https://www.mediafire.com/file/fpefav2zsfuj87v/app-release.apk/file"
+                class="app-download-link-test"
+              >
+                <img
+                  src="~/assets/img/app-store-icon.png"
+                  class="h-full"
+                  alt=""
+                />
+              </a>
+              <!-- <a
                 href="https://apps.apple.com/us/app/asxox/id1590791745"
                 class="download-app"
                 target="_blank"
@@ -124,10 +144,26 @@
                   <p>Download our app on</p>
                   <h1>App Store</h1>
                 </div>
-              </a>
+              </a> -->
             </div>
             <div class="flex w-full gap-2">
               <a
+                href="https://appgallery.huawei.com/app/C105045159"
+                class="app-download-link-test"
+              >
+                <img
+                  src="~/assets/img/app-gallery-icon.png"
+                  class="h-full"
+                  alt=""
+                />
+              </a>
+              <a
+                href="https://www.mediafire.com/file/fpefav2zsfuj87v/app-release.apk/file"
+                class="app-download-link-test"
+              >
+                <img src="~/assets/img/direct-icon.png" class="h-full" alt="" />
+              </a>
+              <!-- <a
                 href="https://appgallery.huawei.com/app/C105045159"
                 class="download-app"
                 target="_blank"
@@ -158,7 +194,7 @@
                   <p>Download our app on</p>
                   <h1>App Store</h1>
                 </div>
-              </a>
+              </a> -->
             </div>
           </div>
         </div>
@@ -217,7 +253,7 @@ export default {};
 }
 
 .footer-content-item .content-body {
-  @apply flex flex-col text-sm mt-2 gap-0;
+  @apply flex flex-col text-sm mt-2 gap-2;
 }
 
 .footer-content-item .content-body a {
@@ -250,5 +286,9 @@ export default {};
 
 .download-app h1 {
   @apply text-sm md:text-base font-bold font-quicksand text-slate-900;
+}
+
+.app-download-link-test {
+  @apply flex items-center md:h-8 lg:h-11 relative;
 }
 </style>

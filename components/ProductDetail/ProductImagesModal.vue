@@ -23,7 +23,14 @@
         <img :src="photos[currentPhotoIndex].photo" alt="" srcset="" />
          -->
       <div class="product-image-container" v-if="!this.isVideo">
-        <img :src="this.checkImageOrVideo" alt="" srcset="" />
+        <nuxt-img
+          format="webp"
+          quality="50"
+          loading="lazy"
+          :src="this.checkImageOrVideo"
+          alt=""
+          srcset=""
+        />
       </div>
       <div class="product-video-container" v-if="this.isVideo">
         <iframe

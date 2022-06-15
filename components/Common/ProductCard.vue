@@ -21,7 +21,11 @@
       <div class="card-header">
         <div
           class="card-header-buttons"
-          @click.self="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
+          @click.self="
+            isAdsProduct
+              ? ''
+              : $router.push(`/product/${$asxox.asxox_encode(data.id)}`)
+          "
         >
           <button @click="addToWishList(data.id, data.is_wishlist)">
             <!-- <font-awesome-icon
@@ -43,6 +47,7 @@
               class="icon"
             /> -->
           </button>
+          <!-- WARNING: Temporary hidden -->
           <button
             @click="addProductToCart(data), toast('Added to cart', 'success')"
             v-if="!data.is_varient"
@@ -56,23 +61,36 @@
           </button>
         </div>
         <div class="card-header-image-wrapper">
-          <img
-            class="card-header-image"
-            :src="data.temp_photo"
-            @click="$router.push(`/product/${$asxox.asxox_encode(data.id)}`)"
+          <nuxt-img
+            class="card-header-image lazyload"
+            format="webp"
+            loading="lazy"
+            src="https://via.placeholder.com/193x245?text=Asxox"
+            :data-src="
+              data.temp_photo ? data.temp_photo : data.feature_photos[0].photo
+            "
+            @click.native="
+              isAdsProduct
+                ? ''
+                : $router.push(`/product/${$asxox.asxox_encode(data.id)}`)
+            "
+            quality="50"
           />
         </div>
       </div>
       <div class="card-body">
         <NuxtLink
           class="card-header-title"
+          :class="isAdsProduct ? ' pointer-events-none' : ''"
           :to="encodedLink(`/product/${$asxox.asxox_encode(data.id)}`)"
         >
           {{ data.name }}</NuxtLink
         >
         <div class="product-price">
-          <span class="text-orange-600">$</span>
-          <span class="text-orange-600">{{ data.sell_price }}</span>
+          <span class="text-orange-600">{{
+            priceFormat(data.sell_price)
+          }}</span>
+          <span class="text-orange-600">{{ data.currency }}</span>
         </div>
       </div>
     </div>
@@ -100,7 +118,9 @@
         <div
           class="card-header-buttons"
           @click.self="
-            $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
+            isAdsProduct
+              ? ''
+              : $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
           "
         >
           <button
@@ -110,6 +130,7 @@
               <i class="fa-solid fa-heart icon active"></i>
             </div>
           </button>
+          <!-- WARNING: Temporary hidden -->
           <button
             @click="
               addProductToCart(data.product), toast('Added to cart', 'success')
@@ -125,15 +146,32 @@
           >
             <i class="fa-solid fa-eye icon"></i>
           </button>
+          {{ data.product.wishlist_product_photo }}
         </div>
 
         <div class="card-header-image-wrapper">
-          <img
-            class="card-header-image"
-            :src="data.wishlist_product_photo"
+          <nuxt-img
+            class="card-header-image lazyload"
+            src="https://via.placeholder.com/500?text=Asxox"
+            :data-src="data.wishlist_product_photo"
             @click="
-              $router.push(`/product/${$asxox.asxox_encode(data.product.id)}`)
+              isAdsProduct
+                ? ''
+                : $router.push(
+                    `/product/${$asxox.asxox_encode(data.product.id)}`
+                  )
             "
+            v-if="data.wishlist_product_photo"
+            quality="10"
+            format="webp"
+            loading="lazy"
+          />
+          <nuxt-img
+            v-else
+            quality="10"
+            format="webp"
+            loading="lazy"
+            src="https://via.placeholder.com/500?text=Asxox"
           />
         </div>
       </div>
@@ -145,8 +183,10 @@
           {{ data.product.name }}</NuxtLink
         >
         <div class="product-price">
-          <span class="text-orange-600">$</span>
-          <span class="text-orange-600">{{ data.product.sell_price }}</span>
+          <span class="text-orange-600">{{
+            priceFormat(data.product.sell_price)
+          }}</span>
+          <span class="text-orange-600">{{ data.product.currency }}</span>
         </div>
       </div>
     </div>
@@ -216,25 +256,29 @@ export default {
     encodedLink(data) {
       return data;
     },
+    priceFormat(x) {
+      var d = parseInt(x);
+      return d.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
   },
 };
 </script>
 
 <style lang="postcss" scoped>
 .product-card-container-wrapper {
-  @apply w-6/12 md:w-[20%] xl:w-[14.285%] h-auto p-1;
+  @apply h-auto;
 }
 
 .ads-product {
-  @apply min-w-[60%] max-w-[60%] md:min-w-[25%] md:max-w-[25%] xl:min-w-[16.66%] xl:max-w-[16.66%] h-auto p-1 text-slate-800;
+  @apply min-w-[60%] max-w-[60%] md:min-w-[33.33%] md:max-w-[33.33%] xl:min-w-[20%] xl:max-w-[20%] h-auto p-1 text-slate-800;
 }
 
 .promotion-product {
-  @apply min-w-[100%] max-w-[100%]  lg:min-w-[50%] lg:max-w-[50%] h-auto p-1 text-slate-800;
+  @apply h-auto p-1 text-slate-800;
 }
 
 .product-card-container {
-  @apply p-0 rounded-lg  bg-white;
+  @apply p-0   bg-white;
 }
 
 .card-header {
@@ -242,26 +286,34 @@ export default {
 }
 
 .card-header .card-header-buttons {
-  @apply absolute top-0 right-0 w-full h-full z-30 rounded-lg rounded-b-none bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center md:group-hover:flex md:group-hover:bg-opacity-50 md:group-hover:animate-fadeIn;
+  @apply absolute top-0 right-0 w-full h-full z-30  rounded-b-none bg-opacity-0 bg-slate-900 hidden gap-x-2 justify-center items-center md:group-hover:flex md:group-hover:bg-opacity-50 md:group-hover:animate-fadeIn;
 }
 
 .card-header-image-wrapper {
-  @apply w-full overflow-hidden rounded-lg rounded-b-none;
+  @apply w-full overflow-hidden  rounded-b-none;
 }
 
 .card-header .card-header-image {
-  @apply w-full h-auto object-cover rounded-lg rounded-b-none   group-hover:scale-110 transition-transform;
+  @apply w-full h-auto object-cover  rounded-b-none   group-hover:scale-110 transition-transform;
 }
 
 .product-card-container .product-price {
-  @apply text-sm font-semibold mt-2;
+  @apply text-base lg:text-lg font-semibold mt-2;
 }
 
 .product-card-container .card-body {
   @apply flex-grow flex flex-col justify-between p-3;
 }
 .product-card-container .card-body .card-header-title {
-  @apply text-sm  line-clamp-2 mt-2 hover:underline hover:underline-offset-2 h-10 font-comfortaa font-bold;
+  @apply text-sm  line-clamp-2 mt-2 hover:underline hover:underline-offset-2 h-10 font-comfortaa text-slate-700;
+}
+
+.promotion-product .product-card-container .product-price {
+  @apply text-sm;
+}
+
+.ads-product .product-card-container .product-price {
+  @apply text-sm;
 }
 
 .product-card-container .product-description {
@@ -272,8 +324,24 @@ export default {
   @apply text-slate-500 hover:text-slate-700 text-base;
 }
 
+.ads-product .icon {
+  @apply text-slate-500 hover:text-slate-700 text-sm;
+}
+
+.promotion-product .icon {
+  @apply text-slate-500 hover:text-slate-700 text-xs;
+}
+
+.promotion-product .card-header-buttons button {
+  @apply w-7 h-7 lg:w-8 lg:h-8 bg-white rounded-full;
+}
+
 .card-header-buttons button {
   @apply w-9 h-9 lg:w-10 lg:h-10 bg-white rounded-full;
+}
+
+.ads-product .card-header-buttons button {
+  @apply w-9 h-8 lg:w-9 lg:h-9 bg-white rounded-full;
 }
 
 .icon.active {

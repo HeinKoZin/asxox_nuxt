@@ -1,12 +1,22 @@
 <template>
   <div class="recommended-products-container">
     <div class="header">Recommended Products</div>
-    <div class="body" v-dragscroll>
+    <div
+      class="body"
+      v-on:dragscrollstart="dragStartListener"
+      v-on:dragscrollend="dragEndListener"
+      v-dragscroll
+    >
       <ProductCard
         :data="data"
         v-for="(data, index) in products"
         :key="index"
         isAdsProduct
+        @click.native="
+          isDrag
+            ? null
+            : $router.push(`/product/${$asxox.asxox_encode(data.id)}`)
+        "
       />
     </div>
   </div>
@@ -18,6 +28,22 @@ export default {
     products: {
       type: Array,
       default: () => [],
+    },
+  },
+
+  methods: {
+    // NOTE: drag start listener
+    dragStartListener(e) {
+      this.isScroll = true;
+      this.isDrag = true;
+    },
+
+    // NOTE: drag end listener
+    dragEndListener(e) {
+      this.isScroll = false;
+      setTimeout(() => {
+        this.isDrag = false;
+      }, 50);
     },
   },
 };

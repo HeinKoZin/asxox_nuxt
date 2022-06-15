@@ -70,7 +70,21 @@ export default {
     // '@/plugins/aos.js'
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxt/postcss8", "@nuxtjs/dotenv"],
+  buildModules: ["@nuxt/postcss8", "@nuxtjs/dotenv", 'nuxt-lazysizes'],
+
+  lazySizes: {
+    extendAssetUrls: {
+      img: ['src', 'srcset', 'data-src', 'data-srcset'],
+      source: ['src', 'srcset', 'data-src', 'data-srcset'],
+
+      // Example for a custom component
+      AppImage: ['source-md-url', 'image-url']
+    },
+  },
+
+  image: {
+    domains: ['cdn.asxox.com.mm']
+  },
 
   ssr: true,
   target: "server",
@@ -79,6 +93,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
+    "@nuxt/image",
     "cookie-universal-nuxt",
     [
       "@nuxtjs/firebase",
