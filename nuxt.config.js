@@ -52,6 +52,7 @@ export default {
     { path: "~/components/User", extensions: ["vue"] },
     { path: "~/components/Layouts", extensions: ["vue"] },
     { path: "~/components/ModelBoxs", extensions: ["vue"] },
+    { path: "~/components/Job", extensions: ["vue"] },
   ],
 
   purgeCSS: {},

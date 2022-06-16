@@ -38,6 +38,12 @@
         </div>
         <span> | </span>
         <div class="menu-item">
+          <NuxtLink to="/job">
+            <h3>Job</h3>
+          </NuxtLink>
+        </div>
+        <span> | </span>
+        <div class="menu-item">
           <h3>Contact</h3>
         </div>
       </div>
