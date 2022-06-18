@@ -115,7 +115,12 @@ export default {
         this.isPointOrder = true;
         const res = await this.$axios.post("/point_buy", {
           amount: this.pointAmount,
-          payment_type: this.selectedPayment === "kbz-pay" ? "Kpay" : "Wavepay",
+          payment_type:
+            this.selectedPayment === "kbz-pay"
+              ? "Kpay"
+              : this.selectedPayment === "wave-pay"
+              ? "Wavepay"
+              : "CBbank",
         });
         const orderId = res.data.data.id;
         switch (this.selectedPayment) {
@@ -125,6 +130,8 @@ export default {
           case "wave-pay":
             this.getWavePayPaymentRequestData(orderId);
             break;
+          case "cb-bank":
+            this.cbBank(orderId);
           default:
             break;
         }
@@ -236,6 +243,12 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    cbBank(orderId) {
+      const baseURL = process.env.API_LINK;
+      // redirect to cb bank
+      window.location.href = `${baseURL}cb-payment-for-point?id=${orderId}&type=w`;
     },
   },
 };
