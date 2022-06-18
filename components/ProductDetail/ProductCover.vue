@@ -9,7 +9,11 @@
               <div class="product-price">
                 <span>$</span>
                 <span
-                  >{{ Number(product.sell_price.toFixed(1)).toLocaleString() }}
+                  >{{
+                    sell_price !== null
+                      ? sell_price
+                      : Number(product.sell_price.toFixed(1)).toLocaleString()
+                  }}
                   {{ product.currency }}</span
                 >
               </div>
@@ -201,7 +205,7 @@
           <button @click="decreaseQuantity()">
             <i class="fa-solid fa-minus icon"></i>
           </button>
-          <input type="number" v-model="product.quantity" />
+          <input type="number" @blur="(e)=> handleQuantity(e)" :value="quantity" />
           <button @click="increaseQuantity()">
             <i class="fa-solid fa-plus icon"></i>
           </button>
@@ -266,6 +270,7 @@ export default {
       isDrag: false,
       isVariantSelect: false,
       isVariantHas: false,
+      sell_price: this.product.sell_price,
       isVariantObject: {},
       selectedVariant: [],
     };
@@ -287,6 +292,11 @@ export default {
       handler() {
         this.selectVarianPhoto();
       },
+    },
+
+    quantity(val) {
+      if (val < 1) this.quantity = 1;
+      else if (val > this.quantity) this.quantity = this.quantity;
     },
   },
 
@@ -385,17 +395,17 @@ export default {
     },
 
     increaseQuantity() {
-      this.product.quantity >= 100
-        ? this.product.quantity
-        : this.product.quantity++;
+      this.quantity >= 100 ? this.quantity : this.quantity++;
     },
 
     decreaseQuantity() {
-      this.product.quantity > 1 ? this.product.quantity-- : null;
+      this.quantity > 1 ? this.quantity-- : null;
     },
 
     addToCartFinal(product) {
       product.isSelected = true;
+      product.sell_price = this.sell_price;
+      product.quantity = this.quantity;
       !product.is_varient
         ? this.addProductToCart(product)
         : this.addProductToCart({
@@ -451,6 +461,7 @@ export default {
     // NOTE: Set variant photo and set data to product variable
     setVariantPhotoAndDataToProduct(variant, selectedVariant) {
       this.variantPhoto = variant.varient_photo;
+      this.sell_price = variant.sell_price;
       this.isVariantHas = true;
       [
         this.isVariantObject.selectedVariantId,
@@ -503,6 +514,10 @@ export default {
       setTimeout(() => {
         this.isDrag = false;
       }, 50);
+    },
+
+    handleQuantity(e) {
+      this.quantity = e.target.value;
     },
   },
 };
