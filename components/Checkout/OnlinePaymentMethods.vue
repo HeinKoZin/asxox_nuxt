@@ -45,7 +45,6 @@
           </div>
         </div> -->
         <div
-          class="payment-method-wrapper"
           v-for="(payment, index) in payments"
           :key="index"
           @click="setPaymentMethod(payment.name, index)"
@@ -133,11 +132,15 @@ export default {
     },
 
     isBuyingJewelry(payment) {
-      if (this.cartSelectedProducts.length > 0) {
-        if (this.cartSelectedProducts[0].shop_id === 2) {
-          return payment.name === "cb-bank";
-        } else {
-          return payment.name === "kbz-pay" || payment.name === "wave-pay";
+      if (this.isBuyPoints) {
+        return true;
+      } else {
+        if (this.cartSelectedProducts.length > 0) {
+          if (this.cartSelectedProducts[0].shop_id === 2) {
+            return payment.name === "cb-bank";
+          } else {
+            return payment.name === "kbz-pay" || payment.name === "wave-pay";
+          }
         }
       }
     },
@@ -174,7 +177,7 @@ export default {
 }
 
 .body {
-  @apply flex flex-wrap;
+  @apply grid grid-cols-2 gap-2;
 }
 
 .payment-method-old {
@@ -197,7 +200,6 @@ export default {
 .buy-points .payment-method-wrapper {
   @apply p-1 w-1/2 md:w-1/2;
 }
-
 .payment-method {
   @apply w-full relative;
 }
