@@ -7,7 +7,7 @@
     <!-- <td class="hidden md:block">{{ order.address }}</td> -->
     <td>
       <span class="status-badge" :class="statusOutput">
-        <font-awesome-icon class="status-icon" :icon="['fas', 'check']" />
+        <i class="fa-solid fa-check status-icon"></i>
         <span>{{ order.status }}</span>
       </span>
     </td>

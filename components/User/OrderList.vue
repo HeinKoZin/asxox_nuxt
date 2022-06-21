@@ -15,13 +15,24 @@
           <th>Details</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="orders">
         <OrderListItem
           v-for="(order, index) in orders"
           :key="index"
           :order="order"
           :productIndex="index + 1"
         />
+      </tbody>
+      <tbody v-else>
+        <tr>
+          <td colspan="6">
+            <div
+              class="w-full h-52 flex justify-center items-center text-slate-800 font-bold"
+            >
+              No History
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
