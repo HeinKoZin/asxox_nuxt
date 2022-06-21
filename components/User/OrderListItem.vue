@@ -2,9 +2,9 @@
   <tr>
     <td>{{ productIndex }}</td>
     <td class="text-base font-bold text-slate-800">{{ order.order_code }}</td>
-    <td>{{ order.total - (order.promotions.point_amount || 0) }}</td>
     <td>{{ formatDatetime(order.created_at) }}</td>
-    <td class="hidden md:block">{{ order.address }}</td>
+    <td>{{ order.total - (order.promotions.point_amount || 0) }}</td>
+    <!-- <td class="hidden md:block">{{ order.address }}</td> -->
     <td>
       <span class="status-badge" :class="statusOutput">
         <font-awesome-icon class="status-icon" :icon="['fas', 'check']" />

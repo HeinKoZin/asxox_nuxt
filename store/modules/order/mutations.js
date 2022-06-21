@@ -55,6 +55,10 @@ const mutations = {
   SET_ORDERS(state, data) {
     state.orders = data;
   },
+
+  SET_ORDERS_PAGINATE(state, data) {
+    state.orders_paginate = data;
+  }
 };
 
 export default mutations;
