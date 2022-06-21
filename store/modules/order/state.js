@@ -18,6 +18,7 @@ const state = () => ({
   orderDetail: {},
   isOrderDetail: false,
   orders: [],
+  orders_paginate: {},
 });
 
 export default state;

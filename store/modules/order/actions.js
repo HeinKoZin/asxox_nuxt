@@ -1,10 +1,11 @@
 // ==== actions ====
 const actions = {
-  async getOrders({ commit }) {
+  async getOrders({ commit }, { page }) {
     try {
-      const res = await this.$axios.get("orders");
+      const res = await this.$axios.get(`orders?page=${page}`);
       commit("SET_ORDERS", res?.data?.data?.orders);
-    } catch (error) {}
+      commit("SET_ORDERS_PAGINATE", res?.data?.data?.pagination);
+    } catch (error) { }
   },
 };
 
