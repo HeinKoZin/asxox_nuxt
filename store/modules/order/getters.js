@@ -15,6 +15,10 @@ const getters = {
   orders(state) {
     return state.orders;
   },
+
+  orders_paginate(state) {
+    return state.orders_paginate;
+  }
 };
 
 export default getters;

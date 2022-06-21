@@ -8,9 +8,9 @@
           <!-- <th>Name</th>
           <th>Price</th>
           <th class="w-1">Quantity</th> -->
-          <th>Total</th>
           <th>Ordered Date</th>
-          <th class="hidden md:block">Address</th>
+          <th>Total</th>
+          <!-- <th class="hidden md:block">Address</th> -->
           <th>Status</th>
           <th>Details</th>
         </tr>
