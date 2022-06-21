@@ -2,7 +2,7 @@
   <div class="order-list-container">
     <div class="header">
       <span class="order-badge">
-        <font-awesome-icon class="order-icon" :icon="['fas', 'box-open']" />
+        <i class="fa-solid fa-box-open order-icon"></i>
         <span>{{ orders.length }}</span>
       </span>
       <h2>Your Orders</h2>
@@ -12,8 +12,9 @@
     </div>
     <div class="w-full flex justify-between items-center bg-white p-3">
       <div class="flex items-center font-bold text-slate-600">
-        Page {{ orders_paginate.current_page }} /
-        {{ orders_paginate.last_page }}
+        Page
+        {{ orders_paginate.current_page ? orders_paginate.current_page : 1 }} /
+        {{ orders_paginate.last_page ? orders_paginate.last_page : 1 }}
       </div>
 
       <div class="flex items-center gap-3">
@@ -21,6 +22,7 @@
           <button
             @click="paginateOrders(currentPage > 1 ? (currentPage -= 1) : null)"
             class="w-10 h-10 font-bold bg-slate-100 text-slate-700 hover:text-orange-500 rounded-full"
+            v-if="orders_paginate.current_page > 1"
           >
             <i class="fa-solid fa-angle-left"></i>
           </button>
@@ -55,19 +57,22 @@
         >
           Last
         </button> -->
-        <button
-          @click="
-            paginateOrders(
-              orders_paginate.last_page != currentPage &&
-                orders_paginate.last_page > currentPage
-                ? (currentPage += 1)
-                : null
-            )
-          "
-          class="w-10 h-10 font-bold bg-slate-100 text-slate-700 hover:text-orange-500 rounded-full"
-        >
-          <i class="fa-solid fa-angle-right"></i>
-        </button>
+        <Transition>
+          <button
+            @click="
+              paginateOrders(
+                orders_paginate.last_page != currentPage &&
+                  orders_paginate.last_page > currentPage
+                  ? (currentPage += 1)
+                  : null
+              )
+            "
+            class="w-10 h-10 font-bold bg-slate-100 text-slate-700 hover:text-orange-500 rounded-full"
+            v-if="orders_paginate.last_page > orders_paginate.current_page"
+          >
+            <i class="fa-solid fa-angle-right"></i>
+          </button>
+        </Transition>
       </div>
     </div>
     <OrderDetailsModel v-if="isOrderDetail" />
