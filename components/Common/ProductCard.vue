@@ -66,7 +66,9 @@
             format="webp"
             loading="lazy"
             src="https://via.placeholder.com/193x245?text=Asxox"
-            :data-src="data.temp_photo"
+            :data-src="
+              data.temp_photo ? data.temp_photo : data.feature_photos[0].photo
+            "
             @click.native="
               isAdsProduct
                 ? ''
@@ -149,7 +151,7 @@
 
         <div class="card-header-image-wrapper">
           <nuxt-img
-            class="card-header-image lazyload"
+            class="card-header-image"
             src="https://via.placeholder.com/500?text=Asxox"
             :data-src="data.wishlist_product_photo"
             @click="
