@@ -3,8 +3,15 @@
     <div class="grid lg:grid-cols-2 sm:grid-cols-1 gap-4">
       <div class="job">
         <div class="job-header">
-          <h1>Customer Service (M/F) | 2 Posts</h1>
-          <p><span>Part Time</span> | Asxox Myanmar | Yangon | Hlaing Tar Yar</p>
+          <div class="flex justify-between">
+            <div>
+              <h1>Customer Service (M/F) | 2 Posts</h1>
+              <p><span>Part Time</span> | Asxox Myanmar | Yangon | Hlaing Tar Yar</p>
+            </div>
+            <div>
+              <p class="bg-red-500 p-2 font-semibold rounded-tl-xl text-white text-center">New</p>
+            </div>
+          </div>
         </div>
         <hr>
         <div class="job-body">
@@ -30,8 +37,15 @@
       </div>
       <div class="job">
         <div class="job-header">
-          <h1>IT (M/F) | 2 Posts</h1>
-          <p><span>Part Time</span> | Asxox Myanmar | Yangon | Hlaing Tar Yar</p>
+          <div class="flex justify-between">
+            <div>
+              <h1>Customer Service (M/F) | 2 Posts</h1>
+              <p><span>Part Time</span> | Asxox Myanmar | Yangon | Hlaing Tar Yar</p>
+            </div>
+            <div>
+              <p class="bg-red-500 p-2 font-semibold rounded-tl-xl text-white text-center">New</p>
+            </div>
+          </div>
         </div>
         <hr>
         <div class="job-body">
@@ -44,7 +58,8 @@
               <p>12.6.2022</p>
             </div>
             <div class="flex justify-end">
-              <button class="learn-more">
+              <button class="learn-more"
+              @click="$router.push('/job/jobdetail').catch(() => {})">
                 <span class="circle" aria-hidden="true">
                 <span class="icon arrow"></span>
                 </span>
@@ -56,8 +71,15 @@
       </div>
       <div class="job">
         <div class="job-header">
-          <h1>UI/UX Designer (M/F) | 2 Posts</h1>
-          <p><span>Part Time</span> | Asxox Myanmar | Yangon | Hlaing Tar Yar</p>
+          <div class="flex justify-between">
+            <div>
+              <h1>Customer Service (M/F) | 2 Posts</h1>
+              <p><span>Part Time</span> | Asxox Myanmar | Yangon | Hlaing Tar Yar</p>
+            </div>
+            <div>
+              <p class="bg-red-500 p-2 font-semibold rounded-tl-xl text-white text-center">New</p>
+            </div>
+          </div>
         </div>
         <hr>
         <div class="job-body">
@@ -70,7 +92,8 @@
               <p>12.6.2022</p>
             </div>
             <div class="flex justify-end">
-              <button class="learn-more">
+              <button class="learn-more"
+              @click="$router.push('/job/jobdetail').catch(() => {})">
                 <span class="circle" aria-hidden="true">
                 <span class="icon arrow"></span>
                 </span>
@@ -82,8 +105,15 @@
       </div>
       <div class="job">
         <div class="job-header">
-          <h1>HR (M/F) | 2 Posts</h1>
-          <p><span>Part Time</span> | Asxox Myanmar | Yangon | Hlaing Tar Yar</p>
+          <div class="flex justify-between">
+            <div>
+              <h1>Customer Service (M/F) | 2 Posts</h1>
+              <p><span>Part Time</span> | Asxox Myanmar | Yangon | Hlaing Tar Yar</p>
+            </div>
+            <div>
+              <p class="bg-red-500 p-2 font-semibold rounded-tl-xl text-white text-center">New</p>
+            </div>
+          </div>
         </div>
         <hr>
         <div class="job-body">
@@ -96,7 +126,8 @@
               <p>12.6.2022</p>
             </div>
             <div class="flex justify-end">
-              <button class="learn-more">
+              <button class="learn-more"
+              @click="$router.push('/job/jobdetail').catch(() => {})">
                 <span class="circle" aria-hidden="true">
                 <span class="icon arrow"></span>
                 </span>
@@ -108,8 +139,15 @@
       </div>
       <div class="job">
         <div class="job-header">
-          <h1>Security (M/F) | 2 Posts</h1>
-          <p><span>Part Time</span> | Asxox Myanmar | Yangon | Hlaing Tar Yar</p>
+          <div class="flex justify-between">
+            <div>
+              <h1>Customer Service (M/F) | 2 Posts</h1>
+              <p><span>Part Time</span> | Asxox Myanmar | Yangon | Hlaing Tar Yar</p>
+            </div>
+            <div>
+              <p class="bg-red-500 p-2 font-semibold rounded-tl-xl text-white text-center">New</p>
+            </div>
+          </div>
         </div>
         <hr>
         <div class="job-body">
@@ -122,7 +160,8 @@
               <p>12.6.2022</p>
             </div>
             <div class="flex justify-end">
-              <button class="learn-more">
+              <button class="learn-more"
+              @click="$router.push('/job/jobdetail').catch(() => {})">
                 <span class="circle" aria-hidden="true">
                 <span class="icon arrow"></span>
                 </span>
@@ -137,14 +176,8 @@
 </template>
 
 <script>
-import { generalMixins } from "@/mixins/general";
 export default {
-  mixins: [generalMixins],
-  data() {
-    return {
-      isSpin: false,
-    };
-  },
+
   methods: {
     linkIsActive(link) {
       const paths = Array.isArray(link) ? link : [link];
@@ -159,6 +192,9 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+.job-card {
+  @apply p-4;
+}
 .job {
   @apply border rounded-sm shadow-md;
 }
@@ -200,7 +236,7 @@ button {
 }
 
 button.learn-more {
- width: 11rem;
+ width: 10rem;
  height: auto;
 }
 
@@ -249,11 +285,14 @@ button.learn-more .button-text {
  left: 0;
  right: 0;
  bottom: 0;
- padding: 0.23rem 0;
+ padding: 0.53rem 0;
  color: rgb(249 115 22);
- font-weight: 600;
+ font-weight: 700;
+ font-size: 12px;
  text-align: center;
+  line-height: 1.6;
  text-transform: uppercase;
+
 }
 
 button:hover .circle {

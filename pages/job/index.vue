@@ -30,7 +30,10 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+.job-container {
+  @apply my-4;
+}
 .job-body {
-  @apply w-full p-0 md:p-5 bg-white rounded-lg mt-4;
+  @apply w-full bg-white rounded-lg;
 }
 </style>

@@ -9,10 +9,8 @@
 </template>
 
 <script>
-import { generalMixins } from "@/mixins/general";
 export default {
   layout: "MainLayout",
-  mixins: [generalMixins],
   name: "JobPage",
   head() {
     return {
@@ -27,12 +25,18 @@ export default {
   },
 
 
+
+
 };
 </script>
 
 <style lang="postcss" scoped>
+.job-container {
+  @apply  my-4 lg:mx-40 sm:mx-2;
+}
+
 .job-body {
-  @apply w-full bg-white rounded-lg mt-4;
+  @apply w-full bg-white rounded-lg;
 }
 .header_title {
   @apply bg-orange-500 p-4;
