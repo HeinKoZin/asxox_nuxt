@@ -52,6 +52,7 @@ export default {
     { path: "~/components/User", extensions: ["vue"] },
     { path: "~/components/Layouts", extensions: ["vue"] },
     { path: "~/components/ModelBoxs", extensions: ["vue"] },
+    { path: "~/components/Shop", extensions: ["vue"] },
   ],
 
   purgeCSS: {},
@@ -67,7 +68,17 @@ export default {
     // '@/plugins/aos.js'
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxt/postcss8", "@nuxtjs/dotenv"],
+  buildModules: ["@nuxt/postcss8", "@nuxtjs/dotenv", 'nuxt-lazysizes'],
+
+  lazySizes: {
+    extendAssetUrls: {
+      img: ['src', 'srcset', 'data-src', 'data-srcset'],
+      source: ['src', 'srcset', 'data-src', 'data-srcset'],
+
+      // Example for a custom component
+      AppImage: ['source-md-url', 'image-url']
+    },
+  },
 
   image: {
     domains: ['cdn.asxox.com.mm']
@@ -82,6 +93,9 @@ export default {
     "@nuxtjs/auth-next",
     "@nuxt/image",
     "cookie-universal-nuxt",
+    // "@nuxtjs/proxy",
+
+
     [
       "@nuxtjs/firebase",
       {
@@ -99,7 +113,18 @@ export default {
         },
       },
     ],
+
   ],
+
+
+  // axios: {
+  //   proxy: true // Can be also an object with default options
+  // },
+
+
+  // proxy: [
+  //   // 'https://asxox.com.mm'
+  // ],
 
   auth: {
     redirect: false,

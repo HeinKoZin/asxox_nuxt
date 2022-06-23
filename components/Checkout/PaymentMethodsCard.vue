@@ -19,6 +19,7 @@
         <div
           class="payment-method"
           :class="{ active: payment_method === 'cash_on_delivery' }"
+          v-if="selectedShop !== 2"
         >
           <button
             @click="(payment_method = 'cash_on_delivery'), SET_PAYMENT(null)"
@@ -46,7 +47,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -63,6 +64,14 @@ export default {
   methods: {
     // NOTE: Method from Vuex actions
     ...mapMutations(["SET_PAYMENT_METHOD", "SET_PAYMENT"]),
+  },
+  computed: {
+    // NOTE: Method from Vuex getters
+    ...mapGetters(["cartSelectedProducts"]),
+
+    selectedShop() {
+      return this.cartSelectedProducts[0]?.shop_id;
+    },
   },
 };
 </script>
@@ -85,7 +94,7 @@ export default {
 }
 
 .payment-method {
-  @apply flex flex-grow   gap-x-2;
+  @apply flex max-w-[50%] min-w-[50%]  gap-x-2;
 }
 
 .payment-method button {

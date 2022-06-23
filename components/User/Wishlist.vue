@@ -1,6 +1,6 @@
 <template>
   <div class="wishlist-container">
-    <div v-if="wishListProductList.length == 0">
+    <div v-if="wishListProductList.length == 0" class="w-full mx-auto">
       <div class="empty-wishlist">
         <h2>Your Wishlist is empty</h2>
         <p>
@@ -9,15 +9,20 @@
         </p>
       </div>
     </div>
-    <ProductCard
-      v-for="(data, index) in wishListProductList"
-      :key="index"
-      :data="data"
-      isInWishlist
-      isWishListProduct
-      :wishListIndex="index"
-      @removeWishlist="removeWishlist"
-    />
+    <!-- {{ wishListProductList }} -->
+    <div
+      class="grid w-full grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-3 p-1 lg:p-2"
+    >
+      <ProductCard
+        v-for="(data, index) in wishListProductList"
+        :key="index"
+        :data="data"
+        isInWishlist
+        isWishListProduct
+        :wishListIndex="index"
+        @removeWishlist="removeWishlist"
+      />
+    </div>
   </div>
 </template>
 
@@ -46,7 +51,7 @@ export default {
 }
 
 .empty-wishlist {
-  @apply flex flex-col items-center justify-center h-56 text-center;
+  @apply flex-grow flex flex-col items-center justify-center h-56 text-center;
 }
 
 .empty-wishlist h2 {

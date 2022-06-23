@@ -9,26 +9,6 @@
             <input
               type="radio"
               name="amount"
-              id="500"
-              value="500"
-              v-model="pointAmount"
-            />
-            <label for="500">500</label>
-          </div>
-          <div class="point-amount-item">
-            <input
-              type="radio"
-              name="amount"
-              id="1000"
-              value="1000"
-              v-model="pointAmount"
-            />
-            <label for="1000">1000</label>
-          </div>
-          <div class="point-amount-item">
-            <input
-              type="radio"
-              name="amount"
               id="3000"
               value="3000"
               v-model="pointAmount"
@@ -45,19 +25,45 @@
             />
             <label for="5000">5000</label>
           </div>
+          <div class="point-amount-item">
+            <input
+              type="radio"
+              name="amount"
+              id="10000"
+              value="10000"
+              v-model="pointAmount"
+            />
+            <label for="10000">10000</label>
+          </div>
+          <div class="point-amount-item">
+            <input
+              type="radio"
+              name="amount"
+              id="5000"
+              value="5000"
+              v-model="pointAmount"
+            />
+            <label for="20000">20000</label>
+          </div>
           <div class="w-full point-amount-item">
             <input
               type="radio"
               name="amount"
               id="other"
-              @click="pointAmount = null"
+              @click="pointAmount = customPointAmount"
+              :value="pointAmount"
+              v-model="customPointAmount"
             />
             <input
               type="number"
               name="amount"
               placeholder="Other amount"
               v-model="customPointAmount"
-              @click="pointAmount = null"
+              @click="
+                () => {
+                  pointAmount = customPointAmount;
+                }
+              "
               min="500"
             />
           </div>
@@ -115,7 +121,12 @@ export default {
         this.isPointOrder = true;
         const res = await this.$axios.post("/point_buy", {
           amount: this.pointAmount,
-          payment_type: this.selectedPayment === "kbz-pay" ? "Kpay" : "Wavepay",
+          payment_type:
+            this.selectedPayment === "kbz-pay"
+              ? "Kpay"
+              : this.selectedPayment === "wave-pay"
+              ? "Wavepay"
+              : "CBbank",
         });
         const orderId = res.data.data.id;
         switch (this.selectedPayment) {
@@ -125,6 +136,8 @@ export default {
           case "wave-pay":
             this.getWavePayPaymentRequestData(orderId);
             break;
+          case "cb-bank":
+            this.cbBank(orderId);
           default:
             break;
         }
@@ -236,6 +249,12 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    cbBank(orderId) {
+      const baseURL = process.env.API_LINK;
+      // redirect to cb bank
+      window.location.href = `${baseURL}cb-payment-for-point?id=${orderId}&type=w`;
     },
   },
 };

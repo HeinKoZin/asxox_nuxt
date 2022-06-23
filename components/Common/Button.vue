@@ -27,7 +27,7 @@ export default {
   @apply h-12  bg-white uppercase flex justify-center items-center;
 }
 .primary {
-  @apply bg-orange-600  rounded-lg text-white;
+  @apply bg-orange-500  rounded-lg text-white;
 }
 .secondary {
   @apply bg-gray-200  rounded-lg text-gray-600;

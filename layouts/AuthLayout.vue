@@ -13,7 +13,7 @@
             <Button
               class="float-left px-4 font-bold border-2 top-40 left-20 rounded-xl border-slate-400"
               size="md"
-              @click.native="$router.back()"
+              @click.native="$router.push('/')"
             >
               <i class="fa-solid fa-arrow-left-long"></i>
             </Button>
@@ -62,7 +62,7 @@ export default {};
 }
 
 .auth-form-container .company-title {
-  @apply font-zen-kurenaido text-4xl;
+  @apply font-quicksand text-4xl;
 }
 
 .auth-form-container .form-title {

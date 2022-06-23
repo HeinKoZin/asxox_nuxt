@@ -37,7 +37,8 @@ const mutations = {
   },
 
   REMOVE_PRODUCT_FROM_CART(state, id) {
-    state.cartProducts.splice(id, 1);
+    var productIndex = state.cartProducts.findIndex((product) => product.id === id);
+    state.cartProducts.splice(productIndex, 1);
     this.app.$cookies.remove("cartProducts");
     this.app.$cookies.set("cartProducts", state.cartProducts, {
       path: "/",
@@ -47,7 +48,14 @@ const mutations = {
   },
 
   UPDATE_PRODUCT_IN_CART(state, data) {
-    state.cartProducts[data.productId].qty = data.newQty;
+    // var productId = this.state.cartProducts.filter((product) => {
+    //   return product.id === data.productId;
+    // });
+
+    var productIndex = state.cartProducts.findIndex((product) => {
+      return product.id === data.productId;
+    });
+    state.cartProducts[productIndex].qty = data.newQty;
     this.app.$cookies.remove("cartProducts");
     this.app.$cookies.set("cartProducts", state.cartProducts, {
       path: "/",
@@ -85,14 +93,6 @@ const mutations = {
         state.cartProducts[data.productId].isSelected = data.isSelected;
       }
     }
-
-
-
-
-
-
-
-
     this.app.$cookies.remove("cartProducts");
     this.app.$cookies.set("cartProducts", state.cartProducts, {
       path: "/",
@@ -102,8 +102,25 @@ const mutations = {
   },
 
   SELECTED_ALL_PRODUCT_IN_CART(state, data) {
+
     for (let i = 0; i < state.cartProducts.length; i++) {
-      state.cartProducts[i].isSelected = data;
+      var selectedProducts = state.cartProducts.filter((product, index) => {
+        return product.isSelected === true;
+      });
+      if (selectedProducts[0]) {
+        if (selectedProducts[0].shop_id === 2) {
+          if (state.cartProducts[i].shop_id === 2) {
+            state.cartProducts[i].isSelected = data;
+          }
+        } else {
+          if (state.cartProducts[i].shop_id !== 2) {
+            state.cartProducts[i].isSelected = data;
+          }
+        }
+
+      } else {
+        state.cartProducts[i].isSelected = data;
+      }
     }
     this.app.$cookies.remove("cartProducts");
     this.app.$cookies.set("cartProducts", state.cartProducts, {

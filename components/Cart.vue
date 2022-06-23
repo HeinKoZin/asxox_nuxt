@@ -4,7 +4,7 @@
     v-click-outside="closeCart"
   >
     <div class="cart-container">
-      <div class="cart-action-button" v-show="!isCartOpen">
+      <div class="cart-action-button bg-white" v-show="!isCartOpen">
         <!-- WARNING: don't delete -->
         <!-- <button @click="toggleCart">
           <span class="badge" v-if="calculateCartProductQuantity">
@@ -68,7 +68,7 @@
               type="checkbox"
               name="select-all"
               id="select-all"
-              @change="test"
+              @change="selectAll"
               v-model="isSelectAll"
             />
             <label for="select-all">Select all</label>
@@ -123,7 +123,7 @@ export default {
     },
   },
   methods: {
-    test() {
+    selectAll() {
       this.SELECTED_ALL_PRODUCT_IN_CART(this.isSelectAll);
     },
     ...mapMutations(["SET_CART", "SELECTED_ALL_PRODUCT_IN_CART"]),
@@ -205,7 +205,7 @@ export default {
 }
 
 .cart-action-button {
-  @apply hidden absolute  bg-opacity-50 w-14 h-auto py-4 top-[30%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-slate-50 md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
+  @apply hidden absolute  bg-opacity-50 w-14 h-auto py-4 top-[30%] flex-col gap-2 text-orange-600 text-2xl font-semibold bg-white md:flex justify-center items-center -left-14 rounded-l-lg drop-shadow-lg border-slate-300 border;
 }
 
 .cart-action-button button {
@@ -245,7 +245,7 @@ export default {
 }
 
 .select-all-container input {
-  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-5 h-5 rounded-lg border-4 border-orange-500 flex justify-center items-center before:w-2 before:h-2 before:bg-transparent before:rounded-lg checked:before:bg-orange-500;
+  @apply cursor-pointer bg-slate-200 checked:bg-orange-500 appearance-none w-5 h-5 rounded-lg border-2 border-slate-300 checked:border-orange-500 flex justify-center items-center before:w-2 before:h-2 before:bg-transparent before:rounded-lg checked:before:bg-orange-500;
 }
 
 .select-all-container label {

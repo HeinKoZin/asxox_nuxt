@@ -9,7 +9,11 @@
               <div class="product-price">
                 <span>$</span>
                 <span
-                  >{{ Number(product.sell_price.toFixed(1)).toLocaleString() }}
+                  >{{
+                    sell_price !== null
+                      ? sell_price
+                      : Number(product.sell_price.toFixed(1)).toLocaleString()
+                  }}
                   {{ product.currency }}</span
                 >
               </div>
@@ -25,8 +29,11 @@
               format="webp"
               quality="50"
               loading="lazy"
-              class="feature-photo"
-              :src="
+              class="feature-photo lazyload"
+              src="
+               https://via.placeholder.com/500?text=Asxox
+              "
+              :data-src="
                 variantPhoto || product.feature_photos[currentImageIndex].photo
               "
             />
@@ -36,8 +43,9 @@
               loading="lazy"
               v-for="(prod, index) in product.product_varients"
               :key="index"
-              :src="prod.varient_photo"
-              class="hidden"
+              src="https://via.placeholder.com/500?text=Asxox"
+              :data-src="prod.varient_photo"
+              class="hidden lazyload"
             />
           </div>
 
@@ -60,7 +68,9 @@
                   format="webp"
                   quality="50"
                   loading="lazy"
-                  :src="featuredImage.photo"
+                  class="lazyload"
+                  src="https://via.placeholder.com/500?text=Asxox"
+                  :data-src="featuredImage.photo"
                 />
               </div>
             </div>
@@ -195,7 +205,7 @@
           <button @click="decreaseQuantity()">
             <i class="fa-solid fa-minus icon"></i>
           </button>
-          <input type="number" v-model="product.quantity" />
+          <input type="number" @blur="(e)=> handleQuantity(e)" :value="quantity" />
           <button @click="increaseQuantity()">
             <i class="fa-solid fa-plus icon"></i>
           </button>
@@ -225,7 +235,7 @@
         <button
           class="buy-now"
           :disabled="product.is_varient && !isVariantHas"
-          @click="addToCartFinal(product), $router.push('/checkout')"
+          @click="buyNow(product)"
         >
           <span
             ><span><i class="fa-solid fa-cart-plus icon"></i></span
@@ -260,6 +270,7 @@ export default {
       isDrag: false,
       isVariantSelect: false,
       isVariantHas: false,
+      sell_price: this.product.sell_price,
       isVariantObject: {},
       selectedVariant: [],
     };
@@ -282,6 +293,11 @@ export default {
         this.selectVarianPhoto();
       },
     },
+
+    quantity(val) {
+      if (val < 1) this.quantity = 1;
+      else if (val > this.quantity) this.quantity = this.quantity;
+    },
   },
 
   mounted() {
@@ -294,6 +310,7 @@ export default {
     ...mapMutations([
       "SET_CATEGORY_PRODUCT_FAVOURITE",
       // "SET_PRODUCT_FAVOURITE",
+      "SELECTED_ALL_PRODUCT_IN_CART",
     ]),
 
     //NOTE: add and remove product from wishlist
@@ -378,17 +395,17 @@ export default {
     },
 
     increaseQuantity() {
-      this.product.quantity >= 100
-        ? this.product.quantity
-        : this.product.quantity++;
+      this.quantity >= 100 ? this.quantity : this.quantity++;
     },
 
     decreaseQuantity() {
-      this.product.quantity > 1 ? this.product.quantity-- : null;
+      this.quantity > 1 ? this.quantity-- : null;
     },
 
     addToCartFinal(product) {
       product.isSelected = true;
+      product.sell_price = this.sell_price;
+      product.quantity = this.quantity;
       !product.is_varient
         ? this.addProductToCart(product)
         : this.addProductToCart({
@@ -397,6 +414,20 @@ export default {
           });
 
       //draft
+      this.toast("Added product to cart", "success");
+    },
+
+    buyNow(product) {
+      this.SELECTED_ALL_PRODUCT_IN_CART(false);
+      product.isSelected = true;
+      product.is_buy_now = true;
+      !product.is_varient
+        ? this.addProductToCart(product)
+        : this.addProductToCart({
+            ...product,
+            ...this.isVariantObject,
+          });
+      this.$router.push("/checkout");
       this.toast("Added product to cart", "success");
     },
 
@@ -430,6 +461,7 @@ export default {
     // NOTE: Set variant photo and set data to product variable
     setVariantPhotoAndDataToProduct(variant, selectedVariant) {
       this.variantPhoto = variant.varient_photo;
+      this.sell_price = variant.sell_price;
       this.isVariantHas = true;
       [
         this.isVariantObject.selectedVariantId,
@@ -482,6 +514,10 @@ export default {
       setTimeout(() => {
         this.isDrag = false;
       }, 50);
+    },
+
+    handleQuantity(e) {
+      this.quantity = e.target.value;
     },
   },
 };

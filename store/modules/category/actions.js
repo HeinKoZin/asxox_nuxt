@@ -32,7 +32,7 @@ const actions = {
 
   async getRecommendedProducts({ commit }) {
     try {
-      const res = await this.$axios.get(`products/category/1?limit=15`);
+      const res = await this.$axios.get(`products/category/1?limit=10`);
       commit("SET_DRAFT_RECOMMENDED_PRODUCTS", res?.data?.data);
     } catch (error) { }
   },
