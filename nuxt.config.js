@@ -53,6 +53,7 @@ export default {
     { path: "~/components/Layouts", extensions: ["vue"] },
     { path: "~/components/ModelBoxs", extensions: ["vue"] },
     { path: "~/components/Job", extensions: ["vue"] },
+    { path: "~/components/Shop", extensions: ["vue"] },
   ],
 
   purgeCSS: {},
@@ -96,6 +97,9 @@ export default {
     "@nuxtjs/auth-next",
     "@nuxt/image",
     "cookie-universal-nuxt",
+    // "@nuxtjs/proxy",
+
+
     [
       "@nuxtjs/firebase",
       {
@@ -113,7 +117,18 @@ export default {
         },
       },
     ],
+
   ],
+
+
+  // axios: {
+  //   proxy: true // Can be also an object with default options
+  // },
+
+
+  // proxy: [
+  //   // 'https://asxox.com.mm'
+  // ],
 
   auth: {
     redirect: false,

@@ -18,11 +18,11 @@
       <div class="body">
         <div
           class="payment-method"
-          :class="{ active: payment_method === 'Cash On Delivery' }"
+          :class="{ active: payment_method === 'cash_on_delivery' }"
           v-if="selectedShop !== 2"
         >
           <button
-            @click="(payment_method = 'Cash On Delivery'), SET_PAYMENT(null)"
+            @click="(payment_method = 'cash_on_delivery'), SET_PAYMENT(null)"
           >
             <span>
               <i class="fa-solid fa-circle-check payment-method-icon"></i>
@@ -51,7 +51,7 @@ import { mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      payment_method: "Cash On Delivery",
+      payment_method: "cash_on_delivery",
     };
   },
   watch: {
