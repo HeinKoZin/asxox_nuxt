@@ -66,7 +66,9 @@
             format="webp"
             loading="lazy"
             src="https://via.placeholder.com/193x245?text=Asxox"
-            :data-src="data.temp_photo"
+            :data-src="
+              data.temp_photo ? data.temp_photo : data.feature_photos[0].photo
+            "
             @click.native="
               isAdsProduct
                 ? ''
