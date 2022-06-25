@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full p-1 md:w-1/2">
+  <div class="relative w-full">
     <label
       :for="id"
       class="address-content-container"
@@ -88,7 +88,7 @@ export default {
 
 <style lang="postcss" scoped>
 .address-content-container {
-  @apply flex w-full bg-slate-100 p-4 px-4 items-center border-2 border-transparent gap-x-4 rounded-lg my-0 font-quicksand font-bold text-sm;
+  @apply flex w-full bg-white p-4 px-4 items-center border-2 border-transparent gap-x-4 rounded-lg my-0 font-quicksand font-bold text-sm;
 }
 
 .address-content-checkbox {
@@ -107,6 +107,6 @@ span {
 }
 
 .remove-btn {
-  @apply flex-shrink-0 flex items-center justify-center text-sm absolute top-1 right-1 bg-red-600 text-white rounded-full h-6 w-6;
+  @apply flex-shrink-0 flex items-center justify-center text-sm absolute -top-2 -right-2 bg-red-600 text-white rounded-full h-6 w-6;
 }
 </style>

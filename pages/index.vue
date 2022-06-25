@@ -9,7 +9,7 @@
           class="relative flex-grow w-full rounded-lg"
           v-for="(ads, index) in widgetOneAds"
           :key="index"
-          v-show="index < 3"
+          v-show="index < 2"
         >
           <img
             class="absolute object-cover w-full h-full rounded-lg"
