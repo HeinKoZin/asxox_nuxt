@@ -95,7 +95,7 @@ export default {
 }
 
 .profile-layout-container {
-  @apply flex gap-x-2 w-full bg-slate-100 p-5 rounded-lg float-right h-auto;
+  @apply flex gap-x-2 w-full bg-white p-5 rounded-lg float-right h-auto;
 }
 
 .profile-layout-container-wrapper {

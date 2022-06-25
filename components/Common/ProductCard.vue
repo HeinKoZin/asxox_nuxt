@@ -298,7 +298,7 @@ export default {
 }
 
 .product-card-container .product-price {
-  @apply text-base lg:text-lg font-semibold mt-2;
+  @apply text-base xl:text-lg font-semibold mt-2;
 }
 
 .product-card-container .card-body {

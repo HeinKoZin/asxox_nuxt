@@ -10,18 +10,20 @@
     <div class="body">
       <OrderList :orders="orders" />
     </div>
-    <div class="w-full flex justify-between items-center bg-white p-3">
-      <div class="flex items-center font-bold text-slate-600">
+    <div class="w-full flex justify-between items-center bg-white p-2 lg:p-3">
+      <div
+        class="flex items-center font-bold text-slate-600 text-sm xl:text-base"
+      >
         Page
         {{ orders_paginate.current_page ? orders_paginate.current_page : 1 }} /
         {{ orders_paginate.last_page ? orders_paginate.last_page : 1 }}
       </div>
 
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 lg:gap-3">
         <Transition>
           <button
             @click="paginateOrders(currentPage > 1 ? (currentPage -= 1) : null)"
-            class="w-10 h-10 font-bold bg-slate-100 text-slate-700 hover:text-orange-500 rounded-full"
+            class="w-8 h-8 lg:w-10 lg:h-10 font-bold bg-slate-100 text-slate-700 hover:text-orange-500 rounded-full"
             v-if="orders_paginate.current_page > 1"
           >
             <i class="fa-solid fa-angle-left"></i>
@@ -31,7 +33,7 @@
           <button
             v-for="index in orders_paginate ? orders_paginate.last_page : 0"
             :key="index"
-            class="w-12 h-10 font-bold first:rounded-l-full last:rounded-r-full"
+            class="w-9 h-7 lg:w-12 lg:h-10 font-bold first:rounded-l-full last:rounded-r-full text-sm lg:text-base"
             @click="paginateOrders(index)"
             :class="
               orders_paginate.current_page === index
@@ -67,7 +69,7 @@
                   : null
               )
             "
-            class="w-10 h-10 font-bold bg-slate-100 text-slate-700 hover:text-orange-500 rounded-full"
+            class="w-8 h-8 lg:w-10 lg:h-10 font-bold bg-slate-100 text-slate-700 hover:text-orange-500 rounded-full"
             v-if="orders_paginate.last_page > orders_paginate.current_page"
           >
             <i class="fa-solid fa-angle-right"></i>
@@ -149,7 +151,7 @@ export default {
 }
 
 .body {
-  @apply w-full p-4 bg-slate-100 rounded-lg;
+  @apply w-full p-1 bg-slate-100 rounded-lg;
 }
 
 .body .order-table {

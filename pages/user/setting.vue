@@ -26,7 +26,7 @@ export default {
 
 <style lang="postcss" scoped>
 .container {
-  @apply flex w-full bg-slate-100 p-4 rounded-lg flex-col;
+  @apply flex w-full bg-white p-4 rounded-lg flex-col;
 }
 
 .header {
