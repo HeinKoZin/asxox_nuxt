@@ -22,17 +22,36 @@
             <div class="user-profile-card">
               <h2>Point Amount</h2>
               <div class="card-details" v-if="userData.point">
-                <span>{{ userData.point.amount }}</span>
-                <span>-</span>
-                <span>Points</span>
+                <div class="flex-grow flex gap-3">
+                  <span>{{ userData.point.amount }}</span>
+                  <span>-</span>
+                  <span>Points</span>
+                </div>
+                <div class="max-w-fit">
+                  <NuxtLink
+                    to="/user/points"
+                    class="bg-orange-500 text-white font-bold px-3 py-2 rounded-md text-xl"
+                  >
+                    <i class="fa-solid fa-arrow-up"></i>
+                  </NuxtLink>
+                </div>
               </div>
             </div>
             <div class="user-profile-card">
               <h2>Total Orders</h2>
               <div class="card-details">
-                <span>{{ orders.length }}</span>
-                <span>-</span>
-                <span>Orders</span>
+                <div class="flex-grow flex gap-3">
+                  <span>{{ orders.length }}</span>
+                  <span>-</span>
+                  <span>Orders</span>
+                </div>
+                <div class="max-w-fit">
+                  <NuxtLink
+                    to="/user/orders"
+                    class="bg-orange-500 text-white font-bold px-3 py-2 rounded-md text-xl"
+                    ><i class="fa-solid fa-clock"></i
+                  ></NuxtLink>
+                </div>
               </div>
             </div>
             <div class="user-profile-card">
@@ -131,7 +150,7 @@ export default {
 }
 
 .user-profile-card {
-  @apply bg-slate-200 border border-slate-300 p-5 md:p-10 rounded-lg flex flex-grow flex-col gap-y-4;
+  @apply bg-slate-50 border border-slate-200 p-5 md:p-10 rounded-lg flex flex-grow flex-col gap-y-4;
 }
 
 .user-profile-card h2 {
@@ -143,7 +162,7 @@ export default {
 }
 
 .user-profile-card .card-details {
-  @apply font-quicksand flex-col text-sm;
+  @apply font-quicksand flex text-sm;
 }
 
 .user-profile-card .card-details span {

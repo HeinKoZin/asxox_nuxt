@@ -8,7 +8,17 @@
       <h2>Your Orders</h2>
     </div>
     <div class="body">
-      <OrderList :orders="orders" />
+      <OrderList
+        v-if="!$fetchState.pending && orders.length > 0"
+        :orders="orders"
+      />
+      <div v-if="$fetchState.pending">
+        <div class="w-full flex flex-col gap-2">
+          <div class="w-full rounded-sm h-12" v-for="index in 10" :key="index">
+            <Skeleton class="rounded-sm" width="100%" height="100%" />
+          </div>
+        </div>
+      </div>
     </div>
     <div class="w-full flex justify-between items-center bg-white p-2 lg:p-3">
       <div
@@ -84,7 +94,12 @@
 <script>
 import { generalMixins } from "@/mixins/general";
 import { mapGetters, mapActions } from "vuex";
+import { Skeleton } from "vue-loading-skeleton";
+
 export default {
+  components: {
+    Skeleton,
+  },
   layout: "ProfileLayout",
   mixins: [generalMixins],
   middleware: ["auth/ifNotAuthRedirectAuth"],
