@@ -18,6 +18,46 @@
       <BuyPointModel v-if="isTopup" @handleTopup="handleTopup" />
       <TransferPointModel v-if="isTransfer" @handleTransfer="handleTransfer" />
     </div>
+
+    <div class="w-full mt-10 bg-white rounded-md p-4 text-slate-800">
+      <div class="w-full">
+        <h2 class="font-bold text-lg">Points History</h2>
+      </div>
+      <div class="w-full p-2">
+        <table class="w-full border-separate" style="border-spacing: 0 1em">
+          <thead class="font-bold">
+            <tr>
+              <td class="p-4">Type</td>
+              <td class="p-4">Date</td>
+              <td class="p-4">Description</td>
+              <td class="p-4">Amount</td>
+            </tr>
+          </thead>
+          <tbody class="bg-slate-200">
+            <tr v-if="points.length === 0">
+              <td colspan="4">
+                <div
+                  class="w-full h-52 flex justify-center items-center text-slate-800 font-bold"
+                >
+                  No History
+                </div>
+              </td>
+            </tr>
+            <tr
+              v-else
+              v-for="(point, index) in points"
+              :key="index"
+              class="bg-slate-50 hover:bg-slate-100"
+            >
+              <td class="p-4">{{ point.title }}</td>
+              <td class="p-4">{{ point.created_at }}</td>
+              <td class="p-4">{{ point.note }}</td>
+              <td class="p-4">{{ point.amount_of_transaction }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,6 +74,8 @@ export default {
     return {
       isTopup: false,
       isTransfer: false,
+
+      points: [],
     };
   },
   methods: {
@@ -74,6 +116,9 @@ export default {
       if (this.$route.query.isPointConfirm === "success")
         this.toast("Points have been successfully added!", "success");
     }
+
+    const pointsHistory = await this.$axios.get("/transfer-point-history");
+    this.points = pointsHistory.data.data;
   },
 
   // mounted() {

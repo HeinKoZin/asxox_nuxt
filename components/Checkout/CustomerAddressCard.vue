@@ -118,7 +118,7 @@ export default {
 }
 
 .address-contents-container {
-  @apply grid grid-cols-1  gap-y-0 md:gap-y-2 w-full;
+  @apply grid grid-cols-1  gap-y-0  md:gap-y-4 w-full py-2 2xl:py-4;
 }
 
 button {

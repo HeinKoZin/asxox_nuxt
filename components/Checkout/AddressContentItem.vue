@@ -88,7 +88,7 @@ export default {
 
 <style lang="postcss" scoped>
 .address-content-container {
-  @apply flex w-full bg-white p-4 px-4 items-center border-2 border-transparent gap-x-4 rounded-lg my-0 font-quicksand font-bold text-sm;
+  @apply flex w-full bg-slate-50 p-4 px-4 items-center border-2 border-transparent gap-x-4 rounded-lg my-0 font-quicksand font-bold text-sm;
 }
 
 .address-content-checkbox {
@@ -100,6 +100,10 @@ export default {
 
 .active {
   @apply border-orange-500;
+}
+
+.active.address-content-container {
+  @apply bg-orange-50;
 }
 
 span {
