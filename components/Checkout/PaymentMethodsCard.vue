@@ -18,11 +18,11 @@
       <div class="body">
         <div
           class="payment-method"
-          :class="{ active: payment_method === 'cash_on_delivery' }"
+          :class="{ active: order.payment_method === 'cash_on_delivery' }"
           v-if="selectedShop !== 2"
         >
           <button
-            @click="(payment_method = 'cash_on_delivery'), SET_PAYMENT(null)"
+            @click="payment_method('cash_on_delivery'), SET_PAYMENT(null)"
           >
             <span>
               <i class="fa-solid fa-circle-check payment-method-icon"></i>
@@ -32,9 +32,9 @@
         </div>
         <div
           class="payment-method"
-          :class="{ active: payment_method === 'online_payment' }"
+          :class="{ active: order.payment_method === 'online_payment' }"
         >
-          <button @click="payment_method = 'online_payment'">
+          <button @click="payment_method('online_payment')">
             <span>
               <i class="fa-solid fa-circle-check payment-method-icon"></i>
             </span>
@@ -49,25 +49,16 @@
 <script>
 import { mapMutations, mapGetters } from "vuex";
 export default {
-  data() {
-    return {
-      payment_method: "cash_on_delivery",
-    };
-  },
-  watch: {
-    payment_method() {
-      this.SET_PAYMENT_METHOD(this.payment_method);
-      const checkPaymentMethod = this.payment_method === "online_payment";
-      this.$emit("openPaymentSection", checkPaymentMethod);
-    },
-  },
   methods: {
+    payment_method(method) {
+      this.SET_PAYMENT_METHOD(method);
+    },
     // NOTE: Method from Vuex actions
     ...mapMutations(["SET_PAYMENT_METHOD", "SET_PAYMENT"]),
   },
   computed: {
     // NOTE: Method from Vuex getters
-    ...mapGetters(["cartSelectedProducts"]),
+    ...mapGetters(["cartSelectedProducts", "order"]),
 
     selectedShop() {
       return this.cartSelectedProducts[0]?.shop_id;

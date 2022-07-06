@@ -4,7 +4,7 @@
       <div class="header">Shopping Cart</div>
 
       <div class="body">
-        <CustomerInfo />
+        <CustomerInfo/>
         <CustomerOrderList
           :on-my-event="myEventSource"
           @spinResponse="spinResponse"
@@ -53,6 +53,9 @@ export default {
   },
   methods: {
     ...mapMutations(["SET_MODEL", "SET_WHOLE_PRODUCTS_TO_CART"]),
+    orderDone(value){
+      return value;
+    },
     spinResponse(value) {
       this.isSpin = value;
     },
