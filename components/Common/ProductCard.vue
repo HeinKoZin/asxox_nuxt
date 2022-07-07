@@ -48,10 +48,7 @@
             /> -->
           </button>
           <!-- WARNING: Temporary hidden -->
-          <button
-            @click="addProductToCart(data), toast('Added to cart', 'success')"
-            v-if="!data.is_varient"
-          >
+          <button @click="finalAddToCart(data)" v-if="!data.is_varient">
             <i class="fa-solid fa-cart-shopping icon"></i>
           </button>
           <button
@@ -132,9 +129,7 @@
           </button>
           <!-- WARNING: Temporary hidden -->
           <button
-            @click="
-              addProductToCart(data.product), toast('Added to cart', 'success')
-            "
+            @click="finalAddToCart(data.product)"
             v-if="!data.product.is_varient"
           >
             <i class="fa-solid fa-cart-shopping icon"></i>
@@ -259,6 +254,13 @@ export default {
     priceFormat(x) {
       var d = parseInt(x);
       return d.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+
+    finalAddToCart(product) {
+      this.product = product;
+      this.product.quantity = 1;
+      this.addProductToCart(this.product);
+      this.toast("Added to cart", "success");
     },
   },
 };
