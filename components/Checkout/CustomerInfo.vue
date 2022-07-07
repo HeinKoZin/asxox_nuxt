@@ -5,11 +5,11 @@
     ></div> -->
     <CustomerDataCard />
 
-    <PromotionInputCard v-if="selectedShop !== 2" />
-    <PaymentMethodsCard @openPaymentSection="openPaymentSection" />
+    <PromotionInputCard v-if="selectedShop !== 2"/>
+    <PaymentMethodsCard />
     <!-- <div class="flex flex-col w-full md:w-1/2 gap-y-2"> -->
     <!-- </div> -->
-    <OnlinePaymentMethods v-if="isPaymentSectionOpen" />
+    <OnlinePaymentMethods v-if="order.payment_method === 'online_payment'" />
 
     <CustomerAddressCard @openModal="openModal" />
 
@@ -32,9 +32,6 @@ export default {
   },
 
   methods: {
-    openPaymentSection(value) {
-      this.isPaymentSectionOpen = value;
-    },
     // open modal box
     openModal() {
       this.isModalOpen = true;
@@ -47,7 +44,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["cartSelectedProducts"]),
+    ...mapGetters(["cartSelectedProducts", "order"]),
 
     selectedShop() {
       return this.cartSelectedProducts[0]?.shop_id;
