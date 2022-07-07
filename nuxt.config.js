@@ -52,6 +52,7 @@ export default {
     { path: "~/components/User", extensions: ["vue"] },
     { path: "~/components/Layouts", extensions: ["vue"] },
     { path: "~/components/ModelBoxs", extensions: ["vue"] },
+    { path: "~/components/Job", extensions: ["vue"] },
     { path: "~/components/Shop", extensions: ["vue"] },
   ],
 
@@ -61,10 +62,13 @@ export default {
     "~/plugins/v-toast.js",
     "~/plugins/v-touch.js",
     "~/plugins/inject.js",
+    "~/plugins/v-select.js",
     { src: "~/plugins/v-dragscroll.js", ssr: false },
     "~/plugins/fontawesome.js",
     "~/plugins/click-outside.js",
     { src: "~/plugins/v-carousel.js", ssr: false },
+
+
     // '@/plugins/aos.js'
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules

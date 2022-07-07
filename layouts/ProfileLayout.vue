@@ -27,10 +27,10 @@ export default {
 }
 
 .use-sidebar {
-  @apply w-full md:w-[18%];
+  @apply w-full md:w-[20%];
 }
 
 .main {
-  @apply w-full md:w-[82%];
+  @apply w-full md:w-[80%];
 }
 </style>

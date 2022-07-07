@@ -110,22 +110,33 @@ export default {
   },
   methods: {
     calculateSubtotal(type = "normal") {
-      if (type === "pay")
-        return this.order.point_amount
+      if (type === "pay"){
+        const subTotal = this.order.point_amount
           ? (this.order.total_amount - this.order.point_value).toString()
           : this.order.total_amount.toString();
-      else
-        return this.order.point_amount
+        return subTotal;
+      }
+      else{
+        const subTotal = this.order.point_amount
           ? this.order.total_amount - this.order.point_value
-          : this.order.total_amount +
-              " " +
+          : this.order.total_amount;
+        if(subTotal === 0){
+          this.SET_PAYMENT_METHOD('cash_on_delivery');
+          this.SET_PAYMENT(null);
+        }
+        return subTotal + " " +
               this.cartSelectedProducts[0]?.currency;
+      }
+
     },
     ...mapMutations([
       "REFRESH_ORDER",
       "SET_WHOLE_PRODUCTS_TO_CART",
       "SET_MODEL",
       "SET_WAVEPAY_RESPONSE",
+      "SET_PAYMENT_METHOD",
+      "SET_PAYMENT",
+      "SET_ORDER"
     ]),
     async finalOrder() {
       this.spinOnOffAndEmit(true);
@@ -157,7 +168,6 @@ export default {
           this.toast(Object.values(res.errors)[0][0], "error");
           break;
       }
-
       this.spinOnOffAndEmit(false);
     },
     async kpay(orderId) {

@@ -30,16 +30,23 @@
             <h3>Home</h3>
           </NuxtLink>
         </div>
-        <span> | </span>
+        <!-- NOTE: Temporary removed -->
+        <!-- <span> | </span>
         <div class="menu-item">
           <NuxtLink to="/shops">
             <h3>Shops</h3>
           </NuxtLink>
-        </div>
-        <span> | </span>
+        </div> -->
+        <!-- <span> | </span>
+        <div class="menu-item">
+          <NuxtLink to="/job">
+            <h3>Job</h3>
+          </NuxtLink>
+        </div> -->
+        <!-- <span> | </span>
         <div class="menu-item">
           <h3>Contact</h3>
-        </div>
+        </div> -->
       </div>
 
       <div class="app-download-links">

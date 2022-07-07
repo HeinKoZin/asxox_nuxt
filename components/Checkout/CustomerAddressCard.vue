@@ -110,7 +110,7 @@ export default {
 }
 
 .customer-address-container-wrapper.profile .customer-address-container {
-  @apply bg-slate-100;
+  @apply bg-white;
 }
 
 .customer-address-container .address-title {
@@ -118,7 +118,7 @@ export default {
 }
 
 .address-contents-container {
-  @apply flex-col md:flex-row flex flex-wrap gap-y-0 md:gap-y-2 w-full;
+  @apply grid grid-cols-1  gap-y-0  md:gap-y-4 w-full py-2 2xl:py-4;
 }
 
 button {
@@ -127,6 +127,6 @@ button {
 
 .customer-address-container-wrapper.profile
   .address-contents-container-wrapper {
-  @apply bg-slate-200 p-0 md:p-3 rounded-lg;
+  @apply bg-slate-100 p-2 md:p-3 rounded-lg;
 }
 </style>

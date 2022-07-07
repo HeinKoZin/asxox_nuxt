@@ -53,6 +53,13 @@
             <i class="fa-solid fa-gear icon"></i>
             Settings
           </li>
+          <li
+            :class="linkIsActive('/user/be-a-seller') ? 'active' : ''"
+            @click="$router.push('/user/be-a-seller').catch(() => {})"
+          >
+            <i class="fa-solid fa-shop icon"></i>
+            Be a Seller
+          </li>
         </ul>
         <!-- <button class="user-logout" @click="userLogout"></button> -->
         <Button

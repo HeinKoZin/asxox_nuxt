@@ -69,6 +69,25 @@
           </div>
         </div>
 
+        <!-- NOTE: Temporary show -->
+        <div>
+          <div class="payment-method">
+            <span>
+              <i class="fa-solid fa-circle-check payment-method-icon"></i>
+            </span>
+            <img :src="require(`~/assets/img/mpitesan.png`)" alt="" srcset="" />
+          </div>
+        </div>
+
+        <div>
+          <div class="payment-method">
+            <span>
+              <i class="fa-solid fa-circle-check payment-method-icon"></i>
+            </span>
+            <img :src="require(`~/assets/img/kbz.png`)" alt="" srcset="" />
+          </div>
+        </div>
+
         <!-- <div class="payment-method-wrapper">
           <div class="payment-method">
             <span>
@@ -177,7 +196,7 @@ export default {
 }
 
 .body {
-  @apply grid grid-cols-2 gap-2;
+  @apply grid grid-cols-2 gap-2 xl:grid-cols-4;
 }
 
 .payment-method-old {

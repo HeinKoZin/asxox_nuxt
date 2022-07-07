@@ -291,7 +291,7 @@ export default {
 }
 
 .user-setting-input fieldset label {
-  @apply p-2 rounded-lg bg-slate-100 font-semibold text-sm text-slate-700;
+  @apply p-2 rounded-lg  font-semibold text-sm text-slate-700;
 }
 
 .user-setting-input select {

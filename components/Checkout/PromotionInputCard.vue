@@ -92,6 +92,12 @@ export default {
   computed: {
     ...mapGetters(["order"]),
   },
+
+  deactivated() {
+    this.removePromotion("coupon");
+    this.removePromotion("point");
+  },
+
   methods: {
     // NOTE: Method from Vuex actions
     ...mapMutations([
