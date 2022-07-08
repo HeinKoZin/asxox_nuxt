@@ -23,19 +23,29 @@
       <div class="w-full">
         <h2 class="font-bold text-lg">Points History</h2>
       </div>
-      <div class="w-full p-2">
-        <table class="w-full border-separate" style="border-spacing: 0 1em">
+      <div class="w-full p-2 overflow-auto">
+        <table class="w-full border-separate" style="border-spacing: 0 0.8em">
           <thead class="font-bold">
             <tr>
-              <td class="p-4">Type</td>
-              <td class="p-4">Date</td>
-              <td class="p-4">Description</td>
-              <td class="p-4">Amount</td>
+              <td class="p-2 font-bold text-base min-w-[150px]">Type</td>
+              <td class="p-2 font-bold text-base min-w-[150px]">User</td>
+              <td class="p-2 font-bold text-base min-w-[200px]">Description</td>
+              <td class="p-2 font-bold text-base">Date</td>
+              <td class="p-2 font-bold text-base text-center">Amount</td>
             </tr>
           </thead>
           <tbody class="bg-slate-200">
-            <tr v-if="points.length === 0">
-              <td colspan="4">
+            <tr v-if="$fetchState.pending">
+              <td colspan="5">
+                <div
+                  class="w-full h-52 flex justify-center items-center text-slate-800 font-bold"
+                >
+                  Loading...
+                </div>
+              </td>
+            </tr>
+            <tr v-if="points.length === 0 && !$fetchState.pending">
+              <td colspan="5">
                 <div
                   class="w-full h-52 flex justify-center items-center text-slate-800 font-bold"
                 >
@@ -49,10 +59,37 @@
               :key="index"
               class="bg-slate-50 hover:bg-slate-100"
             >
-              <td class="p-4">{{ point.title }}</td>
-              <td class="p-4">{{ point.created_at }}</td>
-              <td class="p-4">{{ point.note }}</td>
-              <td class="p-4">{{ point.amount_of_transaction }}</td>
+              <td class="p-2">{{ pointTitleFormat(point.title) }}</td>
+              <td class="p-2">
+                {{
+                  point.type === "SendPoint"
+                    ? point.receiver_type === "Admin"
+                      ? "Admin"
+                      : point.receiver.user_name
+                    : point.sender
+                    ? point.sender.user_name
+                    : "Admin"
+                }}
+              </td>
+              <td class="p-2">{{ point.note }}</td>
+              <td class="p-2">{{ formatDatetime(point.created_at) }}</td>
+
+              <td class="p-2 text-white text-center">
+                <p
+                  class="text-center px-2 py-1 rounded-sm"
+                  :class="
+                    point.type === 'ReceivePoint'
+                      ? 'bg-green-500'
+                      : 'bg-red-500'
+                  "
+                >
+                  {{
+                    point.type === "ReceivePoint"
+                      ? `+ ${formatNumber(point.amount_of_transaction)}`
+                      : `- ${formatNumber(point.amount_of_transaction)}`
+                  }}
+                </p>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -93,6 +130,22 @@ export default {
         console.log(error);
       }
     },
+
+    formatNumber(x) {
+      var d = parseInt(x);
+      return d.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+
+    pointTitleFormat(title) {
+      let pointTitle = title.replace(/_/g, " ");
+      const words = pointTitle.split(" ");
+
+      return words
+        .map((word) => {
+          return word[0].toUpperCase() + word.substring(1);
+        })
+        .join(" ");
+    },
     // async pointBuy() {
     //   try {
     //     if (process.browser) {
@@ -109,6 +162,17 @@ export default {
     //     console.log(error);
     //   }
     // },
+
+    formatDatetime(datetime) {
+      const newDateTime = new Date(datetime);
+      const formattedDate =
+        newDateTime.getDate() +
+        "/" +
+        (newDateTime.getMonth() + 1) +
+        "/" +
+        newDateTime.getFullYear();
+      return formattedDate;
+    },
   },
   async fetch() {
     await this.$auth.fetchUser();
@@ -130,6 +194,10 @@ export default {
 <style lang="postcss" scoped>
 .points-container {
   @apply flex w-full h-full bg-slate-100 lg:p-4 p-1 py-6 rounded-lg flex-col;
+}
+
+tr {
+  @apply border-t border-slate-300 even:bg-slate-100 hover:bg-slate-200  text-sm font-semibold;
 }
 
 .points-detail-container {

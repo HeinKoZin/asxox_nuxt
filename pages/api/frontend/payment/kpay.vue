@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div
+    class="w-full h-screen flex justify-center items-center flex-col relative"
+  >
     <h2>Kpay Point successfull page</h2>
     <button @click="$router.push('/')">To home page</button>
+    <div></div>
   </div>
 </template>
 <script>
@@ -37,8 +40,7 @@ export default {
     // },
   },
   mounted() {
-    // this.pointBuy();
-    // console.log("helo");
+    this.$router.push("/checkout?isOrder=true");
   },
 };
 </script>
