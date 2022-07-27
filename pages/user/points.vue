@@ -104,6 +104,7 @@ import { generalMixins } from "@/mixins/general";
 
 export default {
   mixins: [generalMixins],
+  middleware: ["auth/ifNotAuthRedirectAuth"],
   components: { Button },
   layout: "ProfileLayout",
 
