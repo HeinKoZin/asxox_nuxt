@@ -87,7 +87,6 @@
           >
             <i class="fa-solid fa-cart-shopping icon"></i>
             <span>Checkout</span>
-            Confirm
           </Button>
         </div>
       </div>

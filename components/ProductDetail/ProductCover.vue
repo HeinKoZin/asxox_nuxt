@@ -500,7 +500,7 @@ export default {
     },
 
     handleQuantity(e) {
-      this.quantity = e.target.value;
+      this.quantity = +e.target.value;
     },
   },
 };
