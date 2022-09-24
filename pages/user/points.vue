@@ -1,6 +1,6 @@
 <template>
   <div class="points-container">
-    <div class="points-detail-container">
+    <!-- <div class="points-detail-container bg-white rounded-lg shadow p-4">
       <div class="points-item">
         <h2>My Points</h2>
         <p>
@@ -17,6 +17,42 @@
       </div>
       <BuyPointModel v-if="isTopup" @handleTopup="handleTopup" />
       <TransferPointModel v-if="isTransfer" @handleTransfer="handleTransfer" />
+    </div> -->
+
+    <div class="w-full bg-white p-4">
+      <div class="flex gap-2 items-center text-2xl font-semibold pb-4">
+        <i class="fa-solid fa-star-half-stroke"></i>
+        <h1>Point Setting</h1>
+      </div>
+      <div class="grid grid-cols-3 gap-4">
+        <div
+          class="bg-orange-100 p-6 w-full rounded shadow-sm flex justify-between col-span-2"
+        >
+          <div class="flex flex-col gap-4">
+            <h1 class="text-lg font-medium text-slate-600">Current Point</h1>
+            <h1 class="text-4xl font-bold">
+              {{ $auth.user.data.point.amount }}
+            </h1>
+          </div>
+          <div>
+            <i
+              class="fa-solid fa-star-half-stroke text-9xl text-orange-600"
+            ></i>
+          </div>
+        </div>
+        <!-- ... -->
+        <div>
+          <div class="point-action-buttons">
+            <button @click="handleTopup()">Top up</button>
+            <button @click="handleTransfer()">Transfer</button>
+          </div>
+          <BuyPointModel v-if="isTopup" @handleTopup="handleTopup" />
+          <TransferPointModel
+            v-if="isTransfer"
+            @handleTransfer="handleTransfer"
+          />
+        </div>
+      </div>
     </div>
 
     <div class="w-full mt-10 bg-white rounded-md p-4 text-slate-800">
@@ -194,7 +230,7 @@ export default {
 
 <style lang="postcss" scoped>
 .points-container {
-  @apply flex w-full h-full bg-slate-100 lg:p-4 p-1 py-6 rounded-lg flex-col;
+  @apply flex w-full h-full bg-slate-100 rounded-lg flex-col;
 }
 
 tr {
@@ -206,7 +242,7 @@ tr {
 }
 
 .points-item {
-  @apply bg-slate-100 w-full md:w-1/2 mx-auto md:mx-0 font-quicksand font-bold text-center flex flex-col gap-2 p-4 py-6 border-2 border-slate-300 rounded-md;
+  @apply bg-orange-100 w-full md:w-1/2 mx-auto md:mx-0 font-quicksand font-bold text-center flex flex-col gap-2 p-4 py-6 border-2 border-slate-300 rounded-md;
 }
 
 .points-item p span {
