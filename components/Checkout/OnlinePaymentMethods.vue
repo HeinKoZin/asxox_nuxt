@@ -70,14 +70,14 @@
         </div>
 
         <!-- NOTE: Temporary show -->
-        <div>
+        <!-- <div>
           <div class="payment-method">
             <span>
               <i class="fa-solid fa-circle-check payment-method-icon"></i>
             </span>
             <img :src="require(`~/assets/img/mpitesan.png`)" alt="" srcset="" />
           </div>
-        </div>
+        </div> -->
 
         <div>
           <div class="payment-method">
@@ -130,8 +130,20 @@ export default {
         },
         {
           id: 3,
-          name: "cb-bank",
-          image: "cbbank.png",
+          name: "jcb",
+          image: "jcb.jpg",
+          isSelect: false,
+        },
+        {
+          id: 4,
+          name: "visa",
+          image: "visa.png",
+          isSelect: false,
+        },
+        {
+          id: 5,
+          name: "master",
+          image: "master.jpg",
           isSelect: false,
         },
       ],
@@ -196,7 +208,7 @@ export default {
 }
 
 .body {
-  @apply grid grid-cols-2 gap-2 xl:grid-cols-4;
+  @apply grid grid-cols-2 gap-2 xl:grid-cols-3;
 }
 
 .payment-method-old {
