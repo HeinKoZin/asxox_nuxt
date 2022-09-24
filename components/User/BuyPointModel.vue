@@ -39,8 +39,8 @@
             <input
               type="radio"
               name="amount"
-              id="5000"
-              value="5000"
+              id="20000"
+              value="20000"
               v-model="pointAmount"
             />
             <label for="20000">20000</label>
@@ -136,7 +136,11 @@ export default {
           case "wave-pay":
             this.getWavePayPaymentRequestData(orderId);
             break;
-          case "cb-bank":
+          case "jcb":
+            this.cbBank(orderId);
+          case "visa":
+            this.cbBank(orderId);
+          case "master":
             this.cbBank(orderId);
           default:
             break;
@@ -266,7 +270,7 @@ export default {
 }
 
 .buy-point-wrapper {
-  @apply p-5 bg-white text-black bg-opacity-100 text-lg rounded-md lg:max-w-[450px];
+  @apply p-5 bg-white text-black bg-opacity-100 text-lg rounded-md lg:max-w-[600px];
 }
 
 .header {
