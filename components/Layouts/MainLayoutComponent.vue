@@ -14,6 +14,7 @@
         <Footer v-if="checkRoute()" />
       </div>
       <Cart />
+      <Chat />
     </div>
     <!-- <FabCartButton /> -->
   </div>
