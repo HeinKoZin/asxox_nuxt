@@ -1,7 +1,7 @@
 <template>
   <div class="user-sidebar-container">
     <div class="user-sidebar-wrapper">
-      <div class="user-sidebar-header">
+      <div class="user-sidebar-header text-white">
         <!-- <div class="user-sidebar-avatar">
           <img src="https://via.placeholder.com/150" alt="" />
         </div>
@@ -9,9 +9,14 @@
           <h3>Hein Ko Zin</h3>
           <p>heinkozin4@gmail.com</p>
         </div> -->
-        <h2>My Account</h2>
+        <div>
+          <i class="fa-solid fa-gear icon"></i>
+        </div>
+        <div>
+          <h2>Account Profile</h2>
+        </div>
       </div>
-      <div class="user-sidebar-menu">
+      <div class="user-sidebar-menu px-2">
         <ul>
           <li
             :class="linkIsActive('/user') ? 'active' : ''"
@@ -42,7 +47,7 @@
             :class="linkIsActive('/user/points') ? 'active' : ''"
             @click="$router.push('/user/points').catch(() => {})"
           >
-            <i class="fa-solid fa-1 icon"></i>
+            <i class="fa-solid fa-star-half-stroke"></i>
             Points
           </li>
 
@@ -62,8 +67,9 @@
           </li>
         </ul>
         <!-- <button class="user-logout" @click="userLogout"></button> -->
+      </div>
+      <div class="border-t border-slate-300 w-full">
         <Button
-          variant="primary"
           class="w-full d-flex"
           :class="[{ 'user-logout': !isSpin }, { 'mt-6': isSpin }]"
           :disabled="isSpin"
@@ -123,15 +129,15 @@ export default {
 }
 
 .user-sidebar-wrapper {
-  @apply flex flex-col items-center bg-white p-5 rounded-lg;
+  @apply w-full flex flex-col items-center bg-white shadow-sm  rounded;
 }
 
 .user-sidebar-header {
-  @apply flex flex-col items-center;
+  @apply flex justify-center items-center w-full bg-orange-500 py-3  gap-2 rounded-tl rounded-tr;
 }
 
 .user-sidebar-header h2 {
-  @apply text-lg md:text-2xl font-bold text-center p-4 font-quicksand border-b border-slate-300 w-full;
+  @apply text-lg md:text-2xl font-bold text-center font-quicksand text-white  w-full;
 }
 
 .user-sidebar-avatar img {
@@ -139,23 +145,23 @@ export default {
 }
 
 .user-sidebar-menu {
-  @apply mt-4 w-full font-quicksand;
+  @apply w-full font-quicksand;
 }
 
 .user-sidebar-menu ul {
-  @apply flex gap-y-1 flex-col text-base w-full font-semibold text-slate-600;
+  @apply flex gap-y-1 flex-col text-base w-full font-semibold text-slate-600 py-4;
 }
 
 .user-sidebar-menu ul li {
-  @apply flex flex-row items-center gap-x-2 py-3 px-3 rounded-lg cursor-pointer hover:bg-slate-200;
+  @apply flex flex-row items-center gap-x-2  py-3 pl-6 rounded-full  cursor-pointer hover:bg-orange-100;
 }
 
 .user-sidebar-menu ul li.active {
-  @apply bg-slate-300;
+  @apply bg-orange-100 shadow;
 }
 
 .user-logout {
-  @apply w-full bg-orange-500 text-white text-sm md:text-base font-bold py-3  rounded-lg font-quicksand mt-6 hover:bg-orange-600 hidden md:block;
+  @apply rounded-bl rounded-br w-full hover:bg-slate-50 text-sm md:text-base font-bold py-3 font-quicksand  hidden md:block;
 }
 
 .icon {

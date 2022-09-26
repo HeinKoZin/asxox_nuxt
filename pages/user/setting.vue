@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header">
       <!-- <span class="wishlist-badge"> -->
-      <font-awesome-icon class="wishlist-icon" :icon="['fas', 'cog']" />
+      <i class="fa-solid fa-gear"></i>
       <!-- <span>2</span> -->
       <!-- </span> -->
       <h2>Setting</h2>
@@ -26,7 +26,7 @@ export default {
 
 <style lang="postcss" scoped>
 .container {
-  @apply flex w-full bg-white p-4 rounded-lg flex-col;
+  @apply flex w-full bg-white p-4 rounded shadow-sm flex-col;
 }
 
 .header {

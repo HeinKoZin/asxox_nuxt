@@ -23,7 +23,7 @@ export default {
 
 <style lang="postcss" scoped>
 .profile-layout-container {
-  @apply p-4 w-full pb-20 flex flex-col md:flex-row gap-y-2;
+  @apply p-4 w-full pb-20 flex flex-col md:flex-row gap-2;
 }
 
 .use-sidebar {

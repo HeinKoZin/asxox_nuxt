@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex w-full bg-white border border-slate-300 rounded-lg flex-col gap-0"
-  >
+  <div class="flex w-full bg-white shadow-sm rounded flex-col gap-0">
     <div class="header">Recommended Products</div>
     <div
       class="body"
@@ -84,15 +82,15 @@ export default {
 
 <style lang="postcss" scoped>
 .recommended-products-container {
-  @apply flex w-full bg-white border border-slate-300 rounded-lg flex-col gap-0;
+  @apply flex w-full bg-white rounded flex-col gap-0;
 }
 
 .header {
-  @apply flex w-full bg-white border-b rounded-t-lg border-slate-300 h-12 items-center px-2 font-quicksand text-base md:text-lg font-bold;
+  @apply flex w-full h-12 items-center p-2 font-quicksand text-base text-orange-500  md:text-lg font-bold;
 }
 
 .body {
-  @apply w-full overflow-x-scroll overflow-hidden flex p-2 bg-slate-100 rounded-lg;
+  @apply w-full overflow-x-scroll overflow-hidden flex p-2 bg-orange-100;
 }
 
 .body::-webkit-scrollbar {

@@ -19,10 +19,10 @@
           </div>
 
           <div class="user-profile-card-container">
-            <div class="user-profile-card">
+            <div class="user-profile-card bg-orange-100">
               <h2>Point Amount</h2>
               <div class="card-details" v-if="userData.point">
-                <div class="flex-grow flex gap-3">
+                <div class="items-center flex gap-3">
                   <span>{{ userData.point.amount }}</span>
                   <span>-</span>
                   <span>Points</span>
@@ -30,17 +30,18 @@
                 <div class="max-w-fit">
                   <NuxtLink
                     to="/user/points"
-                    class="bg-orange-500 text-white font-bold px-3 py-2 rounded-md text-xl"
+                    class="bg-orange-500 text-white font-semibold px-3 py-2 rounded-sm tet-base shadow-lg hover:bg-orange-600"
                   >
-                    <i class="fa-solid fa-arrow-up"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                    Buy Point
                   </NuxtLink>
                 </div>
               </div>
             </div>
-            <div class="user-profile-card">
+            <div class="user-profile-card bg-orange-100">
               <h2>Total Orders</h2>
               <div class="card-details">
-                <div class="flex-grow flex gap-3">
+                <div class="items-center flex gap-3">
                   <span>{{ orders.length }}</span>
                   <span>-</span>
                   <span>Orders</span>
@@ -48,15 +49,15 @@
                 <div class="max-w-fit">
                   <NuxtLink
                     to="/user/orders"
-                    class="bg-orange-500 text-white font-bold px-3 py-2 rounded-md text-xl"
-                    ><i class="fa-solid fa-clock"></i
-                  ></NuxtLink>
+                    class="bg-orange-500 text-white font-semibold px-3 py-2 rounded-sm tet-base shadow-lg hover:bg-orange-600"
+                    ><i class="fa-solid fa-cart-shopping"></i> Orders</NuxtLink
+                  >
                 </div>
               </div>
             </div>
-            <div class="user-profile-card">
+            <div class="user-profile-card bg-orange-100">
               <h2>Total Purchases</h2>
-              <div class="card-details">
+              <div class="card-details items-center">
                 <span>{{ calculatePurchasedOrder.length }}</span>
                 <span>-</span>
                 <span>Purchases</span>
@@ -114,7 +115,7 @@ export default {
 }
 
 .profile-layout-container {
-  @apply flex gap-x-2 w-full bg-white p-5 rounded-lg float-right h-auto;
+  @apply flex gap-x-2 w-full bg-white shadow-sm p-5 rounded float-right h-auto;
 }
 
 .profile-layout-container-wrapper {
@@ -122,7 +123,7 @@ export default {
 }
 
 .user-cover-container {
-  @apply flex items-end h-64 w-full bg-slate-600 px-4 rounded-lg mb-12;
+  @apply flex items-end h-64 w-full bg-slate-600 px-4 rounded-xl mb-12;
 }
 
 .user-profile-avatar {
@@ -150,23 +151,23 @@ export default {
 }
 
 .user-profile-card {
-  @apply bg-slate-50 border border-slate-200 p-5 md:p-10 rounded-lg flex flex-grow flex-col gap-y-4;
+  @apply border border-slate-200 p-5 md:p-10 rounded shadow flex flex-grow flex-col gap-y-4;
 }
 
 .user-profile-card h2 {
-  @apply text-sm md:text-lg font-bold  text-slate-800  font-quicksand  w-full;
+  @apply text-sm md:text-lg font-semibold  text-slate-500  font-quicksand  w-full;
 }
 
 .user-profile-card h5 {
-  @apply text-lg font-semibold text-center  font-quicksand text-slate-700 w-full;
+  @apply text-xl font-semibold text-center  font-quicksand text-slate-700 w-full;
 }
 
 .user-profile-card .card-details {
-  @apply font-quicksand flex text-sm;
+  @apply font-quicksand flex text-sm justify-between;
 }
 
 .user-profile-card .card-details span {
-  @apply first:text-slate-700 first:text-base first:md:text-lg font-semibold p-1 font-quicksand text-slate-800 last:text-slate-500;
+  @apply first:text-slate-700 first:text-lg first:md:text-2xl first:font-bold font-semibold p-1 font-quicksand text-slate-800 last:text-slate-500;
 }
 
 .recommended-products-container {
