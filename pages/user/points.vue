@@ -19,45 +19,48 @@
       <TransferPointModel v-if="isTransfer" @handleTransfer="handleTransfer" />
     </div> -->
 
-    <div class="w-full bg-white p-4">
+    <div class="w-full bg-white shadow-sm rounded p-4">
       <div class="flex gap-2 items-center text-2xl font-semibold pb-4">
         <i class="fa-solid fa-star-half-stroke"></i>
         <h1>Point Setting</h1>
       </div>
-      <div class="grid grid-cols-3 gap-4">
-        <div
-          class="bg-orange-100 p-6 w-full rounded shadow-sm flex justify-between col-span-2"
-        >
-          <div class="flex flex-col gap-4">
-            <h1 class="text-lg font-medium text-slate-600">Current Point</h1>
-            <h1 class="text-4xl font-bold">
-              {{ $auth.user.data.point.amount }}
-            </h1>
-          </div>
+      <div
+        class="bg-orange-100 p-6 w-full rounded shadow flex justify-between col-span-2"
+      >
+        <div class="flex flex-col gap-4">
+          <h1 class="text-lg font-medium text-slate-600">
+            Current Point<span class="font-semibold text-black"
+              >({{ $auth.user.data.point.id }})</span
+            >
+          </h1>
+          <h1 class="text-4xl font-bold">
+            {{ $auth.user.data.point.amount }}
+          </h1>
           <div>
-            <i
-              class="fa-solid fa-star-half-stroke text-9xl text-orange-600"
-            ></i>
+            <div class="flex gap-2">
+              <button
+                @click="handleTopup()"
+                class="bg-green-500 hover:bg-green-600 py-2 px-3 text-white font-semibold rounded-sm shadow"
+              >
+                <i class="fa-regular fa-money-bill-1"></i> Buy Point
+              </button>
+              <button
+                @click="handleTransfer()"
+                class="bg-red-500 hover:bg-red-600 py-2 px-3 text-white font-semibold rounded-sm shadow"
+              >
+                <i class="fa-solid fa-right-left"></i> Transfer
+              </button>
+            </div>
+            <BuyPointModel v-if="isTopup" @handleTopup="handleTopup" />
+            <TransferPointModel
+              v-if="isTransfer"
+              @handleTransfer="handleTransfer"
+            />
           </div>
         </div>
-        <!-- ... -->
         <div>
-          <div class="point-action-buttons">
-            <button @click="handleTopup()">Top up</button>
-            <button @click="handleTransfer()">Transfer</button>
-          </div>
-          <BuyPointModel v-if="isTopup" @handleTopup="handleTopup" />
-          <TransferPointModel
-            v-if="isTransfer"
-            @handleTransfer="handleTransfer"
-          />
+          <i class="fa-solid fa-star-half-stroke text-9xl text-orange-600"></i>
         </div>
-      </div>
-    </div>
-
-    <div class="w-full mt-10 bg-white rounded-md p-4 text-slate-800">
-      <div class="w-full">
-        <h2 class="font-bold text-lg">Points History</h2>
       </div>
       <div class="w-full p-2 overflow-auto">
         <table class="w-full border-separate" style="border-spacing: 0 0.8em">

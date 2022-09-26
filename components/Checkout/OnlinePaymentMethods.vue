@@ -7,7 +7,7 @@
       <div class="payment-methods-title">
         <div class="flex gap-x-2">
           <span>
-            <i class="fa-solid fa-credit-card credit-card-icon"></i>
+            <i class="fa-regular fa-credit-card"></i>
           </span>
           <span>{{
             isBuyPoints ? "Choose Payment Method" : "Online Payment Methods"

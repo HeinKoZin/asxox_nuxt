@@ -20,8 +20,7 @@
         <textarea id="note" rows="6" v-model="note" />
       </div>
       <Button
-        variant="primary"
-        class="w-full mt-7"
+        class="confirm-btn"
         :disabled="isPointTransfer"
         @click.native="transferPoint()"
       >
@@ -90,11 +89,11 @@ export default {
 }
 
 .transfer-point-wrapper {
-  @apply p-5 bg-white text-black bg-opacity-100 text-lg rounded-md lg:min-w-[400px] lg:max-w-[500px];
+  @apply p-5 bg-white text-black bg-opacity-100 text-lg rounded-md lg:min-w-[500px] lg:max-w-[600px];
 }
 
 .header {
-  @apply font-bold font-quicksand text-base lg:text-lg;
+  @apply font-semibold font-quicksand text-base lg:text-2xl;
 }
 
 .input-container {
@@ -114,10 +113,10 @@ export default {
 }
 
 .confirm-btn {
-  @apply w-full p-2 mt-4 bg-orange-500 text-white text-sm lg:text-base rounded-lg font-semibold font-quicksand;
+  @apply w-full p-2 mt-4 bg-orange-500 text-white text-sm lg:text-base rounded shadow-sm hover:bg-orange-600 font-semibold font-quicksand;
 }
 
 .cancel-btn {
-  @apply w-full p-2 mt-4 bg-slate-400 text-white text-sm lg:text-base rounded-lg font-semibold font-quicksand;
+  @apply w-full p-2 mt-4 bg-slate-400 text-white text-sm lg:text-base rounded shadow-sm hover:bg-slate-600 font-semibold font-quicksand;
 }
 </style>
