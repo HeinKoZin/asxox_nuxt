@@ -35,7 +35,7 @@ export default {
 
 <style lang="postcss" scoped>
 .container {
-  @apply flex w-full bg-white p-4 flex-col;
+  @apply flex w-full bg-white shadow-sm rounded p-4 flex-col;
 }
 
 .header {
@@ -59,6 +59,6 @@ export default {
 }
 
 .body {
-  @apply w-full bg-slate-100;
+  @apply w-full bg-orange-100 rounded-lg;
 }
 </style>

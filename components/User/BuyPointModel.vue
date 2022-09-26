@@ -11,6 +11,7 @@
               name="amount"
               id="3000"
               value="3000"
+              selected
               v-model="pointAmount"
             />
             <label for="3000">3000</label>
@@ -76,8 +77,7 @@
           Confirm
         </button> -->
         <Button
-          variant="primary"
-          class="w-full mt-7"
+          class="confirm-btn"
           :disabled="isPointOrder"
           @click.native="finalOrder"
         >
@@ -274,7 +274,7 @@ export default {
 }
 
 .header {
-  @apply w-full font-quicksand text-slate-900 lg:text-lg text-sm font-bold;
+  @apply w-full font-quicksand text-slate-900 lg:text-2xl text-sm font-semibold;
 }
 
 .body {
@@ -297,10 +297,10 @@ export default {
 }
 
 .confirm-btn {
-  @apply w-full p-2 mt-2 bg-orange-500 text-white text-sm lg:text-lg rounded-lg font-semibold font-quicksand;
+  @apply w-full p-2 mt-2 bg-orange-500 text-white text-sm lg:text-lg rounded shadow-sm hover:bg-orange-600 font-semibold font-quicksand;
 }
 
 .cancel-btn {
-  @apply w-full p-2 mt-2 bg-slate-400 text-white text-sm lg:text-lg rounded-lg font-semibold font-quicksand;
+  @apply w-full p-2 mt-2 bg-slate-400 text-white text-sm lg:text-lg rounded shadow-sm hover:bg-slate-600 font-semibold font-quicksand;
 }
 </style>

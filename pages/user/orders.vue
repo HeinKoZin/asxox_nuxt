@@ -1,5 +1,5 @@
 <template>
-  <div class="order-list-container">
+  <div class="order-list-container shadow-sm">
     <div class="header">
       <span class="order-badge">
         <i class="fa-solid fa-box-open order-icon"></i>
@@ -142,7 +142,7 @@ export default {
 
 <style lang="postcss" scoped>
 .order-list-container {
-  @apply flex w-full bg-white lg:p-1 p-1 rounded-lg flex-col;
+  @apply flex w-full bg-white lg:p-1 p-1 rounded flex-col;
 }
 
 .header {
